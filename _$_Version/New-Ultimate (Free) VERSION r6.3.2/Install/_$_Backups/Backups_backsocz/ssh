@@ -1,0 +1,25 @@
+Port 22
+Port 443
+Protocol 2
+GatewayPorts yes
+Compression yes
+UseDNS no
+UsePrivilegeSeparation no
+SyslogFacility AUTH
+LogLevel INFO
+IgnoreRhosts yes
+IgnoreUserKnownHosts yes
+RhostsRSAAuthentication no
+RSAAuthentication no
+PermitEmptyPasswords no
+LoginGraceTime 2m
+PermitRootLogin yes
+StrictModes yes
+PrintMotd no
+PrintLastLog no
+X11Forwarding no
+X11DisplayOffset 0
+KeepAlive yes
+PermitTunnel yes
+AcceptEnv LANG LC_*
+Subsystem sftp /usr/lib/openssh/sftp-server

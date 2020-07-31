@@ -50,4 +50,4 @@ realizar cambios al scripts o borrar algun archivo.
 
 ```
 
-**By: [ ILLUMINATI CORP ⃘⃤꙰✰ ]**
+**By: [  ⃘⃤꙰✰ ]**

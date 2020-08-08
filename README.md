@@ -16,9 +16,9 @@ O EJECUTAR EL COMANDO SIGUIENTE:
 ## :heavy_exclamation_mark: Requerimientos
 
 * Un sistema operativo basado en Linux (Ubuntu o Debian)
-* Recomendamos Ubuntu 14.04
+* Recomendamos Ubuntu Ubuntu 14.04 Server x86_64
 * Se recomienda usar una distro nueva o formatiada
-* Soporta Ubuntu 16 y 18 pero su mejor estabilidad es Ubuntu 14.04
+* Soporta Ubuntu 16 y 18 pero su mejor estabilidad es Ubuntu 14.04 Server x86_64
 
 ## Installation
 

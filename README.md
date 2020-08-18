@@ -2,9 +2,11 @@
 
 ![logo](https://github.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/blob/master/Imagenes/ADM_ULTIMATE_NEW_FREE.jpg)
 
+```
 * SI TIENES PROBLEMAS DE TRADUCCION DEBES CAMBIAR A IDIOMA PORTUGUES MENU 7 OPCION 6
 * O EJECUTAR EL COMANDO SIGUIENTE: 
 * echo "pt" > /etc/newadm/idioma && chmod +x /etc/newadm/idioma
+```
 
 -------------------------------------------------------------------------------
 

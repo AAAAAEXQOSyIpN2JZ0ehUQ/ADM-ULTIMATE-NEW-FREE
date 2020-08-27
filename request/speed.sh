@@ -7,6 +7,8 @@ SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 
 msg -ama " $(fun_trans "Speed Test") ${cor[4]}[NEW-ADM]"
 msg -bar
+apt-get install python-pip -y > /dev/null 2>&1
+pip install speedtest-cli > /dev/null 2>&1
 ping=$(ping -c1 google.com |awk '{print $8 $9}' |grep -v loss |cut -d = -f2 |sed ':a;N;s/\n//g;ta')
 # PROGRESS - BAR
 (

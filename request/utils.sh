@@ -179,7 +179,7 @@ iptables -A FORWARD -m string --algo bm --string "info_hash" -j DROP
 iptables -A FORWARD -m string --string "get_peers" --algo bm -j DROP
 iptables -A FORWARD -m string --string "announce_peer" --algo bm -j DROP
 iptables -A FORWARD -m string --string "find_node" --algo bm -j DROP' >> ./torrent-adm
-./torrent-adm && rm ./torrent-adm
+./torrent-adm
 echo "#TORRENT-ON" > /etc/torrent-on
 msg -bar
 echo -e " $(fun_trans "Aplicado!")"

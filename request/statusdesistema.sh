@@ -57,21 +57,21 @@ fun_nettools () {
 
 msg -ama "$(fun_trans "STATUS DE SISTEMA") ${cor[4]}[NEW-ADM]"
 msg -bar
+echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "TRAFICO DE RED NLOAD")"
 echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "PROCESOS DEL SISTEMA HTOP")"
 echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "INFORMACION DE SISTEMAS") \033[1;33m(\033[1;37mBETA\033[1;33m)"
 echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "NET TOOLS TARGET") \033[1;33m(\033[1;37mBETA\033[1;33m)"
-echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
 msg -bar
 while [[ ${arquivoonlineadm} != @(0|[1-4]) ]]; do
 read -p "[0-4]: " arquivoonlineadm
 tput cuu1 && tput dl1
 done
 case $arquivoonlineadm in
+0)exit;;
 1)fun_nload;;
 2)fun_htop;;
 3)fun_visorpuertos;;
 4)fun_nettools;;
-0)exit;;
 esac
 msg -bar

@@ -11,15 +11,19 @@ MEU_IP2=$(wget -qO- ipv4.icanhazip.com)
 [[ "$MEU_IP" != "$MEU_IP2" ]] && echo "$MEU_IP2" || echo "$MEU_IP"
 }
 IP="$(fun_ip)"
+echo -e "${cor[4]} [0] >${cor[0]} $(fun_trans "VOLTAR")"
 echo -e "${cor[4]} [1] >${cor[3]} $(fun_trans "Colocar Arquivo Online")"
 echo -e "${cor[4]} [2] >${cor[3]} $(fun_trans "Remover Arquivo Online")"
 echo -e "${cor[4]} [3] >${cor[3]} $(fun_trans "Ver Links dos Arquivos Online")"
 echo -e "$barra"
-while [[ ${arquivoonlineadm} != @([1-3]) ]]; do
-read -p "[1-3]: " arquivoonlineadm
+while [[ ${arquivoonlineadm} != @([0-3]) ]]; do
+read -p "[0-3]: " arquivoonlineadm
 tput cuu1 && tput dl1
 done
 case ${arquivoonlineadm} in
+0)
+exit
+;;
 3)
 [[ -z $(ls /var/www/html) ]] && echo -e "$barra"  || {
     for my_arqs in `ls /var/www/html`; do

@@ -201,6 +201,7 @@ msg -azu "$(fun_trans "PORTAS REDEFINIDAS")"
 msg -bar
 }
 main_fun () {
+echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
 unset newports
 i=0
 while read line; do
@@ -220,7 +221,6 @@ for((a=1; a<=$i; a++)); do
 [[ $dropbear = $a ]] && echo -ne "\033[1;32m [$dropbear] > " && msg -azu "$(fun_trans "REDEFINIR PORTAS DROPBEAR")"
 [[ $ssh = $a ]] && echo -ne "\033[1;32m [$ssh] > " && msg -azu "$(fun_trans "REDEFINIR PORTAS SSH")"
 done
-echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
 msg -bar
 while true; do
 echo -ne "\033[1;37m$(fun_trans "Selecione"): " && read selection

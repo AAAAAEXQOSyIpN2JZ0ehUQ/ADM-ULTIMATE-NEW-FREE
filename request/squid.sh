@@ -213,10 +213,10 @@ online_squid () {
 payload="/etc/payloads"
 msg -azu " $(fun_trans "CONFIGURAÇÃO DE SQUID*")"
 msg -bar
+echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "Voltar")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "Lugar um Host no Squid")"
 echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "Remover Host do Squid")"
 echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "Desinstalar o Squid")"
-echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "Voltar")"
 msg -bar
 while [[ $varpay != @(0|[1-3]) ]]; do
 read -p "[0/3]: " varpay

@@ -195,11 +195,11 @@ elif [ -e /etc/squid3/squid.conf ]; then
 fi
 msg -ama "$(fun_trans "MENU DE UTILITARIOS")"
 msg -bar
+echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "BADVPN") $badvpn"
 echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "TCPSPEED") $tcp"
 echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "CACHE DO SQUID") $squid"
 echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "TORRENT") $torrent"
-echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
 msg -bar
 while [[ ${arquivoonlineadm} != @(0|[1-4]) ]]; do
 read -p "[0-4]: " arquivoonlineadm

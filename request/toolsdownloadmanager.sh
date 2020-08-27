@@ -167,6 +167,7 @@ return
 
 msg -ama "$(fun_trans "TOOLS DOWNLOAD MANAGER 2") ${cor[4]}[NEW-ADM]"
 msg -bar
+echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "FAIL2BAN PROTECAO")"
 echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "PANEL DE VENTAS SSHPLUS")"
 echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "PAYLOAD FORCA BRUTA BASH")"
@@ -174,13 +175,13 @@ echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "PAYLOAD FORCA BRUTA PYTHO
 echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "ANTI DDOS")"
 echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "TESTE DE VELOCIDADE*")"
 echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "FIREWALL BLOQUEIO TORRENT")"
-echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
 msg -bar
 while [[ ${arquivoonlineadm} != @(0|[1-7]) ]]; do
 read -p "[0-7]: " arquivoonlineadm
 tput cuu1 && tput dl1
 done
 case $arquivoonlineadm in
+0)exit;;
 1)fai2ban;;
 2)panelsshplus;;
 3)paysnd;;
@@ -190,12 +191,12 @@ case $arquivoonlineadm in
 7)torrent;;
 8)exit;;
 9)exit;;
-0)exit;;
 esac
 }
 
 msg -ama "$(fun_trans "TOOLS DOWNLOAD MANAGER") ${cor[4]}[NEW-ADM]"
 msg -bar
+echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "GERADOR DE BIN")"
 echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "CONSULTAR UN BIN")"
 echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "HOST EXTRACTOR")"
@@ -205,13 +206,13 @@ echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "PROTECAO SQUID PASS")"
 echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "PAINEL DE UPLOAD DE EHI")"
 echo -ne "\033[1;32m [8] > " && msg -azu "$(fun_trans "VNC SERVER")"
 echo -ne "\033[1;32m [9] > " && msg -azu "$(fun_trans "MAS HERRAMIENTAS")"
-echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
 msg -bar
 while [[ ${arquivoonlineadm} != @(0|[1-9]) ]]; do
 read -p "[0-9]: " arquivoonlineadm
 tput cuu1 && tput dl1
 done
 case $arquivoonlineadm in
+0)exit;;
 1)GENERADOR_BIN;;
 2)MasterBin;;
 3)real-host;;
@@ -221,6 +222,5 @@ case $arquivoonlineadm in
 7)insta_painel;;
 8)vnc;;
 9)mas_tools;;
-0)exit;;
 esac
 msg -bar

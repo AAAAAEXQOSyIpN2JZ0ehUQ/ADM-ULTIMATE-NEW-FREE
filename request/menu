@@ -516,7 +516,6 @@ clock=$(lscpu | grep "CPU MHz" | awk '{print $3}')
 based=$(cat /etc/*release | grep ID_LIKE | awk -F "=" '{print $2}')
 processor=$(cat /proc/cpuinfo | grep "model name" | uniq | awk -F ":" '{print $2}')
 cpus=$(cat /proc/cpuinfo | grep processor | wc -l)
-echo ""
 msg -verd "$(fun_trans "SISTEMA OPERACIONAL")"
 msg -ama "$(fun_trans "Nome Da Maquina"): ${null}$(hostname)"
 [[ "$system" ]] && msg -ama "$(fun_trans "Sistema"): ${null}$system" || msg -ama "$(fun_trans "Sistema"): ${null}???"

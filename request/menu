@@ -551,9 +551,9 @@ ofc="\033[0m${gren}(#OFC)"
 dev="\033[0m${gren}(#DEV)"
 case $1 in
 # Menu Instalação Ger-Frm OFC
-"ADMbot.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "BOT DE GERENCIAMENTO*")TELEGRAN* $ofc";;
+"ADMbot.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "BOT DE GERENCIAMENTO TELEGRAN*") $ofc";;
 "apacheon.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "COMPARTILHAR ARQUIVO ONLINE*") $ofc";;
-"ports.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "SISTEMA DE PORTAS*") $ofc";;
+"ports.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "GERENCIAMENTO DE PORTAS*") $ofc";;
 "speed.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "TESTE DE VELOCIDADE*") $ofc";;
 "utils.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "(Badvpn/tcpspeed/squidcache/torrent) $ofc";;
 # Menu Instalação Ger-Frm OFC
@@ -562,7 +562,7 @@ case $1 in
 # Menu Instalação Ger-Frm NO OFICIAL DEV
 "paysnd.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "PAYLOAD FORCA BRUTA BASH*") $dev";;
 "fai2ban.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "FAIL2BAN PROTECAO*") $dev";;
-"ultrahost")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "SCANNER DE SUBDOMINIO*") $dev";;
+"ultrahost")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ESCANER DE SUBDOMINIOS*") $dev";;
 "criar_pay.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "GERADOR DE PAYLOAD*") $dev";;
 "optimizar.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "OPTIMIZAR SERVIDOR*") $dev";;
 "gestor.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ADMINISTRADOR VPS*") $dev";;

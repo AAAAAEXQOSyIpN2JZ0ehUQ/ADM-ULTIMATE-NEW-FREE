@@ -709,7 +709,7 @@ export -f meu_ip
 export -f fun_ip
 clear
 msg -bar
-msg -ama "PORTAS ATIVAS E INFORMACOES DO SERVIDOR "
+msg -ama "PORTAS ATIVAS E INFORMACOES DO SERVIDOR     \033[1;31m[\033[1;37m r6.3.3 \033[1;31m] "
 msg -bar
 PT=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
 for porta in `echo -e "$PT" | cut -d: -f2 | cut -d' ' -f1 | uniq`; do

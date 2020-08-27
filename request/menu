@@ -115,7 +115,6 @@ local LINGUAGE=$(cat ${SCPidioma})
 [[ -d ${SCPdir} ]] && rm -rf ${SCPdir}
 [[ -d ${SCPinst} ]] && rm -rf ${SCPinst}
 [[ -d ${SCPfrm} ]] && rm -rf ${SCPfrm}
-[[ -d /etc/ger-tools ]] && rm -rf /etc/ger-tools
 $HOME/instalar.sh "${LINGUAGE}"
 else
 msg -verm "$(fun_trans "Procedimento Cancelado"): "

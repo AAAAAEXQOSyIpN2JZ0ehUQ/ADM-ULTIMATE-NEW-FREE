@@ -228,6 +228,52 @@ done <<< "${portasVAR}"
 [[ ! -z $SSL ]] && echo -e $SSL
 [[ ! -z $SSV ]] && echo -e $SSV
 }
+mine_port2 () {
+unset portas
+portas_var=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
+i=0
+while read port; do
+var1=$(echo $port | awk '{print $1}') && var2=$(echo $port | awk '{print $9}' | awk -F ":" '{print $2}')
+[[ "$(echo -e ${portas[@]}|grep "$var1 $var2")" ]] || {
+    portas[$i]="$var1 $var2"
+    let i++
+    }
+done <<< "$portas_var"
+for((i=0; i<=${#portas[@]}; i++)); do
+servico="$(echo ${portas[$i]}|cut -d' ' -f1)"
+porta="$(echo ${portas[$i]}|cut -d' ' -f2)"
+[[ -z $servico ]] && break
+texto="\033[1;31m ${servico}: \033[1;32m${porta}"
+     while [[ ${#texto} -lt 35 ]]; do
+        texto=$texto" "
+     done
+echo -ne "${texto}"
+let i++
+servico="$(echo ${portas[$i]}|cut -d' ' -f1)"
+porta="$(echo ${portas[$i]}|cut -d' ' -f2)"
+[[ -z $servico ]] && {
+   echo -e " "
+   break
+   }
+texto="\033[1;31m ${servico}: \033[1;32m${porta}"
+     while [[ ${#texto} -lt 35 ]]; do
+        texto=$texto" "
+     done
+echo -ne "${texto}"
+let i++
+servico="$(echo ${portas[$i]}|cut -d' ' -f1)"
+porta="$(echo ${portas[$i]}|cut -d' ' -f2)"
+[[ -z $servico ]] && {
+   echo -e " "
+   break
+   }
+texto="\033[1;31m ${servico}: \033[1;32m${porta}"
+     while [[ ${#texto} -lt 35 ]]; do
+        texto=$texto" "
+     done
+echo -e "${texto}"
+done
+}
 ofus () {
 unset txtofus
 number=$(expr length $1)
@@ -544,12 +590,12 @@ case $1 in
 "nettools")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "NET TOOLS TARGET*") $dev";;
 # Menu Instalação Ger-Inst OFC
 "openssh.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "OPENSSH $(pid_inst sshd)";;
+"squid.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "SQUID $(pid_inst squid)";;
 "dropbear.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "DROPBEAR $(pid_inst dropbear)";;
 "openvpn.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "OPENVPN $(pid_inst openvpn)";;
+"ssl.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "SSL $(pid_inst stunnel4)";;
 "shadowsocks.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "SHADOWSOCKS $(pid_inst ssserver)";;
 "sockspy.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "SOCKS PYTHON $(pid_inst python)";;
-"squid.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "SQUID $(pid_inst squid)";;
-"ssl.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "SSL $(pid_inst stunnel4)";;
 # Menu Instalação Ger-Inst DEV
 "PDirect.py")return 1;;
 "PGet.py")return 1;;
@@ -565,6 +611,8 @@ tput cuu1 && tput dl1
 msg -bar2
 msg -ama "$(fun_trans "MENU DE FERRAMENTAS*")"
 msg -bar2
+echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$(fun_trans "VOLTAR")"
+script[0]="voltar"
 local Numb=1
 for arqs in $(ls ${SCPfrm}); do
 float_data "$arqs" "$Numb" && {
@@ -583,8 +631,6 @@ script[$Numb]="agregar"
 let Numb++
 echo -ne "$(msg -verd "[$Numb]") $(msg -verm2 ">") $(msg -ama "[!]") " && msg -verm2 "$(fun_trans "REMOVER FERRAMENTAS*")"
 script[$Numb]="remove"
-echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$(fun_trans "VOLTAR")"
-script[0]="voltar"
 msg -bar2
 selection=$(selection_fun $Numb)
 [[ -e "${SCPfrm}/${script[$selection]}" ]] && {
@@ -620,6 +666,7 @@ export -f fun_bar
 menuTXT="$(fun_trans "VOLTAR*")"
 msg -ama "$(fun_trans "MENU DE INSTALACAO*")"
 msg -bar
+echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$menuTXT"
 local Numb=1
 for arqs in $(ls ${SCPinst}); do
 float_data "$arqs" "$Numb" && {
@@ -627,7 +674,6 @@ float_data "$arqs" "$Numb" && {
   let Numb++
   }
 done
-echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$menuTXT"
 msg -bar
 script[0]="voltar"
 selection=999
@@ -674,11 +720,11 @@ clear
 msg -bar
 msg -ama "PORTAS ATIVAS E INFORMACOES DO SERVIDOR "
 msg -bar
-mine_port
-# BADVPN-UDPGW 7300
-on="\033[1;32m7300" && off="\033[1;31m[OFF]"
-[[ $(ps x | grep badvpn | grep -v grep | awk '{print $1}') ]] && badvpn=$on || badvpn=$off
-echo -e "\e[1;31mBADVPN:\e[0m" "$badvpn"
+PT=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
+for porta in `echo -e "$PT" | cut -d: -f2 | cut -d' ' -f1 | uniq`; do
+    svcs=$(echo -e "$PT" | grep -w "$porta" | awk '{print $1}' | uniq)
+    echo -e "\033[1;31m$svcs: \033[1;37m$porta"
+done
 msg -bar
 msg -ne "$(fun_trans "SISTEMA*"): " && echo -ne "\033[1;37m$(os_system)  "
 msg -ne "$(fun_trans "IP*"): " && echo -e "\033[1;37m$(meu_ip)"
@@ -686,29 +732,27 @@ msg -ne "$(fun_trans "IP*"): " && echo -e "\033[1;37m$(meu_ip)"
 [[ -e ${SCPdir}/USRexpired ]] && msg -ne "$(fun_trans "EXPIRED*"): " && echo -e "\033[1;37m$(cat ${SCPdir}/USRexpired) $(fun_trans "Usuarios")"
 [[ -e ${SCPdir}/message.txt ]] && msg -bar && msg -bra "MESSAGE: $(cat ${SCPdir}/message.txt)"
 # [[ -e ${SCPdir}/key.txt ]] && msg -bar && msg -bra "USER-KEY: $(cat ${SCPdir}/key.txt)"
-# SISTEMA DE DATA 
-#_hoje=$(date +'%d/%m/%Y')
+# NOVO SISTEMA DE MENUS
 _hora=$(printf '%(%H:%M:%S)T')
 _total=$(awk  -F : '$3 >= 500 {print  $1}'  /etc/passwd | grep -v "nobody" | sort | wc -l)
-# NOVO SISTEMA DE MENUS
 msg -bar
 msg -ama "$(fun_trans "GERENCIADOR*") \033[1;31m[\033[1;32m NEW-ULTIMATE \033[1;31m] \033[1;31mHORA: \033[1;37m$_hora \033[1;31mUSER: \033[1;37m$_total"
 msg -bar
-menu_func "GERENCIAR USUARIOS*" "FERRAMENTAS*" "MENU DE INSTALACOES*" "-vd ATUALIZAR*" "-vm DESINSTALAR*" "-fi $AutoRun AUTO INICIALIZACAO*" "TROCAR LINGUA*" "TROCAR CORES*"
 echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$(fun_trans "SAIR DO SCRIPT*")"
+menu_func "GERENCIAR USUARIOS*" "GERENCIAR FERRAMENTAS*" "-vd [!] ATUALIZAR*" "-vm [!] DESINSTALAR NEW-ULTIMATE*" "MUDAR CORES SISTEMA*" "MUDAR IDIOMA DO SCRIPT*" "-fi $AutoRun EJECUCION AUTOMATICA*" "MENU DE INSTALACOES*"
 msg -bar
 # FIM
 selection=$(selection_fun 8)
 case ${selection} in
+0)cd $HOME && exit 0;;
 1)${SCPusr}/usercodes "${idioma}";;
 2)ferramentas_fun;;
-3)menu_inst;;
-4)atualiza_fun;;
-5)remove_script;;
-6)fun_autorun;;
-7)funcao_idioma;;
-8)canbio_color;;
-0)cd $HOME && exit 0;;
+3)atualiza_fun;;
+4)remove_script;;
+5)canbio_color;;
+6)funcao_idioma;;
+7)fun_autorun;;
+8)menu_inst;;
 esac
 msg -ne "$(fun_trans "Enter Para Continuar")" && read enter
 ${SCPdir}/menu

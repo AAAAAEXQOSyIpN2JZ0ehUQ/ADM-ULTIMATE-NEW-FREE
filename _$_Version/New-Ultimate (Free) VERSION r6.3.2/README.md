@@ -1,13 +1,13 @@
-﻿# NEW-ULTIMATE (ADM-FREE)
+﻿# NEW-ULTIMATE r6.3.3 (FREE)
 
 ![logo](https://github.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/blob/master/Imagenes/ADM_ULTIMATE_NEW_FREE.jpg)
 
 ```
-SI TIENES PROBLEMAS DE TRADUCCION DEBES CAMBIAR A IDIOMA PORTUGUES MENU 7 OPCION 6
-O EJECUTAR EL COMANDO SIGUIENTE: 
-
-                echo "pt" > /etc/newadm/idioma && chmod +x /etc/newadm/idioma
+* SI TIENES PROBLEMAS DE TRADUCCION DEBES CAMBIAR A IDIOMA PORTUGUES MENU 7 OPCION 6
+* O EJECUTAR EL COMANDO SIGUIENTE: 
+* echo "pt" > /etc/newadm/idioma && chmod +x /etc/newadm/idioma
 ```
+
 -------------------------------------------------------------------------------
 
 **Manager Script**
@@ -16,9 +16,9 @@ O EJECUTAR EL COMANDO SIGUIENTE:
 ## :heavy_exclamation_mark: Requerimientos
 
 * Un sistema operativo basado en Linux (Ubuntu o Debian)
-* Recomendamos Ubuntu 14.04
+* Recomendamos Ubuntu Ubuntu 14.04 Server x86_64
 * Se recomienda usar una distro nueva o formatiada
-* Soporta Ubuntu 16 y 18 pero su mejor estabilidad es Ubuntu 14.04
+* Soporta Ubuntu 16 y 18 pero su mejor estabilidad es Ubuntu 14.04 Server x86_64
 
 ## Installation
 
@@ -50,4 +50,4 @@ realizar cambios al scripts o borrar algun archivo.
 
 ```
 
-**By: [ ILLUMINATI CORP ⃘⃤꙰✰ ]**
+**By: [  ⃘⃤꙰✰ ]**

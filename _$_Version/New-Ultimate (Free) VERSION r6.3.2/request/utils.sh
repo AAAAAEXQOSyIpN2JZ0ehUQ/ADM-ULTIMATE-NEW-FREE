@@ -180,14 +180,14 @@ iptables -A FORWARD -m string --string "get_peers" --algo bm -j DROP
 iptables -A FORWARD -m string --string "announce_peer" --algo bm -j DROP
 iptables -A FORWARD -m string --string "find_node" --algo bm -j DROP' >> ./torrent-adm
 ./torrent-adm && rm ./torrent-adm
-echo "#TORRENT-ADMON" > /etc/torrent-admon
+echo "#TORRENT-ON" > /etc/torrent-on
 msg -bar
 echo -e " $(fun_trans "Aplicado!")"
 }
 on="\033[1;32mon" && off="\033[1;31moff"
 [[ $(ps x | grep badvpn | grep -v grep | awk '{print $1}') ]] && badvpn=$on || badvpn=$off
 [[ `grep -c "^#ADM" /etc/sysctl.conf` -eq 0 ]] && tcp=$off || tcp=$on
-[[ -e /etc/torrent-admon ]] && torrent=$(echo -e "\033[1;32mon ") || torrent=$(echo -e "\033[1;31moff ")
+[[ -e /etc/torrent-on ]] && torrent=$(echo -e "\033[1;32mon ") || torrent=$(echo -e "\033[1;31moff ")
 if [ -e /etc/squid/squid.conf ]; then
 [[ `grep -c "^#CACHE DO SQUID" /etc/squid/squid.conf` -gt 0 ]] && squid=$on || squid=$off
 elif [ -e /etc/squid3/squid.conf ]; then

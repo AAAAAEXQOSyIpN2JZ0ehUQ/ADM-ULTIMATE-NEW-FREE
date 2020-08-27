@@ -852,9 +852,9 @@ fi
 [[ -z ${VERY} ]] && verificar="\033[1;31m[Off]" || verificar="\033[1;32m[On]"
 msg -ama "$(fun_trans "GERENCIAMENTO DE USUARIOS*")"
 msg -bar
+echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$(fun_trans "VOLTAR*")"
 menu_func "CRIAR NOVO USUARIO*" "REMOVER USUARIO*" "BLOQUEAR OU DESBLOQUEAR USUARIO*" "EDITAR USUARIO*" "RENOVAR USUARIO*" "DETALHES DE TODOS USUARIOS*" "MONITORAR USUARIOS CONECTADOS*" "ELIMINAR USUARIOS EXPIRADOS*" "BACKUP USUARIOS*" "BANNER SSH*" "-fi ${verificar} VERIFICACOES*"
 [[ -e "${SCPusr}/Limiter.log" ]] && echo -ne "$(msg -verd "[12]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "VER LOG DO LIMITER*")"
-echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$(fun_trans "VOLTAR*")"
 msg -bar
 selection=$(selection_fun 12)
 case ${selection} in

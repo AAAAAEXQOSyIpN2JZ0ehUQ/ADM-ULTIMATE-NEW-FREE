@@ -471,23 +471,31 @@ clock=$(lscpu | grep "CPU MHz" | awk '{print $3}')
 based=$(cat /etc/*release | grep ID_LIKE | awk -F "=" '{print $2}')
 processor=$(cat /proc/cpuinfo | grep "model name" | uniq | awk -F ":" '{print $2}')
 cpus=$(cat /proc/cpuinfo | grep processor | wc -l)
-msg -verd " $(fun_trans "SISTEMA OPERACIONAL")"
+echo ""
+msg -verd "$(fun_trans "SISTEMA OPERACIONAL")"
+echo ""
 msg -ama "$(fun_trans "Nome Da Maquina"): ${null}$(hostname)"
 [[ "$system" ]] && msg -ama "$(fun_trans "Sistema"): ${null}$system" || msg -ama "$(fun_trans "Sistema"): ${null}???"
 msg -ama "$(fun_trans "Endereco Da Maquina"): ${null}$(ip addr | grep inet | grep -v inet6 | grep -v "host lo" | awk '{print $2}' | awk -F "/" '{print $1}')"
 msg -ama "$(fun_trans "Versao do Kernel"): ${null}$(uname -r)"
 [[ "$based" ]] && msg -ama "$(fun_trans "Baseado"): ${null}$based" || msg -ama "$(fun_trans "Baseado"): ${null}???"
-msg -verd " $(fun_trans "PROCESSADOR")"
+echo ""
+msg -verd "$(fun_trans "PROCESSADOR")"
+echo ""
 [[ "$processor" ]] && msg -ama "$(fun_trans "Processador"): ${null}$processor x$cpus" || msg -ama "$(fun_trans "Processador"): ${null}???"
 [[ "$clock" ]] && msg -ama "$(fun_trans "Frequecia de Operacao"): ${null}$clock MHz" || msg -ama "$(fun_trans "Frequecia de Operacao"): ${null}???"
 msg -ama "$(fun_trans "Arquitetura"): ${null}$(uname -m)"
 msg -ama "$(fun_trans "Uso do Processador"): ${null}$(ps aux  | awk 'BEGIN { sum = 0 }  { sum += sprintf("%f",$3) }; END { printf " " "%.2f" "%%", sum}')"
-msg -verd " $(fun_trans "MEMORIA RAM")"
+echo ""
+msg -verd "$(fun_trans "MEMORIA RAM")"
+echo ""
 msg -ama "$(fun_trans "Memoria Virtual Total"): ${null}$(($totalram / 1024))"
 msg -ama "$(fun_trans "Memoria Virtual Em Uso"): ${null}$(($usedram / 1024))"
 msg -ama "$(fun_trans "Memoria Virtual Livre"): ${null}$(($freeram / 1024))"
 msg -ama "$(fun_trans "Memoria Virtual Swap"): ${null}$(($swapram / 1024))MB"
-msg -verd " $(fun_trans "SISTEMA ONLINE")"
+echo ""
+msg -verd "$(fun_trans "SISTEMA ONLINE")"
+echo ""
 msg -ama "$(fun_trans "Tempo Online"): ${null}$(uptime)"
 msg -bar
 return 0
@@ -672,18 +680,18 @@ on="\033[1;32m7300" && off="\033[1;31m[OFF]"
 [[ $(ps x | grep badvpn | grep -v grep | awk '{print $1}') ]] && badvpn=$on || badvpn=$off
 echo -e "\e[1;31mBADVPN:\e[0m" "$badvpn"
 msg -bar
-msg -ne "$(fun_trans "SISTEMA*"): " && msg -bra "$(os_system)  "
-msg -ne "$(fun_trans "IP*"): " && msg -bra "$(meu_ip)"
-[[ -e ${SCPdir}/USRonlines ]] && msg -ne "$(fun_trans "ONLINE*"): " && msg -bra "$(cat ${SCPdir}/USRonlines) $(fun_trans "Usuarios")"
-[[ -e ${SCPdir}/USRexpired ]] && msg -ne "$(fun_trans "EXPIRADOS*"): " && msg -bra "$(cat ${SCPdir}/USRexpired) $(fun_trans "Usuarios")"
+msg -ne "$(fun_trans "SISTEMA*"): " && echo -ne "\033[1;37m$(os_system)  "
+msg -ne "$(fun_trans "IP*"): " && echo -e "\033[1;37m$(meu_ip)"
+[[ -e ${SCPdir}/USRonlines ]] && msg -bar && msg -ne "$(fun_trans "ONLINE*"): " && echo -ne "\033[1;37m$(cat ${SCPdir}/USRonlines) $(fun_trans "Usuarios")  "
+[[ -e ${SCPdir}/USRexpired ]] && msg -ne "$(fun_trans "EXPIRED*"): " && echo -e "\033[1;37m$(cat ${SCPdir}/USRexpired) $(fun_trans "Usuarios")"
 [[ -e ${SCPdir}/message.txt ]] && msg -bar && msg -bra "MESSAGE: $(cat ${SCPdir}/message.txt)"
 # [[ -e ${SCPdir}/key.txt ]] && msg -bar && msg -bra "USER-KEY: $(cat ${SCPdir}/key.txt)"
+# SISTEMA DE DATA 
+#_hoje=$(date +'%d/%m/%Y')
+_hora=$(printf '%(%H:%M:%S)T')
+_total=$(awk  -F : '$3 >= 500 {print  $1}'  /etc/passwd | grep -v "nobody" | sort | wc -l)
 # NOVO SISTEMA DE MENUS
 msg -bar
-# SISTEMA DE DATA 
-_hora=$(printf '%(%H:%M:%S)T')
-_hoje=$(date +'%d/%m/%Y')
-_total=$(awk  -F : '$3 >= 500 {print  $1}'  /etc/passwd | grep -v "nobody" | sort | wc -l)
 msg -ama "$(fun_trans "GERENCIADOR*") \033[1;31m[\033[1;32m NEW-ULTIMATE \033[1;31m] \033[1;31mHORA: \033[1;37m$_hora \033[1;31mUSER: \033[1;37m$_total"
 msg -bar
 menu_func "GERENCIAR USUARIOS*" "FERRAMENTAS*" "MENU DE INSTALACOES*" "-vd ATUALIZAR*" "-vm DESINSTALAR*" "-fi $AutoRun AUTO INICIALIZACAO*" "TROCAR LINGUA*" "TROCAR CORES*"

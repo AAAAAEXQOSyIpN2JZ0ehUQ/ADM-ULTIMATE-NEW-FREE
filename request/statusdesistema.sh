@@ -8,6 +8,9 @@ SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 
 [[ -d /etc/ger-tools ]] && rm -rf /etc/ger-tools
 
+link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/nettools"
+[[ ! -e /bin/nettools ]] && wget -O /bin/nettools ${link_bin} > /dev/null 2>&1 && chmod +x /bin/nettools
+
 meu_ip () {
 if [[ -e /etc/MEUIPADM ]]; then
 echo "$(cat /etc/MEUIPADM)"

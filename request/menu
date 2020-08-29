@@ -493,7 +493,6 @@ rm -rf ${SCPdir} &>/dev/null
 rm -rf ${SCPusr} &>/dev/null
 rm -rf ${SCPfrm} &>/dev/null
 rm -rf ${SCPinst} &>/dev/null
-rm -rf /etc/ger-tools &>/dev/null
 [[ -e /bin/adm ]] && rm /bin/adm
 [[ -e /usr/bin/adm ]] && rm /usr/bin/adm
 [[ -e /bin/menu ]] && rm /bin/menu

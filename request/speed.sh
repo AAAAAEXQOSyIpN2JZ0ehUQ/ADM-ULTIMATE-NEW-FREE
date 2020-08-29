@@ -5,6 +5,9 @@ SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 
+link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/PROYECTOS_DESCONTINUADOS/master/ADM-MANAGER-ALPHA/Install/speedtest"
+[[ ! -e /bin/speedtest ]] && wget -O /bin/speedtest ${link_bin} > /dev/null 2>&1 && chmod +x /bin/speedtest
+
 fun_bar () {
 comando="$1"
  _=$(
@@ -26,16 +29,13 @@ done
 sleep 1s
 }
 
-link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/PROYECTOS_DESCONTINUADOS/master/ADM-MANAGER-ALPHA/Install/speedtest"
-[[ ! -e /bin/speedtest ]] && wget -O /bin/speedtest ${link_bin} > /dev/null 2>&1 && chmod +x /bin/speedtest
-
 fun_tst () {
 speedtest --share > speed
 }
 
 msg -ama " $(fun_trans "Speed Test") ${cor[4]}[NEW-ADM]"
 msg -bar
-# PROGRESS - BAR
+# PROGRESS INSTALL - BAR
 #apt-get install python3 -y  > /dev/null 2>&1
 apt-get install python-pip -y  > /dev/null 2>&1
 pip install speedtest-cli  > /dev/null 2>&1

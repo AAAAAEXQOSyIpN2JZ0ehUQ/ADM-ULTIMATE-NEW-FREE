@@ -154,7 +154,7 @@ fun_nettools () {
 /bin/nettools
 }
 
-msg -ama "$(fun_trans "MENU DE UTILITARIOS") ${cor[4]}[NEW-ADM]"
+msg -ama "$(fun_trans "STATUS DE SISTEMA") ${cor[4]}[NEW-ADM]"
 msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "TRAFICO DE RED NLOAD")"

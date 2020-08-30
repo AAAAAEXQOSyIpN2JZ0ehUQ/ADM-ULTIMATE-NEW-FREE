@@ -2,6 +2,7 @@ menu
 usercodes
 message.txt
 dropbear.sh
+openssh.sh
 openvpn.sh
 shadowsocks.sh
 sockspy.sh

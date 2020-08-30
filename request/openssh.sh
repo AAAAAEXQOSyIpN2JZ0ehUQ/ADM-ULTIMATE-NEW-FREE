@@ -5,7 +5,6 @@ SCPdir="/etc/newadm" && [[ ! -d ${SCPdir} ]] && exit 1
 SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
-
 fun_ip () {
 if [[ -e /etc/MEUIPADM ]]; then
 IP="$(cat /etc/MEUIPADM)"
@@ -17,7 +16,6 @@ echo "$MEU_IP2" > /etc/MEUIPADM
 fi
 }
 IP="$(meu_ip)"
-
 fun_eth () {
 eth=$(ifconfig | grep -v inet6 | grep -v lo | grep -v 127.0.0.1 | grep "encap:Ethernet" | awk '{print $1}')
     [[ $eth != "" ]] && {
@@ -41,7 +39,6 @@ eth=$(ifconfig | grep -v inet6 | grep -v lo | grep -v 127.0.0.1 | grep "encap:Et
            }
      }
 }
-
 fun_ssh () {
 sshvar=$(cat /etc/ssh/sshd_config | grep -v "Port $1")
 echo "$sshvar" > /etc/ssh/sshd_config
@@ -51,7 +48,6 @@ sed -i "s;PermitRootLogin without-password;PermitRootLogin yes;g" /etc/ssh/sshd_
 sed -i "s;PasswordAuthentication no;PasswordAuthentication yes;g" /etc/ssh/sshd_config
 service ssh restart > /dev/null 2>&1 &
 }
-
 openssh () {
 msg -verd " $(fun_trans "OPENSSH AUTOCONFIGURE ADM-ULTIMATE")"
 msg -bar

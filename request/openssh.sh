@@ -6,35 +6,6 @@ SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 
-minhas_portas () {
-sleep 3s
-portas_var="/tmp/portas"
-porta_var="/tmp/portas2"
-lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN" > $portas_var
-while read port; do
-var1=$(echo $port | awk '{print $1}')
-var2=$(echo $port | awk '{print $9}' | awk -F ":" '{print $2}')
-if [ ! -e "$porta_var" ]; then
-echo -e "$var1 $var2" > $porta_var
-fi
-if [ "$(cat $porta_var | grep "$var1" | grep "$var2")" = "" ]; then
-echo -e "$var1 $var2" >> $porta_var
-fi
-done < $portas_var
-i=1
-while read pts; do
-if [ "$pts" = "" ]; then
-break
-fi
-service_porta[$i]=$(echo "$pts" | awk '{print $2}')
-service_serv[$i]=$(echo "$pts" | awk '{print $1}')
-echo -e "\033[1;37m [Porta $i]\033[1;37m Serviço: \033[1;31m${service_serv[$i]} \033[1;37mPorta: \033[1;31m${service_porta[$i]}"
-i=$(($i+1))
-done < $porta_var
-rm $portas_var
-rm $porta_var
-}
-
 fun_ip () {
 if [[ -e /etc/MEUIPADM ]]; then
 IP="$(cat /etc/MEUIPADM)"

@@ -66,7 +66,7 @@ sleep 2s
 htop
 }
 
-fun_visorpuertos () {
+fun_statusvps () {
 echo -e "\033[1;33m INFORMACION DE SISTEMAS"
 echo -e "$barra"
 # SISTEMA OPERACIONAL
@@ -166,7 +166,7 @@ case $arquivoonlineadm in
 0)exit;;
 1)fun_nload;;
 2)fun_htop;;
-3)fun_visorpuertos;;
+3)fun_statusvps;;
 4)fun_nettools;;
 esac
 msg -bar

@@ -69,7 +69,6 @@ htop
 fun_visorpuertos () {
 echo -e "\033[1;33m INFORMACION DE SISTEMAS"
 echo -e "$barra"
-###########################################
 # SISTEMA OPERACIONAL
 _hora=$(printf '%(%H:%M:%S)T')
 _hoje=$(date +'%d/%m/%Y')
@@ -97,7 +96,6 @@ echo -e "\033[1;33m SISTEMA OPERACIONAL"
 echo ""
 echo -e "\033[1;31mNome: \033[1;37m$system"
 fi
-###########################################
 # PROCESSADOR
 echo -e "$barra"
 if [ -f /proc/cpuinfo ]
@@ -118,7 +116,6 @@ echo -e "\033[1;33m PROCESSADOR"
 echo ""
 echo "Não foi possivel obter informações"
 fi
-###########################################
 # MEMORIA RAM
 echo -e "$barra"
 if free 1>/dev/null 2>/dev/null
@@ -138,7 +135,6 @@ echo -e "\033[1;33mMEMORIA RAM"
 echo ""
 echo "Não foi possivel obter informações"
 fi
-###########################################
 # SERVICOS EM EXECUCAO
 echo -e "$barra"
 echo -e "\033[1;33m SERVICOS EM EXECUCAO"
@@ -146,7 +142,7 @@ echo ""
 PT=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
 for porta in `echo -e "$PT" | cut -d: -f2 | cut -d' ' -f1 | uniq`; do
     svcs=$(echo -e "$PT" | grep -w "$porta" | awk '{print $1}' | uniq)
-    echo -e "\033[1;31m$svcs: \033[1;32m$porta"
+    echo -e "\033[1;32m Servico \033[1;31m$svcs \033[1;32mPorta \033[1;37m$porta"
 done
 }
 

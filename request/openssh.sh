@@ -49,7 +49,7 @@ sed -i "s;PasswordAuthentication no;PasswordAuthentication yes;g" /etc/ssh/sshd_
 service ssh restart > /dev/null 2>&1 &
 }
 openssh () {
-msg -verd " $(fun_trans "OPENSSH AUTOCONFIGURE ADM-ULTIMATE")"
+msg -verd " $(fun_trans "OPENSSH AUTO-CONFIGURAÇAO ADM-ULTIMATE")"
 msg -bar
 fun_ip
 msg -ne " $(fun_trans "Confirme seu ip")"; read -p ": " -e -i $IP ip

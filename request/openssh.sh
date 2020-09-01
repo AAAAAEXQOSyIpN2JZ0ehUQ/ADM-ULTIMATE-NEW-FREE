@@ -1,6 +1,5 @@
 #!/bin/bash
 declare -A cor=( [0]="\033[1;37m" [1]="\033[1;34m" [2]="\033[1;31m" [3]="\033[1;33m" [4]="\033[1;32m" )
-barra="\033[0m\e[34m======================================================\033[1;37m"
 SCPdir="/etc/newadm" && [[ ! -d ${SCPdir} ]] && exit 1
 SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
@@ -16,13 +15,22 @@ echo "$MEU_IP2" > /etc/MEUIPADM
 fi
 }
 IP="$(meu_ip)"
+fun_ssh () {
+sshvar=$(cat /etc/ssh/sshd_config | grep -v "Port $1")
+echo "$sshvar" > /etc/ssh/sshd_config
+sed -i "s;Port 22;Port 22\nPort $1;g" /etc/ssh/sshd_config
+sed -i "s;PermitRootLogin prohibit-password;PermitRootLogin yes;g" /etc/ssh/sshd_config
+sed -i "s;PermitRootLogin without-password;PermitRootLogin yes;g" /etc/ssh/sshd_config
+sed -i "s;PasswordAuthentication no;PasswordAuthentication yes;g" /etc/ssh/sshd_config
+service ssh restart > /dev/null 2>&1 &
+}
 fun_eth () {
 eth=$(ifconfig | grep -v inet6 | grep -v lo | grep -v 127.0.0.1 | grep "encap:Ethernet" | awk '{print $1}')
     [[ $eth != "" ]] && {
-    echo -e "$barra"
-    echo -e "${cor[3]} $(fun_trans "Aplicar Sistema Para Melhorar Pacotes Ssh?")"
-    echo -e "${cor[3]} $(fun_trans "Opcao Para Usuarios Avancados")"
-    echo -e "$barra"
+    msg -bar
+    msg -ama " $(fun_trans "Aplicar Sistema Para Melhorar Pacotes Ssh?")"
+    msg -ama " $(fun_trans "Opcao Para Usuarios Avancados")"
+    msg -bar
     read -p " [S/N]: " -e -i n sshsn
 	tput cuu1 && tput dl1
            [[ "$sshsn" = @(s|S|y|Y) ]] && {
@@ -35,18 +43,9 @@ eth=$(ifconfig | grep -v inet6 | grep -v lo | grep -v 127.0.0.1 | grep "encap:Et
            [[ "$tx" = "" ]] && tx="999999999"
            apt-get install ethtool -y > /dev/null 2>&1
            ethtool -G $eth rx $rx tx $tx > /dev/null 2>&1
-           echo -e "$barra"
+           msg -bar
            }
      }
-}
-fun_ssh () {
-sshvar=$(cat /etc/ssh/sshd_config | grep -v "Port $1")
-echo "$sshvar" > /etc/ssh/sshd_config
-sed -i "s;Port 22;Port 22\nPort $1;g" /etc/ssh/sshd_config
-sed -i "s;PermitRootLogin prohibit-password;PermitRootLogin yes;g" /etc/ssh/sshd_config
-sed -i "s;PermitRootLogin without-password;PermitRootLogin yes;g" /etc/ssh/sshd_config
-sed -i "s;PasswordAuthentication no;PasswordAuthentication yes;g" /etc/ssh/sshd_config
-service ssh restart > /dev/null 2>&1 &
 }
 openssh () {
 msg -verd " $(fun_trans "OPENSSH AUTO-CONFIGURAÇAO ADM-ULTIMATE")"

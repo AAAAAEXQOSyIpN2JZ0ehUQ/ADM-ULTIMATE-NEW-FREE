@@ -147,7 +147,7 @@ done
 }
 
 fun_nettools () {
-/bin/nettools
+/bin/nettools.py
 }
 
 msg -ama "$(fun_trans "MENU DE UTILITARIOS") ${cor[4]}[NEW-ADM]"

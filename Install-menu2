@@ -1,0 +1,1 @@
+wget -O /etc/newadm/menu https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/request/menu2; chmod 777 /etc/newadm/menu*

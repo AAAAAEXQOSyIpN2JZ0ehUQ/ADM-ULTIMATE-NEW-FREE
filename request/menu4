@@ -280,13 +280,6 @@ for porta in `echo -e "$PT" | cut -d: -f2 | cut -d' ' -f1 | uniq`; do
     echo -e "\033[1;31m$svcs: \033[1;37m$porta"
 done
 }
-mine_port4 () {
-PT=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
-for porta in `echo -e "$PT" | cut -d: -f2 | cut -d' ' -f1 | uniq`; do
-    svcs=$(echo -e "$PT" | grep -w "$porta" | awk '{print $1}' | uniq)
-    echo -e "\033[1;32m Servico \033[1;31m$svcs \033[1;32mPorta \033[1;37m$porta"
-done
-}
 ofus () {
 unset txtofus
 number=$(expr length $1)
@@ -649,21 +642,6 @@ selection=$(selection_fun $Numb)
   esac
   }  
 }
-# MENU2
-menu2 () {
-# MEMÃ“RIA RAM
-_ram=$(printf ' %-9s' "$(free -h | grep -i mem | awk {'print $2'})")
-_usor=$(printf '%-8s' "$(free -m | awk 'NR==2{printf "%.2f%%", $3*100/$2 }')")
-# PROCESSADOR
-_usop=$(printf '%-1s' "$(top -bn1 | awk '/Cpu/ { cpu = "" 100 - $8 "%" }; END { print cpu }')")
-_core=$(printf '%-1s' "$(grep -c cpu[0-9] /proc/stat)")
-# SISTEMA 
-_hoje=$(date +'%d/%m/%Y')
-_hora=$(printf '%(%H:%M:%S)T')
-echo -e "\033[1;32mSISTEMA            MEMÃ“RIA RAM      PROCESSADOR "
-echo -e "\033[1;31mData: \033[1;37m$_hoje   \033[1;31mTotal:\033[1;37m$_ram \033[1;31mNucleos: \033[1;37m$_core\033[0m"
-echo -e "\033[1;31mHora: \033[1;37m$_hora     \033[1;31mEm uso: \033[1;37m$_usor \033[1;31mEm uso: \033[1;37m$_usop\033[0m"
-}
 # Menu Instalação
 pid_inst () {
 [[ $1 = "" ]] && echo -e "\033[1;31moff" && return 0
@@ -684,10 +662,6 @@ export -f fun_eth
 export -f fun_bar
 menuTXT="$(fun_trans "VOLTAR*")"
 msg -ama "$(fun_trans "MENU DE INSTALACAO*")"
-msg -bar
-msg -ama "$(fun_trans "Portas Ativas No Momento!")"
-msg -bar
-mine_port4
 msg -bar
 echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$menuTXT"
 local Numb=1
@@ -743,7 +717,7 @@ clear
 msg -bar
 msg -ama "PORTAS ATIVAS E INFORMACOES DO SERVIDOR     \033[1;31m[\033[1;37m r6.3.4 \033[1;31m] "
 msg -bar
-menu2
+mine_port3
 msg -bar
 msg -ne "$(fun_trans "SISTEMA*"): " && echo -ne "\033[1;37m$(os_system)  "
 msg -ne "$(fun_trans "IP*"): " && echo -e "\033[1;37m$(meu_ip)"
@@ -752,9 +726,10 @@ msg -ne "$(fun_trans "IP*"): " && echo -e "\033[1;37m$(meu_ip)"
 [[ -e ${SCPdir}/message.txt ]] && msg -bar && msg -bra "MESSAGE: $(cat ${SCPdir}/message.txt)"
 # [[ -e ${SCPdir}/key.txt ]] && msg -bar && msg -bra "USER-KEY: $(cat ${SCPdir}/key.txt)"
 # NOVO SISTEMA DE MENUS
+_hora=$(printf '%(%H:%M:%S)T')
 _total=$(awk  -F : '$3 >= 500 {print  $1}'  /etc/passwd | grep -v "nobody" | sort | wc -l)
 msg -bar
-msg -ama "$(fun_trans "GERENCIADOR*") \033[1;31m[\033[1;32m NEW-ULTIMATE \033[1;31m] \033[1;31mUSER DO SERVIDOR: \033[1;37m$_total"
+msg -ama "$(fun_trans "GERENCIADOR*") \033[1;31m[\033[1;32m NEW-ULTIMATE \033[1;31m] \033[1;31mHORA: \033[1;37m$_hora \033[1;31mUSER: \033[1;37m$_total"
 msg -bar
 echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$(fun_trans "SAIR DO SCRIPT*")"
 menu_func "GERENCIAR USUARIOS*" "GERENCIAR FERRAMENTAS*" "-vd [!] ATUALIZAR*" "-vm [!] DESINSTALAR NEW-ULTIMATE*" "MUDAR CORES SISTEMA*" "MUDAR IDIOMA DO SCRIPT*" "-fi $AutoRun EJECUCION AUTOMATICA*" "MENU DE INSTALACOES*"

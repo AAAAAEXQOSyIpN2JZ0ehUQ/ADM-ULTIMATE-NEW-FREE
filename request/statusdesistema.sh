@@ -123,6 +123,7 @@ echo -e "\033[1;31mRam ultilizacao: \033[32m$usoram"
 else
 echo "Não foi possivel obter informações"
 fi
+# SERVICOS EM EXECUCAO
 echo -e "$barra"
 PT=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
 for porta in `echo -e "$PT" | cut -d: -f2 | cut -d' ' -f1 | uniq`; do

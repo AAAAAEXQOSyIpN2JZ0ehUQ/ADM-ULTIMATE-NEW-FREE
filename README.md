@@ -43,8 +43,7 @@ VERSION LIBERADA DEL DESARROLLADOR:
 apt-get update -y; apt-get upgrade -y; wget https://www.dropbox.com/s/qhftefty46hz51x/newfreeinstal?dl=0 && bash new*
 
 * El sistema de traducción no funcionará debido a un problema de API
-* Es posible que alguna otra función no funcione, pero no tengo un servidor para probar, así que solo infórmame del error, solo envía la impresión.```
-
+* Es posible que alguna otra función no funcione, pero no tengo un servidor para probar, así que solo infórmame del error, solo envía la impresión.
 ```
 
 ```

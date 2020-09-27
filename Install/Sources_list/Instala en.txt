@@ -1,7 +1,0 @@
-Ubuntu 16 
-
-wget -O /etc/apt/sources.list
-
-Ubuntu 18
-
-wget -O /etc/apt/sources.list

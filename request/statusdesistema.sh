@@ -66,8 +66,8 @@ sleep 2s
 htop
 }
 
-fun_statusvps () {
-echo -e "\033[1;33m INFORMACION DE SISTEMAS"
+fun_statussistema () {
+echo -e "\033[1;33m STATUS DO SISTEMA"
 echo -e "$barra"
 # SISTEMA OPERACIONAL
 _hora=$(printf '%(%H:%M:%S)T')
@@ -141,7 +141,7 @@ msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "TRAFICO DE RED NLOAD")"
 echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "PROCESOS DEL SISTEMA HTOP")"
-echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "INFORMACION DE SISTEMAS") \033[1;33m(\033[1;37mBETA\033[1;33m)"
+echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "STATUS DO SISTEMA") \033[1;33m(\033[1;37mBETA\033[1;33m)"
 echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "NET TOOLS TARGET") \033[1;33m(\033[1;37mBETA\033[1;33m)"
 msg -bar
 while [[ ${arquivoonlineadm} != @(0|[1-4]) ]]; do
@@ -152,7 +152,7 @@ case $arquivoonlineadm in
 0)exit;;
 1)fun_nload;;
 2)fun_htop;;
-3)fun_statusvps;;
+3)fun_statussistema;;
 4)fun_nettools;;
 esac
 msg -bar

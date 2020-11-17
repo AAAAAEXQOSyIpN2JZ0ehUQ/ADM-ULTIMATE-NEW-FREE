@@ -586,7 +586,7 @@ case $1 in
 "speed_v2.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "TESTE DE VELOCIDADE*") \033[1;33m(\033[1;37mBETA\033[1;33m) $dev";;
 "torrent")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "FIREWALL BLOQUEIO TORRENT*") \033[1;33m(\033[1;37mBETA\033[1;33m) $dev";;
 # Menu Instalação Ger-tools DEV
-"statusdesistema.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "(Nload/htop/statusvps/nettools) \033[1;33m(\033[1;37mBETA\033[1;33m) $dev";;
+"utils2.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "(Nload/htop/statusvps/nettools) \033[1;33m(\033[1;37mBETA\033[1;33m) $dev";;
 # Menu Instalação Ger-tools DEV
 "nload.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "TRAFICO DE RED NLOAD*") $dev";;
 "htop.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "PROCESOS DEL SISTEMA HTOP*") $dev";;

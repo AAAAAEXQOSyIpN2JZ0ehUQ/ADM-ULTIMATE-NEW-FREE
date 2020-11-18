@@ -430,7 +430,7 @@ unset OPENBAR
 [[ $(mportas|grep -w "openvpn") ]] && OPENBAR="\033[1;32mOnline" || OPENBAR="\033[1;31mOffline"
 msg -ama " $(fun_trans "OPENVPN JA ESTA INSTALADO*")"
 msg -bar
-echo -ne "\033[1;32m [0] >\033[1;37m $(fun_trans "Voltar")"
+echo -e "\033[1;32m [0] >\033[1;37m $(fun_trans "Voltar")"
 echo -e "\033[1;32m [1] >\033[1;36m $(fun_trans "Remover OPEN_VPN")"
 echo -e "\033[1;32m [2] >\033[1;36m $(fun_trans "Editar Cliente OPEN_VPN") \033[1;31m(comand nano)"
 echo -e "\033[1;32m [3] >\033[1;36m $(fun_trans "Trocar Hosts do OPEN_VPN")"

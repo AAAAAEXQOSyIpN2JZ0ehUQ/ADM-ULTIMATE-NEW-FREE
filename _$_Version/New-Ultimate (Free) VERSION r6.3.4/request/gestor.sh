@@ -37,25 +37,25 @@ return
 }
 
 reiniciar_ser () {
-echo -ne " \033[1;31m[ ! ] Services stunnel4 restart"
-service stunnel4 restart > /dev/null 2>&1
-[[ -e /etc/init.d/stunnel4 ]] && /etc/init.d/stunnel4 restart > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+echo -ne " \033[1;31m[ ! ] Services ssh restart"
+service ssh restart > /dev/null 2>&1
+[[ -e /etc/init.d/ssh ]] && /etc/init.d/ssh restart > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+echo -ne " \033[1;31m[ ! ] Services dropbear restart"
+service dropbear restart > /dev/null 2>&1
+[[ -e /etc/init.d/dropbear ]] && /etc/init.d/dropbear restart > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
 echo -ne " \033[1;31m[ ! ] Services squid restart"
 service squid restart > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
 echo -ne " \033[1;31m[ ! ] Services squid3 restart"
 service squid3 restart > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-echo -ne " \033[1;31m[ ! ] Services apache2 restart"
-service apache2 restart > /dev/null 2>&1
-[[ -e /etc/init.d/apache2 ]] && /etc/init.d/apache2 restart > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
 echo -ne " \033[1;31m[ ! ] Services openvpn restart"
 service openvpn restart > /dev/null 2>&1
 [[ -e /etc/init.d/openvpn ]] && /etc/init.d/openvpn restart > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-echo -ne " \033[1;31m[ ! ] Services dropbear restart"
-service dropbear restart > /dev/null 2>&1
-[[ -e /etc/init.d/dropbear ]] && /etc/init.d/dropbear restart > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-echo -ne " \033[1;31m[ ! ] Services ssh restart"
-service ssh restart > /dev/null 2>&1
-[[ -e /etc/init.d/ssh ]] && /etc/init.d/ssh restart > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+echo -ne " \033[1;31m[ ! ] Services stunnel4 restart"
+service stunnel4 restart > /dev/null 2>&1
+[[ -e /etc/init.d/stunnel4 ]] && /etc/init.d/stunnel4 restart > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+echo -ne " \033[1;31m[ ! ] Services apache2 restart"
+service apache2 restart > /dev/null 2>&1
+[[ -e /etc/init.d/apache2 ]] && /etc/init.d/apache2 restart > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
 echo -ne " \033[1;31m[ ! ] Services fail2ban restart"
 ( 
 [[ -e /etc/init.d/ssh ]] && /etc/init.d/ssh restart
@@ -170,24 +170,25 @@ service ssh restart > /dev/null 2>&1
 return
 }
 
-msg -ama " $(fun_trans "ADMINISTRADOR VPS")"
+msg -ama " $(fun_trans "GERENCIAR SERVIDOR VPS")"
 msg -bar
-echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "Atualizar pacotes")"
-echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "Reiniciar os serviço")"
-echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "Reiniciar sistema")"
-echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "Alterar o nome do sistema")"
-echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "Cambiar contraseña root del sistema")"
-echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "Atualizar hora America-Santiago")"
-echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "Eliminar registro del limitador")"
-echo -ne "\033[1;32m [8] > " && msg -azu "$(fun_trans "Desbloquear VURTL para crear usuarios") \033[1;33m(\033[1;37mBETA\033[1;33m)"
-echo -ne "\033[1;32m [9] > " && msg -azu "$(fun_trans "Serviço root para googlecloud e amazon") \033[1;33m(\033[1;37mBETA\033[1;33m)"
-echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "Voltar")"
+echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
+echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "ATUALIZAR PACOTES")"
+echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "REINICIAR OS SERVICO")"
+echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "REINICIAR SISTEMA")"
+echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "ALTERAR O NOME DO SISTEMA")"
+echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "CAMBIAR CONTRASEñA ROOT DEL SISTEMA")"
+echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "ATUALIZAR HORA AMERICA-SANTIAGO")"
+echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "ELIMINAR REGISTRO DEL LIMITADO") \033[1;33m(\033[1;37mBETA\033[1;33m)"
+echo -ne "\033[1;32m [8] > " && msg -azu "$(fun_trans "DESBLOQUEAR VURTL PARA CREAR USUARIOS") \033[1;33m(\033[1;37mBETA\033[1;33m)"
+echo -ne "\033[1;32m [9] > " && msg -azu "$(fun_trans "SERVICO ROOT PARA GOOGLECLOUD E AMAZON") \033[1;33m(\033[1;37mBETA\033[1;33m)"
 msg -bar
 while [[ ${arquivoonlineadm} != @(0|[1-9]) ]]; do
 read -p "[0-9]: " arquivoonlineadm
 tput cuu1 && tput dl1
 done
 case $arquivoonlineadm in
+0)exit;;
 1)update_pak;;
 2)reiniciar_ser;;
 3)reiniciar_vps;;
@@ -197,6 +198,5 @@ case $arquivoonlineadm in
 7)cleanreg;;
 8)pamcrack;;
 9)rootpass;;
-0)exit;;
 esac
 msg -bar

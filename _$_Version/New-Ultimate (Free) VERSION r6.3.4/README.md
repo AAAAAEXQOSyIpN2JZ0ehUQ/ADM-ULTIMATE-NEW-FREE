@@ -16,11 +16,15 @@
 ## :heavy_exclamation_mark: Requerimientos
 
 * Un sistema operativo basado en Linux (Ubuntu o Debian)
-* Recomendamos Ubuntu 14.04 Server x86_64
+* Recomendamos Ubuntu 16.04 Server x86_64
+* Tambien puede funcionar en algunas versiones de  Debian Server x86_64
 * Se recomienda usar una distro nueva o formatiada
-* Soporta Ubuntu 16 y 18 pero su mejor estabilidad es Ubuntu 14.04 Server x86_64
 
 ## Installation
+
+**Ubuntu 16 Update Source List**
+
+wget -O /etc/apt/sources.list https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Sources_list/16.04/sources.list
 
 apt-get update -y; apt-get upgrade -y; wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/instalar.sh; chmod 777 instalar.sh* && ./instalar.sh*
 
@@ -35,6 +39,14 @@ NEW-ULTIMATE Recibe actualizaciones periodicamente con nuevas características, 
 y correcciones de errores. Asegúrese de no 
 realizar cambios al scripts o borrar algun archivo.
 
+```
+
+```
+VERSION LIBERADA DEL DESARROLLADOR:
+
+apt-get update -y; apt-get upgrade -y; wget https://www.dropbox.com/s/qhftefty46hz51x/newfreeinstal?dl=0 && bash new*
+
+* El sistema de traducción no funcionará debido a un problema de API
 ```
 
 ```

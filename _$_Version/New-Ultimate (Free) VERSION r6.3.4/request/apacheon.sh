@@ -12,9 +12,9 @@ MEU_IP2=$(wget -qO- ipv4.icanhazip.com)
 }
 IP="$(fun_ip)"
 echo -e "${cor[4]} [0] >${cor[0]} $(fun_trans "VOLTAR")"
-echo -e "${cor[4]} [1] >${cor[3]} $(fun_trans "Colocar Arquivo Online")"
-echo -e "${cor[4]} [2] >${cor[3]} $(fun_trans "Remover Arquivo Online")"
-echo -e "${cor[4]} [3] >${cor[3]} $(fun_trans "Ver Links dos Arquivos Online")"
+echo -e "${cor[4]} [1] >${cor[3]} $(fun_trans "COLOCAR ARQUIVO ONLINE")"
+echo -e "${cor[4]} [2] >${cor[3]} $(fun_trans "REMOVER ARQUIVO ONLINE")"
+echo -e "${cor[4]} [3] >${cor[3]} $(fun_trans "VER LINKS DOS ARQUIVOS ONLINE")"
 echo -e "$barra"
 while [[ ${arquivoonlineadm} != @([0-3]) ]]; do
 read -p "[0-3]: " arquivoonlineadm

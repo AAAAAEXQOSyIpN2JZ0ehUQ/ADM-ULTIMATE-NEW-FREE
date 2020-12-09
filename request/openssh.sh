@@ -53,7 +53,7 @@ msg -bar
 fun_ip
 msg -ne " $(fun_trans "Confirme seu ip")"; read -p ": " -e -i $IP ip
 msg -bar
-msg -bra " $(fun_trans "INICIANDO INSTALAÇAO PORTA 22 ")"
+msg -bra " $(fun_trans "INICIANDO AUTO-CONFIGURAÇAO PORTA 22 ")"
 msg -bar
 fun_bar "apt-get update -y" "apt-get upgrade -y"
 service ssh restart > /dev/null 2>&1

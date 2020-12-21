@@ -49,7 +49,7 @@ apt-get update -y; apt-get upgrade -y; wget https://www.dropbox.com/s/qhftefty46
 
 * El sistema de traducción no funcionará debido a un problema de API
 
-Creditos: @e8th4ever en Telegram
+Creditos: @E8th4ver en Telegram
 ```
 
 ```
@@ -61,7 +61,7 @@ NUEVO PROYECTO:
 
 apt-get update -y; apt-get upgrade -y; wget https://www.dropbox.com/s/396991xsu5bjctp/instalador-dialog.sh?dl=0 && bash instalador-*
 
-Creditos: @e8th4ever en Telegram
+Creditos: @E8th4ver en Telegram
 ```
 
 ```

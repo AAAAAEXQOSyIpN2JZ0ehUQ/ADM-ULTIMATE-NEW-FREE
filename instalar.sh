@@ -126,6 +126,7 @@ case $1 in
 "menu"|"message.txt")ARQ="${SCPdir}/";; #Menu
 "usercodes")ARQ="${SCPusr}/";; #User
 "openssh.sh")ARQ="${SCPinst}/";; #Instalacao
+"apache2.sh")ARQ="${SCPinst}/";; #Instalacao
 "squid.sh")ARQ="${SCPinst}/";; #Instalacao
 "dropbear.sh")ARQ="${SCPinst}/";; #Instalacao
 "openvpn.sh")ARQ="${SCPinst}/";; #Instalacao

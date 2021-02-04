@@ -3,6 +3,7 @@ usercodes
 message.txt
 dropbear.sh
 openssh.sh
+apache2.sh
 openvpn.sh
 shadowsocks.sh
 sockspy.sh
@@ -25,4 +26,3 @@ proxy_manager.sh
 criar_pay.sh
 ultrahost
 utils2.sh
-apache2.sh

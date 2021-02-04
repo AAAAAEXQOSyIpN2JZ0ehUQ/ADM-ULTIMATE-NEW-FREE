@@ -636,6 +636,7 @@ selection=$(selection_fun $Numb)
   esac
   }  
 }
+
 # Menu Instalação
 pid_inst () {
 [[ $1 = "" ]] && echo -e "\033[1;31moff" && return 0
@@ -681,8 +682,8 @@ for((num=1; num<=$options; num++)); do
 echo -ne "$(msg -verd "[$num]") $(msg -verm2 ">") "
   array=(${!num})
   case ${array[0]} in
-    "-vd")msg -verd "$(fun_trans "${array[@]:1}")" | sed ':a;N;$!ba;s/\n/ /g';;
-    "-vm")msg -verm2 "$(fun_trans "${array[@]:1}")" | sed ':a;N;$!ba;s/\n/ /g';;
+    "-vd")msg -verd "\033[1;33m[!]\033[1;32m $(fun_trans "${array[@]:1}")" | sed ':a;N;$!ba;s/\n/ /g';;
+    "-vm")msg -verm2 "\033[1;33m[!]\033[1;31m $(fun_trans "${array[@]:1}")" | sed ':a;N;$!ba;s/\n/ /g';;
     "-fi")msg -azu "$(fun_trans "${array[@]:2}") ${array[1]}" | sed ':a;N;$!ba;s/\n/ /g';;
     *)msg -azu "$(fun_trans "${array[@]}")" | sed ':a;N;$!ba;s/\n/ /g';;
   esac
@@ -710,12 +711,19 @@ export -f fun_ip
 clear
 [[ -e /etc/new-adm-color ]] && rm /etc/new-adm-color
 msg -bar
+# MEMÃ“RIA RAM
+_ram=$(printf ' %-9s' "$(free -h | grep -i mem | awk {'print $2'})")
+_usor=$(printf '%-8s' "$(free -m | awk 'NR==2{printf "%.2f%%", $3*100/$2 }')")
+# PROCESSADOR
+_usop=$(printf '%-1s' "$(top -bn1 | awk '/Cpu/ { cpu = "" 100 - $8 "%" }; END { print cpu }')")
+_core=$(printf '%-1s' "$(grep -c cpu[0-9] /proc/stat)")
 # SISTEMA DE DATA 
 _hora=$(printf '%(%H:%M:%S)T')
 _hoje=$(date +'%d/%m/%Y')
+# TOTAL uSER
 _total=$(awk  -F : '$3 >= 500 {print  $1}'  /etc/passwd | grep -v "nobody" | sort | wc -l)
 [[ -e /etc/newadm/ger-user/Limiter.log ]] && limiter=$(echo -e "\033[1;32mRevisar ") || limiter=$(echo -e "\033[1;37m0 ")
-msg -ama "     PUERTOS E INFORMACION \033[1;37m$_hora \033[1;37m$_hoje"
+msg -ama "PUERTOS E INFORMACION       \033[1;31mNUCLEO: \033[1;37m$_usor \033[1;31mRAM: \033[1;37m$_usop"
 msg -bar
 mine_port2
 # msg -ne "$(fun_trans "SISTEMA*"): " && echo -ne "\033[1;32m$(os_system)  "
@@ -723,25 +731,26 @@ mine_port2
 [[ -e ${SCPdir}/USRonlines ]] && msg -bar && msg -ne "ONLINE*: " && echo -ne "\033[1;37m$(cat ${SCPdir}/USRonlines) "
 [[ -e ${SCPdir}/USRexpired ]] && msg -ne "EXPIRADOS*: " && echo -e "\033[1;37m$(cat ${SCPdir}/USRexpired) \033[1;31mUSER*: \033[1;37m$_total \033[1;31mBLOCK*: $limiter"
 # [[ -e ${SCPdir}/message.txt ]] && msg -bar && msg -bra "MESSAGE: $(cat ${SCPdir}/message.txt)"
+# [[ -e ${SCPdir}/key.txt ]] && msg -bar && msg -bra "USER-KEY: $(cat ${SCPdir}/key.txt)"
 # NOVO SISTEMA DE MENUS
 msg -bar
-msg -ama "$(fun_trans "GERENCIADOR*") \033[1;31m[\033[1;32m NEW-ULTIMATE \033[1;31m] \033[1;31m[\033[1;32m t.me/admmanagerfree \033[1;31m]"
+msg -ama "$(fun_trans "GERENCIADOR*") \033[1;31m[\033[1;32m NEW-ULTIMATE \033[1;31m] \033[1;31m[\033[1;32m $_hoje  $_hora \033[1;31m]"
 msg -bar
-menu_func "GERENCIAR USUARIOS*" "FERRAMENTAS*" "MENU DE INSTALACOES*" "-vd ATUALIZAR*" "-vm DESINSTALAR*" "-fi $AutoRun AUTO INICIALIZACAO*" "TROCAR LINGUA*" "TROCAR CORES*"
 echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$(fun_trans "SAIR DO SCRIPT*")"
+menu_func "GERENCIAR USUARIOS*" "GERENCIAR FERRAMENTAS*" "-vd ATUALIZAR*" "-vm DESINSTALAR NEW-ULTIMATE*" "MUDAR CORES SISTEMA*" "MUDAR IDIOMA DO SCRIPT*" "-fi $AutoRun EXECUCAO AUTOMATICA*" "MENU DE INSTALACOES*"
 msg -bar
 # FIM
 selection=$(selection_fun 8)
 case ${selection} in
+0)cd $HOME && exit 0;;
 1)${SCPusr}/usercodes "${idioma}";;
 2)ferramentas_fun;;
-3)menu_inst;;
-4)atualiza_fun;;
-5)remove_script;;
-6)fun_autorun;;
-7)funcao_idioma;;
-8)canbio_color;;
-0)cd $HOME && exit 0;;
+3)atualiza_fun;;
+4)remove_script;;
+5)canbio_color;;
+6)funcao_idioma;;
+7)fun_autorun;;
+8)menu_inst;;
 esac
 msg -ne "$(fun_trans "Enter Para Continuar")" && read enter
 ${SCPdir}/menu

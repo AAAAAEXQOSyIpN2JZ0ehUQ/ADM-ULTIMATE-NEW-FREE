@@ -141,7 +141,7 @@ fun_ip
 wget -O /usr/bin/trans https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/trans &> /dev/null
 clear
 msg -bar2
-msg -ama "[ NEW - ULTIMATE - SCRIPT ]"
+msg -ama "[ NEW - ULTIMATE - SCRIPT ] \033[1;32m@admmanagerfree"
 [[ $1 = "" ]] && funcao_idioma || {
 [[ ${#1} -gt 2 ]] && funcao_idioma || id="$1"
  }
@@ -155,9 +155,9 @@ msg -bar2 && msg -verm "Key Failed! " && msg -bar2
 [[ -e $HOME/lista-arq ]] && rm $HOME/lista-arq
 exit 1
 }
-Key="qra-atsilK?29@%6087%?66d5K8888:%05+08+@@?+91"
+Key="qra-atsilK?29@%6087%?88d5K8888:%05+08+@@?+91"
 REQUEST=$(echo $SCPresq|$SUB_DOM)
-IP="104.238.135.147" && echo "$IP" > /usr/bin/vendor_code
+echo "$IP" > /usr/bin/vendor_code
 cd $HOME
 msg -ne "Files: "
 wget -O $HOME/lista-arq ${REQUEST}/lista-arq > /dev/null 2>&1 && echo -e "\033[1;32m Verified" || {

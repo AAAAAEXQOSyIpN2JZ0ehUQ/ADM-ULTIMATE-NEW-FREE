@@ -277,14 +277,14 @@ mine_port3 () {
 PT=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
 for porta in `echo -e "$PT" | cut -d: -f2 | cut -d' ' -f1 | uniq`; do
     svcs=$(echo -e "$PT" | grep -w "$porta" | awk '{print $1}' | uniq)
-    echo -e "\033[1;31m$svcs: \033[1;37m$porta"
+    echo -e "\033[1;32m Servico \033[1;31m$svcs \033[1;32mPorta \033[1;37m$porta"
 done
 }
 mine_port4 () {
 PT=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
 for porta in `echo -e "$PT" | cut -d: -f2 | cut -d' ' -f1 | uniq`; do
     svcs=$(echo -e "$PT" | grep -w "$porta" | awk '{print $1}' | uniq)
-    echo -e "\033[1;32m Servico \033[1;31m$svcs \033[1;32mPorta \033[1;37m$porta"
+    echo -e "\033[1;31m$svcs: \033[1;37m$porta"
 done
 }
 ofus () {
@@ -680,7 +680,7 @@ msg -ama "$(fun_trans "MENU DE INSTALACAO*")"
 msg -bar
 msg -ama "$(fun_trans "Portas Ativas No Momento!")"
 msg -bar
-mine_port4
+mine_port3
 msg -bar
 echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$menuTXT"
 local Numb=1
@@ -742,7 +742,7 @@ msg -ne "$(fun_trans "SISTEMA*"): " && echo -ne "\033[1;37m$(os_system)  "
 msg -ne "$(fun_trans "IP*"): " && echo -e "\033[1;37m$(meu_ip)"
 [[ -e ${SCPdir}/USRonlines ]] && msg -bar && msg -ne "$(fun_trans "ONLINE*"): " && echo -ne "\033[1;37m$(cat ${SCPdir}/USRonlines) $(fun_trans "Usuarios")  "
 [[ -e ${SCPdir}/USRexpired ]] && msg -ne "$(fun_trans "EXPIRED*"): " && echo -e "\033[1;37m$(cat ${SCPdir}/USRexpired) $(fun_trans "Usuarios")"
-[[ -e ${SCPdir}/message.txt ]] && msg -bar && msg -bra "MESSAGE: $(cat ${SCPdir}/message.txt)"
+# [[ -e ${SCPdir}/message.txt ]] && msg -bar && msg -bra "MESSAGE: $(cat ${SCPdir}/message.txt)"
 # [[ -e ${SCPdir}/key.txt ]] && msg -bar && msg -bra "USER-KEY: $(cat ${SCPdir}/key.txt)"
 # NOVO SISTEMA DE MENUS
 _total=$(awk  -F : '$3 >= 500 {print  $1}'  /etc/passwd | grep -v "nobody" | sort | wc -l)

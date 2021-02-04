@@ -141,7 +141,7 @@ fun_ip
 wget -O /usr/bin/trans https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/trans &> /dev/null
 clear
 msg -bar2
-msg -ama "[ NEW - ULTIMATE - SCRIPT ] \033[1;32m@admmanagerfree"
+msg -ama "[ NEW - ULTIMATE - SCRIPT ]            \033[1;37m@admmanagerfree"
 [[ $1 = "" ]] && funcao_idioma || {
 [[ ${#1} -gt 2 ]] && funcao_idioma || id="$1"
  }
@@ -188,7 +188,7 @@ if [[ -e $HOME/lista-arq ]] && [[ ! $(cat $HOME/lista-arq|grep "KEY INVALIDA!") 
    echo "${SCPdir}/menu" > /usr/bin/menu && chmod +x /usr/bin/menu
    echo "${SCPdir}/menu" > /usr/bin/adm && chmod +x /usr/bin/adm
    echo "/etc/newadm/menu" > /bin/h && chmod +x /bin/h > /dev/null 2>&1
-   wget -O /root/versao https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/versao &> /dev/null
+   wget -O $HOME/versao https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/versao &> /dev/null
    inst_components
    echo "$Key" > ${SCPdir}/key.txt
    [[ -d ${SCPinstal} ]] && rm -rf ${SCPinstal}   

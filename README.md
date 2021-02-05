@@ -7,7 +7,7 @@
 ```
 * Se recomienda instalar en idioma PORTUGUES OPCION 6
 * Si lo instalao en otro idioma puede cambiarlo en MENU 7 OPCION 6
-* echo "pt" > /etc/newadm/idioma && chmod +x /etc/newadm/idioma
+* O ejecutar el comando: echo "pt" > /etc/newadm/idioma && chmod +x /etc/newadm/idioma
 ```
 
 -------------------------------------------------------------------------------

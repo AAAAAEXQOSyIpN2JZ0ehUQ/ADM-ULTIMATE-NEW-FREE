@@ -49,26 +49,6 @@ realizar cambios al scripts o borrar algun archivo.
 ```
 
 ```
-VERSION LIBERADA DEL DESARROLLADOR:
-
-apt-get update -y; apt-get upgrade -y; wget https://www.dropbox.com/s/qhftefty46hz51x/newfreeinstal?dl=0 && bash new*
-
-* El sistema de traducción no funcionará debido a un problema de API
-
-Creditos: @E8th4ver en Telegram
-```
-
-```
-NUEVO PROYECTO:
-
-* Cualquiera que quiera probar el progreso del proyecto y ayuda será bienvenido y tendrá su crédito dentro del código 😄
-
-apt-get update -y; apt-get upgrade -y; wget https://www.dropbox.com/s/396991xsu5bjctp/instalador-dialog.sh?dl=0 && bash instalador-*
-
-Creditos: @E8th4ver en Telegram
-```
-
-```
 * SIN MINERIA! 
 * SIN KEYS! 
 * VERSION GRATUITA 

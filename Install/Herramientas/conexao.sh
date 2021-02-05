@@ -10,11 +10,11 @@ lst=$1 && lst1=$2 && lst2=$3 && key1=$4 && key2=crz
 echo -e 'by: @CRAZY_VPN' >/usr/lib/sshplus && cat /usr/lib/sshplus >$lst2/licence && cat /usr/lib/sshplus > /etc/SSHPlus/.tmp/crazy
 echo "$_lvk" | sed -n '1 p' | cut -d' ' -f2 >/bin/versao && cat /bin/versao >/home/sshplus
 #====================================================
+[[ ! -e /etc/SSHPlus/Exp ]] && touch /etc/SSHPlus/Exp > /dev/null 2>&1
+[[ ! -d /etc/SSHPlus/.tmp ]] && mkdir /etc/SSHPlus/.tmp > /dev/null 2>&1
 [[ ! -d /etc/SSHPlus ]] && mkdir /etc/SSHPlus > /dev/null 2>&1
 link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Herramientas/proxy.py"
 [[ ! -e /etc/SSHPlus/proxy.py ]] && wget -O /etc/SSHPlus/proxy.py ${link_bin} > /dev/null 2>&1 && chmod +x /etc/SSHPlus/proxy.py
-#====================================================
-[[ ! -e /etc/SSHPlus/Exp ]] && touch /etc/SSHPlus/Exp
 #====================================================
 fun_ip () {
 if [[ -e /etc/MEUIPADM ]]; then

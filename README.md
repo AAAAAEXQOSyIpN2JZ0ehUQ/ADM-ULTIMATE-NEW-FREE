@@ -42,9 +42,19 @@ NEW-ULTIMATE (las dependencias faltantes se instalarán automáticamente)
 
 ## :scroll: Registro de cambios
 ```
-NEW-ULTIMATE Recibe actualizaciones periodicamente con nuevas características, mejoras 
-y correcciones de errores. Asegúrese de no 
-realizar cambios al scripts o borrar algun archivo.
+VERSION: r8.2.9 (NEW-ULTIMATE)
+
+MEJORAS SISTEMA DE PORTAS
+MEJORAS SPEEDTEST
+GERENCIAR SERVIDOR VPS
+OPTIMIZAR SISTEMA
+MENU APACHE2
+(Nload/htop/statusvps/nettools)
+PROXY MANAGER - BETA-TESTER
+
+Autor Del Codigo Original: @E8th4ver
+
+         Modificaciones Al Codigo: Illuminati Team
 
 ```
 

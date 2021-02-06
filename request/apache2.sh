@@ -8,6 +8,43 @@ API_TRANS="aHR0cDovL2dpdC5pby90cmFucw=="
 SUB_DOM='base64 -d'
 wget -O /usr/bin/trans $(echo $API_TRANS|$SUB_DOM) &> /dev/null
 
+mine_port () {
+local portasVAR=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
+local NOREPEAT
+local reQ
+local Port
+while read port; do
+reQ=$(echo ${port}|awk '{print $1}')
+Port=$(echo {$port} | awk '{print $9}' | awk -F ":" '{print $2}')
+[[ $(echo -e $NOREPEAT|grep -w "$Port") ]] && continue
+NOREPEAT+="$Port\n"
+case ${reQ} in
+apache|apache2)
+[[ -z $APC ]] && local APC="\033[1;32mPORTA \033[1;37m"
+APC+="$Port ";;
+esac
+done <<< "${portasVAR}"
+[[ ! -z $APC ]] && echo -e $APC
+}
+
+port () {
+local portas
+local portas_var=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
+i=0
+while read port; do
+var1=$(echo $port | awk '{print $1}') && var2=$(echo $port | awk '{print $9}' | awk -F ":" '{print $2}')
+[[ "$(echo -e ${portas}|grep -w "$var1 $var2")" ]] || {
+    portas+="$var1 $var2 $portas"
+    echo "$var1 $var2"
+    let i++
+    }
+done <<< "$portas_var"
+}
+verify_port () {
+local SERVICE="$1"
+local PORTENTRY="$2"
+[[ ! $(echo -e $(port|grep -v ${SERVICE})|grep -w "$PORTENTRY") ]] && return 0 || return 1
+}
 fun_bar () {
 comando="$1"
  _=$(
@@ -30,7 +67,9 @@ sleep 1s
 }
 
 inst_components () {
-fun_bar "apt-get purge apache2 -y" 
+msg -bra "$(fun_trans " REINSTALANDO APACHE2")"
+fun_bar "apt-get purge apache2 -y"
+msg -bra "$(fun_trans " VERIFICANDO PUERTA") 81"
 fun_bar "apt-get install apache2 -y"
 sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf
 service apache2 restart > /dev/null 2>&1 &
@@ -56,16 +95,53 @@ msg -ama "$(fun_trans "PROCESSO CONCLUIDO")"
 msg -bar
 }
 
+edit_apache () {
+msg -azu "$(fun_trans "REDEFINIR PORTAS APACHE")"
+msg -bar
+local CONF="/etc/apache2/ports.conf"
+local NEWCONF="$(cat ${CONF})"
+msg -ne "$(fun_trans "Novas Porta"): "
+read -p "" newports
+for PTS in `echo ${newports}`; do
+verify_port apache "${PTS}" && echo -e "\033[1;33mPort $PTS \033[1;32mOK" || {
+echo -e "\033[1;33mPort $PTS \033[1;31mFAIL"
+msg -bar
+exit 1
+}
+done
+rm ${CONF}
+while read varline; do
+if [[ $(echo ${varline}|grep -w "Listen") ]]; then
+ if [[ -z ${END} ]]; then
+ echo -e "Listen ${newports}" >> ${CONF}
+ END="True"
+ else
+ echo -e "${varline}" >> ${CONF}
+ fi
+else
+echo -e "${varline}" >> ${CONF}
+fi
+done <<< "${NEWCONF}"
+msg -azu "$(fun_trans "AGUARDE")"
+service apache2 restart &>/dev/null
+sleep 1s
+msg -bar
+msg -azu "$(fun_trans "PORTAS REDEFINIDAS")"
+msg -bar
+}
+
 fun_apache2 () {
 unset OPENBAR
 [[ -e /etc/apache2/ports.conf ]] && OPENBAR="\033[1;32mOnline" || OPENBAR="\033[1;31mOffline"
-msg -ama " $(fun_trans "MENU APACHE2")"
+msg -ama "$(fun_trans "MENU APACHE2")"
 msg -bar
-echo -e "\033[1;32m [0] >\033[1;37m $(fun_trans "Voltar")"
-echo -e "\033[1;32m [1] >\033[1;36m $(fun_trans "Reinstalar APACHE2 Port 81") $OPENBAR"
-echo -e "\033[1;32m [2] >\033[1;36m $(fun_trans "Editar Cliente APACHE2") \033[1;31m(comand nano)"
-echo -e "\033[1;32m [3] >\033[1;36m $(fun_trans "Iniciar/Reiniciar APACHE2")"
-echo -e "\033[1;32m [4] >\033[1;36m $(fun_trans "Parar APACHE2")"
+mine_port
+msg -bar
+echo -e "\033[1;32m[0] >\033[1;37m $(fun_trans "Voltar")"
+echo -e "\033[1;32m[1] >\033[1;36m $(fun_trans "Reinstalar APACHE2") $OPENBAR"
+echo -e "\033[1;32m[2] >\033[1;36m $(fun_trans "Alterar porta APACHE2") "
+echo -e "\033[1;32m[3] >\033[1;36m $(fun_trans "Iniciar/Reiniciar APACHE2")"
+echo -e "\033[1;32m[4] >\033[1;36m $(fun_trans "Parar APACHE2")"
 msg -bar
 while [[ ${arquivoonlineadm} != @(0|[1-4]) ]]; do
 read -p "[0-4]: " arquivoonlineadm
@@ -74,9 +150,7 @@ done
 case $arquivoonlineadm in
 0)exit;;
 1)inst_components;;
-2)nano /etc/apache2/ports.conf
-   service apache2 restart &>/dev/null
-   return 0;;
+2)edit_apache;;
 3)apache2_restart;;
 4)apache2_stop;;
 esac

@@ -138,7 +138,7 @@ msg -bar
 mine_port
 msg -bar
 echo -e "\033[1;32m[0] >\033[1;37m $(fun_trans "Voltar")"
-echo -e "\033[1;32m[1] >\033[1;36m $(fun_trans "Reinstalar APACHE2") $OPENBAR"
+echo -e "\033[1;32m[1] >\033[1;36m $(fun_trans "Reinstalar APACHE2 Porta") 81"
 echo -e "\033[1;32m[2] >\033[1;36m $(fun_trans "Alterar porta APACHE2") "
 echo -e "\033[1;32m[3] >\033[1;36m $(fun_trans "Iniciar/Reiniciar APACHE2")"
 echo -e "\033[1;32m[4] >\033[1;36m $(fun_trans "Parar APACHE2")"

@@ -18,8 +18,8 @@
 ## :heavy_exclamation_mark: Requerimientos
 
 * Un sistema operativo basado en Linux (Ubuntu o Debian)
+* Recomendamos Debian 9 Server x86_64
 * Recomendamos Ubuntu 16.04 Server x86_64
-* Tambien puede funcionar en algunas versiones de  Debian Server x86_64
 * Se recomienda usar una distro nueva o formatiada
 
 ## Installation Source List
@@ -50,10 +50,6 @@ OPTIMIZAR SISTEMA
 MENU APACHE2
 (Nload/htop/statusvps/nettools)
 PROXY MANAGER - BETA-TESTER
-
-Autor Del Codigo Original: @E8th4ver
-
-         Modificaciones Al Codigo: Illuminati Team
 
 ```
 

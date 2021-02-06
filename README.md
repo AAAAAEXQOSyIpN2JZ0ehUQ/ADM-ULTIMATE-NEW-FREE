@@ -41,7 +41,7 @@ NEW-ULTIMATE (las dependencias faltantes se instalarán automáticamente)
 
 ## :scroll: Registro de cambios
 ```
-VERSION: r8.2.9 (NEW-ULTIMATE)
+VERSION: r8.2.9
 
 MEJORAS SISTEMA DE PORTAS
 MEJORAS SPEEDTEST

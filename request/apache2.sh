@@ -20,7 +20,7 @@ Port=$(echo {$port} | awk '{print $9}' | awk -F ":" '{print $2}')
 NOREPEAT+="$Port\n"
 case ${reQ} in
 apache|apache2)
-[[ -z $APC ]] && local APC="\033[1;32mPORTA \033[1;37m"
+[[ -z $APC ]] && msg -bar && local APC="\033[1;32mPORTA \033[1;37m"
 APC+="$Port ";;
 esac
 done <<< "${portasVAR}"
@@ -134,13 +134,13 @@ fun_apache2 () {
 unset OPENBAR
 [[ -e /etc/apache2/ports.conf ]] && OPENBAR="\033[1;32mOnline" || OPENBAR="\033[1;31mOffline"
 msg -ama "$(fun_trans "MENU APACHE2")"
-msg -bar
+#msg -bar
 mine_port
 msg -bar
 echo -e "\033[1;32m[0] >\033[1;37m $(fun_trans "Voltar")"
-echo -e "\033[1;32m[1] >\033[1;36m $(fun_trans "Reinstalar APACHE2 Porta") 81"
+echo -e "\033[1;32m[1] >\033[1;36m $(fun_trans "Reinstalar APACHE2")" 
 echo -e "\033[1;32m[2] >\033[1;36m $(fun_trans "Alterar porta APACHE2") "
-echo -e "\033[1;32m[3] >\033[1;36m $(fun_trans "Iniciar/Reiniciar APACHE2")"
+echo -e "\033[1;32m[3] >\033[1;36m $(fun_trans "Iniciar/Reiniciar APACHE2") $OPENBAR"
 echo -e "\033[1;32m[4] >\033[1;36m $(fun_trans "Parar APACHE2")"
 msg -bar
 while [[ ${arquivoonlineadm} != @(0|[1-4]) ]]; do

@@ -38,6 +38,7 @@ $(cat /etc/openvpn/ca.pem)
   cd $HOME
   zip ./$1.zip ./$1.ovpn > /dev/null 2>&1
   rm ./$1.ovpn > /dev/null 2>&1
+  unzip $HOME/$1.zip > /dev/null 2>&1
   echo -e "\033[1;31m$(fun_trans "Arquivo Criado em"): ($HOME/$1.zip)"
  fi
 }
@@ -307,7 +308,7 @@ while true; do
      err_fun 7 && continue
      elif [[ "$diasuser" != +([0-9]) ]]; then
      err_fun 8 && continue
-     elif [[ "$diasuser" -gt "999999" ]]; then
+     elif [[ "$diasuser" -gt "999999999" ]]; then
      err_fun 9 && continue
      fi 
      break
@@ -319,7 +320,7 @@ while true; do
      err_fun 11 && continue
      elif [[ "$limiteuser" != +([0-9]) ]]; then
      err_fun 12 && continue
-     elif [[ "$limiteuser" -gt "999" ]]; then
+     elif [[ "$limiteuser" -gt "9999" ]]; then
      err_fun 13 && continue
      fi
      break

@@ -79,22 +79,6 @@ msg -ama "$(fun_trans "PROCESSO CONCLUIDO")"
 msg -bar
 }
 
-apache2_restart () {
-fun_bar "service apache2 start" "service apache2 restart"
-sleep 0.5s
-msg -bar
-msg -ama "$(fun_trans "PROCESSO CONCLUIDO")"
-msg -bar
-}
-
-apache2_stop () {
-fun_bar "service apache2 stop"
-sleep 0.5s
-msg -bar
-msg -ama "$(fun_trans "PROCESSO CONCLUIDO")"
-msg -bar
-}
-
 edit_apache () {
 msg -azu "$(fun_trans "REDEFINIR PORTAS APACHE")"
 msg -bar
@@ -130,6 +114,23 @@ msg -azu "$(fun_trans "PORTAS REDEFINIDAS")"
 msg -bar
 }
 
+apache2_restart () {
+fun_bar "service apache2 start" "service apache2 restart"
+sleep 0.5s
+msg -bar
+msg -ama "$(fun_trans "PROCESSO CONCLUIDO")"
+msg -bar
+}
+
+apache2_stop () {
+fun_bar "service apache2 stop"
+apt-get purge apache2 -y &>/dev/null
+sleep 0.5s
+msg -bar
+msg -ama "$(fun_trans "PROCESSO CONCLUIDO")"
+msg -bar
+}
+
 fun_apache2 () {
 unset OPENBAR
 [[ -e /etc/apache2/ports.conf ]] && OPENBAR="\033[1;32mOnline" || OPENBAR="\033[1;31mOffline"
@@ -138,9 +139,9 @@ msg -ama "$(fun_trans "MENU") APACHE_2"
 mine_port
 msg -bar
 echo -e "\033[1;32m[0] >\033[1;37m $(fun_trans "Voltar")"
-echo -e "\033[1;32m[1] >\033[1;36m $(fun_trans "Reinstalar") APACHE_2" 
+echo -e "\033[1;32m[1] >\033[1;36m $(fun_trans "Reinstalar") APACHE_2 $OPENBAR" 
 echo -e "\033[1;32m[2] >\033[1;36m $(fun_trans "Alterar porta") APACHE_2"
-echo -e "\033[1;32m[3] >\033[1;36m $(fun_trans "Iniciar/Reiniciar") APACHE_2 $OPENBAR"
+echo -e "\033[1;32m[3] >\033[1;36m $(fun_trans "Iniciar/Reiniciar") APACHE_2"
 echo -e "\033[1;32m[4] >\033[1;36m $(fun_trans "Parar") APACHE_2"
 msg -bar
 while [[ ${arquivoonlineadm} != @(0|[1-4]) ]]; do

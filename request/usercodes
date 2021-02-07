@@ -40,6 +40,7 @@ $(cat /etc/openvpn/ca.pem)
   rm ./$1.ovpn > /dev/null 2>&1
   unzip $HOME/$1.zip > /dev/null 2>&1
   echo -e "\033[1;31m$(fun_trans "Arquivo Criado em"): ($HOME/$1.zip)"
+  rm zip $HOME/$1.zip > /dev/null 2>&1
  fi
 }
 block_userfun () {

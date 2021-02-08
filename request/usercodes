@@ -309,7 +309,7 @@ while true; do
      err_fun 7 && continue
      elif [[ "$diasuser" != +([0-9]) ]]; then
      err_fun 8 && continue
-     elif [[ "$diasuser" -gt "999999999" ]]; then
+     elif [[ "$diasuser" -gt "365" ]]; then
      err_fun 9 && continue
      fi 
      break
@@ -321,7 +321,7 @@ while true; do
      err_fun 11 && continue
      elif [[ "$limiteuser" != +([0-9]) ]]; then
      err_fun 12 && continue
-     elif [[ "$limiteuser" -gt "9999" ]]; then
+     elif [[ "$limiteuser" -gt "999" ]]; then
      err_fun 13 && continue
      fi
      break

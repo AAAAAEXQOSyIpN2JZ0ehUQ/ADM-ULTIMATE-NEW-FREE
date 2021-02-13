@@ -119,7 +119,7 @@ echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "ELIMINAR VNC")"
 echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "ACTUALIZAR VNC")"
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
 echo -e "$barra"
-while [[ ${arquivoonlineadm} != @(0|[1-2]) ]]; do
+while [[ ${arquivoonlineadm} != @(0|[1-3]) ]]; do
 read -p "Selecione a Opcao: " arquivoonlineadm
 tput cuu1 && tput dl1
 done

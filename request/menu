@@ -569,6 +569,9 @@ case $1 in
 "optimizar.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "OPTIMIZAR SISTEMA*") $dev";;
 "gestor.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "GERENCIAR SISTEMA*") $dev";;
 "utils2.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "(Nload/htop/statussistema/nettools) $dev";;
+"paysnd.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "PAYLOAD FORCA BRUTA BASH*") $dev";;
+"fai2ban.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "FAIL2BAN PROTECAO*") $dev";;
+"vnc.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "VNC SERVER*") $dev";;
 "proxy_manager.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "PROXY MANAGER*") \033[1;33m(\033[1;37mBETA\033[1;33m) $dev";;
 # Menu Instalação Ger-Inst OFC
 "apache2.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "APACHE2 $(pid_inst apache2)";;

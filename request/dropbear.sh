@@ -72,10 +72,13 @@ sleep 1s
 }
 fun_dropbear () {
  [[ -e /etc/default/dropbear ]] && {
- echo -e "\033[1;32m $(fun_trans "REMOVENDO DROPBEAR*")\n$barra"
+ echo -e "\033[1;32m $(fun_trans "REMOVENDO DROPBEAR*")"
+msg -bar
  service dropbear stop > /dev/null 2>&1
  fun_bar "apt-get remove dropbear -y"
- echo -e "$barra\n\033[1;32m $(fun_trans "Dropbear Removido")!\n$barra"
+ msg -bar
+ echo -e "\033[1;32m $(fun_trans "Dropbear Removido")!"
+ msg -bar
  [[ -e /etc/default/dropbear ]] && rm /etc/default/dropbear
  return 0
  }

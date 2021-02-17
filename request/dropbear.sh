@@ -79,7 +79,8 @@ fun_dropbear () {
  [[ -e /etc/default/dropbear ]] && rm /etc/default/dropbear
  return 0
  }
-echo -e "\033[1;32m $(fun_trans "INSTALADOR DROPBEAR*")ADM-ULTIMATE\n$barra"
+echo -e "\033[1;32m $(fun_trans "INSTALADOR DROPBEAR*")ADM-ULTIMATE"
+msg -bar
 echo -e "\033[1;31m $(fun_trans "Selecione Portas Validas em Ordem Sequencial:")\033[1;32m 22 80 81 82 85 90\033[1;37m"
 msg -bar
 echo -ne "\033[1;31m $(fun_trans "Digite a Porta"): \033[1;37m" && read DPORT

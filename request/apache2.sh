@@ -138,11 +138,11 @@ msg -ama "$(fun_trans "MENU") APACHE_2"
 #msg -bar
 mine_port
 msg -bar
-echo -e "\033[1;32m[0] > " && msg -bra "$(fun_trans "Voltar")"
-echo -e "\033[1;32m[1] > " && msg -azu "$(fun_trans "Reinstalar") APACHE_2 $OPENBAR" 
-echo -e "\033[1;32m[2] > " && msg -azu "$(fun_trans "Alterar porta") APACHE_2"
-echo -e "\033[1;32m[3] > " && msg -azu "$(fun_trans "Iniciar/Reiniciar") APACHE_2"
-echo -e "\033[1;32m[4] > " && msg -azu "$(fun_trans "Parar") APACHE_2"
+echo -e "\033[1;32m[0] >\033[1;37m $(fun_trans "Voltar")"
+echo -e "\033[1;32m[1] >\033[1;36m $(fun_trans "Reinstalar") APACHE_2 $OPENBAR" 
+echo -e "\033[1;32m[2] >\033[1;36m $(fun_trans "Alterar porta") APACHE_2"
+echo -e "\033[1;32m[3] >\033[1;36m $(fun_trans "Iniciar/Reiniciar") APACHE_2"
+echo -e "\033[1;32m[4] >\033[1;36m $(fun_trans "Parar") APACHE_2"
 msg -bar
 while [[ ${arquivoonlineadm} != @(0|[1-4]) ]]; do
 read -p "[0-4]: " arquivoonlineadm

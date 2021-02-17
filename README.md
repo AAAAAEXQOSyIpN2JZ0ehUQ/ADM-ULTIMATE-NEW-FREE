@@ -3,8 +3,6 @@
 
 ![logo](https://github.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/blob/master/Imagenes/ADM_ULTIMATE_NEW_FREE.jpg)
 
--------------------------------------------------------------------------------
-
 **Manager Script**
 
 ## :heavy_exclamation_mark: Requerimientos

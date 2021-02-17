@@ -14,7 +14,6 @@ MEU_IP2=$(wget -qO- ipv4.icanhazip.com)
 echo "$MEU_IP2" > /etc/MEUIPADM
 fi
 }
-IP="$(meu_ip)"
 fun_ssh () {
 sshvar=$(cat /etc/ssh/sshd_config | grep -v "Port $1")
 echo "$sshvar" > /etc/ssh/sshd_config
@@ -48,7 +47,7 @@ eth=$(ifconfig | grep -v inet6 | grep -v lo | grep -v 127.0.0.1 | grep "encap:Et
      }
 }
 openssh () {
-msg -verd " $(fun_trans "OPENSSH AUTO-CONFIGURAÇAO ADM-ULTIMATE")"
+msg -verd " $(fun_trans "OPENSSH AUTO-CONFIGURAÇAO")"
 msg -bar
 fun_ip
 msg -ne " $(fun_trans "Confirme seu ip")"; read -p ": " -e -i $IP ip

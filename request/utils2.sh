@@ -6,6 +6,9 @@ SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 
+link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/nettools.py"
+[[ ! -e /bin/nettools.py ]] && wget -O /bin/nettools.py ${link_bin} > /dev/null 2>&1 && chmod +x /bin/nettools.py
+
 meu_ip () {
 if [[ -e /etc/MEUIPADM ]]; then
 echo "$(cat /etc/MEUIPADM)"
@@ -128,8 +131,6 @@ done
 }
 
 fun_nettools () {
-link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/nettools.py"
-[[ ! -e /bin/nettools.py ]] && wget -O /bin/nettools.py ${link_bin} > /dev/null 2>&1 && chmod +x /bin/nettools.py 
 /bin/nettools.py
 }
 

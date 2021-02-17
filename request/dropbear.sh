@@ -131,9 +131,9 @@ Subsystem sftp /usr/lib/openssh/sftp-server
 UsePAM yes" > /etc/ssh/sshd_config
 msg -bar
 echo -e "${cor[2]} $(fun_trans "Instalando dropbear")"
-echo -e "$barra"
+msg -bar
 fun_bar "apt-get install dropbear -y"
-echo -e "$barra"
+msg -bar
 touch /etc/dropbear/banner
 echo -e "${cor[2]} $(fun_trans "Configurando dropbear")"
 cat <<EOF > /etc/default/dropbear
@@ -194,7 +194,8 @@ sed -i "s/VAR//g" /etc/default/dropbear
 fun_eth
 service ssh restart > /dev/null 2>&1
 service dropbear restart > /dev/null 2>&1
-echo -e "${cor[3]} $(fun_trans "Seu dropbear foi configurado com sucesso")\n$barra"
+echo -e "${cor[3]} $(fun_trans "Seu dropbear foi configurado com sucesso")"
+msg -bar
 #UFW
 for ufww in $(mportas|awk '{print $2}'); do
 ufw allow $ufww > /dev/null 2>&1

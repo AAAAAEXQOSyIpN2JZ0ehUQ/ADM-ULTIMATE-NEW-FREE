@@ -28,10 +28,10 @@ fi
 fun_eth () {
 eth=$(ifconfig | grep -v inet6 | grep -v lo | grep -v 127.0.0.1 | grep "encap:Ethernet" | awk '{print $1}')
     [[ $eth != "" ]] && {
-    echo -e "$barra"
-    echo -e "${cor[3]} $(fun_trans "Aplicar Sistema Para Melhorar Pacotes Ssh?")"
-    echo -e "${cor[3]} $(fun_trans "Opcao Para Usuarios Avancados")"
-    echo -e "$barra"
+    msg -bar
+    msg -ama " $(fun_trans "Aplicar Sistema Para Melhorar Pacotes Ssh?")"
+    msg -ama " $(fun_trans "Opcao Para Usuarios Avancados")"
+    msg -bar
     read -p " [S/N]: " -e -i n sshsn
 	tput cuu1 && tput dl1
            [[ "$sshsn" = @(s|S|y|Y) ]] && {
@@ -44,7 +44,7 @@ eth=$(ifconfig | grep -v inet6 | grep -v lo | grep -v 127.0.0.1 | grep "encap:Et
            [[ "$tx" = "" ]] && tx="999999999"
            apt-get install ethtool -y > /dev/null 2>&1
            ethtool -G $eth rx $rx tx $tx > /dev/null 2>&1
-           echo -e "$barra"
+           msg -bar
            }
      }
 }
@@ -64,7 +64,8 @@ echo -ne " \033[1;33m["
 echo -ne "\033[1;33m]"
 sleep 1s
 echo
-tput cuu1 && tput dl1
+tput cuu1
+tput dl1
 done
 echo -e " \033[1;33m[\033[1;31m####################\033[1;33m] - \033[1;32m100%\033[0m"
 sleep 1s
@@ -80,7 +81,7 @@ fun_dropbear () {
  }
 echo -e "\033[1;32m $(fun_trans "INSTALADOR DROPBEAR*")ADM-ULTIMATE\n$barra"
 echo -e "\033[1;31m $(fun_trans "Selecione Portas Validas em Ordem Sequencial:")\033[1;32m 22 80 81 82 85 90\033[1;37m"
-echo -e "$barra"
+msg -bar
 echo -ne "\033[1;31m $(fun_trans "Digite a Porta"): \033[1;37m" && read DPORT
 tput cuu1 && tput dl1
 TTOTAL=($DPORT)

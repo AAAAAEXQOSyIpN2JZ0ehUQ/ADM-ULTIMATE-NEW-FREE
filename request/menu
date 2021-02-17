@@ -507,6 +507,10 @@ rm -rf ${SCPinst} &>/dev/null
 [[ -e /usr/bin/menu ]] && rm /usr/bin/menu
 [[ -e /bin/trans ]] && rm /bin/trans
 [[ -e /usr/bin/trans ]] && rm /usr/bin/trans
+[[ -e /bin/speedtest ]] && rm /bin/speedtest
+[[ -e /bin/payloads ]] && rm /bin/payloads
+[[ -e /bin/badvpn-udpgw ]] && rm /bin/badvpn-udpgw
+[[ -e /bin/nettools.py ]] && rm /bin/nettools.py
 cd $HOME
 msg -ama "$(fun_trans "SCRIPT REMOVIDO COM SUCESSO")?"
 msg -bar
@@ -516,6 +520,7 @@ fi
 # Menu Ferramentas
 systen_info () {
 msg -ama "$(fun_trans "DETALHES DO SISTEMA")"
+msg -bar
 null="\033[1;31m"
 if [ ! /proc/cpuinfo ]; then msg -verm "$(fun_trans "Sistema Nao Suportado")" && msg -bar; return 1; fi
 if [ ! /etc/issue.net ]; then msg -verm "$(fun_trans "Sistema Nao Suportado")" && msg -bar; return 1; fi

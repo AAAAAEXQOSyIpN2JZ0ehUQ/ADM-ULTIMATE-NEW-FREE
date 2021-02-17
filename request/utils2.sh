@@ -6,9 +6,6 @@ SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 
-link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/nettools.py"
-[[ ! -e /bin/nettools.py ]] && wget -O /bin/nettools.py ${link_bin} > /dev/null 2>&1 && chmod +x /bin/nettools.py
-
 meu_ip () {
 if [[ -e /etc/MEUIPADM ]]; then
 echo "$(cat /etc/MEUIPADM)"
@@ -66,7 +63,7 @@ htop
 
 fun_statussistema () {
 echo -e "\033[1;33m STATUS DO SISTEMA"
-echo -e "$barra"
+msg -bar
 # SISTEMA OPERACIONAL
 _hora=$(printf '%(%H:%M:%S)T')
 _hoje=$(date +'%d/%m/%Y')
@@ -91,7 +88,7 @@ system=$(cat /etc/issue.net)
 echo -e "\033[1;31mNome: \033[1;37m$system"
 fi
 # PROCESSADOR
-echo -e "$barra"
+msg -bar
 if [ -f /proc/cpuinfo ]
 then
 uso=$(top -bn1 | awk '/Cpu/ { cpu = "" 100 - $8 "%" }; END { print cpu }')
@@ -107,7 +104,7 @@ else
 echo "Não foi possivel obter informações"
 fi
 # MEMORIA RAM
-echo -e "$barra"
+msg -bar
 if free 1>/dev/null 2>/dev/null
 then
 ram1=$(free -h | grep -i mem | awk {'print $2'})
@@ -122,7 +119,7 @@ else
 echo "Não foi possivel obter informações"
 fi
 # SERVICOS EM EXECUCAO
-echo -e "$barra"
+msg -bar
 PT=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
 for porta in `echo -e "$PT" | cut -d: -f2 | cut -d' ' -f1 | uniq`; do
     svcs=$(echo -e "$PT" | grep -w "$porta" | awk '{print $1}' | uniq)
@@ -131,6 +128,8 @@ done
 }
 
 fun_nettools () {
+link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/nettools.py"
+[[ ! -e /bin/nettools.py ]] && wget -O /bin/nettools.py ${link_bin} > /dev/null 2>&1 && chmod +x /bin/nettools.py 
 /bin/nettools.py
 }
 

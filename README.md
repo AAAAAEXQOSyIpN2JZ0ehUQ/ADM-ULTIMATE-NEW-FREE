@@ -1,5 +1,7 @@
 ﻿# NEW-ULTIMATE r8.2.9
-
+```
+* UPDATE 17/02/2021
+```
 ![logo](https://github.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/blob/master/Imagenes/ADM_ULTIMATE_NEW_FREE.jpg)
 
 **Manager Script**
@@ -10,7 +12,6 @@
 * Recomendamos Debian 9 Server x86_64
 * Recomendamos Ubuntu 16.04 Server x86_64
 * Se recomienda usar una distro nueva o formatiada
-* UPDATE 17/02/2021
 
 ## Installation NEW-ULTIMATE r8.2.9
 

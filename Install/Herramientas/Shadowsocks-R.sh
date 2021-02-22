@@ -62,45 +62,44 @@ echo -e " \033[1;33m[\033[1;31m####################\033[1;33m] - \033[1;32m100%\
 sleep 1s
 }
 fun_shadowsocks () {
-[[ -e /etc/shadowsocks-libev/config.json ]] && {
-[[ $(ps ax|grep ss-server|grep -v grep|awk '{print $1}') != "" ]] && kill -9 $(ps ax|grep ss-server|grep -v grep|awk '{print $1}') > /dev/null 2>&1 && ss-server -c /etc/shadowsocks-libev/config.json -d stop > /dev/null 2>&1
-echo -e "\033[1;33m $(fun_trans ${id} "SHADOWSOCKS PLUS PARADO")"
+[[ -e /etc/shadowsocks-r/config.json ]] && {
+[[ $(ps ax|grep /etc/shadowsocks-r|grep -v grep|awk '{print $1}') != "" ]] && kill -9 $(ps ax|grep /etc/shadowsocks-r|grep -v grep|awk '{print $1}') > /dev/null 2>&1 && ss-server -c /etc/shadowsocks-r/config.json -d stop > /dev/null 2>&1
+echo -e "\033[1;33m $(fun_trans ${id} "SHADOWSOCKS R PARADO")"
 msg -bar
-rm /etc/shadowsocks-libev/config.json
+rm -rf /etc/shadowsocks-r/config.json
 return 0
 }
-echo -e "${cor[3]}  INSTALADOR SHADOWSOCK-LIBEV+(obfs) By @Kalix1"
+echo -e "${cor[3]}  INSTALADOR SHADOWSOCK-R+(obfs) By @Kalix1"
 msg -bar
 echo -e "${cor[1]} Escoja la opcion deseada."
 msg -bar
-echo "1).- INSTALAR SHADOWSOCK-LIBEV"
-echo "2).- DESINSTALAR SHADOWSOCK-LIBEV"
+echo "1).- INSTALAR SHADOWSOCK-R"
+echo "2).- DESINSTALAR SHADOWSOCK-R"
 msg -bar
 echo -n "Digite solo el numero segun su respuesta: "
 read opcao
 case $opcao in
 1)
 msg -bar
-wget --no-check-certificate -O Instalador-Shadowsocks-libev.sh https://raw.githubusercontent.com/VPS-MX/VPS-MX-8.0/master/ArchivosUtilitarios/Instalador-Shadowsocks-libev.sh > /dev/null 2>&1
-chmod +x Instalador-Shadowsocks-libev.sh
-./Instalador-Shadowsocks-libev.sh 2>&1 | tee Instalador-Shadowsocks-libev.log
+wget --no-check-certificate -O Instalador-Shadowsocks-R.sh https://raw.githubusercontent.com/VPS-MX/VPS-MX-8.0/master/ArchivosUtilitarios/Instalador-Shadowsocks-R.sh > /dev/null 2>&1
+chmod +x Instalador-Shadowsocks-R.sh
+./Instalador-Shadowsocks-R.sh 2>&1 | tee Instalador-Shadowsocks-R.log
 
 ;;
 2)
 msg -bar
 echo -e "\033[1;93m  Desinstalar  ..."
 msg -bar
-wget --no-check-certificate -O Instalador-Shadowsocks-libev.sh https://raw.githubusercontent.com/VPS-MX/VPS-MX-8.0/master/ArchivosUtilitarios/Instalador-Shadowsocks-libev.sh > /dev/null 2>&1
-chmod +x Instalador-Shadowsocks-libev.sh
-./Instalador-Shadowsocks-libev.sh uninstall
-rm -rf Instalador-Shadowsocks-libev.sh
+wget --no-check-certificate -O Instalador-Shadowsocks-R.sh https://raw.githubusercontent.com/VPS-MX/VPS-MX-8.0/master/ArchivosUtilitarios/Instalador-Shadowsocks-R.sh > /dev/null 2>&1
+chmod +x Instalador-Shadowsocks-R.sh
+./Instalador-Shadowsocks-R.sh uninstall
+rm -rf Instalador-Shadowsocks-R.sh
 msg -bar
 sleep 3
 exit
 ;;
 esac
-rm -rf Instalador-Shadowsocks-libev.sh
-value=$(ps ax |grep ss-server|grep -v grep)
+value=$(ps ax |grep /etc/shadowsocks-r|grep -v grep)
 [[ $value != "" ]] && value="\033[1;32mINICIADO CON EXITO" || value="\033[1;31mERROR"
 msg -bar
 echo -e "${value}"
@@ -108,4 +107,4 @@ msg -bar
 return 0
 }
 fun_shadowsocks
-rm -rf shadowsocks-all.sh
+rm -rf Instalador-Shadowsocks-R.sh

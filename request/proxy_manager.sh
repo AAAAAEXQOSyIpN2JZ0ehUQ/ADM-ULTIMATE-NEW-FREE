@@ -83,10 +83,10 @@ echo -e "${cor[4]} [2] > \033[1;36m$(fun_trans "Menu Beta v.2")"
 echo -e "$barra"
 echo -e "${cor[4]} [3] > \033[1;36m$(fun_trans "Multi portos SSL")"
 echo -e "$barra"
-echo -e "${cor[4]} [4] > \033[1;36m$(fun_trans "Shadowsocks Cloack")"
-echo -e "${cor[4]} [5] > \033[1;36m$(fun_trans "Shadowsocks-Libev")"
-echo -e "${cor[4]} [6] > \033[1;36m$(fun_trans "Shadowsocks-R,Go,Liv")"
-echo -e "${cor[4]} [7] > \033[1;36m$(fun_trans "ShadowsocksR Manager")"
+echo -e "${cor[4]} [4] > \033[1;36m$(fun_trans "ADMINISTRAR CUENTAS SS/SSRR")"
+echo -e "${cor[4]} [5] > \033[1;36m$(fun_trans "SHADOWSOCKS-LIBEV")"
+echo -e "${cor[4]} [6] > \033[1;36m$(fun_trans "SHADOWSOCKS-R")"
+echo -e "${cor[4]} [7] > \033[1;36m$(fun_trans "SHADOWSOCKS-NORMAL")"
 echo -e "$barra"
 echo -e "${cor[4]} [8] > \033[1;36m$(fun_trans "V2ray Panel")"
 echo -e "${cor[4]} [9] > \033[1;36m$(fun_trans "V2ray Manager")\n${barra}"
@@ -107,16 +107,16 @@ case $opx in
 	ssl_redir
 	break;;
 	4)
-	wget -O /bin/shadown.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/shadown.sh > /dev/null 2>&1; chmod +x /bin/shadown.sh; shadown.sh
+	wget -O /bin/C-SSR.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/C-SSR.sh > /dev/null 2>&1; chmod +x /bin/C-SSR.sh; C-SSR.sh
 	break;;
 	5)
-	wget -O /bin/shadowsocks.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/shadowsocks.sh > /dev/null 2>&1; chmod +x /bin/shadowsocks.sh; shadowsocks.sh
+	wget -O /bin/Shadowsocks-libev.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/Shadowsocks-libev.sh > /dev/null 2>&1; chmod +x /bin/Shadowsocks-libev.sh; Shadowsocks-libev.sh
 	break;;
         6)
-	wget -O /bin/shadowsock.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/shadowsock.sh > /dev/null 2>&1; chmod +x /bin/shadowsock.sh; shadowsock.sh
+	wget -O /bin/Shadowsocks-R.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/Shadowsocks-R.sh > /dev/null 2>&1; chmod +x /bin/Shadowsocks-R.sh; Shadowsocks-R.sh
 	break;;
         7)
-	wget -O /bin/ssrrmu.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/ssrrmu.sh > /dev/null 2>&1; chmod +x /bin/ssrrmu.sh; ssrrmu.sh
+	wget -O /bin/shadowsocks.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/shadowsocks.sh > /dev/null 2>&1; chmod +x /bin/shadowsocks.sh; shadowsocks.sh
 	break;;
         8)
 	wget -O /bin/v2ray.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/v2ray.sh > /dev/null 2>&1; chmod +x /bin/v2ray.sh; v2ray.sh

@@ -33,6 +33,24 @@ echo -e "\033[1;33m]\033[1;37m -\033[1;32m OK !\033[1;37m"
 tput cnorm
 }
 
+[[ $(grep -wc mlocate /var/lib/dpkg/statoverride) != '0' ]] && sed -i '/mlocate/d' /var/lib/dpkg/statoverride
+echo -e "${cor[3]} $(fun_trans "OPTIMIZAR SERVIDOR")"
+echo -e "$barra"
+echo -e "\033[1;37m Actualizando servicios\033[0m"
+fun_bar 'apt-get update -y' 'apt-get upgrade -y'
+echo -e "\033[1;37m Corrigiendo problemas de dependencias"
+fun_bar 'apt-get -f install'
+echo -e "\033[1;37m Removendo paquetes inútiles"
+fun_bar 'apt-get autoremove -y' 'apt-get autoclean -y'
+echo -e "\033[1;37m Removendo paquetes con problemas"
+fun_bar 'apt-get -f remove -y' 'apt-get clean -y'
+MEM1=$(free | awk '/Mem:/ {print int(100*$3/$2)}')
+ram1=$(free -h | grep -i mem | awk {'print $2'})
+ram2=$(free -h | grep -i mem | awk {'print $4'})
+ram3=$(free -h | grep -i mem | awk {'print $3'})
+swap1=$(free -h | grep -i swap | awk {'print $2'})
+swap2=$(free -h | grep -i swap | awk {'print $4'})
+swap3=$(free -h | grep -i swap | awk {'print $3'})
 fun_limpram() {
 	sync
 	echo 3 >/proc/sys/vm/drop_caches
@@ -59,21 +77,15 @@ function aguarde() {
 	helice
 	echo -e "\e[1DOk"
 }
-
-[[ $(grep -wc mlocate /var/lib/dpkg/statoverride) != '0' ]] && sed -i '/mlocate/d' /var/lib/dpkg/statoverride
-echo -e "${cor[3]} $(fun_trans "OPTIMIZAR SERVIDOR")"
-echo -e "$barra"
-echo -e "\033[1;37m Actualizando servicios\033[0m"
-fun_bar 'apt-get update -y' 'apt-get upgrade -y'
-echo -e "\033[1;37m Corrigiendo problemas de dependencias"
-fun_bar 'apt-get -f install'
-echo -e "\033[1;37m Removendo paquetes inútiles"
-fun_bar 'apt-get autoremove -y' 'apt-get autoclean -y'
-echo -e "\033[1;37m Removendo paquetes con problemas"
-fun_bar 'apt-get -f remove -y' 'apt-get clean -y'
-MEM1=`free|awk '/Mem:/ {print int(100*$3/$2)}'`
 aguarde
-MEM2=`free|awk '/Mem:/ {print int(100*$3/$2)}'`
+sleep 1
+MEM2=$(free | awk '/Mem:/ {print int(100*$3/$2)}')
+ram1=$(free -h | grep -i mem | awk {'print $2'})
+ram2=$(free -h | grep -i mem | awk {'print $4'})
+ram3=$(free -h | grep -i mem | awk {'print $3'})
+swap1=$(free -h | grep -i swap | awk {'print $2'})
+swap2=$(free -h | grep -i swap | awk {'print $4'})
+swap3=$(free -h | grep -i swap | awk {'print $3'})
 sleep 1.5s
-echo -e "\033[1;37m ECONOMIA DE :\033[1;36m `expr $MEM1 - $MEM2`%\033[0m"
+echo -e "\033[1;37mEconomia de :\033[1;31m $(expr $MEM1 - $MEM2)%\033[0m"
 echo -e "$barra"

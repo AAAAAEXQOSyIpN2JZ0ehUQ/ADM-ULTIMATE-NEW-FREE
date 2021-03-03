@@ -74,21 +74,13 @@ helice ()
 }
 
 MEM1=`free|awk '/Mem:/ {print int(100*$3/$2)}'`
-echo -e "\033[1;37mMemória \033[1;32mRAM \033[1;37mAntes de Otimizacion:\033[1;36m" $MEM1% 
-echo ""
-sleep 1.5s
-echo -e "\033[1;37m LIMPANDO MEMORIA \033[1;32mRAM \033[1;37me \033[1;32mSWAP"
+echo -e "\033[1;37m Limpiando memoria \033[1;32mRAM \033[1;37me \033[1;32mSWAP"
 fun_bar 'service ssh restart'
 helice
 echo -e "\033[1;32m\e[1DOk!"
 }
-aguarde
-sleep 1.5s
-
 MEM2=`free|awk '/Mem:/ {print int(100*$3/$2)}'`
-echo ""
-echo -e "\033[1;37mMemória \033[1;32mRAM \033[1;37mahora en la Otimizacion:\033[1;36m" $MEM2% 
-echo ""
+aguarde
 sleep 1.5s
 echo -e "\033[1;37m ECONOMIA DE :\033[1;36m `expr $MEM1 - $MEM2`%\033[0m"
 echo -e "$barra"

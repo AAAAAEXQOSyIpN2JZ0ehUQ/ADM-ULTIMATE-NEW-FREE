@@ -17,7 +17,7 @@
 
 ```
 * Se recomienda instalar en idioma PORTUGUES OPCION 6
-* Si lo instalao en otro idioma puede cambiarlo en MENU 6 OPCION 6
+* Si lo instalao en otro idioma y te da errores de taduccion puedes cambiarlo en MENU 6 OPCION 6
 * O ejecutar el comando: echo "pt" > /etc/newadm/idioma && chmod +x /etc/newadm/idioma
 ```
 apt-get update -y; apt-get upgrade -y; wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/instalar.sh; chmod 777 instalar.sh* && ./instalar.sh*
@@ -28,18 +28,17 @@ NEW-ULTIMATE (las dependencias faltantes se instalarán automáticamente)
 -------------------------------------------------------------------------------
 
 ## :scroll: Registro de cambios
-```
-VERSION: r8.2.9
 
-MEJORAS SISTEMA DE PORTAS
-MEJORAS SPEEDTEST
-GERENCIAR SISTEMA
-OPTIMIZAR SISTEMA
-MENU APACHE2
-(Nload/htop/statusvps/nettools)
-PROXY MANAGER - BETA-TESTER
+**VERSION: r8.2.9**
 
-```
+* MEJORAS SISTEMA DE PORTAS
+* MEJORAS SPEEDTEST
+* GERENCIAR SISTEMA
+* OPTIMIZAR SISTEMA
+* MENU APACHE2
+* (Nload/htop/statusvps/nettools)
+* PROXY MANAGER - BETA-TESTER
+
 
 ```
 * SIN MINERIA! 

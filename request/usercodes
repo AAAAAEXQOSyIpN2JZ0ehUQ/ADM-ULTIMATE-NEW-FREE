@@ -872,9 +872,9 @@ case ${selection} in
 10)baner_fun;;
 11)verif_funx;;
 12)
-sed -i -e 's/^[ \t]*//; s/[ \t]*$//; /^$/d' /etc/newadm/ger-user/Limiter2.log
-[[ -e "${SCPusr}/Limiter2.log" ]] && {
- cat ${SCPusr}/Limiter2.log
+sed -i -e 's/^[ \t]*//; s/[ \t]*$//; /^$/d' /etc/newadm/Limiter.log
+[[ -e "${SCPusr}/Limiter.log" ]] && {
+ cat ${SCPusr}/Limiter.log
  msg -bar
  }
 ;;

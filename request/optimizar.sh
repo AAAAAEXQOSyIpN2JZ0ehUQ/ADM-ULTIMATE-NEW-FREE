@@ -33,17 +33,6 @@ echo -e "\033[1;33m]\033[1;37m -\033[1;32m OK !\033[1;37m"
 tput cnorm
 }
 
-echo -e "${cor[3]} $(fun_trans "OPTIMIZAR SERVIDOR") ${cor[4]}[NEW-ADM]"
-echo -e "$barra"
-echo -e "\033[1;37m Actualizando servicios\033[0m"
-fun_bar 'apt-get update -y' 'apt-get upgrade -y'
-echo -e "\033[1;37m Corrigiendo problemas de dependencias"
-fun_bar 'apt-get -f install'
-echo -e "\033[1;37m Removendo paquetes inútiles"
-fun_bar 'apt-get autoremove -y' 'apt-get autoclean -y'
-echo -e "\033[1;37m Removendo paquetes con problemas"
-fun_bar 'apt-get -f remove -y' 'apt-get clean -y'
-
 fun_limpram () {
 sync 
 echo 3 > /proc/sys/vm/drop_caches
@@ -72,6 +61,16 @@ helice ()
 	tput cnorm
 }
 
+echo -e "${cor[3]} $(fun_trans "OPTIMIZAR SERVIDOR")"
+echo -e "$barra"
+echo -e "\033[1;37m Actualizando servicios\033[0m"
+fun_bar 'apt-get update -y' 'apt-get upgrade -y'
+echo -e "\033[1;37m Corrigiendo problemas de dependencias"
+fun_bar 'apt-get -f install'
+echo -e "\033[1;37m Removendo paquetes inútiles"
+fun_bar 'apt-get autoremove -y' 'apt-get autoclean -y'
+echo -e "\033[1;37m Removendo paquetes con problemas"
+fun_bar 'apt-get -f remove -y' 'apt-get clean -y'
 MEM1=`free|awk '/Mem:/ {print int(100*$3/$2)}'`
 echo -e "\033[1;37m Limpiando memoria \033[1;32mRAM \033[1;37me \033[1;32mSWAP"
 fun_bar 'service ssh restart'

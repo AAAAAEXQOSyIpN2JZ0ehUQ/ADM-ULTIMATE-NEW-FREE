@@ -43,7 +43,6 @@ echo -e "\033[1;37m Removendo paquetes inútiles"
 fun_bar 'apt-get autoremove -y' 'apt-get autoclean -y'
 echo -e "\033[1;37m Removendo paquetes con problemas"
 fun_bar 'apt-get -f remove -y' 'apt-get clean -y'
-echo -e "$barra"
 
 fun_limpram () {
 sync 

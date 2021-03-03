@@ -72,7 +72,8 @@ fun_bar "apt-get purge apache2 -y"
 fun_bar "apt-get install apache2 -y"
 msg -bra "$(fun_trans " VERIFICANDO PUERTA") 81"
 sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf
-service apache2 restart > /dev/null 2>&1 &
+fun_bar "service apache2 restart"
+#service apache2 restart > /dev/null 2>&1 &
 sleep 0.5s
 msg -bar
 msg -ama "$(fun_trans "PROCESSO CONCLUIDO")"

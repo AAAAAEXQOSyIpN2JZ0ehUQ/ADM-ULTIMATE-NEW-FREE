@@ -30,7 +30,7 @@ NEW-ULTIMATE (las dependencias faltantes se instalarán automáticamente)
 ## :scroll: Registro de cambios
 
 **VERSION: r8.2.9**
-
+```
 ** MEJORAS SISTEMA DE PORTAS
 ** MEJORAS SPEEDTEST
 ** GERENCIAR SISTEMA
@@ -38,7 +38,7 @@ NEW-ULTIMATE (las dependencias faltantes se instalarán automáticamente)
 ** MENU APACHE2
 ** (Nload/htop/statusvps/nettools)
 ** PROXY MANAGER - BETA-TESTER
-
+```
 
 ```
 * SIN MINERIA! 

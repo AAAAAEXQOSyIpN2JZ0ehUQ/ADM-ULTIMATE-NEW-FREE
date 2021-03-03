@@ -69,7 +69,7 @@ sleep 1s
 inst_components () {
 msg -bra "$(fun_trans " REINSTALANDO APACHE2")"
 fun_bar "apt-get purge apache2 -y"
-apt-get install apache2 -y &>/dev/null
+fun_bar "apt-get install apache2 -y"
 msg -bra "$(fun_trans " VERIFICANDO PUERTA") 81"
 sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf
 fun_bar "service apache2 start" "service apache2 restart"

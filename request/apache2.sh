@@ -117,6 +117,7 @@ msg -bar
 apache2_restart () {
 if [[ ! -e /etc/apache2/ports.conf ]]; then
 msg -ama " $(fun_trans "Apache2 Nao Encontrado")"
+msg -bar
 exit 1
 fi
 fun_bar "service apache2 start" "service apache2 restart"
@@ -127,6 +128,11 @@ msg -bar
 }
 
 apache2_stop () {
+if [[ ! -e /etc/apache2/ports.conf ]]; then
+msg -ama " $(fun_trans "Apache2 Nao Encontrado")"
+msg -bar
+exit 1
+fi
 fun_bar "service apache2 stop"
 apt-get purge apache2 -y &>/dev/null
 sleep 0.5s

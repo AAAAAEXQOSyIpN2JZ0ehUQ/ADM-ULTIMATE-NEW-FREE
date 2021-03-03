@@ -67,7 +67,7 @@ sleep 1s
 }
 
 inst_components () {
-msg -bra "$(fun_trans " REINSTALANDO APACHE2")"
+msg -bra "$(fun_trans " REINSTALANDO APACHE_2")"
 fun_bar "apt-get purge apache2 -y"
 fun_bar "apt-get install apache2 -y"
 msg -bra "$(fun_trans " VERIFICANDO PUERTA") 81"

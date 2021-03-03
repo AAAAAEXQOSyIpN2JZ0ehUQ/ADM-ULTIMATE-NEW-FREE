@@ -86,6 +86,6 @@ ram3=$(free -h | grep -i mem | awk {'print $3'})
 swap1=$(free -h | grep -i swap | awk {'print $2'})
 swap2=$(free -h | grep -i swap | awk {'print $4'})
 swap3=$(free -h | grep -i swap | awk {'print $3'})
-sleep 1.5s
+echo -e "$barra"
 echo -e "\033[1;37mEconomia de :\033[1;31m $(expr $MEM1 - $MEM2)%\033[0m"
 echo -e "$barra"

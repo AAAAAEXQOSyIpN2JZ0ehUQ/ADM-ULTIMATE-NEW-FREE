@@ -33,7 +33,7 @@ NEW-ULTIMATE (las dependencias faltantes se instalarán automáticamente)
 ```
 ** MEJORAS SISTEMA DE PORTAS
 ** MEJORAS SPEEDTEST
-** GERENCIAR SISTEMA
+** GERENCIAR SISTEMA INTERNO
 ** OPTIMIZAR SISTEMA
 ** MENU APACHE2
 ** (Nload/htop/statusvps/nettools)

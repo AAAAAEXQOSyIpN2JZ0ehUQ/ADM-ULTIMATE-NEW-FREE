@@ -115,8 +115,10 @@ msg -bar
 }
 
 apache2_restart () {
-[[ -e /etc/apache2/ports.conff ]] && inst_components && return 0
+if [[ ! -e /etc/apache2/ports.conf ]]; then
 msg -ama " $(fun_trans "Apache2 Nao Encontrado")"
+exit 1
+fi
 fun_bar "service apache2 start" "service apache2 restart"
 sleep 0.5s
 msg -bar
@@ -125,9 +127,6 @@ msg -bar
 }
 
 apache2_stop () {
-[[ -e /etc/apache2/ports.conff ]] && inst_components && return 0
-msg -ama " $(fun_trans "Apache2 Nao Encontrado")"
-msg -bar
 fun_bar "service apache2 stop"
 apt-get purge apache2 -y &>/dev/null
 sleep 0.5s

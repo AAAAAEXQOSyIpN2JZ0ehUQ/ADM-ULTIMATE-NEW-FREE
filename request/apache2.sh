@@ -82,6 +82,11 @@ msg -bar
 edit_apache () {
 msg -azu "$(fun_trans "REDEFINIR PORTAS APACHE")"
 msg -bar
+if [[ ! -e /etc/apache2/ports.conf ]]; then
+msg -ama " $(fun_trans "Apache2 Nao Encontrado")"
+msg -bar
+exit 1
+fi
 local CONF="/etc/apache2/ports.conf"
 local NEWCONF="$(cat ${CONF})"
 msg -ne "$(fun_trans "Novas Porta"): "

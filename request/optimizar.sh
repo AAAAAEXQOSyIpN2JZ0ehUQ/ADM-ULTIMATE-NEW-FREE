@@ -33,34 +33,34 @@ echo -e "\033[1;33m]\033[1;37m -\033[1;32m OK !\033[1;37m"
 tput cnorm
 }
 
-fun_limpram () {
-sync 
-echo 3 > /proc/sys/vm/drop_caches
-sleep 4
-sync && sysctl -w vm.drop_caches=3
-sysctl -w vm.drop_caches=0
-swapoff -a
-swapon -a
-sleep 4
+fun_limpram() {
+	sync
+	echo 3 >/proc/sys/vm/drop_caches
+	sync && sysctl -w vm.drop_caches=3
+	sysctl -w vm.drop_caches=0
+	swapoff -a
+	swapon -a
+	sleep 4
 }
-
-function aguarde {
-sleep 1
-helice ()
-{
-	fun_limpram > /dev/null 2>&1 & 
-	tput civis
-	while [ -d /proc/$! ]
-	do
-		for i in / - \\ \|
-		do
-			sleep .1
-			echo -ne "\e[1D$i"
+function aguarde() {
+	sleep 1
+	helice() {
+		fun_limpram >/dev/null 2>&1 &
+		tput civis
+		while [ -d /proc/$! ]; do
+			for i in / - \\ \|; do
+				sleep .1
+				echo -ne "\e[1D$i"
+			done
 		done
-	done
-	tput cnorm
+		tput cnorm
+	}
+	echo -e "\033[1;37m Limpiando memoria \033[1;32mRAM \033[1;37me \033[1;32mSWAP"
+	helice
+	echo -e "\e[1DOk"
 }
 
+[[ $(grep -wc mlocate /var/lib/dpkg/statoverride) != '0' ]] && sed -i '/mlocate/d' /var/lib/dpkg/statoverride
 echo -e "${cor[3]} $(fun_trans "OPTIMIZAR SERVIDOR")"
 echo -e "$barra"
 echo -e "\033[1;37m Actualizando servicios\033[0m"
@@ -72,13 +72,8 @@ fun_bar 'apt-get autoremove -y' 'apt-get autoclean -y'
 echo -e "\033[1;37m Removendo paquetes con problemas"
 fun_bar 'apt-get -f remove -y' 'apt-get clean -y'
 MEM1=`free|awk '/Mem:/ {print int(100*$3/$2)}'`
-echo -e "\033[1;37m Limpiando memoria \033[1;32mRAM \033[1;37me \033[1;32mSWAP"
-fun_bar 'service ssh restart'
-helice
-echo -e "\033[1;32m\e[1DOk!"
-}
-MEM2=`free|awk '/Mem:/ {print int(100*$3/$2)}'`
 aguarde
+MEM2=`free|awk '/Mem:/ {print int(100*$3/$2)}'`
 sleep 1.5s
 echo -e "\033[1;37m ECONOMIA DE :\033[1;36m `expr $MEM1 - $MEM2`%\033[0m"
 echo -e "$barra"

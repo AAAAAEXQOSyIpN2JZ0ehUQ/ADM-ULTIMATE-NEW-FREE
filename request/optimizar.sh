@@ -35,7 +35,7 @@ tput cnorm
 
 [[ $(grep -wc mlocate /var/lib/dpkg/statoverride) != '0' ]] && sed -i '/mlocate/d' /var/lib/dpkg/statoverride
 echo -e "${cor[3]} $(fun_trans "OPTIMIZAR SERVIDOR")"
-echo -e "$barra"
+msg -bar
 echo -e "\033[1;37m Actualizando servicios\033[0m"
 fun_bar 'apt-get update -y' 'apt-get upgrade -y'
 echo -e "\033[1;37m Corrigiendo problemas de dependencias"
@@ -74,6 +74,7 @@ function aguarde() {
 		tput cnorm
 	}
 	echo -e "\033[1;37m Limpiando memoria \033[1;32mRAM \033[1;37me \033[1;32mSWAP"
+        fun_bar "service ssh restart"
 	helice
 	echo -e "\e[1DOk"
 }
@@ -86,6 +87,6 @@ ram3=$(free -h | grep -i mem | awk {'print $3'})
 swap1=$(free -h | grep -i swap | awk {'print $2'})
 swap2=$(free -h | grep -i swap | awk {'print $4'})
 swap3=$(free -h | grep -i swap | awk {'print $3'})
-echo -e "$barra"
+msg -bar
 echo -e "\033[1;37mEconomia de :\033[1;31m $(expr $MEM1 - $MEM2)%\033[0m"
-echo -e "$barra"
+msg -bar

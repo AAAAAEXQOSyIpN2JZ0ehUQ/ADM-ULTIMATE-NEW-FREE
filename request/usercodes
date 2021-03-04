@@ -567,6 +567,9 @@ fi
 echo -e "$txtvar"
 done <<< "$(mostrar_usuarios)"
 msg -bar2
+_total=$(awk  -F : '$3 >= 500 {print  $1}'  /etc/passwd | grep -v "nobody" | sort | wc -l)
+echo -e " Você Tem: $_total Usuarios Em Seu Servidor"
+msg -bar2
 }
 monit_user () {
 yellow=$(tput setaf 3)

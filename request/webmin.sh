@@ -39,6 +39,8 @@ echo -e " \033[1;33m[\033[1;31m####################\033[1;33m] - \033[1;32m100%\
 sleep 1s
 }
 
+# https://clouding.io/hc/es/articles/360010749399-C%C3%B3mo-Instalar-Webmin-en-Ubuntu-18-04
+
 webmin_update () {
 apt-get update -y > /dev/null 2>&1
 apt-get upgrade -y > /dev/null 2>&1

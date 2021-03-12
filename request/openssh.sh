@@ -23,43 +23,18 @@ sed -i "s;PermitRootLogin without-password;PermitRootLogin yes;g" /etc/ssh/sshd_
 sed -i "s;PasswordAuthentication no;PasswordAuthentication yes;g" /etc/ssh/sshd_config
 service ssh restart > /dev/null 2>&1 &
 }
-fun_eth () {
-eth=$(ifconfig | grep -v inet6 | grep -v lo | grep -v 127.0.0.1 | grep "encap:Ethernet" | awk '{print $1}')
-    [[ $eth != "" ]] && {
-    msg -bar
-    msg -ama " $(fun_trans "Aplicar Sistema Para Melhorar Pacotes Ssh?")"
-    msg -ama " $(fun_trans "Opcao Para Usuarios Avancados")"
-    msg -bar
-    read -p " [S/N]: " -e -i n sshsn
-	tput cuu1 && tput dl1
-           [[ "$sshsn" = @(s|S|y|Y) ]] && {
-           echo -e "${cor[1]} $(fun_trans "Correcao de problemas de pacotes no SSH...")"
-           echo -e " $(fun_trans "Qual A Taxa RX")"
-           echo -ne "[ 1 - 999999999 ]: "; read rx
-           [[ "$rx" = "" ]] && rx="999999999"
-           echo -e " $(fun_trans "Qual A Taxa TX")"
-           echo -ne "[ 1 - 999999999 ]: "; read tx
-           [[ "$tx" = "" ]] && tx="999999999"
-           apt-get install ethtool -y > /dev/null 2>&1
-           ethtool -G $eth rx $rx tx $tx > /dev/null 2>&1
-           msg -bar
-           }
-     }
-}
 openssh () {
-msg -verd " $(fun_trans "OPENSSH AUTO-CONFIGURAÇAO")"
+msg -verd " $(fun_trans "OPENSSH AUTO CONFIGURAÇAO")"
 msg -bar
 fun_ip
 msg -ne " $(fun_trans "Confirme seu ip")"; read -p ": " -e -i $IP ip
 msg -bar
-msg -bra " $(fun_trans "INICIANDO AUTO-CONFIGURAÇAO PORTA 22 ")"
+msg -bra " $(fun_trans "AUTO CONFIGURAÇAO PORTA 22 ")"
 msg -bar
 fun_bar "apt-get update -y" "apt-get upgrade -y"
 service ssh restart > /dev/null 2>&1
 cp /etc/ssh/sshd_config /etc/ssh/sshd_back
 fun_ssh
-fun_eth
-msg -bra " $(fun_trans "REINICIANDO SERVIÇOS")"
 service ssh restart > /dev/null 2>&1
 msg -bar
 msg -ama " $(fun_trans "SSH CONFIGURADO COM SUCESSO")"

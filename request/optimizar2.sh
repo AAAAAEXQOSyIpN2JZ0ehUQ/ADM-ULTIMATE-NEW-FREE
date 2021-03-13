@@ -48,8 +48,6 @@ apt-get clean -y
 }
 
 [[ $(grep -wc mlocate /var/lib/dpkg/statoverride) != '0' ]] && sed -i '/mlocate/d' /var/lib/dpkg/statoverride
-echo -e "${cor[3]} $(fun_trans "OPTIMIZAR SERVIDOR")"
-msg -bar
 echo -e "\033[1;37m $(fun_trans "Limpiando memoria") \033[1;32mRAM \033[1;37me \033[1;32mSWAP"
 msg -bar
 fun_bar "fun_optimizer"

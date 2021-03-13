@@ -10,12 +10,13 @@
 #
 ####################################################
 
-VERSION: r6.3.4
+VERSION: r6.3.8
 
 MEJORAS SISTEMA DE PORTAS
 MEJORAS SPEEDTEST
 GERENCIAR SISTEMA INTERNO
 OPTIMIZAR SISTEMA
 MENU APACHE2
+WEBMIN
 (Nload/htop/statusvps/nettools)
 PROXY MANAGER - BETA-TESTER

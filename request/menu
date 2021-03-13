@@ -724,7 +724,7 @@ export -f meu_ip
 export -f fun_ip
 clear
 msg -bar
-msg -ama "PORTAS ATIVAS E INFORMACOES DO SERVIDOR     \033[1;31m[\033[1;37m r8.2.9 \033[1;31m] "
+msg -ama "PORTAS ATIVAS E INFORMACOES DO SERVIDOR     \033[1;31m[\033[1;37m r6.3.8 \033[1;31m] "
 msg -bar
 menu2
 msg -bar

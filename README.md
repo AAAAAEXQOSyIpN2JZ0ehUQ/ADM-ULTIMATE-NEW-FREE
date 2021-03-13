@@ -1,6 +1,6 @@
-﻿# NEW-ULTIMATE r8.2.9
+﻿# NEW-ULTIMATE r6.3.8
 ```
-* UPDATE 17/02/2021
+* UPDATE 12/03/2021
 ```
 ![logo](https://github.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/blob/master/Imagenes/ADM_ULTIMATE_NEW_FREE.jpg)
 
@@ -17,7 +17,7 @@
   O ejecutar el comando: echo "pt" > /etc/newadm/idioma && chmod +x /etc/newadm/idioma
 
 
-## Installation NEW-ULTIMATE r8.2.9
+## Installation
 
 apt-get update -y; apt-get upgrade -y; wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/instalar.sh; chmod 777 instalar.sh* && ./instalar.sh*
 
@@ -28,7 +28,7 @@ NEW-ULTIMATE (las dependencias faltantes se instalarán automáticamente)
 
 ## :scroll: Registro de cambios
 
-**VERSION: r8.2.9**
+**VERSION: r6.3.8**
 
 https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/versao
 

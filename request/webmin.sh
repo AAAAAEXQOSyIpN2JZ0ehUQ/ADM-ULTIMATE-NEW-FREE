@@ -49,6 +49,7 @@ add-apt-repository "deb [arch=amd64] http://download.webmin.com/download/reposit
 apt-get install webmin
 ufw allow 10000/tcp
 sleep 1s
+service webmin restart > /dev/null 2>&1
 }
 
 web_min () {
@@ -57,21 +58,27 @@ web_min () {
  msg -bar
  fun_bar "apt-get remove webmin -y"
  msg -bar
- msg -ama " $(fun_trans "REMOVIDO CON SUCESSO")"
+ msg -ama " $(fun_trans "Webmin removido Com Sucesso!")"
  msg -bar
  [[ -e /etc/webmin/miniserv.conf ]] && rm /etc/webmin/miniserv.conf
  return 0
  }
-msg -ama " $(fun_trans "Instalando Webmin")"
+msg -ama " $(fun_trans "INSTALADOR WEBMIN")"
+msg -bar
+fun_ip
+msg -ne " $(fun_trans "Confirme seu ip")"; read -p ": " -e -i $IP ip
 msg -bar
 echo -ne " \033[1;31m[ ! ] apt-get update"
 apt-get update -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
 echo -ne " \033[1;31m[ ! ] apt-get upgrade"
 apt-get upgrade -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
 msg -bar
+msg -ama " $(fun_trans "Estamos prontos para configurar seu servidor Webmin")"
+msg -bar
 echo -ne " $(fun_trans "Desea Seguir?") [S/N]: "; read x
 [[ $x = @(n|N) ]] && msg -bar && return
 echo -e ""
+# Install webmin
 apt-get install software-properties-common apt-transport-https wget -y
 wget -q http://www.webmin.com/jcameron-key.asc -O- | apt-key add -
 add-apt-repository "deb [arch=amd64] http://download.webmin.com/download/repository sarge contrib"
@@ -83,7 +90,7 @@ service webmin restart > /dev/null 2>&1
 fun_ip
 msg -bra " $(fun_trans "Acesso via web usando o link") https://$IP:10000"
 msg -bar
-msg -ama " $(fun_trans "INSTALADO CON SUCESSO")"
+msg -ama " $(fun_trans "Webmin Configurado Com Sucesso!")"
 msg -bar
 return 0
 }

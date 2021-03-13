@@ -16,7 +16,7 @@ ${comando[1]} -y > /dev/null 2>&1
 touch $HOME/fim
  ) > /dev/null 2>&1 &
  tput civis
-echo -ne "     \033[1;33mAGUARDE \033[1;37m- \033[1;33m["
+echo -ne "  \033[1;33m["
 while true; do
    for((i=0; i<18; i++)); do
    echo -ne "\033[1;31m#"
@@ -27,23 +27,33 @@ while true; do
    sleep 1s
    tput cuu1
    tput dl1
-   echo -ne "     \033[1;33mAGUARDE \033[1;37m- \033[1;33m["
+   echo -ne " \033[1;33m["
 done
-echo -e "\033[1;33m]\033[1;37m -\033[1;32m OK !\033[1;37m"
+echo -e "\033[1;33m]\033[1;37m -\033[1;32m 100% \033[1;37m"
 tput cnorm
+}
+
+fun_optimizer () {
+# Actualizando servicios
+apt-get update -y
+apt-get upgrade -y
+# Corrigiendo problemas de dependencias
+apt-get -f install
+# Removendo paquetes inútiles
+apt-get autoremove -y
+apt-get autoclean -y
+#Removendo paquetes con problemas
+apt-get -f remove -y
+apt-get clean -y
 }
 
 [[ $(grep -wc mlocate /var/lib/dpkg/statoverride) != '0' ]] && sed -i '/mlocate/d' /var/lib/dpkg/statoverride
 echo -e "${cor[3]} $(fun_trans "OPTIMIZAR SERVIDOR")"
 msg -bar
-echo -e "\033[1;37m Actualizando servicios\033[0m"
-fun_bar 'apt-get update -y' 'apt-get upgrade -y'
-echo -e "\033[1;37m Corrigiendo problemas de dependencias"
-fun_bar 'apt-get -f install'
-echo -e "\033[1;37m Removendo paquetes inútiles"
-fun_bar 'apt-get autoremove -y' 'apt-get autoclean -y'
-echo -e "\033[1;37m Removendo paquetes con problemas"
-fun_bar 'apt-get -f remove -y' 'apt-get clean -y'
+echo -e "\033[1;37m $(fun_trans "Limpiando memoria") \033[1;32mRAM \033[1;37me \033[1;32mSWAP"
+msg -bar
+fun_bar "fun_optimizer"
+msg -bar
 MEM1=$(free | awk '/Mem:/ {print int(100*$3/$2)}')
 ram1=$(free -h | grep -i mem | awk {'print $2'})
 ram2=$(free -h | grep -i mem | awk {'print $4'})
@@ -64,19 +74,9 @@ function aguarde() {
 	sleep 1
 	helice() {
 		fun_limpram >/dev/null 2>&1 &
-		tput civis
-		while [ -d /proc/$! ]; do
-			for i in / - \\ \|; do
 				sleep .1
-				echo -ne "\e[1D$i"
-			done
-		done
-		tput cnorm
 	}
-	echo -e "\033[1;37m Limpiando memoria \033[1;32mRAM \033[1;37me \033[1;32mSWAP"
 	helice
-        fun_bar 'sleep 2s'
-	echo -e "\e[1DOk"
 }
 aguarde
 sleep 1
@@ -87,6 +87,9 @@ ram3=$(free -h | grep -i mem | awk {'print $3'})
 swap1=$(free -h | grep -i swap | awk {'print $2'})
 swap2=$(free -h | grep -i swap | awk {'print $4'})
 swap3=$(free -h | grep -i swap | awk {'print $3'})
-msg -bar
+# msg -bar
 echo -e "\033[1;37mEconomia de :\033[1;31m $(expr $MEM1 - $MEM2)%\033[0m"
 msg -bar
+echo -e "${cor[3]} $(fun_trans "PROCESSO CONCLUIDO")"
+msg -bar
+#fin

@@ -6,8 +6,6 @@ SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 
-# https://clouding.io/hc/es/articles/360010749399-C%C3%B3mo-Instalar-Webmin-en-Ubuntu-18-04
-
 fun_ip () {
 if [[ -e /etc/MEUIPADM ]]; then
 IP="$(cat /etc/MEUIPADM)"
@@ -42,6 +40,7 @@ sleep 1s
 }
 
 webmin_update () {
+# https://clouding.io/hc/es/articles/360010749399-C%C3%B3mo-Instalar-Webmin-en-Ubuntu-18-04
 apt-get update -y > /dev/null 2>&1
 apt-get upgrade -y > /dev/null 2>&1
 apt-get install software-properties-common apt-transport-https wget -y
@@ -50,6 +49,7 @@ add-apt-repository "deb [arch=amd64] http://download.webmin.com/download/reposit
 apt-get install webmin
 ufw allow 10000/tcp
 sleep 1s
+service webmin restart > /dev/null 2>&1
 }
 
 web_min () {
@@ -72,11 +72,12 @@ apt-get upgrade -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\03
 echo -e "$barra"
 echo -ne " $(fun_trans "Desea Seguir?") [S/N]: "; read x
 [[ $x = @(n|N) ]] && echo -e "$barra" && return
-echo -e ""
+echo -e "$barra"
 apt-get install software-properties-common apt-transport-https wget -y
 wget -q http://www.webmin.com/jcameron-key.asc -O- | apt-key add -
 add-apt-repository "deb [arch=amd64] http://download.webmin.com/download/repository sarge contrib"
 apt-get install webmin
+echo -e "$barra"
 ufw allow 10000/tcp
 sleep 1s
 echo -e "$barra"

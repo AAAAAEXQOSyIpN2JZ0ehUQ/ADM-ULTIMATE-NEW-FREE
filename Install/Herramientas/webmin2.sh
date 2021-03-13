@@ -65,31 +65,24 @@ web_min () {
  }
 msg -ama " $(fun_trans "INSTALADOR WEBMIN")"
 msg -bar
-fun_bar "service ssh restart"
-msg -bar
 fun_ip
 msg -ne " $(fun_trans "Confirme seu ip")"; read -p ": " -e -i $IP ip
+msg -bar
+echo -ne " \033[1;31m[ ! ] apt-get update"
+apt-get update -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+echo -ne " \033[1;31m[ ! ] apt-get upgrade"
+apt-get upgrade -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
 msg -bar
 msg -ama " $(fun_trans "Estamos prontos para configurar seu servidor Webmin")"
 msg -bar
 echo -ne " $(fun_trans "Desea Seguir?") [S/N]: "; read x
 [[ $x = @(n|N) ]] && msg -bar && return
-# echo -e ""
-msg -bar
-# Actualiza Sistema
-echo -ne " \033[1;31m[ ! ] apt-get update"
-apt-get update -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-echo -ne " \033[1;31m[ ! ] apt-get upgrade"
-apt-get upgrade -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+echo -e ""
 # Install webmin
-echo -ne " \033[1;31m[ ! ] add-apt-repository"
-sleep 3s > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-apt-get install software-properties-common apt-transport-https wget -y > /dev/null 2>&1
-wget -q http://www.webmin.com/jcameron-key.asc -O- | apt-key add -  > /dev/null 2>&1
-add-apt-repository "deb [arch=amd64] http://download.webmin.com/download/repository sarge contrib"  > /dev/null 2>&1
-echo -ne " \033[1;31m[ ! ] apt-get install webmin"
-apt-get install webmin -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-msg -bar
+apt-get install software-properties-common apt-transport-https wget -y
+wget -q http://www.webmin.com/jcameron-key.asc -O- | apt-key add -
+add-apt-repository "deb [arch=amd64] http://download.webmin.com/download/repository sarge contrib"
+apt-get install webmin
 ufw allow 10000/tcp
 sleep 1s
 msg -bar

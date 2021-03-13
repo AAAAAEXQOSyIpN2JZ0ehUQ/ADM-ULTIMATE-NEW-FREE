@@ -74,9 +74,9 @@ function aguarde() {
 		tput cnorm
 	}
 	echo -e "\033[1;37m Limpiando memoria \033[1;32mRAM \033[1;37me \033[1;32mSWAP"
-	helice
         fun_bar 'sleep 2s'
-	echo -e "\e[1DOk"
+	helice
+        echo -e "\e[1DOk"
 }
 aguarde
 sleep 1

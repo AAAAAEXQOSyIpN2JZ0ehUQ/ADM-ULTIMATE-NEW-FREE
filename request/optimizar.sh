@@ -34,7 +34,7 @@ tput cnorm
 }
 
 [[ $(grep -wc mlocate /var/lib/dpkg/statoverride) != '0' ]] && sed -i '/mlocate/d' /var/lib/dpkg/statoverride
-echo -e "${cor[3]} $(fun_trans "OPTIMIZAR SERVIDOR")"
+echo -e "${cor[3]} $(fun_trans "OTIMIZAR SISTEMA ")"
 msg -bar
 echo -e "\033[1;37m Actualizando servicios\033[0m"
 fun_bar 'apt-get update -y' 'apt-get upgrade -y'

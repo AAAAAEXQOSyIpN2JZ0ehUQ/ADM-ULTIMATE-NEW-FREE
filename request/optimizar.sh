@@ -34,7 +34,6 @@ tput cnorm
 }
 
 [[ $(grep -wc mlocate /var/lib/dpkg/statoverride) != '0' ]] && sed -i '/mlocate/d' /var/lib/dpkg/statoverride
-msg -bar
 echo -e "\033[1;37m Actualizando servicios\033[0m"
 fun_bar 'apt-get update -y' 'apt-get upgrade -y'
 echo -e "\033[1;37m Corrigiendo problemas de dependencias"

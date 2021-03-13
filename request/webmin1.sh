@@ -6,6 +6,8 @@ SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 
+# https://clouding.io/hc/es/articles/360010749399-C%C3%B3mo-Instalar-Webmin-en-Ubuntu-18-04
+
 fun_ip () {
 if [[ -e /etc/MEUIPADM ]]; then
 IP="$(cat /etc/MEUIPADM)"
@@ -40,7 +42,6 @@ sleep 1s
 }
 
 webmin_update () {
-# https://clouding.io/hc/es/articles/360010749399-C%C3%B3mo-Instalar-Webmin-en-Ubuntu-18-04
 apt-get update -y > /dev/null 2>&1
 apt-get upgrade -y > /dev/null 2>&1
 apt-get install software-properties-common apt-transport-https wget -y
@@ -53,24 +54,24 @@ sleep 1s
 
 web_min () {
  [[ -e /etc/webmin/miniserv.conf ]] && {
- msg -ama " $(fun_trans "REMOVENDO WEBMIN")"
- msg -bar
+ echo -e "${cor[3]} $(fun_trans "REMOVENDO WEBMIN")"
+ echo -e "$barra"
  fun_bar "apt-get remove webmin -y"
- msg -bar
- msg -ama " $(fun_trans "REMOVIDO CON SUCESSO")"
- msg -bar
+ echo -e "$barra"
+ echo -e "${cor[3]} $(fun_trans "REMOVIDO CON SUCESSO") ${cor[2]} [!OK]"
+ echo -e "$barra"
  [[ -e /etc/webmin/miniserv.conf ]] && rm /etc/webmin/miniserv.conf
  return 0
  }
-msg -ama " $(fun_trans "Instalando Webmin")"
-msg -bar
+echo -e "${cor[3]} Instalando Webmin, aguarde:"
+echo -e "$barra"
 echo -ne " \033[1;31m[ ! ] apt-get update"
 apt-get update -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
 echo -ne " \033[1;31m[ ! ] apt-get upgrade"
 apt-get upgrade -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-msg -bar
+echo -e "$barra"
 echo -ne " $(fun_trans "Desea Seguir?") [S/N]: "; read x
-[[ $x = @(n|N) ]] && msg -bar && return
+[[ $x = @(n|N) ]] && echo -e "$barra" && return
 echo -e ""
 apt-get install software-properties-common apt-transport-https wget -y
 wget -q http://www.webmin.com/jcameron-key.asc -O- | apt-key add -
@@ -78,13 +79,13 @@ add-apt-repository "deb [arch=amd64] http://download.webmin.com/download/reposit
 apt-get install webmin
 ufw allow 10000/tcp
 sleep 1s
-msg -bar
+echo -e "$barra"
 service webmin restart > /dev/null 2>&1
 fun_ip
-msg -bra " $(fun_trans "Acesso via web usando o link") https://$IP:10000"
-msg -bar
-msg -ama " $(fun_trans "INSTALADO CON SUCESSO")"
-msg -bar
+echo -e "${cor[0]} $(fun_trans "Acesso via web usando o link"): https://$IP:10000"
+echo -e "$barra"
+echo -e "${cor[3]} $(fun_trans "INSTALADO CON SUCESSO") ${cor[4]} [!OK] "
+echo -e "$barra"
 return 0
 }
 web_min

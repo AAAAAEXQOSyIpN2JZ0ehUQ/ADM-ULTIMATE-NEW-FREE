@@ -509,8 +509,8 @@ rm -rf ${SCPinst} &>/dev/null
 [[ -e /usr/bin/trans ]] && rm /usr/bin/trans
 [[ -e /bin/speedtest ]] && rm /bin/speedtest
 [[ -e /bin/payloads ]] && rm /bin/payloads
-[[ -e /bin/badvpn-udpgw ]] && rm /bin/badvpn-udpgw
 [[ -e /bin/nettools.py ]] && rm /bin/nettools.py
+[[ -e $HOME/versao ]] && rm $HOME/versao
 cd $HOME
 msg -ama "$(fun_trans "SCRIPT REMOVIDO COM SUCESSO")?"
 msg -bar

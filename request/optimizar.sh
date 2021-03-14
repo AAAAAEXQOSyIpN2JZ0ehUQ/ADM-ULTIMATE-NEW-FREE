@@ -7,48 +7,26 @@ SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 
 fun_bar () {
-comando[0]="$1"
-comando[1]="$2"
- (
-[[ -e $HOME/fim ]] && rm $HOME/fim
-${comando[0]} -y > /dev/null 2>&1
-${comando[1]} -y > /dev/null 2>&1
-touch $HOME/fim
- ) > /dev/null 2>&1 &
- tput civis
-echo -ne "     \033[1;33mAGUARDE \033[1;37m- \033[1;33m["
-while true; do
-   for((i=0; i<18; i++)); do
-   echo -ne "\033[1;31m#"
-   sleep 0.1s
+comando="$1"
+ _=$(
+$comando > /dev/null 2>&1
+) & > /dev/null
+pid=$!
+while [[ -d /proc/$pid ]]; do
+echo -ne " \033[1;33m["
+   for((i=0; i<10; i++)); do
+   echo -ne "\033[1;31m##"
+   sleep 0.2
    done
-   [[ -e $HOME/fim ]] && rm $HOME/fim && break
-   echo -e "\033[1;33m]"
-   sleep 1s
-   tput cuu1
-   tput dl1
-   echo -ne "     \033[1;33mAGUARDE \033[1;37m- \033[1;33m["
+echo -ne "\033[1;33m]"
+sleep 1s
+echo
+tput cuu1 && tput dl1
 done
-echo -e "\033[1;33m]\033[1;37m -\033[1;32m OK !\033[1;37m"
-tput cnorm
+echo -e " \033[1;33m[\033[1;31m####################\033[1;33m] - \033[1;32m100%\033[0m"
+sleep 1s
 }
 
-[[ $(grep -wc mlocate /var/lib/dpkg/statoverride) != '0' ]] && sed -i '/mlocate/d' /var/lib/dpkg/statoverride
-echo -e "\033[1;37m Actualizando servicios\033[0m"
-fun_bar 'apt-get update -y' 'apt-get upgrade -y'
-echo -e "\033[1;37m Corrigiendo problemas de dependencias"
-fun_bar 'apt-get -f install'
-echo -e "\033[1;37m Removendo paquetes inútiles"
-fun_bar 'apt-get autoremove -y' 'apt-get autoclean -y'
-echo -e "\033[1;37m Removendo paquetes con problemas"
-fun_bar 'apt-get -f remove -y' 'apt-get clean -y'
-MEM1=$(free | awk '/Mem:/ {print int(100*$3/$2)}')
-ram1=$(free -h | grep -i mem | awk {'print $2'})
-ram2=$(free -h | grep -i mem | awk {'print $4'})
-ram3=$(free -h | grep -i mem | awk {'print $3'})
-swap1=$(free -h | grep -i swap | awk {'print $2'})
-swap2=$(free -h | grep -i swap | awk {'print $4'})
-swap3=$(free -h | grep -i swap | awk {'print $3'})
 fun_limpram() {
 	sync
 	echo 3 >/proc/sys/vm/drop_caches
@@ -58,6 +36,7 @@ fun_limpram() {
 	swapon -a
 	sleep 4
 }
+
 function aguarde() {
 	sleep 1
 	helice() {
@@ -71,13 +50,38 @@ function aguarde() {
 		done
 		tput cnorm
 	}
-	echo -e "\033[1;37m Limpiando memoria \033[1;32mRAM \033[1;37me \033[1;32mSWAP"
-        fun_bar 'sleep 2s'
+	echo -ne "\033[1;33m LIMPANDO MEMORIA \033[1;32mRAM \033[1;33me \033[1;32mSWAP\033[1;32m.\033[1;33m.\033[1;31m. \033[1;33m"
 	helice
-        echo -e "\e[1DOk"
+	echo -e "\e[1DOk"
 }
+
+fun_optimizer () {
+[[ $(grep -wc mlocate /var/lib/dpkg/statoverride) != '0' ]] && sed -i '/mlocate/d' /var/lib/dpkg/statoverride
+msg -ama " $(fun_trans "LIMPAR MEMORIA E CACHE SISTEMA")"
+msg -bar
+echo -e "\033[1;37m Atualizando pacotes\033[0m"
+fun_bar 'apt-get update -y' 'apt-get upgrade -y'
+echo -e "\033[1;37m Corrigindo problemas de dependências"
+fun_bar 'apt-get -f install'
+echo -e "\033[1;37m Removendo pacotes inúteis"
+fun_bar 'apt-get autoremove -y' 'apt-get autoclean -y'
+echo -e "\033[1;37m Removendo pacotes com problemas"
+fun_bar 'apt-get -f remove -y' 'apt-get clean -y'
+# Limpar o cache memoria RAM
+msg -bar
+MEM1=$(free | awk '/Mem:/ {print int(100*$3/$2)}')
+ram1=$(free -h | grep -i mem | awk {'print $2'})
+ram2=$(free -h | grep -i mem | awk {'print $4'})
+ram3=$(free -h | grep -i mem | awk {'print $3'})
+swap1=$(free -h | grep -i swap | awk {'print $2'})
+swap2=$(free -h | grep -i swap | awk {'print $4'})
+swap3=$(free -h | grep -i swap | awk {'print $3'})
+echo -e "\033[1;37mMemória \033[1;32mRAM \033[1;37mAntes da Otimizacao:\033[1;36m" $MEM1%
+msg -bar
+sleep 1
 aguarde
 sleep 1
+msg -bar
 MEM2=$(free | awk '/Mem:/ {print int(100*$3/$2)}')
 ram1=$(free -h | grep -i mem | awk {'print $2'})
 ram2=$(free -h | grep -i mem | awk {'print $4'})
@@ -85,6 +89,12 @@ ram3=$(free -h | grep -i mem | awk {'print $3'})
 swap1=$(free -h | grep -i swap | awk {'print $2'})
 swap2=$(free -h | grep -i swap | awk {'print $4'})
 swap3=$(free -h | grep -i swap | awk {'print $3'})
+echo -e "\033[1;37mMemória \033[1;32mRAM \033[1;37mapós a Otimizacao:\033[1;36m" $MEM2%
+echo ""
+msg -bra " $(fun_trans "Economia de"):\033[1;31m $(expr $MEM1 - $MEM2)%\033[0m"
 msg -bar
-echo -e "\033[1;37mEconomia de :\033[1;31m $(expr $MEM1 - $MEM2)%\033[0m"
+msg -ama " $(fun_trans "PROCESSO CONCLUIDO")"
 msg -bar
+}
+fun_optimizer
+#fin

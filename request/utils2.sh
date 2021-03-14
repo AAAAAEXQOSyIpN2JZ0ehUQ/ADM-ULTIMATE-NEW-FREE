@@ -6,9 +6,6 @@ SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 
-link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/nettools.py"
-[[ ! -e /bin/nettools.py ]] && wget -O /bin/nettools.py ${link_bin} > /dev/null 2>&1 && chmod +x /bin/nettools.py
-
 meu_ip () {
 if [[ -e /etc/MEUIPADM ]]; then
 echo "$(cat /etc/MEUIPADM)"
@@ -43,8 +40,6 @@ sleep 1s
 }
 
 fun_nload () {
-echo -e "${cor[3]} $(fun_trans "Con nload puedes ver todos el trafico")"
-echo -e "${cor[3]} $(fun_trans "de red generado en tu sistema")"
 echo -e "${cor[4]} $(fun_trans "PARA SALIR DEL PANEL PRESIONE") ${cor[3]}CTLR+C"
 msg -bar
 sleep 1s
@@ -54,8 +49,6 @@ nload
 }
 
 fun_htop () {
-echo -e "${cor[3]} $(fun_trans "Con htop puedes ver todos los procesos")"
-echo -e "${cor[3]} $(fun_trans "que se ejecutan en tu sistema")"
 echo -e "${cor[4]} $(fun_trans "PARA SALIR DEL PANEL PRESIONE") ${cor[3]}CTLR+C"
 msg -bar
 sleep 1s
@@ -65,7 +58,7 @@ htop
 }
 
 fun_statussistema () {
-echo -e "\033[1;33m STATUS DO SISTEMA"
+echo -e "\033[1;33m DETALHES DO SISTEMA"
 msg -bar
 # SISTEMA OPERACIONAL
 _hora=$(printf '%(%H:%M:%S)T')
@@ -130,6 +123,9 @@ for porta in `echo -e "$PT" | cut -d: -f2 | cut -d' ' -f1 | uniq`; do
 done
 }
 
+link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/nettools.py"
+[[ ! -e /bin/nettools.py ]] && wget -O /bin/nettools.py ${link_bin} > /dev/null 2>&1 && chmod +x /bin/nettools.py
+
 fun_nettools () {
 /bin/nettools.py
 }
@@ -139,7 +135,7 @@ msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "TRAFICO DE RED NLOAD")"
 echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "PROCESOS DEL SISTEMA HTOP")"
-echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "STATUS DO SISTEMA") \033[1;33m(\033[1;37mBETA\033[1;33m)"
+echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "DETALHES DO SISTEMA") \033[1;33m(\033[1;37mBETA\033[1;33m)"
 echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "NET TOOLS TARGET") \033[1;33m(\033[1;37mBETA\033[1;33m)"
 msg -bar
 while [[ ${arquivoonlineadm} != @(0|[1-4]) ]]; do

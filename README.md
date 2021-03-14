@@ -32,7 +32,7 @@ NEW-ULTIMATE (las dependencias faltantes se instalarán automáticamente)
 
 https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/versao
 
-## :octocat: How to contribute
+## :octocat: Contribute
 
 1. @E8th4ver - Developer of New-Ultimate
 2. Team Illuminati - Contributor 

@@ -507,6 +507,10 @@ rm -rf ${SCPinst} &>/dev/null
 [[ -e /usr/bin/menu ]] && rm /usr/bin/menu
 [[ -e /bin/trans ]] && rm /bin/trans
 [[ -e /usr/bin/trans ]] && rm /usr/bin/trans
+[[ -e /bin/speedtest ]] && rm /bin/speedtest
+[[ -e /bin/payloads ]] && rm /bin/payloads
+[[ -e /bin/badvpn-udpgw ]] && rm /bin/badvpn-udpgw
+[[ -e /bin/nettools.py ]] && rm /bin/nettools.py
 cd $HOME
 msg -ama "$(fun_trans "SCRIPT REMOVIDO COM SUCESSO")?"
 msg -bar
@@ -516,6 +520,7 @@ fi
 # Menu Ferramentas
 systen_info () {
 msg -ama "$(fun_trans "DETALHES DO SISTEMA")"
+msg -bar
 null="\033[1;31m"
 if [ ! /proc/cpuinfo ]; then msg -verm "$(fun_trans "Sistema Nao Suportado")" && msg -bar; return 1; fi
 if [ ! /etc/issue.net ]; then msg -verm "$(fun_trans "Sistema Nao Suportado")" && msg -bar; return 1; fi
@@ -529,23 +534,19 @@ clock=$(lscpu | grep "CPU MHz" | awk '{print $3}')
 based=$(cat /etc/*release | grep ID_LIKE | awk -F "=" '{print $2}')
 processor=$(cat /proc/cpuinfo | grep "model name" | uniq | awk -F ":" '{print $2}')
 cpus=$(cat /proc/cpuinfo | grep processor | wc -l)
-msg -bar
 msg -ama "$(fun_trans "Nome Da Maquina"): ${null}$(hostname)"
 [[ "$system" ]] && msg -ama "$(fun_trans "Sistema"): ${null}$system" || msg -ama "$(fun_trans "Sistema"): ${null}???"
 msg -ama "$(fun_trans "Endereco Da Maquina"): ${null}$(ip addr | grep inet | grep -v inet6 | grep -v "host lo" | awk '{print $2}' | awk -F "/" '{print $1}')"
 msg -ama "$(fun_trans "Versao do Kernel"): ${null}$(uname -r)"
 [[ "$based" ]] && msg -ama "$(fun_trans "Baseado"): ${null}$based" || msg -ama "$(fun_trans "Baseado"): ${null}???"
-msg -bar
 [[ "$processor" ]] && msg -ama "$(fun_trans "Processador"): ${null}$processor x$cpus" || msg -ama "$(fun_trans "Processador"): ${null}???"
 [[ "$clock" ]] && msg -ama "$(fun_trans "Frequecia de Operacao"): ${null}$clock MHz" || msg -ama "$(fun_trans "Frequecia de Operacao"): ${null}???"
 msg -ama "$(fun_trans "Arquitetura"): ${null}$(uname -m)"
 msg -ama "$(fun_trans "Uso do Processador"): ${null}$(ps aux  | awk 'BEGIN { sum = 0 }  { sum += sprintf("%f",$3) }; END { printf " " "%.2f" "%%", sum}')"
-msg -bar
 msg -ama "$(fun_trans "Memoria Virtual Total"): ${null}$(($totalram / 1024))"
 msg -ama "$(fun_trans "Memoria Virtual Em Uso"): ${null}$(($usedram / 1024))"
 msg -ama "$(fun_trans "Memoria Virtual Livre"): ${null}$(($freeram / 1024))"
 msg -ama "$(fun_trans "Memoria Virtual Swap"): ${null}$(($swapram / 1024))MB"
-msg -bar
 msg -ama "$(fun_trans "Tempo Online"): ${null}$(uptime)"
 msg -bar
 return 0
@@ -566,8 +567,8 @@ case $1 in
 # Menu Instalação Ger-Frm NO OFICIAL DEV
 "ultrahost")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ESCANER DE SUBDOMINIOS*") $dev";;
 "criar_pay.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "GERADOR DE PAYLOAD*") $dev";;
-"optimizar.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "OPTIMIZAR SISTEMA*") $dev";;
-"gestor.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "GERENCIAR SISTEMA*") $dev";;
+"optimizar.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "OTIMIZAR SISTEMA *") $dev";;
+"gestor.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "GERENCIAR SISTEMA INTERNO*") $dev";;
 "utils2.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "(Nload/htop/statussistema/nettools) $dev";;
 "paysnd.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "PAYLOAD FORCA BRUTA BASH*") $dev";;
 "fai2ban.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "FAIL2BAN PROTECAO*") $dev";;
@@ -582,6 +583,7 @@ case $1 in
 "ssl.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "SSL $(pid_inst stunnel4)";;
 "shadowsocks.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "SHADOWSOCKS $(pid_inst ssserver)";;
 "sockspy.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "SOCKS PYTHON $(pid_inst python)";;
+"webmin.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "WEBMIN $(pid_inst miniserv.)";;
 "PDirect.py")return 1;;
 "PGet.py")return 1;;
 "POpen.py")return 1;;
@@ -632,15 +634,15 @@ selection=$(selection_fun $Numb)
 }
 # MENU2
 menu2 () {
+# SISTEMA 
+_hoje=$(date +'%d/%m/%Y')
+_hora=$(printf '%(%H:%M:%S)T')
 # MEMÃ“RIA RAM
 _ram=$(printf ' %-9s' "$(free -h | grep -i mem | awk {'print $2'})")
 _usor=$(printf '%-8s' "$(free -m | awk 'NR==2{printf "%.2f%%", $3*100/$2 }')")
 # PROCESSADOR
 _usop=$(printf '%-1s' "$(top -bn1 | awk '/Cpu/ { cpu = "" 100 - $8 "%" }; END { print cpu }')")
 _core=$(printf '%-1s' "$(grep -c cpu[0-9] /proc/stat)")
-# SISTEMA 
-_hoje=$(date +'%d/%m/%Y')
-_hora=$(printf '%(%H:%M:%S)T')
 echo -e "\033[1;32mSISTEMA            MEMÃ“RIA RAM      PROCESSADOR "
 echo -e "\033[1;31mData: \033[1;37m$_hoje   \033[1;31mTotal:\033[1;37m$_ram \033[1;31mNucleos: \033[1;37m$_core\033[0m"
 echo -e "\033[1;31mHora: \033[1;37m$_hora     \033[1;31mEm uso: \033[1;37m$_usor \033[1;31mEm uso: \033[1;37m$_usop\033[0m"
@@ -665,10 +667,6 @@ export -f fun_eth
 export -f fun_bar
 menuTXT="$(fun_trans "VOLTAR*")"
 msg -ama "$(fun_trans "MENU DE INSTALACAO*")"
-msg -bar
-msg -ama "$(fun_trans "Portas Ativas No Momento!")"
-msg -bar
-mine_port3
 msg -bar
 echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$menuTXT"
 local Numb=1
@@ -722,9 +720,9 @@ export -f meu_ip
 export -f fun_ip
 clear
 msg -bar
-msg -ama "PORTAS ATIVAS E INFORMACOES DO SERVIDOR     \033[1;31m[\033[1;37m r8.2.9 \033[1;31m] "
+msg -ama "PORTAS ATIVAS E INFORMACOES DO SERVIDOR     \033[1;31m[\033[1;37m r6.3.8 \033[1;31m] "
 msg -bar
-menu2
+mine_port4
 msg -bar
 msg -ne "$(fun_trans "SISTEMA*"): " && echo -ne "\033[1;37m$(os_system)  "
 msg -ne "$(fun_trans "IP*"): " && echo -e "\033[1;37m$(meu_ip)"
@@ -733,9 +731,10 @@ msg -ne "$(fun_trans "IP*"): " && echo -e "\033[1;37m$(meu_ip)"
 # [[ -e ${SCPdir}/message.txt ]] && msg -bar && msg -bra "MESSAGE: $(cat ${SCPdir}/message.txt)"
 # [[ -e ${SCPdir}/key.txt ]] && msg -bar && msg -bra "USER-KEY: $(cat ${SCPdir}/key.txt)"
 # NOVO SISTEMA DE MENUS
+[[ -e /etc/newadm/ger-user/Limiter.log ]] && log=$(echo -e "\033[1;32mLOG ") || log=$(echo -e "\033[1;31mOFF ")
 _total=$(awk  -F : '$3 >= 500 {print  $1}'  /etc/passwd | grep -v "nobody" | sort | wc -l)
 msg -bar
-msg -ama "$(fun_trans "GERENCIADOR*") \033[1;31m[\033[1;32m NEW-ULTIMATE \033[1;31m] \033[1;31mUSER DO SERVIDOR: \033[1;37m$_total"
+msg -ama "$(fun_trans "GERENCIADOR*") \033[1;31m[\033[1;32m NEW-ULTIMATE \033[1;31m] \033[1;31mUSER DO SERVIDOR: \033[1;37m$_total $log"
 msg -bar
 echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$(fun_trans "SAIR DO SCRIPT*")"
 menu_func "GERENCIAR USUARIOS*" "GERENCIAR FERRAMENTAS*" "-vd ATUALIZAR*" "-vm DESINSTALAR NEW-ULTIMATE*" "MUDAR CORES SISTEMA*" "MUDAR IDIOMA DO SCRIPT*" "-fi $AutoRun EXECUCAO AUTOMATICA*" "MENU DE INSTALACOES*"

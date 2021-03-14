@@ -4,6 +4,13 @@ SCPdir="/etc/newadm" && [[ ! -d ${SCPdir} ]] && exit 1
 SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
+mine_port3 () {
+PT=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
+for porta in `echo -e "$PT" | cut -d: -f2 | cut -d' ' -f1 | uniq`; do
+    svcs=$(echo -e "$PT" | grep -w "$porta" | awk '{print $1}' | uniq)
+    echo -e "\033[1;32m Servico \033[1;31m$svcs \033[1;32mPorta \033[1;37m$porta"
+done
+}
 port () {
 local portas
 local portas_var=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
@@ -194,13 +201,6 @@ msg -bar
 main_fun () {
 msg -ama " $(fun_trans "SERVICOS E PORTAS ATIVAS")"
 msg -bar
-mine_port3 () {
-PT=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
-for porta in `echo -e "$PT" | cut -d: -f2 | cut -d' ' -f1 | uniq`; do
-    svcs=$(echo -e "$PT" | grep -w "$porta" | awk '{print $1}' | uniq)
-    echo -e "\033[1;32m Servico \033[1;31m$svcs \033[1;32mPorta \033[1;37m$porta"
-done
-}
 mine_port3
 msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"

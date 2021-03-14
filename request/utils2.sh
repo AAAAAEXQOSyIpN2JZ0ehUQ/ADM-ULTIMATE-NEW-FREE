@@ -6,6 +6,9 @@ SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 
+link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/nettools.py"
+[[ ! -e /bin/nettools.py ]] && wget -O /bin/nettools.py ${link_bin} > /dev/null 2>&1 && chmod +x /bin/nettools.py
+
 meu_ip () {
 if [[ -e /etc/MEUIPADM ]]; then
 echo "$(cat /etc/MEUIPADM)"
@@ -40,7 +43,7 @@ sleep 1s
 }
 
 fun_nload () {
-echo -e "${cor[4]} $(fun_trans "PARA SALIR DEL PANEL PRESIONE") ${cor[3]}CTLR+C"
+echo -e "${cor[4]} $(fun_trans "PARA SALIR DEL PANEL PRESIONE") ${cor[3]}CTLR + C"
 msg -bar
 sleep 1s
 fun_bar "apt-get install nload -y"
@@ -49,7 +52,7 @@ nload
 }
 
 fun_htop () {
-echo -e "${cor[4]} $(fun_trans "PARA SALIR DEL PANEL PRESIONE") ${cor[3]}CTLR+C"
+echo -e "${cor[4]} $(fun_trans "PARA SALIR DEL PANEL PRESIONE") ${cor[3]}CTLR + C"
 msg -bar
 sleep 1s
 fun_bar "apt-get install htop -y"
@@ -122,9 +125,6 @@ for porta in `echo -e "$PT" | cut -d: -f2 | cut -d' ' -f1 | uniq`; do
     echo -e "\033[1;32mServico \033[1;31m$svcs \033[1;32mPorta \033[1;37m$porta"
 done
 }
-
-link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/nettools.py"
-[[ ! -e /bin/nettools.py ]] && wget -O /bin/nettools.py ${link_bin} > /dev/null 2>&1 && chmod +x /bin/nettools.py
 
 fun_nettools () {
 /bin/nettools.py

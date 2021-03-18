@@ -587,6 +587,7 @@ case $1 in
 "ssl.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "SSL $(pid_inst stunnel4)";;
 "shadowsocks.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "SHADOWSOCKS $(pid_inst ssserver)";;
 "sockspy.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "SOCKS PYTHON $(pid_inst python)";;
+"v2ray.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "V2RAY $(pid_inst v2ray)";;
 "webmin.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "WEBMIN $(pid_inst miniserv.)";;
 "PDirect.py")return 1;;
 "PGet.py")return 1;;

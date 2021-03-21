@@ -72,11 +72,12 @@ msg -bar
 }
 
 gestor_fun () {
-echo -e " ${cor[4]} [0] > ${cor[0]}$(fun_trans "VOLTAR")"
 echo -e " ${cor[3]} $(fun_trans "PROXY MANAGER - BETA-TESTER") ${cor[4]}[NEW-ADM]"
 echo -e " ${cor[3]} $(fun_trans "herramienta en modo de prueba")"
 echo -e "$barra"
 while true; do
+echo -e " ${cor[4]} [0] > ${cor[0]}$(fun_trans "VOLTAR")"
+echo -e "$barra"
 echo -e "${cor[4]} [1] > \033[1;36m$(fun_trans "Menu SSHPlus Coneccion ")"
 echo -e "$barra"
 echo -e "${cor[4]} [2] > \033[1;36m$(fun_trans "Menu Beta v.2")"

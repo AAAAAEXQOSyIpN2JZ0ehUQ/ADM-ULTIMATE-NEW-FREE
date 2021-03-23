@@ -8,6 +8,25 @@ API_TRANS="aHR0cDovL2dpdC5pby90cmFucw=="
 SUB_DOM='base64 -d'
 wget -O /usr/bin/trans $(echo $API_TRANS|$SUB_DOM) &> /dev/null
 
+port () {
+local portas
+local portas_var=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
+i=0
+while read port; do
+var1=$(echo $port | awk '{print $1}') && var2=$(echo $port | awk '{print $9}' | awk -F ":" '{print $2}')
+[[ "$(echo -e ${portas}|grep -w "$var1 $var2")" ]] || {
+    portas+="$var1 $var2 $portas"
+    echo "$var1 $var2"
+    let i++
+    }
+done <<< "$portas_var"
+}
+verify_port () {
+local SERVICE="$1"
+local PORTENTRY="$2"
+[[ ! $(echo -e $(port|grep -v ${SERVICE})|grep -w "$PORTENTRY") ]] && return 0 || return 1
+}
+
 mine_port () {
 local portasVAR=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
 local NOREPEAT
@@ -27,24 +46,6 @@ done <<< "${portasVAR}"
 [[ ! -z $APC ]] && echo -e $APC
 }
 
-port () {
-local portas
-local portas_var=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
-i=0
-while read port; do
-var1=$(echo $port | awk '{print $1}') && var2=$(echo $port | awk '{print $9}' | awk -F ":" '{print $2}')
-[[ "$(echo -e ${portas}|grep -w "$var1 $var2")" ]] || {
-    portas+="$var1 $var2 $portas"
-    echo "$var1 $var2"
-    let i++
-    }
-done <<< "$portas_var"
-}
-verify_port () {
-local SERVICE="$1"
-local PORTENTRY="$2"
-[[ ! $(echo -e $(port|grep -v ${SERVICE})|grep -w "$PORTENTRY") ]] && return 0 || return 1
-}
 fun_bar () {
 comando="$1"
  _=$(
@@ -67,7 +68,7 @@ sleep 1s
 }
 
 inst_components () {
-msg -bra "$(fun_trans " REINSTALANDO APACHE_2")"
+msg -bra "$(fun_trans " REINSTALANDO APACHE2")"
 fun_bar "apt-get purge apache2 -y"
 fun_bar "apt-get install apache2 -y"
 msg -bra "$(fun_trans " VERIFICANDO PUERTA") 81"
@@ -81,7 +82,7 @@ msg -bar
 }
 
 edit_apache () {
-msg -azu "$(fun_trans "REDEFINIR PORTAS APACHE")"
+msg -azu "$(fun_trans "REDEFINIR PORTAS APACHE2")"
 msg -bar
 if [[ ! -e /etc/apache2/ports.conf ]]; then
 msg -ama " $(fun_trans "Apache2 Nao Encontrado")"
@@ -151,15 +152,15 @@ msg -bar
 fun_apache2 () {
 unset OPENBAR
 [[ -e /etc/apache2/ports.conf ]] && OPENBAR="\033[1;32mOnline" || OPENBAR="\033[1;31mOffline"
-msg -ama "$(fun_trans "MENU") APACHE_2"
+msg -ama "$(fun_trans "MENU") APACHE2"
 #msg -bar
 mine_port
 msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "Voltar")"
-echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "Reinstalar") APACHE_2 $OPENBAR"
-echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "Alterar porta") APACHE_2"
-echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "Iniciar/Reiniciar") APACHE_2"
-echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "Parar") APACHE_2"
+echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "Reinstalar") APACHE2 $OPENBAR"
+echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "Alterar porta") APACHE2"
+echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "Iniciar/Reiniciar") APACHE2"
+echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "Parar") APACHE2"
 msg -bar
 while [[ ${arquivoonlineadm} != @(0|[1-4]) ]]; do
 read -p "[0-4]: " arquivoonlineadm

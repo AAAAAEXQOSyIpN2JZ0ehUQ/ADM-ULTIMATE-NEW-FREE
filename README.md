@@ -24,6 +24,11 @@ apt-get update -y; apt-get upgrade -y; wget https://raw.githubusercontent.com/AA
 ```
 NEW-ULTIMATE (las dependencias faltantes se instalarán automáticamente)
 ```
+
+## :book: Installation New-Uktimate Codigo Libre DEV: @E8th4ver
+
+apt-get update -y; apt-get upgrade -y; wget https://www.dropbox.com/s/qhftefty46hz51x/newfreeinstal?dl=0 && bash new*
+
 -------------------------------------------------------------------------------
 
 ## :scroll: Registro de cambios

@@ -11,17 +11,9 @@ SUB_DOM='base64 -d'
 [[ $(dpkg --get-selections|grep -w "gawk"|head -1) ]] || apt-get install gawk -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "mlocate"|head -1) ]] || apt-get install mlocate -y &>/dev/null
 rm $(pwd)/$0 &> /dev/null
-
 msg () {
-BRAN='\033[1;37m' && 
-VERMELHO='\e[31m' && 
-VERDE='\e[32m' && 
-AMARELO='\e[33m'
-AZUL='\e[34m' && 
-MAGENTA='\e[35m' && 
-MAG='\033[1;36m' && 
-NEGRITO='\e[1m' && 
-SEMCOR='\e[0m'
+BRAN='\033[1;37m' && VERMELHO='\e[31m' && VERDE='\e[32m' && AMARELO='\e[33m'
+AZUL='\e[34m' && MAGENTA='\e[35m' && MAG='\033[1;36m' && NEGRITO='\e[1m' && SEMCOR='\e[0m'
  case $1 in
   -ne)cor="${VERMELHO}${NEGRITO}" && echo -ne "${cor}${2}${SEMCOR}";;
   -ama)cor="${AMARELO}${NEGRITO}" && echo -e "${cor}${2}${SEMCOR}";;
@@ -33,13 +25,11 @@ SEMCOR='\e[0m'
   -bar)cor="${AZUL}${NEGRITO}========================================" && echo -e "${cor}${SEMCOR}";;
  esac
 }
-
 fun_ip () {
 MIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
 MIP2=$(wget -qO- ipv4.icanhazip.com)
 [[ "$MIP" != "$MIP2" ]] && IP="$MIP2" || IP="$MIP"
 }
-
 inst_components () {
 [[ $(dpkg --get-selections|grep -w "nano"|head -1) ]] || apt-get install nano -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "bc"|head -1) ]] || apt-get install bc -y &>/dev/null
@@ -57,7 +47,6 @@ inst_components () {
  service apache2 restart > /dev/null 2>&1 &
  }
 }
-
 funcao_idioma () {
 msg -bar2
 declare -A idioma=( [1]="en English" [2]="fr Franch" [3]="de German" [4]="it Italian" [5]="pl Polish" [6]="pt Portuguese" [7]="es Spanish" [8]="tr Turkish" )
@@ -102,13 +91,11 @@ pv="$(echo ${idioma[$selection]}|cut -d' ' -f1)"
 [[ ${#id} -gt 2 ]] && id="pt" || id="$pv"
 byinst="true"
 }
-
 install_fim () {
 msg -ama "$(source trans -b pt:${id} "Instalacao Completa, Utilize os Comandos"|sed -e 's/[^a-z -]//ig')" && msg bar2
 echo -e " menu / adm"
 msg -bar2
 }
-
 ofus () {
 unset txtofus
 number=$(expr length $1)
@@ -130,7 +117,6 @@ txtofus+="${txt[$i]}"
 done
 echo "$txtofus" | rev
 }
-
 verificar_arq () {
 [[ ! -d ${SCPdir} ]] && mkdir ${SCPdir}
 [[ ! -d ${SCPusr} ]] && mkdir ${SCPusr}
@@ -154,8 +140,6 @@ esac
 mv -f ${SCPinstal}/$1 ${ARQ}/$1
 chmod +x ${ARQ}/$1
 }
-
-# Instalação NEW-ULTIMATE
 fun_ip
 wget -O /usr/bin/trans https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/trans &> /dev/null
 clear

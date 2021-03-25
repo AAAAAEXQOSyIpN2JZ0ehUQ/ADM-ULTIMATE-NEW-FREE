@@ -1,40 +1,6 @@
 #!/bin/bash
 clear
-
-# VARIÁVEIS DE CORES
-COLOR[0]='\033[1;37m' #BRAN='\033[1;37m'
-
-COLOR[1]='\e[31m' #VERMELHO='\e[31m'
-COLOR[2]='\e[32m' #VERDE='\e[32m'
-COLOR[3]='\e[33m' #AMARELO='\e[33m'
-COLOR[4]='\e[34m' #AZUL='\e[34m'
-COLOR[5]='\e[35m' #MAGENTA='\e[35m'
-COLOR[6]='\033[1;36m' #MAG='\033[1;36m'
-
-# LOGO DO INSTALADOR
-fun_logo(){
-BARRA="\033[1;36m--------------------------------------------------------------------\033[0m"
-echo -e "$BARRA"
-cat << EOF
-
-           INSTALADOR ADM-NEW FREE OFICIAL
-           FEITO POR LUIS 8TH (BOM USO)
-           
-EOF
-echo -e "$BARRA"
-}
-meu_ip(){
-MIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
-if [[ $MIP = "127.0.0.1" ]]; then
-MIP=$(wget -qO- ipv4.icanhazip.com)
-elif [[ ! $MIP ]]; then
-MIP=$(wget -qO- ipv4.icanhazip.com)
-fi
-echo "$MIP"
-}
-
-fun_logo
-
+barra="\033[0m\e[34m======================================================\033[1;37m"
 # Variaveis
 Basic="menu PGet.py ports.sh ADMbot.sh usercodes sockspy.sh POpen.py PPriv.py PPub.py PDirect.py speedtest.py speed.sh utils.sh dropbear.sh apacheon.sh openvpn.sh shadowsocks.sh ssl.sh squid.sh"
 LINK="https://www.dropbox.com/s/iqb019bchwui00l/ADMBASE.zip?dl=0"
@@ -45,7 +11,35 @@ SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && mkdir ${SCPfrm}
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && mkdir ${SCPinst}
 SCPidioma="${SCPdir}/idioma"
 
+# VARIÁVEIS DE CORES
+COLOR[0]='\033[1;37m' #BRAN='\033[1;37m'
+COLOR[1]='\e[31m' #VERMELHO='\e[31m'
+COLOR[2]='\e[32m' #VERDE='\e[32m'
+COLOR[3]='\e[33m' #AMARELO='\e[33m'
+COLOR[4]='\e[34m' #AZUL='\e[34m'
+COLOR[5]='\e[35m' #MAGENTA='\e[35m'
+COLOR[6]='\033[1;36m' #MAG='\033[1;36m'
+
+fun_ip () {
+MIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
+MIP2=$(wget -qO- ipv4.icanhazip.com)
+[[ "$MIP" != "$MIP2" ]] && IP="$MIP2" || IP="$MIP"
+}
+
+wget -O /usr/bin/trans https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/trans &> /dev/null
+
+# LOGO DO INSTALADOR
+fun_logo(){
+msg -ama "[ NEW - ULTIMATE - SCRIPT ]            \033[1;37m@admmanagerfree"
+
+
+echo -e "$BARRA"
+}
+fun_logo
+
 # Instalação 
+apt-get install gawk -y &>/dev/null
+apt-get install mlocate -y &>/dev/null
 apt-get update -y >/dev/null 2>&1 && echo -e "${COLOR[0]}UPDATE OK"
 apt-get upgrade -y >/dev/null 2>&1 && echo -e "UPGRADE OK"
 apt-get install screen -y >/dev/null 2>&1

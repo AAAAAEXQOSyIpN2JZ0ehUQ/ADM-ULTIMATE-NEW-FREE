@@ -68,22 +68,18 @@ done <<< "${portasVAR}"
 [[ ! -z $APC ]] && echo -e $APC
 }
 
-inst_components () {
-msg -bra "$(fun_trans " REINSTALANDO APACHE2")"
+remover_apache2 () {
+/etc/init.d/apache2 stop > /dev/null 2>&1
 fun_bar "apt-get purge apache2 -y"
-fun_bar "apt-get install apache2 -y"
-msg -bra "$(fun_trans " VERIFICANDO PORTA") 81"
-sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf
-fun_bar "service apache2 start"
-service apache2 restart > /dev/null 2>&1 &
+#apt-get purge apache2 -y &>/dev/null
 sleep 0.5s
 msg -bar
-msg -ama "$(fun_trans "PROCESSO CONCLUIDO")"
+msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
 msg -bar
 }
 
 edit_apache () {
-msg -azu "$(fun_trans "REDEFINIR PORTAS APACHE2")"
+msg -ama "$(fun_trans "REDEFINIR PORTAS APACHE2")"
 msg -bar
 if [[ ! -e /etc/apache2/ports.conf ]]; then
 msg -ama " $(fun_trans "Apache2 Nao Encontrado")"
@@ -120,19 +116,24 @@ sleep 1s
 msg -bar
 msg -azu "$(fun_trans "PORTAS REDEFINIDAS")"
 msg -bar
+msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
+msg -bar
 }
 
 apache2_restart () {
-if [[ ! -d /etc/apache2 ]]; then
-msg -ama " $(fun_trans "Apache2 Nao Encontrado")"
+msg -ama " $(fun_trans "Apache2 ira iniciar ou reiniciar")"
+msg -ama " $(fun_trans "E recuperando a porta 81 por padrao")"
 msg -bar
-exit 1
-fi
-fun_bar "service apache2 start"
-service apache2 restart > /dev/null 2>&1 &
+fun_bar "apt-get install apache2 -y"
+sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf
 sleep 0.5s
+msg -ne "\033[1;31m [ ! ] \033[1;33m$(fun_trans "REINICIANDO SERVICOS")"
+#fun_bar "service apache2 start"
+service apache2 restart > /dev/null 2>&1 &
+echo -e "\033[1;32m[OK]"
 msg -bar
-msg -ama "$(fun_trans "PROCESSO CONCLUIDO")"
+sleep 0.5s
+msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
 msg -bar
 }
 
@@ -143,10 +144,11 @@ msg -bar
 exit 1
 fi
 fun_bar "service apache2 stop"
+/etc/init.d/apache2 stop > /dev/null 2>&1
 #apt-get purge apache2 -y &>/dev/null
 sleep 0.5s
 msg -bar
-msg -ama "$(fun_trans "PROCESSO CONCLUIDO")"
+msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
 msg -bar
 }
 
@@ -157,9 +159,9 @@ msg -ama "$(fun_trans "MENU") APACHE2"
 mine_port
 msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "Voltar")"
-echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "Reinstalar") Apache2 $OPENBAR"
+echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "Remover") Apache2 $OPENBAR"
 echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "Alterar porta") Apache2"
-echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "Start - Restart") Apache2"
+echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "Iniciar ou Reiniciar") Apache2"
 echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "Parar") Apache2"
 msg -bar
 while [[ ${arquivoonlineadm} != @(0|[1-4]) ]]; do
@@ -168,7 +170,7 @@ tput cuu1 && tput dl1
 done
 case $arquivoonlineadm in
 0)exit;;
-1)inst_components;;
+1)remover_apache2;;
 2)edit_apache;;
 3)apache2_restart;;
 4)apache2_stop;;

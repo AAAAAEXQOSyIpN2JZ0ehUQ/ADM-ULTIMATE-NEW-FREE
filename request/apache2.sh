@@ -69,12 +69,15 @@ done <<< "${portasVAR}"
 }
 
 remover_apache2 () {
+msg -ama " $(fun_trans "REMOVENDO APACHE2")"
+msg -bar
 /etc/init.d/apache2 stop > /dev/null 2>&1
 fun_bar "apt-get purge apache2 -y"
 #apt-get purge apache2 -y &>/dev/null
 sleep 0.5s
 msg -bar
-msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
+msg -ama " $(fun_trans "Apache2 removido Com Sucesso!")"
+[[ -d /etc/apache2 ]] && rm /etc/apache2
 msg -bar
 }
 

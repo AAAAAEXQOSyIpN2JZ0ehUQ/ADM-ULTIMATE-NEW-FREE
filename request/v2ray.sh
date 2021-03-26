@@ -1,10 +1,10 @@
 #!/bin/bash
+#25/01/2021 by @Kalix1
 declare -A cor=( [0]="\033[1;37m" [1]="\033[1;34m" [2]="\033[1;31m" [3]="\033[1;33m" [4]="\033[1;32m" )
 SCPdir="/etc/newadm" && [[ ! -d ${SCPdir} ]] && exit 1
 SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
-#25/01/2021 by @Kalix1
 err_fun () {
      case $1 in
      1)msg -verm "$(fun_trans "Usuario Nulo")"; sleep 2s; tput cuu1; tput dl1; tput cuu1; tput dl1;;
@@ -435,6 +435,8 @@ msg -bar
 msg -ama " $(fun_trans "INSTALADOR DE V2RAY (PASO A PASO) ")"
 msg -bar
 ## INSTALADOR
+echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLVER") "
+msg -bar
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "INSTALAR V2RAY") "
 echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "CAMBIAR PROTOCOLO") "
 echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "ACTIVAR TLS") "
@@ -448,8 +450,7 @@ echo -ne "\033[1;32m [9] > " && msg -azu "ESTADISTICAS DE CONSUMO "
 echo -ne "\033[1;32m [10] > " && msg -azu "LIMITADOR POR CONSUMO\e[91m ( BETA x PORT )"
 echo -ne "\033[1;32m [11] > " && msg -azu "LIMPIADOR DE EXPIRADOS ------- $statgen\n$(msg -bar)"
 ## DESISNTALAR
-echo -ne "\033[1;32m [12] > " && msg -azu "\033[1;31mDESINSTALAR V2RAY"
-echo -ne "$(msg -bar)\n\033[1;32m [0] > " && msg -bra "\e[97m\033[1;41m VOLVER \033[1;37m"
+echo -ne "\033[1;32m [12] > " && msg -azu "\033[1;31mDESINSTALAR V2RAY  \033[1;37m"
 msg -bar
 pid_inst () {
 [[ $1 = "" ]] && echo -e "\033[1;31m[OFF]" && return 0
@@ -465,7 +466,7 @@ var1=$(echo $port | awk '{print $1}') && var2=$(echo $port | awk '{print $9}' | 
 done <<< "$portas_var"
 [[ $(echo "${portas[@]}"|grep "$1") ]] && echo -e "\033[1;32m[ Servicio Activo ]" || echo -e "\033[1;31m[ Servicio Desactivado ]"
 }
-echo -e "         \e[97mEstado actual: $(pid_inst v2ray)"
+echo -e "        \e[97mEstado actual: $(pid_inst v2ray)"
 msg -bar
 # while [[ ${arquivoonlineadm} != @(0|[1-99]) ]]; do
 # read -p "Seleccione una Opcion [0-12]: " arquivoonlineadm
@@ -473,6 +474,7 @@ msg -bar
 # done
 selection=$(selection_fun 18)
 case ${selection} in
+0)exit;;
 1)intallv2ray;;
 2)protocolv2ray;;
 3)tls;;
@@ -485,5 +487,4 @@ case ${selection} in
 10)lim_port;;
 11)limpiador_activador;;
 12)unistallv2;;
-0)exit;;
 esac

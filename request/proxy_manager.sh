@@ -6,39 +6,12 @@ SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 
-#LIPIAR SCRIPTS
-rm -rf /bin/conexao.sh > /dev/null 2>&1
-rm -rf /bin/shadown.sh > /dev/null 2>&1
-rm -rf /bin/shadowsocks.sh > /dev/null 2>&1
-rm -rf /bin/shadowsock.sh > /dev/null 2>&1
-rm -rf /bin/ssrrmu.sh > /dev/null 2>&1
-rm -rf /bin/v2ray.sh > /dev/null 2>&1
-rm -rf /bin/vdoray.sh > /dev/null 2>&1
-
-mportas () {
-unset portas
-portas_var=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
-while read port; do
-var1=$(echo $port | awk '{print $1}') && var2=$(echo $port | awk '{print $9}' | awk -F ":" '{print $2}')
-[[ "$(echo -e $portas|grep "$var1 $var2")" ]] || portas+="$var1 $var2\n"
-done <<< "$portas_var"
-i=1
-echo -e "$portas"
-}
-
-menu () {
-echo -ne " \033[1;31m[ ! ] Instalando Menu Beta v.2"
-wget -O /etc/newadm/menu https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/menu > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-echo -ne " \033[1;31m[ ! ] Cocediendo Permisos"
-chmod 777 /etc/newadm/menu > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-echo -ne " \033[1;31m[ ! ] Accediendo al menu... \033[1;32m [OK]"
-sleep 3
-chmod 777 /etc/newadm/menu; /etc/newadm/menu
-
-echo -e "$barra"
-}
-
 ssl_redir() {
+if [[ ! -e /etc/stunnel/stunnel.conf ]]; then
+msg -ama " $(fun_trans "stunnel.conf Nao Encontrado")"
+msg -bar
+exit 1
+fi
 msg -bra "$(fun_trans "Asigne un nombre para el redirecionador")"
 msg -bar
 read -p " nombre: " namer
@@ -59,23 +32,21 @@ msg -bar
     msg -bar
     unset SSLPORT1
     done
-
 echo "" >> /etc/stunnel/stunnel.conf
 echo "[${namer}]" >> /etc/stunnel/stunnel.conf
 echo "connect = 127.0.0.1:${portd}" >> /etc/stunnel/stunnel.conf
 echo "accept = ${SSLPORTr}" >> /etc/stunnel/stunnel.conf
-
 service stunnel4 restart > /dev/null 2>&1
 msg -bar
 msg -bra " $(fun_trans "AGREGADO CON EXITO") ${cor[2]}[!OK]"
 msg -bar
 }
 
+[[ ! -d /etc/ger-tools ]] && mkdir /etc/ger-tools
 gestor_fun () {
-echo -e " ${cor[3]} $(fun_trans "PROXY MANAGER - BETA-TESTER") ${cor[4]}[NEW-ADM]"
-echo -e " ${cor[3]} $(fun_trans "herramienta en modo de prueba")"
-echo -e "$barra"
 while true; do
+echo -e " ${cor[3]} $(fun_trans "TESTE SCRIPTS ALTERNOS") ${cor[4]}[NEW-ADM]"
+echo -e "$barra"
 echo -e " ${cor[4]} [0] > ${cor[0]}$(fun_trans "VOLTAR")"
 echo -e "$barra"
 echo -e "${cor[4]} [1] > \033[1;36m$(fun_trans "Menu SSHPlus Coneccion ")"
@@ -96,35 +67,35 @@ echo -ne "${cor[0]}$(fun_trans "Digite a Opcao"): \033[1;37m" && read opx
 tput cuu1 && tput dl1
 done
 case $opx in
-	0)
-	return;;
-	1)
-	wget -O /bin/conexao.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/conexao.sh > /dev/null 2>&1; chmod +x /bin/conexao.sh; conexao.sh
-	break;;
-	2)
-	menu
-	break;;
-	3)
-	ssl_redir
-	break;;
-	4)
-	wget -O /bin/C-SSR.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/C-SSR.sh > /dev/null 2>&1; chmod +x /bin/C-SSR.sh; C-SSR.sh
-	break;;
-	5)
-	wget -O /bin/Shadowsocks-libev.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/Shadowsocks-libev.sh > /dev/null 2>&1; chmod +x /bin/Shadowsocks-libev.sh; Shadowsocks-libev.sh
-	break;;
-        6)
-	wget -O /bin/Shadowsocks-R.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/Shadowsocks-R.sh > /dev/null 2>&1; chmod +x /bin/Shadowsocks-R.sh; Shadowsocks-R.sh
-	break;;
-        7)
-	wget -O /bin/shadowsocks.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/shadowsocks.sh > /dev/null 2>&1; chmod +x /bin/shadowsocks.sh; shadowsocks.sh
-	break;;
-        8)
-	wget -O /bin/v2ray.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/v2ray.sh > /dev/null 2>&1; chmod +x /bin/v2ray.sh; v2ray.sh
-	break;;
-        9)
-	wget -O /bin/vdoray.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/vdoray.sh > /dev/null 2>&1; chmod +x /bin/vdoray.sh; vdoray.sh
-	break;;
+0)
+return;;
+1)
+wget -O /bin/conexao.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/conexao.sh > /dev/null 2>&1; chmod +x /bin/conexao.sh; conexao.sh
+break;;
+2)
+return
+break;;
+3)
+ssl_redir
+break;;
+4)
+wget -O /bin/C-SSR.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/C-SSR.sh > /dev/null 2>&1; chmod +x /bin/C-SSR.sh; C-SSR.sh
+break;;
+5)
+wget -O /bin/Shadowsocks-libev.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/Shadowsocks-libev.sh > /dev/null 2>&1; chmod +x /bin/Shadowsocks-libev.sh; Shadowsocks-libev.sh
+break;;
+6)
+wget -O /bin/Shadowsocks-R.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/Shadowsocks-R.sh > /dev/null 2>&1; chmod +x /bin/Shadowsocks-R.sh; Shadowsocks-R.sh
+break;;
+7)
+wget -O /bin/shadowsocks.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/shadowsocks.sh > /dev/null 2>&1; chmod +x /bin/shadowsocks.sh; shadowsocks.sh
+break;;
+8)
+wget -O /etc/ger-inst/v2ray.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/v2ray.sh > /dev/null 2>&1; chmod +x /etc/ger-inst/v2ray.sh; v2ray.sh
+break;;
+9)
+return
+break;;
 esac
 done
 }

@@ -1,0 +1,327 @@
+ADM-MANAGER-ULTIMATE
+ONLINE:
+SCADUTO:
+IL TUO SISTEMA:
+BENVENUTO NEL MENU!
+GESTISCI GLI UTENTI
+STRUMENTI
+AGGIORNAMENTO
+REMOVER ADM-ULTIMATE
+OPZIONE:
+[ON]
+[OFF]
+CAMBIARE I COLORI DI SCRIPT
+[INDIETRO / ESCI]
+MENU UTENTE
+CREA GLI UTENTI
+RIMUOVI GLI UTENTI
+MODIFICARE GLI UTENTI
+DETTAGLI DEGLI UTENTI
+CONTROLLA GLI UTENTI ONLINE
+CONTROLLO DEGLI UTENTI
+I COLORI ATTUALMENTE UTILIZZATI
+Scegli in ordine, 1 2 3 4 5 6
+Qual è la sequenza di colori ?:
+Sei colori non sono stati selezionati!
+Applicare il colore selezionato! ...
+MODIFICARE LA LINGUA DI SCRIPT
+ADM-ULTIMATE USER CREATOR
+Nome del nuovo utente:
+Nome Nullo
+Utente già esistente!
+Password per l'utente
+Durata per l'utente
+Limite di connessione per l'utente
+utente:
+Password:
+limite:
+validità:
+LISTA DEGLI UTENTI REGISTRATI
+RIMUOVI GLI UTENTI
+Elimina 1 utente
+Elimina tutti gli utenti
+Seleziona l'utente o inserisci il nome
+Nessun utente è stato selezionato
+Utente inesistente!
+cancellato
+rimuovere
+Entra, per tornare!
+USER EDITOR
+Nessun utente ha selezionato
+Quale opzione modificherete da:
+Numero di accessi di:
+Data di scadenza di:
+Cambia password di:
+Qual è il nuovo limite di accesso:
+Limite non modificato!
+Limite modificato
+Quanti giorni dovrebbe durare?
+Data immutata
+Ho cambiato!
+Qual è la nuova password per:
+Password non cambiata!
+Nuova password applicata
+Nessuna opzione è stata selezionata!
+utente
+password
+limite
+tempo
+??
+illimitato
+decaduto
+Hai:
+Utenti sul tuo server
+giorni
+UTENTI
+COLLEGAMENTO
+TEMPO
+Quello strumento si tradurrà
+Tutto il contenuto di ADM-ULTIMATE
+Seleziona il numero della lingua o usa le iniziali della lingua.
+
+Tradurre il sistema ...
+Inserisci una lingua:
+orario
+record
+uso
+Non c'è nessun utente online
+CANCELLA GLI UTENTI DECEDUTI
+Nessun utente scaduto!
+MENU STRUMENTI
+CREARE BACKUP
+RIPRISTINARE IL BACKUP
+CACHE PULITO
+BAD UDP
+VELOCITÀ TCP
+FAILBAN
+CACHE SQUID
+CONDIVIDI FILE ONLINE
+Immettere solo valori numerici
+BACKUP DI PARTENZA
+Backup dell'utente
+Utente non registrato in ADM-ULTIMATE
+Inserisci le informazioni dell'utente.
+Password corrente:
+Giorni di durata:
+Limite di connessione:
+Backup completo
+Indietro UDP disponibile nella cartella
+Inserire la directory del backup
+oppure, immettere un collegamento da un backup
+File o link
+File o link non validi!
+Backup incompatibile con ADM
+Restauro ...
+Utente non ripristinato
+Questo strumento pulirà le cache
+ed elimina i file temporanei
+Procedura completata
+BADVPN verrà installato
+che non è altro che un programma
+che libera le porte UDP sul server
+e quindi consentire il servizio VOIP!
+iniziazione
+BADVPN avviato correttamente
+Arresto del servizio BADVPN ...
+BADVPN fermato con successo
+Questo Script è stato progettato
+Per migliorare la latenza
+e velocità del server!
+analizzare
+Questa è una sceneggiatura sperimentale
+Utilizzare a proprio rischio!
+Questo script ne cambierà alcuni
+configurazioni di rete
+del sistema da ridurre
+la latenza e migliorare la velocità
+Continua con l'installazione?
+Configurazione di rete
+sono stati aggiunti con successo
+sono già stati aggiunti al sistema!
+Vuoi rimuovere la configurazione
+Configurazione di rete
+sono stati rimossi con successo
+Perché no?
+disinstallazione
+Vedi la registrazione
+Questa è la PROTEZIONE DEL FAILBAN
+Realizzato esclusivamente per proteggere la sicurezza del
+Sistema, il suo obiettivo è analizzare
+ACCESS LOGS e blocca tutto
+azione sospetta
+Aumentare la sicurezza del 70%.
+Vuoi installare Fail2Ban?
+Fail2ban verrà installato
+Prossimi servizi
+Confermi la scelta?
+Installazione terminata
+La cache di Squid non è più di
+Una storia di navigazione in Squid
+Ciò salverà i dati all'apertura dei siti
+Ospitato nella tua cache
+La sceneggiatura farà un breve controllo!
+Squid non è stato identificato!
+Squid è attivo nel tuo sistema!
+Non esiste un servizio cache in Squid!
+Riavvio dei servizi Attendi!
+Attivazione del servizio SquidCache!
+Disabilitare SquidCache !!
+aspettare!
+Inserire il file online
+OPZIONE DA SEGUIRE
+QUALSIASI FILE ONLINE
+CHE QUESTO FILE
+IN DIRETTA
+RIMUOVERE IL FILE ONLINE
+GUARDA I MIEI FILES ONLINE
+Opzione non valida
+Seleziona un file
+Nessun file è stato selezionato
+Procedura riuscita
+ACCESSO AL FILE ATTRAVERSO IL LINK
+I tuoi file nella cartella
+TEST LA TUA VELOCITÀ
+INFORMAZIONI VPS
+Inizio dei test, aspetta ...
+Tempo di risposta Ping
+Velocità di carico
+Scarica la velocità
+Errore durante l'elaborazione delle informazioni
+Il tuo sistema
+basato
+Processore fisico
+Frequenza operativa
+Uso del processore
+Memoria virtuale totale
+Memoria virtuale in uso
+Memoria virtuale gratuita
+Scambio di memoria virtuale
+Tempo online
+Nome della macchina
+Direzione della macchina
+Versioni del kernel
+architettura
+analizzare
+record
+aggiornato
+File aggiornati
+Convalida! Aggiornamento in corso ...
+Uscita scaduta o non valida!
+Ne sei sicuro?
+Disinstallazione annullata dall'utente
+Creato da @Teamadmmanager
+AGGIUNGI / RIMUOVI HOST-SQUID
+non trovato
+O Squid non installato
+Aggiungi host a Squid
+Rimuovi l'host Squid
+Opzione non valida
+Domini correnti nel file
+Inserisci il dominio che desideri aggiungere
+A partire da a.
+Questo vuoto, non ha scritto nulla!
+Il dominio esiste già nel file
+Successo, file aggiornato!
+Inserisci il dominio che desideri rimuovere
+dominio non trovato
+Inserire il testo per BANNER
+verde
+rosso
+blu
+giallo
+porpora
+Inserisci il messaggio principale
+Vuoi aggiungere altri testi
+BANNER VARIOPINTO
+Dipendenze Non installato, vuoi installare?
+Installare le dipendenze per i proxy-socks ...
+Arresto del proxy-sock ...
+Proxy-sock si è fermato!
+Seleziona la porta da ruotare
+I tuoi socket proxy:
+Opa, viene utilizzato da:
+Disattiva questo servizio da utilizzare
+Il porto:
+Per i SOCKS
+Invio, per selezionare un'altra porta!
+Scrivi un testo, per lo stato 200OK
+Scegli il tipo di calzino da usare
+PRESA PROXY IN PYTHON
+PRESA PROXY IN PYTHON3
+Qualcosa è andato storto, Socks Not Started!
+perfetto
+CARICO DI PAGAMENTO DELLA FORZA BRUTTA
+ATTIVARE PRESA PROXY
+LIMITATORE DI CONNESSIONE SIMULTANEO
+GUARDA IL PROSSY PYTHON
+MENU DI INSTALLAZIONE
+NON SONO GLI OCCHI PROXY È ATTIVO
+DIGEST UN OSPITE DA CREARE
+PAYLOADS GENERICAS!
+CREATORE DI PAYLOAD
+CIFRE L'OSPITE
+Non aggiungere nulla.
+GENERATORE DI CARICO
+SCEGLI IL METODO DI RICHIESTA
+E ULTIMO
+METODO DI INIEZIONE!
+È QUALCOSA
+SBAGLIATO!
+SUCCESSO!, PAYLOAD GENERATI
+DIRECTORY:
+ATTIVARE GETUNEL PROXY
+Qual è la porta che desideri per GetTUNNEL
+Porta utilizzata da:
+CHIAVE DEL GETTUNEL:
+GETTUNEL INIZIATO CON SUCCESSO!
+GETTUNEL NON INIZIA!
+Seleziona il servizio per gestire le porte
+Nessun servizio scelto, OPPURE Il servizio eletto non è supportato
+Vuoi chiudere la porta corrente?
+O Apri una nuova porta nel servizio?
+Procedura, finito!
+GESTIONE DELLA PORTA
+Servizio e porto scelti:
+Architettura non supportata!
+USO APPROSSIMATIVO
+CONSUMO TOTALE
+UTENTI
+MONITOR DEI CONSUMATORI
+La verifica non è attivata o non ci sono informazioni
+BOT TELEGRAM
+SHADOWSOCKS / SSL stunnel
+SHADOWSOCKS E SSL
+seleziona una porta di reindirizzamento
+seleziona una porta
+Porto di Invalida!
+Non ci sono porte interne aperte!
+Porta del tuo SSL esterno! Immettere la porta nell'applicazione dell'iniettore
+Porta in uso!
+Rispondi correttamente alle domande!
+Media di crittografia
+Seleziona la crittografia
+Crittografia non selezionata!
+Password:
+TCP SOPRA
+ULTRA HOST (SCANNER OF SUBDOMINIOS)
+HOST
+LIMITE DI CATTURA
+INSERIRE UNA PASSWORD e DOPO AVER CONFERMATO
+VNC si connette usando l'IP dei vps nella porta
+Per accedere all'interfaccia grafica
+Scarica dal PlayStore:
+VNC non è attivo Vuoi attivare?
+VNC è attivo Disattivare?
+VNC SERVER
+LA TUA VERSIONE È AGGIORNATA!
+ADM-ULTIMATE HA BISOGNO DI AGGIORNAMENTO!
+APPLICARE BLOCCO TORRENTE
+Creare un nuovo file OpenVPN?
+Crea file con autenticazione (nome utente e password)?
+File generato in:
+Per lasciarlo online:
+Esecuzione automatica
+IL TUO IP:
+RESTART SERVICES (VPS)
+Vuoi davvero riavviare i servizi?
+Preparazione al riavvio dei servizi.

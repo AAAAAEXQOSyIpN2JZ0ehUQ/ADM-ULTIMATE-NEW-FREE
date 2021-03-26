@@ -159,13 +159,13 @@ sed -i "s;PermitRootLogin prohibit-password;PermitRootLogin yes;g" /etc/ssh/sshd
 sed -i "s;PermitRootLogin without-password;PermitRootLogin yes;g" /etc/ssh/sshd_config
 sed -i "s;PasswordAuthentication no;PasswordAuthentication yes;g" /etc/ssh/sshd_config
 msg -bar
-echo -e "\033[1;37m $(fun_trans "Escriba su nueva contraseña")"
+echo -e "\033[1;37m $(fun_trans "Escriba su contraseña root actual o cambiela")"
 msg -bar
 read  -p " Nuevo passwd: " pass
 (echo $pass; echo $pass)|passwd 2>/dev/null
 sleep 1s
 msg -bar
-echo -e "${cor[3]} $(fun_trans "Contraseña cambiada con exito!")"
+echo -e "${cor[3]} $(fun_trans "Configuraciones aplicadas con exito!")"
 echo -e "${cor[2]} $(fun_trans "Su contraseña ahora es"): ${cor[4]}$pass"
 return
 }
@@ -179,9 +179,8 @@ echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "REINICIAR SISTEMA")"
 echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "ALTERAR O NOME DO SISTEMA")"
 echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "CAMBIAR CONTRASEÑA ROOT DEL SISTEMA")"
 echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "ATUALIZAR HORA AMERICA-SANTIAGO")"
-echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "ELIMINAR REGISTRO DEL LIMITADO") \033[1;33m(\033[1;37mBETA\033[1;33m)"
-echo -ne "\033[1;32m [8] > " && msg -azu "$(fun_trans "DESBLOQUEAR VURTL PARA CREAR USUARIOS") \033[1;33m(\033[1;37mBETA\033[1;33m)"
-echo -ne "\033[1;32m [9] > " && msg -azu "$(fun_trans "APLICAR ROOT A GOOGLECLOUD Y AMAZON") \033[1;33m(\033[1;37mBETA\033[1;33m)"
+echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "DESBLOQUEAR VURTL PARA CREAR USUARIOS") \033[1;33m(\033[1;37mBETA\033[1;33m)"
+echo -ne "\033[1;32m [8] > " && msg -azu "$(fun_trans "APLICAR ROOT A GOOGLECLOUD Y AMAZON") \033[1;33m(\033[1;37mBETA\033[1;33m)"
 msg -bar
 while [[ ${arquivoonlineadm} != @(0|[1-9]) ]]; do
 read -p "[0-9]: " arquivoonlineadm
@@ -195,8 +194,8 @@ case $arquivoonlineadm in
 4)host_name;;
 5)cambiopass;;
 6)act_hora;;
-7)cleanreg;;
-8)pamcrack;;
-9)rootpass;;
+7)pamcrack;;
+8)rootpass;;
+77)cleanreg;;
 esac
 msg -bar

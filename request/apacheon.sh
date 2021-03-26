@@ -11,11 +11,11 @@ MEU_IP2=$(wget -qO- ipv4.icanhazip.com)
 [[ "$MEU_IP" != "$MEU_IP2" ]] && echo "$MEU_IP2" || echo "$MEU_IP"
 }
 IP="$(fun_ip)"
-echo -e "${cor[4]} [0] >${cor[0]} $(fun_trans "VOLTAR")"
-echo -e "${cor[4]} [1] >${cor[3]} $(fun_trans "COLOCAR ARQUIVO ONLINE")"
-echo -e "${cor[4]} [2] >${cor[3]} $(fun_trans "REMOVER ARQUIVO ONLINE")"
-echo -e "${cor[4]} [3] >${cor[3]} $(fun_trans "VER LINKS DOS ARQUIVOS ONLINE")"
-echo -e "$barra"
+echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
+echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "COLOCAR ARQUIVO ONLINE")"
+echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "REMOVER ARQUIVO ONLINE")"
+echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "VER LINKS DOS ARQUIVOS ONLINE")"
+msg -bar
 while [[ ${arquivoonlineadm} != @([0-3]) ]]; do
 read -p "[0-3]: " arquivoonlineadm
 tput cuu1 && tput dl1
@@ -25,19 +25,19 @@ case ${arquivoonlineadm} in
 exit
 ;;
 3)
-[[ -z $(ls /var/www/html) ]] && echo -e "$barra"  || {
+[[ -z $(ls /var/www/html) ]] && msg -bar  || {
     for my_arqs in `ls /var/www/html`; do
     [[ "$my_arqs" = "index.html" ]] && continue
     [[ "$my_arqs" = "index.php" ]] && continue
     [[ -d "$my_arqs" ]] && continue
     echo -e "\033[1;31m[$my_arqs] \033[1;36mhttp://$IP:81/$my_arqs\033[0m"
     done
-    echo -e "$barra"
+    msg -bar
     }
 ;;
 2)
 i=1
-[[ -z $(ls /var/www/html) ]] && echo -e "$barra"  || {
+[[ -z $(ls /var/www/html) ]] && msg -bar  || {
     for my_arqs in `ls /var/www/html`; do
     [[ "$my_arqs" = "index.html" ]] && continue
     [[ "$my_arqs" = "index.php" ]] && continue
@@ -46,9 +46,9 @@ i=1
     echo -e "${cor[2]}[$i] > ${cor[3]}$my_arqs - \033[1;36mhttp://$IP:81/$my_arqs\033[0m"
     let i++
     done
-    echo -e "$barra"
+    msg -bar
     echo -e "${cor[5]}$(fun_trans "Selecione o Arquivo a Ser Apagado")"
-    echo -e "$barra"
+    msg -bar
     while [[ -z ${select_arc[$slct]} ]]; do
     read -p " [1-$i]: " slct
     tput cuu1 && tput dl1
@@ -57,12 +57,12 @@ i=1
     [[ -d /var/www/html ]] && [[ -e /var/www/html/$arquivo_move ]] && rm -rf /var/www/html/$arquivo_move > /dev/null 2>&1
     [[ -e /var/www/$arquivo_move ]] && rm -rf /var/www/$arquivo_move > /dev/null 2>&1
     echo -e "${cor[5]}$(fun_trans "Sucesso!")"
-    echo -e "$barra"
+    msg -bar
     }
 ;;    
 1)
 i="1"
-[[ -z $(ls $HOME) ]] && echo -e "$barra"  || {
+[[ -z $(ls $HOME) ]] && msg -bar  || {
     for my_arqs in `ls $HOME`; do
     [[ -d "$my_arqs" ]] && continue
     select_arc[$i]="$my_arqs"
@@ -71,7 +71,7 @@ i="1"
     done
     i=$(($i - 1))
     echo -e "${cor[5]}$(fun_trans "selecione o arquivo")"
-    echo -e "$barra"
+    msg -bar
     while [[ -z ${select_arc[$slct]} ]]; do
     read -p " [1-$i]: " slct
     tput cuu1 && tput dl1
@@ -86,9 +86,9 @@ i="1"
     cp $HOME/$arquivo_move /var/www/$arquivo_move
     cp $HOME/$arquivo_move /var/www/html/$arquivo_move
     echo -e "\033[1;36m http://$IP:81/$arquivo_move\033[0m"
-    echo -e "$barra"
+    msg -bar
     echo -e "${cor[5]}$(fun_trans "Sucesso!")"
-    echo -e "$barra"
+    msg -bar
     }
 ;;
 esac

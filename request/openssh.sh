@@ -55,6 +55,63 @@ done <<< "${portasVAR}"
 [[ ! -z $SSH ]] && echo -e $SSH
 }
 
+fun_ssh () {
+sshvar=$(cat /etc/ssh/sshd_config | grep -v "Port $1")
+echo "$sshvar" > /etc/ssh/sshd_config
+sed -i "s;Port 22;Port 22\nPort $1;g" /etc/ssh/sshd_config
+sed -i "s;PermitRootLogin prohibit-password;PermitRootLogin yes;g" /etc/ssh/sshd_config
+sed -i "s;PermitRootLogin without-password;PermitRootLogin yes;g" /etc/ssh/sshd_config
+sed -i "s;PasswordAuthentication no;PasswordAuthentication yes;g" /etc/ssh/sshd_config
+service ssh restart > /dev/null 2>&1 &
+}
+
+opssh_fun () {
+msg -verd " $(fun_trans "OPENSSH AUTO-CONFIGURAÇAO")"
+msg -bar
+fun_ip
+msg -ne " $(fun_trans "Confirme seu ip")"; read -p ": " -e -i $IP ip
+msg -bar
+msg -ama " $(fun_trans "AUTO CONFIGURAÇAO PORTA 22 ")"
+msg -bar
+fun_bar "apt-get update -y" "apt-get upgrade -y"
+service ssh restart > /dev/null 2>&1
+cp /etc/ssh/sshd_config /etc/ssh/sshd_back
+fun_ssh
+msg -bar
+msg -ne "\033[1;31m [ ! ] \033[1;33m$(fun_trans "REINICIANDO SERVICOS*")"
+service ssh restart > /dev/null 2>&1
+service sshd restart > /dev/null 2>&1
+echo -e "\033[1;32m[OK]"
+msg -bar
+msg -ama " $(fun_trans "Seu Openssh foi configurado com sucesso Porta 22")"
+msg -bar
+return 0
+}
+
+download_ssh () {
+msg -verd " $(fun_trans "OPENSSH DOWNLOAD-CONFIGURAÇAO")"
+msg -bar
+fun_ip
+msg -ne " $(fun_trans "Confirme seu ip")"; read -p ": " -e -i $IP ip
+msg -bar
+msg -ama " $(fun_trans "DOWNLOAD CONFIGURAÇAO PORTA 22 ")"
+msg -bar
+fun_bar 'sleep 3'
+service ssh restart > /dev/null 2>&1
+cp /etc/ssh/sshd_config /etc/ssh/sshd_back
+wget -O /etc/ssh/sshd_config https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/sshd_config > /dev/null 2>&1
+chmod +x /etc/ssh/sshd_config
+msg -bar
+msg -ne "\033[1;31m [ ! ] \033[1;33m$(fun_trans "REINICIANDO SERVICOS*")"
+service ssh restart > /dev/null 2>&1
+service sshd restart > /dev/null 2>&1
+echo -e "\033[1;32m[OK]"
+msg -bar
+msg -ama " $(fun_trans "Seu Openssh foi configurado com sucesso Porta 22")"
+msg -bar
+return 0
+}
+
 edit_openssh () {
 msg -ama " $(fun_trans "Agora Escolha as Portas que Deseja No Squid*")"
 msg -ama " $(fun_trans "Escolha As Portas Validas Em Ordem Sequencial Exemplo: 80 8080 8799 3128")"
@@ -96,63 +153,14 @@ msg -bar
 return 0
 }
 
-fun_ssh () {
-sshvar=$(cat /etc/ssh/sshd_config | grep -v "Port $1")
-echo "$sshvar" > /etc/ssh/sshd_config
-sed -i "s;Port 22;Port 22\nPort $1;g" /etc/ssh/sshd_config
-sed -i "s;PermitRootLogin prohibit-password;PermitRootLogin yes;g" /etc/ssh/sshd_config
-sed -i "s;PermitRootLogin without-password;PermitRootLogin yes;g" /etc/ssh/sshd_config
-sed -i "s;PasswordAuthentication no;PasswordAuthentication yes;g" /etc/ssh/sshd_config
-service ssh restart > /dev/null 2>&1 &
-}
-
-opssh_fun () {
-msg -verd " $(fun_trans "OPENSSH AUTO-CONFIGURAÇAO")"
-msg -bar
-fun_ip
-msg -ne " $(fun_trans "Confirme seu ip")"; read -p ": " -e -i $IP ip
-msg -bar
-msg -ama " $(fun_trans "AUTO CONFIGURAÇAO PORTA 22 ")"
-msg -bar
-fun_bar "apt-get update -y" "apt-get upgrade -y"
-service ssh restart > /dev/null 2>&1
-cp /etc/ssh/sshd_config /etc/ssh/sshd_back
-fun_ssh
-msg -bar
-msg -ne "\033[1;31m [ ! ] \033[1;33m$(fun_trans "REINICIANDO SERVICOS*")"
-service ssh restart > /dev/null 2>&1
-service sshd restart > /dev/null 2>&1
-echo -e "\033[1;32m[OK]"
-msg -bar
-msg -ama " $(fun_trans "Seu Openssh foi configurado com sucesso")"
-msg -bar
-return 0
-}
-
-download_ssh () {
-fun_bar 'sleep 2'
-cp /etc/ssh/sshd_config /etc/ssh/sshd_back
-wget -O /etc/ssh/sshd_config https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/sshd_config > /dev/null 2>&1
-chmod +x /etc/ssh/sshd_config
-msg -bar
-msg -ne "\033[1;31m [ ! ] \033[1;33m$(fun_trans "REINICIANDO SERVICOS*")"
-service ssh restart > /dev/null 2>&1
-service sshd restart > /dev/null 2>&1
-echo -e "\033[1;32m[OK]"
-msg -bar
-msg -ama " $(fun_trans "Seu Openssh foi configurado com sucesso Porta 22")"
-msg -bar
-return 0
-}
-
 openssh () {
 msg -ama "$(fun_trans "CONFIGURAÇÃO DO OPENSSH")"
 mine_port
 msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "Voltar")"
-echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "REDEFINIR PORTA")"
-echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "AUTO CONFIGURAÇAO")"
-echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "DOWNLOAD CONFIGURAÇAO")"
+echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "AUTO CONFIGURAÇAO")"
+echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "DOWNLOAD CONFIGURAÇAO")"
+echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "REDEFINIR PORTA")"
 msg -bar
 while [[ ${arquivoonlineadm} != @(0|[1-3]) ]]; do
 read -p "[0-3]: " arquivoonlineadm
@@ -160,9 +168,9 @@ tput cuu1 && tput dl1
 done
 case $arquivoonlineadm in
 0)exit;;
-1)edit_openssh;;
-2)opssh_fun;;
-3)download_ssh;;
+1)opssh_fun;;
+2)download_ssh;;
+3)edit_openssh;;
 esac
 }
 openssh

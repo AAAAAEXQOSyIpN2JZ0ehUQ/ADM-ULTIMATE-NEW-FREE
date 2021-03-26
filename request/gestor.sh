@@ -131,6 +131,14 @@ sudo rm -rf /etc/newadm/ger-user/Limiter.log > /dev/null 2>&1 && echo -e "\033[1
 return
 }
 
+newadm_color () {
+echo -ne " \033[1;31m[ ! ] New-Adm-Color"
+rm -rf /etc/new-adm-color > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+echo "2 2 2 4 2 4 7 " > /etc/new-adm-color
+chmod +x /etc/new-adm-color
+return
+}
+
 pamcrack () {
 echo -e "${cor[3]} $(fun_trans "Liberar passwd para VURTL")"
 msg -bar
@@ -179,8 +187,9 @@ echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "REINICIAR SISTEMA")"
 echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "ALTERAR O NOME DO SISTEMA")"
 echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "CAMBIAR CONTRASEÑA ROOT DEL SISTEMA")"
 echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "ATUALIZAR HORA AMERICA-SANTIAGO")"
-echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "DESBLOQUEAR VURTL PARA CREAR USUARIOS") \033[1;33m(\033[1;37mBETA\033[1;33m)"
-echo -ne "\033[1;32m [8] > " && msg -azu "$(fun_trans "APLICAR ROOT A GOOGLECLOUD Y AMAZON") \033[1;33m(\033[1;37mBETA\033[1;33m)"
+echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "MUDAR CORES SISTEMA A RED-TEME")"
+echo -ne "\033[1;32m [8] > " && msg -azu "$(fun_trans "DESBLOQUEAR VURTL PARA CREAR USUARIOS") \033[1;33m(\033[1;37mBETA\033[1;33m)"
+echo -ne "\033[1;32m [9] > " && msg -azu "$(fun_trans "APLICAR ROOT A GOOGLECLOUD Y AMAZON") \033[1;33m(\033[1;37mBETA\033[1;33m)"
 msg -bar
 while [[ ${arquivoonlineadm} != @(0|[1-9]) ]]; do
 read -p "[0-9]: " arquivoonlineadm
@@ -194,8 +203,8 @@ case $arquivoonlineadm in
 4)host_name;;
 5)cambiopass;;
 6)act_hora;;
-7)pamcrack;;
-8)rootpass;;
-77)cleanreg;;
+7)newadm_color;;
+8)pamcrack;;
+9)rootpass;;
 esac
 msg -bar

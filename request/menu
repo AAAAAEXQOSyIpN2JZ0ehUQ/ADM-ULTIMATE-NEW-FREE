@@ -500,11 +500,11 @@ rm -rf ${SCPdir} &>/dev/null
 rm -rf ${SCPusr} &>/dev/null
 rm -rf ${SCPfrm} &>/dev/null
 rm -rf ${SCPinst} &>/dev/null
-[[ -e /bin/h ]] && rm /bin/h
 [[ -e /bin/adm ]] && rm /bin/adm
 [[ -e /usr/bin/adm ]] && rm /usr/bin/adm
 [[ -e /bin/menu ]] && rm /bin/menu
 [[ -e /usr/bin/menu ]] && rm /usr/bin/menu
+[[ -e /bin/h ]] && rm /bin/h
 [[ -e /bin/trans ]] && rm /bin/trans
 [[ -e /usr/bin/trans ]] && rm /usr/bin/trans
 [[ -e /bin/speedtest ]] && rm /bin/speedtest

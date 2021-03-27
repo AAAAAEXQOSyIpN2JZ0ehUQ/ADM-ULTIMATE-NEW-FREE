@@ -48,8 +48,8 @@ fi
 meu_ip
 if [[ $vnc = "" ]]; then
 echo -ne " $(fun_trans "VNC não está ativo Deseja ativar?") [S/N]: "; read x
-[[ $x = @(n|N) ]] && echo -e "$barra" && return
-echo -e "$barra"
+[[ $x = @(n|N) ]] && msg -bar && return
+msg -bar
 echo -e " \033[1;36mInstalling VNC:"
 fun_bar 'apt-get install xfce4 xfce4-goodies gnome-icon-theme tightvncserver -y'
 echo -e " \033[1;36mInstalling DEPENDENCE:"
@@ -57,11 +57,11 @@ fun_bar 'apt-get install iceweasel -y'
 echo -e " \033[1;36mInstalling FIREFOX:"
 fun_bar 'apt-get install firefox -y'
 echo "#VNC-ADM ON" > /etc/vnc-on
-echo -e "$barra"
+msg -bar
 echo -e "\033[1;33m $(fun_trans "ENTRE UMA SENHA E DEPOIS DE CONFIRMAR")\033[1;32m"
-echo -e "$barra"
+msg -bar
 vncserver
-echo -e "$barra"
+msg -bar
 echo -e " $(fun_trans "VNC conecta usando o ip do vps na porta") 5901"
 echo -e " Ex: $IP:5901\033[1;32m"
 echo -e " $(fun_trans "Para acessar a interface gráfica") "
@@ -69,8 +69,8 @@ echo -e " $(fun_trans "Faça o download da PlayStore:") VNC VIWER"
 # VNC Desintala
 elif [[ $vnc != "" ]]; then
 echo -ne " $(fun_trans "Si VNC está ativo Deseja desabilitar?") [S/N]: "; read x
-[[ $x = @(n|N) ]] && echo -e "$barra" && return
-echo -e "$barra"
+[[ $x = @(n|N) ]] && msg -bar && return
+msg -bar
 vncserver -kill :1 > /dev/null 2>&1
 echo -e " \033[1;36mremoving VNC:"
 fun_bar 'apt-get purge xfce4 xfce4-goodies gnome-icon-theme tightvncserver -y'
@@ -83,13 +83,6 @@ vncserver -kill :1 > /dev/null 2>&1
 vncserver -kill :2 > /dev/null 2>&1
 vncserver -kill :3 > /dev/null 2>&1
 fi
-echo -e "$barra"
+msg -bar
 }
 vnc_fun
-
-[[ "$1" = "1" ]]
-####_Eliminar_Tmps_####
-[[ -e $_tmp ]] && rm $_tmp
-[[ -e $_tmp2 ]] && rm $_tmp2
-[[ -e $_tmp3 ]] && rm $_tmp3
-[[ -e $_tmp4 ]] && rm $_tmp4

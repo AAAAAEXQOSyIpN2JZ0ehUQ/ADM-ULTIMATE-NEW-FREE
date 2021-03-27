@@ -7,28 +7,25 @@ SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 
 fun_bar () {
-comando[0]="$1"
-comando[1]="$2"
- (
-[[ -e $HOME/fim ]] && rm $HOME/fim
-${comando[0]} -y > /dev/null 2>&1
-${comando[1]} -y > /dev/null 2>&1
-touch $HOME/fim
- ) > /dev/null 2>&1 &
-echo -ne "\033[1;33m ["
-while true; do
-   for((i=0; i<18; i++)); do
+comando="$1"
+ _=$(
+$comando > /dev/null 2>&1
+) & > /dev/null
+pid=$!
+while [[ -d /proc/$pid ]]; do
+echo -ne " \033[1;33m["
+   for((i=0; i<10; i++)); do
    echo -ne "\033[1;31m##"
-   sleep 0.1s
+   sleep 0.2
    done
-   [[ -e $HOME/fim ]] && rm $HOME/fim && break
-   echo -e "\033[1;33m]"
-   sleep 1s
-   tput cuu1
-   tput dl1
-   echo -ne "\033[1;33m ["
+echo -ne "\033[1;33m]"
+sleep 1s
+echo
+tput cuu1
+tput dl1
 done
-echo -e "\033[1;33m]\033[1;31m -\033[1;32m 100%\033[1;37m"
+echo -e " \033[1;33m[\033[1;31m####################\033[1;33m] - \033[1;32m100%\033[0m"
+sleep 1s
 }
 
 #PREENXE A VARIAVEL $IP
@@ -47,91 +44,43 @@ fi
 meu_ip
 if [[ $vnc = "" ]]; then
 echo -ne " $(fun_trans "VNC não está ativo Deseja ativar?") [S/N]: "; read x
-[[ $x = @(n|N) ]] && return
-echo -e "$barra"
+[[ $x = @(n|N) ]] && msg -bar && return
+msg -bar
 echo -e " \033[1;36mInstalling VNC:"
 fun_bar 'apt-get install xfce4 xfce4-goodies gnome-icon-theme tightvncserver'
 echo -e " \033[1;36mInstalling DEPENDENCE:"
 fun_bar 'apt-get install iceweasel'
 echo -e " \033[1;36mInstalling FIREFOX:"
 fun_bar 'apt-get install firefox -y'
-echo "Activo VNC" > /usr/bin/vnc_log1
-echo -e "$barra"
+echo "#VNC-ADM ON" > /etc/vnc-on
+msg -bar
 echo -e "\033[1;33m $(fun_trans "ENTRE UMA SENHA E DEPOIS DE CONFIRMAR")\033[1;32m"
-echo -e "$barra"
+msg -bar
 vncserver
-echo -e "$barra"
+msg -bar
 echo -e " $(fun_trans "VNC conecta usando o ip do vps na porta") 5901"
 echo -e " Ex: $IP:5901\033[1;32m"
 echo -e " $(fun_trans "Para acessar a interface gráfica") "
 echo -e " $(fun_trans "Faça o download da PlayStore:") VNC VIWER"
 elif [[ $vnc != "" ]]; then
 echo -e " $(fun_trans "VNC está ativo Deseja desabilitar?") [S/N]: "; read x
-[[ $x = @(n|N) ]] && echo -e "$barra" && return
-echo -e "$barra"
-vncserver -kill :1 > /dev/null 2>&1
-echo -e " \033[1;36mremoving VNC:"
-fun_bar 'apt-get purge xfce4 xfce4-goodies gnome-icon-theme tightvncserver -y'
-echo -e "\033[1;36m removing DEPENDENCES:"
-fun_bar 'apt-get purge iceweasel -y'
-echo -e "\033[1;36m removing FIREFOX:"
-fun_bar 'apt-get purge firefox -y'
-rm -rf /usr/bin/vnc_log1
-vncserver -kill :1 > /dev/null 2>&1
-vncserver -kill :2 > /dev/null 2>&1
-vncserver -kill :3 > /dev/null 2>&1
-fi
-}
-
-vncpurge_fun () {
-echo -ne " $(fun_trans "Si VNC está ativo Deseja desabilitar?") [S/N]: "; read x
-[[ $x = @(n|N) ]] && return
-echo -e "$barra"
-vncserver -kill :1 > /dev/null 2>&1
-echo -e " \033[1;36mremoving VNC:"
-fun_bar 'apt-get purge xfce4 xfce4-goodies gnome-icon-theme tightvncserver -y'
-echo -e "\033[1;36m removing DEPENDENCES:"
-fun_bar 'apt-get purge iceweasel -y'
-echo -e "\033[1;36m removing FIREFOX:"
-fun_bar 'apt-get purge firefox -y'
-rm -rf /usr/bin/vnc_log1
-vncserver -kill :1 > /dev/null 2>&1
-vncserver -kill :2 > /dev/null 2>&1
-vncserver -kill :3 > /dev/null 2>&1
-}
-
-#ACTUALIZAR VNC
-fun_actualiza (){
-wget -O /etc/ger-frm/vnc.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/HerramientasADM/vnc.sh > /dev/null 2>&1; chmod +x /etc/ger-frm/vnc.sh
-fun_bar "chmod -R 777 /etc/ger-frm/vnc.sh"
-chmod -R 777 /etc/ger-frm/vnc.sh > /dev/null 2>&1
-echo -e "$barra"
-echo -e "${cor[3]}$(fun_trans "VNC ACTUALIZADO CON SUCESSO")"
-echo -e "$barra"
-}
-
-[[ -e /usr/bin/vnc_log1 ]] && vnc=$(echo -e "\033[1;32mon ") || vnc=$(echo -e "\033[1;31moff ")
-
-msg -ama "$(fun_trans "VNC SERVER") ${cor[4]}[NEW-ADM]"
-echo -e "$barra"
-echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "VNC SERVER") $vnc"
-echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "ELIMINAR VNC")"
-echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "ACTUALIZAR VNC")"
-echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
-echo -e "$barra"
-while [[ ${arquivoonlineadm} != @(0|[1-3]) ]]; do
-read -p "Selecione a Opcao: " arquivoonlineadm
-tput cuu1 && tput dl1
-done
-case $arquivoonlineadm in
-0)exit;;
-1)vnc_fun;;
-2)vncpurge_fun;;
-3)fun_actualiza;;
-esac
+[[ $x = @(n|N) ]] && msg -bar && return
 msg -bar
+echo -e " \033[1;36mremoving VNC:"
+fun_bar 'apt-get purge xfce4 xfce4-goodies gnome-icon-theme tightvncserver'
+echo -e "\033[1;36m removing DEPENDENCES:"
+fun_bar 'apt-get purge iceweasel'
+echo -e "\033[1;36m removing FIREFOX:"
+fun_bar 'apt-get purge firefox -y'
+rm -rf /etc/vnc-on
+vncserver -kill :1 > /dev/null
+vncserver -kill :2 > /dev/null
+vncserver -kill :3 > /dev/null
+fi
+msg -bar
+}
+vnc_fun
 
-[[ "$1" = "1" ]]
 ####_Eliminar_Tmps_####
 [[ -e $_tmp ]] && rm $_tmp
 [[ -e $_tmp2 ]] && rm $_tmp2

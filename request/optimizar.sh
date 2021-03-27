@@ -59,13 +59,13 @@ fun_optimizer () {
 [[ $(grep -wc mlocate /var/lib/dpkg/statoverride) != '0' ]] && sed -i '/mlocate/d' /var/lib/dpkg/statoverride
 msg -ama " $(fun_trans "LIMPAR MEMORIA E CACHE SISTEMA")"
 msg -bar
-echo -e "\033[1;37m Atualizando pacotes\033[0m"
+echo -e "\033[1;36m Atualizando pacotes\033[0m"
 fun_bar 'apt-get update -y' 'apt-get upgrade -y'
-echo -e "\033[1;37m Corrigindo problemas de dependências"
+echo -e "\033[1;36m Corrigindo problemas de dependências"
 fun_bar 'apt-get -f install'
-echo -e "\033[1;37m Removendo pacotes inúteis"
+echo -e "\033[1;36m Removendo pacotes inúteis"
 fun_bar 'apt-get autoremove -y' 'apt-get autoclean -y'
-echo -e "\033[1;37m Removendo pacotes com problemas"
+echo -e "\033[1;36m Removendo pacotes com problemas"
 fun_bar 'apt-get -f remove -y' 'apt-get clean -y'
 # Limpar o cache memoria RAM
 msg -bar

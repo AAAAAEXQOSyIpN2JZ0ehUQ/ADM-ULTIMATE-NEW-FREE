@@ -500,17 +500,17 @@ rm -rf ${SCPdir} &>/dev/null
 rm -rf ${SCPusr} &>/dev/null
 rm -rf ${SCPfrm} &>/dev/null
 rm -rf ${SCPinst} &>/dev/null
-[[ -e /bin/h ]] && rm /bin/h
 [[ -e /bin/adm ]] && rm /bin/adm
 [[ -e /usr/bin/adm ]] && rm /usr/bin/adm
 [[ -e /bin/menu ]] && rm /bin/menu
 [[ -e /usr/bin/menu ]] && rm /usr/bin/menu
+[[ -e /bin/h ]] && rm /bin/h
 [[ -e /bin/trans ]] && rm /bin/trans
 [[ -e /usr/bin/trans ]] && rm /usr/bin/trans
 [[ -e /bin/speedtest ]] && rm /bin/speedtest
 [[ -e /bin/payloads ]] && rm /bin/payloads
-[[ -e /bin/badvpn-udpgw ]] && rm /bin/badvpn-udpgw
 [[ -e /bin/nettools.py ]] && rm /bin/nettools.py
+[[ -e $HOME/versao ]] && rm $HOME/versao
 cd $HOME
 msg -ama "$(fun_trans "SCRIPT REMOVIDO COM SUCESSO")?"
 msg -bar
@@ -534,19 +534,23 @@ clock=$(lscpu | grep "CPU MHz" | awk '{print $3}')
 based=$(cat /etc/*release | grep ID_LIKE | awk -F "=" '{print $2}')
 processor=$(cat /proc/cpuinfo | grep "model name" | uniq | awk -F ":" '{print $2}')
 cpus=$(cat /proc/cpuinfo | grep processor | wc -l)
+# SISTEMA OPERACIONAL
 msg -ama "$(fun_trans "Nome Da Maquina"): ${null}$(hostname)"
 [[ "$system" ]] && msg -ama "$(fun_trans "Sistema"): ${null}$system" || msg -ama "$(fun_trans "Sistema"): ${null}???"
 msg -ama "$(fun_trans "Endereco Da Maquina"): ${null}$(ip addr | grep inet | grep -v inet6 | grep -v "host lo" | awk '{print $2}' | awk -F "/" '{print $1}')"
 msg -ama "$(fun_trans "Versao do Kernel"): ${null}$(uname -r)"
 [[ "$based" ]] && msg -ama "$(fun_trans "Baseado"): ${null}$based" || msg -ama "$(fun_trans "Baseado"): ${null}???"
+# PROCESSADOR
 [[ "$processor" ]] && msg -ama "$(fun_trans "Processador"): ${null}$processor x$cpus" || msg -ama "$(fun_trans "Processador"): ${null}???"
 [[ "$clock" ]] && msg -ama "$(fun_trans "Frequecia de Operacao"): ${null}$clock MHz" || msg -ama "$(fun_trans "Frequecia de Operacao"): ${null}???"
 msg -ama "$(fun_trans "Arquitetura"): ${null}$(uname -m)"
+# MEMORIA RAM
 msg -ama "$(fun_trans "Uso do Processador"): ${null}$(ps aux  | awk 'BEGIN { sum = 0 }  { sum += sprintf("%f",$3) }; END { printf " " "%.2f" "%%", sum}')"
 msg -ama "$(fun_trans "Memoria Virtual Total"): ${null}$(($totalram / 1024))"
 msg -ama "$(fun_trans "Memoria Virtual Em Uso"): ${null}$(($usedram / 1024))"
 msg -ama "$(fun_trans "Memoria Virtual Livre"): ${null}$(($freeram / 1024))"
 msg -ama "$(fun_trans "Memoria Virtual Swap"): ${null}$(($swapram / 1024))MB"
+# TEMPO ONLINE
 msg -ama "$(fun_trans "Tempo Online"): ${null}$(uptime)"
 msg -bar
 return 0
@@ -573,7 +577,7 @@ case $1 in
 "paysnd.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "PAYLOAD FORCA BRUTA BASH*") $dev";;
 "fai2ban.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "FAIL2BAN PROTECAO*") $dev";;
 "vnc.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "VNC SERVER*") $dev";;
-"proxy_manager.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "PROXY MANAGER*") \033[1;33m(\033[1;37mBETA\033[1;33m) $dev";;
+"scriptsalternos.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "TESTE SCRIPTS ALTERNOS*") \033[1;33m(\033[1;37mBETA\033[1;33m) $dev";;
 # Menu Instalação Ger-Inst OFC
 "apache2.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "APACHE2 $(pid_inst apache2)";;
 "openssh.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "OPENSSH $(pid_inst sshd)";;
@@ -669,6 +673,10 @@ export -f fun_bar
 menuTXT="$(fun_trans "VOLTAR*")"
 msg -ama "$(fun_trans "MENU DE INSTALACAO*")"
 msg -bar
+msg -ama "$(fun_trans "Portas Ativas No Momento!")"
+msg -bar
+mine_port3
+msg -bar
 echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$menuTXT"
 local Numb=1
 for arqs in $(ls ${SCPinst}); do
@@ -723,7 +731,7 @@ clear
 msg -bar
 msg -ama "PORTAS ATIVAS E INFORMACOES DO SERVIDOR     \033[1;31m[\033[1;37m r6.3.8 \033[1;31m] "
 msg -bar
-mine_port4
+menu2
 msg -bar
 msg -ne "$(fun_trans "SISTEMA*"): " && echo -ne "\033[1;37m$(os_system)  "
 msg -ne "$(fun_trans "IP*"): " && echo -e "\033[1;37m$(meu_ip)"

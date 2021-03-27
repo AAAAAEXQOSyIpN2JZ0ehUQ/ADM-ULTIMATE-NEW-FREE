@@ -15,6 +15,17 @@ rm -rf /bin/shadowsocks.sh
 rm -rf /bin/v2ray.sh > /dev/null 2>&1
 rm -rf /bin/vdoray.sh > /dev/null 2>&1
 
+menu () {
+echo -ne " \033[1;31m[ ! ] Instalando Menu Beta v.2"
+wget -O /etc/newadm/menu https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Herramientas/menu > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+echo -ne " \033[1;31m[ ! ] Cocediendo Permisos"
+chmod 777 /etc/newadm/menu > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+echo -ne " \033[1;31m[ ! ] Accediendo al menu... \033[1;32m [OK]"
+sleep 3
+chmod 777 /etc/newadm/menu; /etc/newadm/menu
+echo -e "$barra"
+}
+
 ssl_redir() {
 if [[ ! -e /etc/stunnel/stunnel.conf ]]; then
 msg -ama " $(fun_trans "stunnel.conf Nao Encontrado")"
@@ -81,7 +92,7 @@ return;;
 wget -O /bin/conexao.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/conexao.sh > /dev/null 2>&1; chmod +x /bin/conexao.sh; conexao.sh
 break;;
 2)
-return
+menu
 break;;
 3)
 ssl_redir
@@ -102,7 +113,7 @@ break;;
 wget -O /etc/ger-inst/v2ray.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/v2ray.sh > /dev/null 2>&1; chmod +x /etc/ger-inst/v2ray.sh
 break;;
 9)
-wget -O /bin/vdoray.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Herramientas/vdoray.sh > /dev/null 2>&1; chmod +x /bin/vdoray.sh; vdoray.sh
+wget -O /bin/vdoray.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Herramientas/vdoray.sh > /dev/null 2>&1; chmod +x /bin/vdoray.sh; ${SCPinst}/v2ray.sh
 break;;
 esac
 done

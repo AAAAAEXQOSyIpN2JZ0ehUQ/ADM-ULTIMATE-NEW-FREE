@@ -432,25 +432,25 @@ PID_GEN=$(ps x|grep -v grep|grep "limv2ray")
 [[ ! $PID_GEN ]] && PID_GEN="\e[91m [ DESACTIVADO ] " || PID_GEN="\e[92m [ ACTIVADO ] "
 statgen="$(echo $PID_GEN)"
 msg -bar
-msg -ama " $(fun_trans "INSTALADOR DE V2RAY (PASO A PASO) ")"
+msg -ama "$(fun_trans "INSTALADOR DE V2RAY (PASO A PASO) ")"
 msg -bar
 ## INSTALADOR
-echo -ne "\033[1;32m[0] > " && msg -bra "$(fun_trans "VOLVER") "
+echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLVER") "
 msg -bar
-echo -ne "\033[1;32m[1] > " && msg -azu "$(fun_trans "INSTALAR V2RAY") "
-echo -ne "\033[1;32m[2] > " && msg -azu "$(fun_trans "CAMBIAR PROTOCOLO") "
-echo -ne "\033[1;32m[3] > " && msg -azu "$(fun_trans "ACTIVAR TLS") "
-echo -ne "\033[1;32m[4] > " && msg -azu "$(fun_trans "CAMBIAR PUERTO V2RAY")\n$(msg -bar) "
+echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "INSTALAR V2RAY") "
+echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "CAMBIAR PROTOCOLO") "
+echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "ACTIVAR TLS") "
+echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "CAMBIAR PUERTO V2RAY")\n$(msg -bar) "
 ## CONTROLER
-echo -ne "\033[1;32m[5] > " && msg -azu "AGREGAR USUARIO UUID "
-echo -ne "\033[1;32m[6] > " && msg -azu "ELIMINAR USUARIO UUID"
-echo -ne "\033[1;32m[7] > " && msg -azu "MOSTAR USUARIOS REGISTRADOS"
-echo -ne "\033[1;32m[8] > " && msg -azu "INFORMACION DE CUENTAS"
-echo -ne "\033[1;32m[9] > " && msg -azu "ESTADISTICAS DE CONSUMO "
-echo -ne "\033[1;32m[10] > " && msg -azu "LIMITADOR POR CONSUMO\e[91m ( BETA x PORT )"
-echo -ne "\033[1;32m[11] > " && msg -azu "LIMPIADOR DE EXPIRADOS ------- $statgen\n$(msg -bar)"
+echo -ne "\033[1;32m [5] > " && msg -azu "AGREGAR USUARIO UUID "
+echo -ne "\033[1;32m [6] > " && msg -azu "ELIMINAR USUARIO UUID"
+echo -ne "\033[1;32m [7] > " && msg -azu "MOSTAR USUARIOS REGISTRADOS"
+echo -ne "\033[1;32m [8] > " && msg -azu "INFORMACION DE CUENTAS"
+echo -ne "\033[1;32m [9] > " && msg -azu "ESTADISTICAS DE CONSUMO "
+echo -ne "\033[1;32m [10] > " && msg -azu "LIMITADOR POR CONSUMO\e[91m ( BETA x PORT )"
+echo -ne "\033[1;32m [11] > " && msg -azu "LIMPIADOR DE EXPIRADOS ------- $statgen\n$(msg -bar)"
 ## DESISNTALAR
-echo -ne "\033[1;32m[12] > " && msg -azu "\033[1;31mDESINSTALAR V2RAY  \033[1;37m"
+echo -ne "\033[1;32m [12] > " && msg -azu "\033[1;31mDESINSTALAR V2RAY  \033[1;37m"
 msg -bar
 pid_inst () {
 [[ $1 = "" ]] && echo -e "\033[1;31m[OFF]" && return 0
@@ -466,7 +466,7 @@ var1=$(echo $port | awk '{print $1}') && var2=$(echo $port | awk '{print $9}' | 
 done <<< "$portas_var"
 [[ $(echo "${portas[@]}"|grep "$1") ]] && echo -e "\033[1;32m[ Servicio Activo ]" || echo -e "\033[1;31m[ Servicio Desactivado ]"
 }
-echo -e "       \e[97mEstado actual: $(pid_inst v2ray)"
+echo -e "        \e[97mEstado actual: $(pid_inst v2ray)"
 msg -bar
 # while [[ ${arquivoonlineadm} != @(0|[1-99]) ]]; do
 # read -p "Seleccione una Opcion [0-12]: " arquivoonlineadm

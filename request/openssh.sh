@@ -157,7 +157,7 @@ openssh () {
 msg -ama "$(fun_trans "CONFIGURAÇÃO DO OPENSSH")"
 mine_port
 msg -bar
-echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "Voltar")"
+echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "AUTO CONFIGURAÇAO")"
 echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "DOWNLOAD CONFIGURAÇAO")"
 echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "REDEFINIR PORTA")"

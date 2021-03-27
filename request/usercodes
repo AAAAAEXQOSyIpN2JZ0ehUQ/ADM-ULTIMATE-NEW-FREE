@@ -616,6 +616,9 @@ while [[ -d /proc/$pid ]]; do
 sleep 1s
 done
 msg -bar
+_total=$(awk  -F : '$3 >= 500 {print  $1}'  /etc/passwd | grep -v "nobody" | sort | wc -l)
+echo -e " Você Tem: $_total Usuarios Em Seu Servidor"
+msg -bar
 }
 rm_vencidos () {
 red=$(tput setaf 1)

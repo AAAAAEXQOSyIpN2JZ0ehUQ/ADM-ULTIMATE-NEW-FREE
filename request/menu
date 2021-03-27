@@ -452,7 +452,7 @@ touch $HOME/fim
  ) > /dev/null 2>&1 &
 echo -ne "\033[1;33m ["
 while true; do
-   for((i=0; i<18; i++)); do
+   for((i=0; i<10; i++)); do
    echo -ne "\033[1;31m##"
    sleep 0.1s
    done

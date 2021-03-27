@@ -17,7 +17,7 @@ touch $HOME/fim
  ) > /dev/null 2>&1 &
 echo -ne "\033[1;33m ["
 while true; do
-   for((i=0; i<18; i++)); do
+   for((i=0; i<10; i++)); do
    echo -ne "\033[1;31m##"
    sleep 0.1s
    done
@@ -39,6 +39,7 @@ MEU_IP2=$(wget -qO- ipv4.icanhazip.com)
 }
 
 vnc_fun () {
+# VNC Instala
 if [ -d  /root/.vnc/ ];then
 vnc=$(ls /root/.vnc/ | grep :1.pid)
 else
@@ -47,7 +48,7 @@ fi
 meu_ip
 if [[ $vnc = "" ]]; then
 echo -ne " $(fun_trans "VNC não está ativo Deseja ativar?") [S/N]: "; read x
-[[ $x = @(n|N) ]] && return
+[[ $x = @(n|N) ]] && echo -e "$barra" && return
 echo -e "$barra"
 echo -e " \033[1;36mInstalling VNC:"
 fun_bar 'apt-get install xfce4 xfce4-goodies gnome-icon-theme tightvncserver -y'
@@ -65,10 +66,10 @@ echo -e " $(fun_trans "VNC conecta usando o ip do vps na porta") 5901"
 echo -e " Ex: $IP:5901\033[1;32m"
 echo -e " $(fun_trans "Para acessar a interface gráfica") "
 echo -e " $(fun_trans "Faça o download da PlayStore:") VNC VIWER"
-
+# VNC Desintala
 elif [[ $vnc != "" ]]; then
 echo -ne " $(fun_trans "Si VNC está ativo Deseja desabilitar?") [S/N]: "; read x
-[[ $x = @(n|N) ]] && return
+[[ $x = @(n|N) ]] && echo -e "$barra" && return
 echo -e "$barra"
 vncserver -kill :1 > /dev/null 2>&1
 echo -e " \033[1;36mremoving VNC:"

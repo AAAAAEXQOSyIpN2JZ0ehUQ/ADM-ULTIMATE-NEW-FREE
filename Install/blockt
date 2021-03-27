@@ -166,7 +166,7 @@ fun_spn2 () {
 fun_spn2
 echo ""
 echo -e "\033[1;37mBLOQUEIO TORRENT \033[1;32mAPLICADO !\033[0m"
-echo "#TORRENT-PLUSON" > /etc/torrent-admon
+echo "#Plus-torrent ON" > /etc/torrent-on
 echo ""
 echo -e "\033[1;33mFIREWALL APLICADO COM SUCESSO \033[1;32m[OK]"
 echo ""

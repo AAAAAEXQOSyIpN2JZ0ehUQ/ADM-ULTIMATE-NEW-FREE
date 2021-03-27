@@ -6,17 +6,17 @@ SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 
+[[ -e /etc/Plus-torrent ]] && torrent=$(echo -e "\033[1;32mon ") || torrent=$(echo -e "\033[1;31moff ")
+
 #Repositorio-GITHUB
 link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/blockt"
 [[ ! -e /bin/blockt ]] && wget -O /bin/blockt ${link_bin} > /dev/null 2>&1 && chmod +x /bin/blockt
-
-[[ -e /etc/Plus-torrent ]] && torrent=$(echo -e "\033[1;32mon ") || torrent=$(echo -e "\033[1;31moff ")
 
 fun_blockt () {
 /bin/blockt
 }
 
-msg -ama "$(fun_trans "FIREWALL BLOQUEIO TORRENT") ${cor[4]}[NEW-ADM]"
+msg -ama "$(fun_trans "FIREWALL BLOQUEIO TORRENT")"
 msg -bar
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "PLUS-TORRENT") $torrent"
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"

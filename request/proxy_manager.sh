@@ -42,6 +42,15 @@ msg -bra " $(fun_trans "AGREGADO CON EXITO") ${cor[2]}[!OK]"
 msg -bar
 }
 
+#LIPIAR SCRIPTS
+rm -rf /bin/conexao.sh > /dev/null 2>&1
+rm -rf /bin/shadown.sh > /dev/null 2>&1
+rm -rf /bin/shadowsocks.sh > /dev/null 2>&1
+rm -rf /bin/shadowsock.sh > /dev/null 2>&1
+rm -rf /bin/ssrrmu.sh > /dev/null 2>&1
+rm -rf /bin/v2ray.sh > /dev/null 2>&1
+rm -rf /bin/vdoray.sh > /dev/null 2>&1
+
 [[ ! -d /etc/ger-tools ]] && mkdir /etc/ger-tools
 gestor_fun () {
 while true; do
@@ -91,10 +100,10 @@ break;;
 wget -O /bin/shadowsocks.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/shadowsocks.sh > /dev/null 2>&1; chmod +x /bin/shadowsocks.sh; shadowsocks.sh
 break;;
 8)
-wget -O /etc/ger-inst/v2ray.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/v2ray.sh > /dev/null 2>&1; chmod +x /etc/ger-inst/v2ray.sh; v2ray.sh
+wget -O /etc/ger-inst/v2ray.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/v2ray.sh > /dev/null 2>&1; chmod +x /etc/ger-inst/v2ray.sh
 break;;
 9)
-return
+wget -O /bin/vdoray.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Herramientas/vdoray.sh > /dev/null 2>&1; chmod +x /bin/vdoray.sh; vdoray.sh
 break;;
 esac
 done

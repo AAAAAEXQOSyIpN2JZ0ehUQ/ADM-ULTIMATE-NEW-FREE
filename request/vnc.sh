@@ -100,8 +100,8 @@ vncserver -kill :2 > /dev/null 2>&1
 vncserver -kill :3 > /dev/null 2>&1
 }
 
-backup (){
-#BACKUP ANTI-DDOS
+#ACTUALIZAR VNC
+fun_actualiza (){
 wget -O /etc/ger-frm/vnc.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/HerramientasADM/vnc.sh > /dev/null 2>&1; chmod +x /etc/ger-frm/vnc.sh
 fun_bar "chmod -R 777 /etc/ger-frm/vnc.sh"
 chmod -R 777 /etc/ger-frm/vnc.sh > /dev/null 2>&1
@@ -110,11 +110,11 @@ echo -e "${cor[3]}$(fun_trans "VNC ACTUALIZADO CON SUCESSO")"
 echo -e "$barra"
 }
 
-[[ -e /usr/bin/vnc_log1 ]] && vnc_log1=$(echo -e "\033[1;32mon ") || vnc_log1=$(echo -e "\033[1;31moff ")
+[[ -e /usr/bin/vnc_log1 ]] && vnc=$(echo -e "\033[1;32mon ") || vnc=$(echo -e "\033[1;31moff ")
 
 msg -ama "$(fun_trans "VNC SERVER") ${cor[4]}[NEW-ADM]"
 echo -e "$barra"
-echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "VNC SERVER") $vnc_log1"
+echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "VNC SERVER") $vnc"
 echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "ELIMINAR VNC")"
 echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "ACTUALIZAR VNC")"
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
@@ -127,7 +127,7 @@ case $arquivoonlineadm in
 0)exit;;
 1)vnc_fun;;
 2)vncpurge_fun;;
-3)backup;;
+3)fun_actualiza;;
 esac
 msg -bar
 

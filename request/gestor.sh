@@ -93,8 +93,9 @@ cambiopass () {
 echo -e "${cor[3]} $(fun_trans "Esta herramienta cambia la contraseña de su servidor vps")"
 echo -e "${cor[3]} $(fun_trans "Esta contraseña es utilizada como usuario") root"
 msg -bar
-echo -ne " $(fun_trans "Desea Seguir?") [S/N]: "; read x
-[[ $x = @(n|N) ]] && return
+echo -e "$(fun_trans "Deseja Prosseguir?")"
+read -p " [S/N]: " -e -i n PROS
+[[ $PROS = @(s|S|y|Y) ]] || return 1
 #Inicia Procedimentos
 msg -bar
 echo -e "\033[1;37m $(fun_trans "Escriba su nueva contraseña")"
@@ -142,14 +143,22 @@ return
 pamcrack () {
 echo -e "${cor[3]} $(fun_trans "Liberar passwd para VURTL")"
 msg -bar
-echo -ne " $(fun_trans "Desea Seguir?") [S/N]: "; read x
-[[ $x = @(n|N) ]] && return
+echo -e "$(fun_trans "Deseja Prosseguir?")"
+read -p " [S/N]: " -e -i n PROS
+[[ $PROS = @(s|S|y|Y) ]] || return 1
 msg -bar
+#-----------------------------------------------------------------------------------------------------------------
+# sudo apt-get install libpam-cracklib -y > /dev/null 2>&1
+# wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/VPS-MX/main/VPS-MX_Oficial/ArchivosUtilitarios/common-password -O /etc/pam.d/common-password > /dev/null 2>&1 
+# chmod +x /etc/pam.d/common-password
+#-----------------------------------------------------------------------------------------------------------------
 fun_bar "service ssh restart"
 sed -i 's/.*pam_cracklib.so.*/password sufficient pam_unix.so sha512 shadow nullok try_first_pass #use_authtok/' /etc/pam.d/common-password
 service ssh restart > /dev/null 2>&1
 msg -bar
 echo -e " \033[1;31m[ ! ]\033[1;33m $(fun_trans "Configuraciones VURTL aplicadas")"
+msg -bar
+echo -e "$(fun_trans "Passwd Alfanumerico Desactivado con EXITO")"
 return
 }
 
@@ -157,8 +166,9 @@ rootpass () {
 echo -e "${cor[3]} $(fun_trans "Esta herramienta cambia a usuario root las VPS de")"
 echo -e "${cor[3]} $(fun_trans "GoogleCloud y Amazon")"
 msg -bar
-echo -ne " Desea Seguir? [S/N]: "; read x
-[[ $x = @(n|N) ]] && return
+echo -e "$(fun_trans "Deseja Prosseguir?")"
+read -p " [S/N]: " -e -i n PROS
+[[ $PROS = @(s|S|y|Y) ]] || return 1
 msg -bar
 #Inicia Procedimentos
 fun_bar "service ssh restart"
@@ -172,6 +182,7 @@ msg -bar
 read  -p " Nuevo passwd: " pass
 (echo $pass; echo $pass)|passwd 2>/dev/null
 sleep 1s
+service ssh restart &>/dev/null
 msg -bar
 echo -e "${cor[3]} $(fun_trans "Configuraciones aplicadas con exito!")"
 echo -e "${cor[2]} $(fun_trans "Su contraseña ahora es"): ${cor[4]}$pass"

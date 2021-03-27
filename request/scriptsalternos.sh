@@ -6,6 +6,15 @@ SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 
+#LIPIAR SCRIPTS
+rm -rf /bin/conexao.sh > /dev/null 2>&1
+rm -rf /bin/C-SSR.sh
+rm -rf /bin/Shadowsocks-libev.sh
+rm -rf /bin/Shadowsocks-R.sh
+rm -rf /bin/shadowsocks.sh
+rm -rf /bin/v2ray.sh > /dev/null 2>&1
+rm -rf /bin/vdoray.sh > /dev/null 2>&1
+
 ssl_redir() {
 if [[ ! -e /etc/stunnel/stunnel.conf ]]; then
 msg -ama " $(fun_trans "stunnel.conf Nao Encontrado")"
@@ -42,35 +51,25 @@ msg -bra " $(fun_trans "AGREGADO CON EXITO") ${cor[2]}[!OK]"
 msg -bar
 }
 
-#LIPIAR SCRIPTS
-rm -rf /bin/conexao.sh > /dev/null 2>&1
-rm -rf /bin/shadown.sh > /dev/null 2>&1
-rm -rf /bin/shadowsocks.sh > /dev/null 2>&1
-rm -rf /bin/shadowsock.sh > /dev/null 2>&1
-rm -rf /bin/ssrrmu.sh > /dev/null 2>&1
-rm -rf /bin/v2ray.sh > /dev/null 2>&1
-rm -rf /bin/vdoray.sh > /dev/null 2>&1
-
-[[ ! -d /etc/ger-tools ]] && mkdir /etc/ger-tools
-gestor_fun () {
+fun_scriptsalternos () {
 while true; do
-echo -e " ${cor[3]} $(fun_trans "TESTE SCRIPTS ALTERNOS") ${cor[4]}[NEW-ADM]"
+echo -e "\033[1;33m$(fun_trans "TESTE SCRIPTS ALTERNOS") ${cor[4]}[NEW-ADM]"
 echo -e "$barra"
-echo -e " ${cor[4]} [0] > ${cor[0]}$(fun_trans "VOLTAR")"
+echo -e "\033[1;32m[0] > ${cor[0]}$(fun_trans "VOLTAR")"
 echo -e "$barra"
-echo -e "${cor[4]} [1] > \033[1;36m$(fun_trans "Menu SSHPlus Coneccion ")"
+echo -e "\033[1;32m[1] > \033[1;36m$(fun_trans "Menu SSHPlus Coneccion ")"
 echo -e "$barra"
-echo -e "${cor[4]} [2] > \033[1;36m$(fun_trans "Menu Beta v.2")"
+echo -e "\033[1;32m[2] > \033[1;36m$(fun_trans "Menu Beta v.2")"
 echo -e "$barra"
-echo -e "${cor[4]} [3] > \033[1;36m$(fun_trans "Multi portos SSL")"
+echo -e "\033[1;32m[3] > \033[1;36m$(fun_trans "Multi portos SSL")"
 echo -e "$barra"
-echo -e "${cor[4]} [4] > \033[1;36m$(fun_trans "ADMINISTRAR CUENTAS SS/SSRR")"
-echo -e "${cor[4]} [5] > \033[1;36m$(fun_trans "SHADOWSOCKS-LIBEV")"
-echo -e "${cor[4]} [6] > \033[1;36m$(fun_trans "SHADOWSOCKS-R")"
-echo -e "${cor[4]} [7] > \033[1;36m$(fun_trans "SHADOWSOCKS-NORMAL")"
+echo -e "\033[1;32m[4] > \033[1;36m$(fun_trans "ADMINISTRAR CUENTAS SS/SSRR")"
+echo -e "\033[1;32m[5] > \033[1;36m$(fun_trans "SHADOWSOCKS-LIBEV")"
+echo -e "\033[1;32m[6] > \033[1;36m$(fun_trans "SHADOWSOCKS-R")"
+echo -e "\033[1;32m[7] > \033[1;36m$(fun_trans "SHADOWSOCKS-NORMAL")"
 echo -e "$barra"
-echo -e "${cor[4]} [8] > \033[1;36m$(fun_trans "V2ray Panel")"
-echo -e "${cor[4]} [9] > \033[1;36m$(fun_trans "V2ray Manager")\n${barra}"
+echo -e "\033[1;32m[8] > \033[1;36m$(fun_trans "V2ray Panel")"
+echo -e "\033[1;32m[9] > \033[1;36m$(fun_trans "V2ray Manager")\n${barra}"
 while [[ ${opx} != @(0|[1-9]) ]]; do
 echo -ne "${cor[0]}$(fun_trans "Digite a Opcao"): \033[1;37m" && read opx
 tput cuu1 && tput dl1
@@ -108,4 +107,4 @@ break;;
 esac
 done
 }
-gestor_fun
+fun_scriptsalternos

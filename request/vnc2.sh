@@ -39,13 +39,6 @@ MEU_IP2=$(wget -qO- ipv4.icanhazip.com)
 }
 
 vnc_fun () {
-if [ -d  /root/.vnc/ ];then
-vnc=$(ls /root/.vnc/ | grep :1.pid)
-else
-vnc=""
-fi
-meu_ip
-if [[ $vnc = "" ]]; then
 echo -ne " $(fun_trans "VNC não está ativo Deseja ativar?") [S/N]: "; read x
 [[ $x = @(n|N) ]] && return
 echo -e "$barra"
@@ -62,11 +55,13 @@ echo -e "$barra"
 vncserver
 echo -e "$barra"
 echo -e " $(fun_trans "VNC conecta usando o ip do vps na porta") 5901"
+meu_ip
 echo -e " Ex: $IP:5901\033[1;32m"
 echo -e " $(fun_trans "Para acessar a interface gráfica") "
 echo -e " $(fun_trans "Faça o download da PlayStore:") VNC VIWER"
+}
 
-elif [[ $vnc != "" ]]; then
+vncpurge_fun () {
 echo -ne " $(fun_trans "Si VNC está ativo Deseja desabilitar?") [S/N]: "; read x
 [[ $x = @(n|N) ]] && return
 echo -e "$barra"
@@ -81,10 +76,26 @@ rm -rf /etc/vnc-on
 vncserver -kill :1 > /dev/null 2>&1
 vncserver -kill :2 > /dev/null 2>&1
 vncserver -kill :3 > /dev/null 2>&1
-fi
-echo -e "$barra"
 }
-vnc_fun
+
+[[ -e /etc/vnc-on ]] && vnc=$(echo -e "\033[1;32mon ") || vnc=$(echo -e "\033[1;31moff ")
+
+msg -ama "$(fun_trans "VNC SERVER") ${cor[4]}[NEW-ADM]"
+echo -e "$barra"
+echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
+echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "INSTALAR VNC SERVER") $vnc"
+echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "ELIMINAR VNC SERVER")"
+echo -e "$barra"
+while [[ ${arquivoonlineadm} != @(0|[1-2]) ]]; do
+read -p "Selecione a Opcao: " arquivoonlineadm
+tput cuu1 && tput dl1
+done
+case $arquivoonlineadm in
+0)exit;;
+1)vnc_fun;;
+2)vncpurge_fun;;
+esac
+msg -bar
 
 [[ "$1" = "1" ]]
 ####_Eliminar_Tmps_####

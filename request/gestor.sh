@@ -133,6 +133,11 @@ return
 }
 
 newadm_color () {
+rm -rf /etc/new-adm-color > /dev/null 2>&1
+echo -e "$(fun_trans "Deseja Prosseguir?")"
+read -p " [S/N]: " -e -i n PROS
+[[ $PROS = @(s|S|y|Y) ]] || return 1
+msg -bar
 echo -ne " \033[1;31m[ ! ] new-adm-color"
 rm -rf /etc/new-adm-color > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
 echo "2 2 2 4 2 4 7 " > /etc/new-adm-color

@@ -1,0 +1,18 @@
+#!/usr/bin/python3
+import socket,subprocess,time
+from sys import argv
+port = argv[1]
+msg  = argv[2]
+while True:
+    try:
+        t = socket.create_connection(('127.0.0.1',port),2.0)
+        t.send(b'abc')
+        if t.recv(1024).find(b'200') != -1:
+            pass
+        t.close()
+    except:
+        pid = subprocess.check_output('ps x|grep \'sckt '+ str(port) +'\'$|awk \'{print $1}\'',shell=True)
+        if pid:
+            e = subprocess.check_output('kill -9 ' + str(pid) ,shell=True)
+        r = subprocess.check_output('python3 /usr/sbin/sckt ' + str(port) + ' ' + str(msg) + ' 1> /dev/null 2> /dev/null &',shell=True)
+    time.sleep(5)

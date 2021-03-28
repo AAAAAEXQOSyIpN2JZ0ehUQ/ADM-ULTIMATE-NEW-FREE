@@ -150,7 +150,7 @@ fun_bar "service apache2 stop"
 #apt-get purge apache2 -y &>/dev/null
 sleep 0.5s
 msg -bar
-msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
+msg -ama " $(fun_trans "Parado Com Sucesso!")"
 msg -bar
 }
 

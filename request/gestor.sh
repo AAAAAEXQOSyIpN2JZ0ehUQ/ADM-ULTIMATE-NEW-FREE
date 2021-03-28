@@ -133,7 +133,7 @@ return
 }
 
 newadm_color () {
-echo -ne " \033[1;31m[ ! ] New-Adm-Color"
+echo -ne " \033[1;31m[ ! ] new-adm-color"
 rm -rf /etc/new-adm-color > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
 echo "2 2 2 4 2 4 7 " > /etc/new-adm-color
 chmod +x /etc/new-adm-color

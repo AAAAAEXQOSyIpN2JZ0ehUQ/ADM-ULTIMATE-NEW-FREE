@@ -10,7 +10,8 @@ SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 SCPv2ray="/etc/v2ray" && [[ ! -d ${SCPv2ray} ]] && mkdir ${SCPv2ray}
 echo "es" > /etc/newadm/idioma && chmod +x /etc/newadm/idioma
 inst_components () {
-[[ $(dpkg --get-selections|grep -w "gawk"|head -1) ]] || aapt-get install gawk -y &>/dev/null
+[[ $(dpkg --get-selections|grep -w "gawk"|head -1) ]] || apt-get install gawk -y &>/dev/null
+[[ $(dpkg --get-selections|grep -w "mlocate"|head -1) ]] || apt-get install mlocate -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "nano"|head -1) ]] || apt-get install nano -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "bc"|head -1) ]] || apt-get install bc -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "screen"|head -1) ]] || apt-get install screen -y &>/dev/null

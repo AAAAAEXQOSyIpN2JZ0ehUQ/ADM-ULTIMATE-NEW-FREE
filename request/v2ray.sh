@@ -1,11 +1,114 @@
 #!/bin/bash
 #25/01/2021 by @Kalix1
 declare -A cor=( [0]="\033[1;37m" [1]="\033[1;34m" [2]="\033[1;31m" [3]="\033[1;33m" [4]="\033[1;32m" )
-link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/trans"
-[[ ! -e /usr/bin/trans ]] && wget -O /usr/bin/trans ${link_bin} > /dev/null 2>&1 && chmod +x /usr/bin/trans
-SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
-SCPv2ray="/etc/v2ray" && [[ ! -d ${SCPv2ray} ]] && mkdir ${SCPv2ray}
+[[ ! -e /usr/bin/trans ]] && wget -O /usr/bin/trans https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/trans > /dev/null 2>&1 && chmod +x /usr/bin/trans
+SCPdir="/etc/newadm" && [[ ! -d ${SCPdir} ]] && mkdir ${SCPdir}
+SCPusr="${SCPdir}/ger-user" && [[ ! -d ${SCPusr} ]] && mkdir ${SCPusr}
+SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && mkdir ${SCPfrm}
+SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && mkdir ${SCPinst}
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
+SCPv2ray="/etc/v2ray" && [[ ! -d ${SCPv2ray} ]] && mkdir ${SCPv2ray}
+echo "es" > /etc/newadm/idioma && chmod +x /etc/newadm/idioma
+inst_components () {
+[[ $(dpkg --get-selections|grep -w "gawk"|head -1) ]] || aapt-get install gawk -y &>/dev/null
+[[ $(dpkg --get-selections|grep -w "nano"|head -1) ]] || apt-get install nano -y &>/dev/null
+[[ $(dpkg --get-selections|grep -w "bc"|head -1) ]] || apt-get install bc -y &>/dev/null
+[[ $(dpkg --get-selections|grep -w "screen"|head -1) ]] || apt-get install screen -y &>/dev/null
+[[ $(dpkg --get-selections|grep -w "python"|head -1) ]] || apt-get install python -y &>/dev/null
+[[ $(dpkg --get-selections|grep -w "python3"|head -1) ]] || apt-get install python3 -y &>/dev/null
+[[ $(dpkg --get-selections|grep -w "curl"|head -1) ]] || apt-get install curl -y &>/dev/null
+[[ $(dpkg --get-selections|grep -w "ufw"|head -1) ]] || apt-get install ufw -y &>/dev/null
+[[ $(dpkg --get-selections|grep -w "unzip"|head -1) ]] || apt-get install unzip -y &>/dev/null
+[[ $(dpkg --get-selections|grep -w "zip"|head -1) ]] || apt-get install zip -y &>/dev/null
+[[ $(dpkg --get-selections|grep -w "lsof"|head -1) ]] || apt-get install lsof -y &>/dev/null
+}
+inst_components
+fun_trans () { 
+local texto
+local retorno
+declare -A texto
+SCPidioma="${SCPdir}/idioma"
+[[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
+local LINGUAGE=$(cat ${SCPidioma})
+[[ -z $LINGUAGE ]] && LINGUAGE=pt
+[[ $LINGUAGE = "pt" ]] && echo "$@" && return
+[[ ! -e /etc/texto-adm ]] && touch /etc/texto-adm
+source /etc/texto-adm
+if [[ -z "$(echo ${texto[$@]})" ]]; then
+if [[ `echo "$@" | grep -o '*'` = "*" ]]; then
+retorno="$(source trans -e bing -b pt:${LINGUAGE} "$@"|sed -e 's/[^a-z0-9 -]//ig'| awk '{print toupper($0)}' 2>/dev/null)"
+else
+retorno="$(source trans -e bing -b pt:${LINGUAGE} "$@"|sed -e 's/[^a-z0-9 -]//ig' 2>/dev/null)"
+fi
+echo "texto[$@]='$retorno'"  >> /etc/texto-adm
+echo "$retorno"
+else
+echo "${texto[$@]}"
+fi
+}
+# Funcoes Globais
+msg () {
+local colors="/etc/new-adm-color"
+if [[ ! -e $colors ]]; then
+COLOR[0]='\033[1;37m' #BRAN='\033[1;37m'
+COLOR[1]='\e[31m' #VERMELHO='\e[31m'
+COLOR[2]='\e[32m' #VERDE='\e[32m'
+COLOR[3]='\e[33m' #AMARELO='\e[33m'
+COLOR[4]='\e[34m' #AZUL='\e[34m'
+COLOR[5]='\e[35m' #MAGENTA='\e[35m'
+COLOR[6]='\033[1;36m' #MAG='\033[1;36m'
+else
+local COL=0
+for number in $(cat $colors); do
+case $number in
+1)COLOR[$COL]='\033[1;37m';;
+2)COLOR[$COL]='\e[31m';;
+3)COLOR[$COL]='\e[32m';;
+4)COLOR[$COL]='\e[33m';;
+5)COLOR[$COL]='\e[34m';;
+6)COLOR[$COL]='\e[35m';;
+7)COLOR[$COL]='\033[1;36m';;
+esac
+let COL++
+done
+fi
+NEGRITO='\e[1m'
+SEMCOR='\e[0m'
+ case $1 in
+  -ne)cor="${COLOR[1]}${NEGRITO}" && echo -ne "${cor}${2}${SEMCOR}";;
+  -ama)cor="${COLOR[3]}${NEGRITO}" && echo -e "${cor}${2}${SEMCOR}";;
+  -verm)cor="${COLOR[3]}${NEGRITO}[!] ${COLOR[1]}" && echo -e "${cor}${2}${SEMCOR}";;
+  -verm2)cor="${COLOR[1]}${NEGRITO}" && echo -e "${cor}${2}${SEMCOR}";;
+  -azu)cor="${COLOR[6]}${NEGRITO}" && echo -e "${cor}${2}${SEMCOR}";;
+  -verd)cor="${COLOR[2]}${NEGRITO}" && echo -e "${cor}${2}${SEMCOR}";;
+  -bra)cor="${COLOR[0]}${NEGRITO}" && echo -e "${cor}${2}${SEMCOR}";;
+  "-bar2"|"-bar")cor="${COLOR[4]}======================================================" && echo -e "${SEMCOR}${cor}${SEMCOR}";;
+ esac
+}
+fun_bar () {
+comando[0]="$1"
+comando[1]="$2"
+ (
+[[ -e $HOME/fim ]] && rm $HOME/fim
+${comando[0]} -y > /dev/null 2>&1
+${comando[1]} -y > /dev/null 2>&1
+touch $HOME/fim
+ ) > /dev/null 2>&1 &
+echo -ne "\033[1;33m ["
+while true; do
+   for((i=0; i<10; i++)); do
+   echo -ne "\033[1;31m##"
+   sleep 0.1s
+   done
+   [[ -e $HOME/fim ]] && rm $HOME/fim && break
+   echo -e "\033[1;33m]"
+   sleep 1s
+   tput cuu1
+   tput dl1
+   echo -ne "\033[1;33m ["
+done
+echo -e "\033[1;33m]\033[1;31m -\033[1;32m 100%\033[1;37m"
+}
 err_fun () {
      case $1 in
      1)msg -verm "$(fun_trans "Usuario Nulo")"; sleep 2s; tput cuu1; tput dl1; tput cuu1; tput dl1;;

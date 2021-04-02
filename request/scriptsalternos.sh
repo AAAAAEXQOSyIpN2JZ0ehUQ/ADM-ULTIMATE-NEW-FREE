@@ -64,23 +64,23 @@ msg -bar
 
 fun_scriptsalternos () {
 while true; do
-echo -e "\033[1;33m$(fun_trans "TESTE SCRIPTS ALTERNOS") ${cor[4]}[NEW-ADM]"
+echo -e "\033[1;33m$(fun_trans "TESTE SCRIPTS ALTERNOS")"
 echo -e "$barra"
 echo -e "\033[1;32m[0] > ${cor[0]}$(fun_trans "VOLTAR")"
 echo -e "$barra"
-echo -e "\033[1;32m[1] > \033[1;36m$(fun_trans "Menu SSHPlus Coneccion ")"
+echo -e "\033[1;32m[1] > \033[1;36m$(fun_trans "ADMINISTRAR CUENTAS SS/SSRR")"
+echo -e "\033[1;32m[2] > \033[1;36m$(fun_trans "SHADOWSOCKS-LIBEV")"
+echo -e "\033[1;32m[3] > \033[1;36m$(fun_trans "SHADOWSOCKS-R")"
+echo -e "\033[1;32m[4] > \033[1;36m$(fun_trans "SHADOWSOCKS-NORMAL")"
 echo -e "$barra"
-echo -e "\033[1;32m[2] > \033[1;36m$(fun_trans "Menu Beta v.2")"
+echo -e "\033[1;32m[5] > \033[1;36m$(fun_trans "V2ray Panel")"
+echo -e "\033[1;32m[6] > \033[1;36m$(fun_trans "V2ray Manager")"
 echo -e "$barra"
-echo -e "\033[1;32m[3] > \033[1;36m$(fun_trans "Multi portos SSL")"
+echo -e "\033[1;32m[7] > \033[1;36m$(fun_trans "Menu SSHPlus Coneccion ")"
 echo -e "$barra"
-echo -e "\033[1;32m[4] > \033[1;36m$(fun_trans "ADMINISTRAR CUENTAS SS/SSRR")"
-echo -e "\033[1;32m[5] > \033[1;36m$(fun_trans "SHADOWSOCKS-LIBEV")"
-echo -e "\033[1;32m[6] > \033[1;36m$(fun_trans "SHADOWSOCKS-R")"
-echo -e "\033[1;32m[7] > \033[1;36m$(fun_trans "SHADOWSOCKS-NORMAL")"
+echo -e "\033[1;32m[8] > \033[1;36m$(fun_trans "Menu Beta v.2")"
 echo -e "$barra"
-echo -e "\033[1;32m[8] > \033[1;36m$(fun_trans "V2ray Panel")"
-echo -e "\033[1;32m[9] > \033[1;36m$(fun_trans "V2ray Manager")\n${barra}"
+echo -e "\033[1;32m[9] > \033[1;36m$(fun_trans "Multi portos SSL")\n${barra}"
 while [[ ${opx} != @(0|[1-9]) ]]; do
 echo -ne "${cor[0]}$(fun_trans "Digite a Opcao"): \033[1;37m" && read opx
 tput cuu1 && tput dl1
@@ -89,31 +89,31 @@ case $opx in
 0)
 return;;
 1)
-wget -O /bin/conexao.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/conexao.sh > /dev/null 2>&1; chmod +x /bin/conexao.sh; conexao.sh
-break;;
-2)
-menu
-break;;
-3)
-ssl_redir
-break;;
-4)
 wget -O /bin/C-SSR.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/C-SSR.sh > /dev/null 2>&1; chmod +x /bin/C-SSR.sh; C-SSR.sh
 break;;
-5)
+2)
 wget -O /bin/Shadowsocks-libev.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/Shadowsocks-libev.sh > /dev/null 2>&1; chmod +x /bin/Shadowsocks-libev.sh; Shadowsocks-libev.sh
 break;;
-6)
+3)
 wget -O /bin/Shadowsocks-R.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/Shadowsocks-R.sh > /dev/null 2>&1; chmod +x /bin/Shadowsocks-R.sh; Shadowsocks-R.sh
 break;;
-7)
+4)
 wget -O /bin/shadowsocks.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/shadowsocks.sh > /dev/null 2>&1; chmod +x /bin/shadowsocks.sh; shadowsocks.sh
 break;;
-8)
+5)
 wget -O /etc/ger-inst/v2ray.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/v2ray.sh > /dev/null 2>&1; chmod +x /etc/ger-inst/v2ray.sh; ${SCPinst}/v2ray.sh
 break;;
+6)
+wget -O /bin/vdoray.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/vdoray.sh > /dev/null 2>&1; chmod +x /bin/vdoray.sh; vdoray.sh
+break;;
+7)
+wget -O /bin/conexao.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/conexao.sh > /dev/null 2>&1; chmod +x /bin/conexao.sh; conexao.sh
+break;;
+8)
+menu
+break;;
 9)
-wget -O /bin/vdoray.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/vdoray.sh > /dev/null 2>&1; chmod +x /bin/vdoray.sh; ./vdoray.sh
+ssl_redir
 break;;
 esac
 done

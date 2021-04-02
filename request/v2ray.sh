@@ -5,6 +5,9 @@ SCPdir="/etc/newadm" && [[ ! -d ${SCPdir} ]] && exit 1
 SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
+
+# https://github.com/Jrohy 19/12/2019
+
 intallv2ray () {
 apt install python3-pip -y 
 source <(curl -sL https://multi.netlify.app/v2ray.sh)

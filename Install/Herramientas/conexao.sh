@@ -1,37 +1,49 @@
 #!/bin/bash
 #====================================================
-#	SCRIPT: CONEXAO SSHPLUS MANAGER
-#	DESENVOLVIDO POR:	CRAZY_VPN
-#	DATA ATUALIZACAO:	28 DEZ 2020 
-#	CONTATO TELEGRAM:	http://t.me/crazy_vpn
-#	CANAL TELEGRAM:	http://t.me/sshplus
-#====================================================
-[[ ! -e /etc/SSHPlus/Exp ]] && touch /etc/SSHPlus/Exp > /dev/null 2>&1
-[[ ! -d /etc/SSHPlus/.tmp ]] && mkdir /etc/SSHPlus/.tmp > /dev/null 2>&1
-[[ ! -d /etc/SSHPlus ]] && mkdir /etc/SSHPlus > /dev/null 2>&1
-echo -e 'by: @CRAZY_VPN' >/usr/lib/sshplus && cat /usr/lib/sshplus >/usr/lib/licence && cat /usr/lib/sshplus > /etc/SSHPlus/.tmp/crazy
-echo -e '32' >/bin/versao && cat /bin/versao >/home/sshplus
+_lvk=$(wget -qO- https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/SSHPLUS-MANAGER-FREE/master/Install/versao)
+IP=$(wget -qO- ipv4.icanhazip.com)
+IP2=$(wget -qO- http://whatismyip.akamai.com/)
+[[ "$IP" != "$IP2" ]] && ipdovps="$IP2" || ipdovps="$IP"
+echo -e "$ipdovps" >/etc/IP
+[[ ! -d /etc/SSHPlus ]] && mkdir /etc/SSHPlus
+[[ ! -d /etc/SSHPlus/senha ]] && mkdir /etc/SSHPlus/senha
+[[ ! -e /etc/SSHPlus/Exp ]] && touch /etc/SSHPlus/Exp
+[[ ! -d /etc/SSHPlus/userteste ]] && mkdir /etc/SSHPlus/userteste
+[[ ! -d /etc/SSHPlus/.tmp ]] && mkdir /etc/SSHPlus/.tmp
+[[ ! -d /etc/bot ]] && mkdir /etc/bot
+[[ ! -d /etc/bot/info-users ]] && mkdir /etc/bot/info-users
+[[ ! -d /etc/bot/arquivos ]] && mkdir /etc/bot/arquivos
+[[ ! -d /etc/bot/revenda ]] && mkdir /etc/bot/revenda
+[[ ! -d /etc/bot/suspensos ]] && mkdir /etc/bot/suspensos
+[[ ! -e /etc/bot/lista_ativos ]] && touch /etc/bot/lista_ativos
+[[ ! -e /etc/bot/lista_suspensos ]] && touch /etc/bot/lista_suspensos
+lst=$1 && lst1=$2 && lst2=$3 && key1=$4 && key2=crz
+echo -e 'by: @CRAZY_VPN' >/usr/lib/sshplus && cat /usr/lib/sshplus >$lst2/licence && cat /usr/lib/sshplus > /etc/SSHPlus/.tmp/crazy
+echo -e 'by: @CRAZY_VPN' >/usr/lib/sshplus && cat /usr/lib/sshplus > /usr/lib/licence && cat /usr/lib/sshplus > /etc/SSHPlus/.tmp/crazy
+echo -e '35' >/bin/versao && cat /bin/versao >/home/sshplus
+fun_attlist () {
+	[[ ! -d /usr/share/.plus ]] && mkdir /usr/share/.plus
+	echo "crz: $(date)" > /usr/share/.plus/.plus
+}
+fun_attlist
 #====================================================
 link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Herramientas/proxy.py"
 [[ ! -e /etc/SSHPlus/proxy.py ]] && wget -O /etc/SSHPlus/proxy.py ${link_bin} > /dev/null 2>&1 && chmod +x /etc/SSHPlus/proxy.py
+link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Herramientas/open.py"
+[[ ! -e /etc/SSHPlus/open.py ]] && wget -O /etc/SSHPlus/open.py ${link_bin} > /dev/null 2>&1 && chmod +x /etc/SSHPlus/open.py
 #====================================================
-fun_ip () {
-if [[ -e /etc/MEUIPADM ]]; then
-IP="$(cat /etc/MEUIPADM)"
-else
-MEU_IP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
-MEU_IP2=$(wget -qO- ipv4.icanhazip.com)
-[[ "$MEU_IP" != "$MEU_IP2" ]] && IP="$MEU_IP2" || IP="$MEU_IP"
-echo "$MEU_IP2" > /etc/MEUIPADM
-fi
-}
+#	SCRIPT: CONEXAO SSHPLUS MANAGER
+#	DESENVOLVIDO POR:	CRAZY_VPN
+#	DATA ATUALIZACAO:	27-03-2021 
+#	CONTATO TELEGRAM:	http://t.me/crazy_vpn
+#	CANAL TELEGRAM:	http://t.me/sshplus
 #====================================================
 [[ $(awk -F" " '{print $2}' /usr/lib/licence) == "@CRAZY_VPN" ]] && {
 	ram1=$(free -h | grep -i mem | awk {'print $2'})
 	ram2=$(free -h | grep -i mem | awk {'print $4'})
 	ram3=$(free -h | grep -i mem | awk {'print $3'})
 	uso=$(top -bn1 | awk '/Cpu/ { cpu = "" 100 - $8 "%" }; END { print cpu }')
-	system=$(cat /etc/MEUIPADM)
+	system=$(cat /etc/issue.net)
 	fun_bar() {
 		comando[0]="$1"
 		comando[1]="$2"
@@ -587,7 +599,7 @@ fi
 					#cat cert.pem key.pem >>/etc/stunnel/stunnel.pem
 					#rm key.pem cert.pem >/dev/null 2>&1
 					sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
-					cd /etc/stunnel && wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/SSHPLUS-MANAGER-FREE/master/Install/stunnel.pem && cd $HOME
+					cd /etc/stunnel && wget sshplus.xyz/script/stunnel.pem && cd $HOME
 				}
 				fun_bar 'ssl_certif'
 				echo -e "\n\033[1;32mINICIANDO O SSL TUNNEL !\033[0m"
@@ -1071,7 +1083,6 @@ fi
 				echo ""
 				fun_attos() {
 					apt-get update-y
-					apt-get upgrade -y
 				}
 				fun_bar 'fun_attos'
 				echo ""
@@ -1093,6 +1104,9 @@ fi
 			echo ""
 			fun_dep() {
 				wget -O ~/EasyRSA-3.0.1.tgz "https://github.com/OpenVPN/easy-rsa/releases/download/3.0.1/EasyRSA-3.0.1.tgz"
+				[[ ! -e $HOME/EasyRSA-3.0.1.tgz ]] && {
+					wget -O ~/EasyRSA-3.0.1.tgz "http://sshplus.xyz/script/EasyRSA-3.0.1.tgz"
+				}
 				tar xzf ~/EasyRSA-3.0.1.tgz -C ~/
 				mv ~/EasyRSA-3.0.1/ /etc/openvpn/
 				mv /etc/openvpn/EasyRSA-3.0.1/ /etc/openvpn/easy-rsa/
@@ -1238,6 +1252,7 @@ exit 0' >$RCLOCAL
 			if [[ "$IP" != "$IP2" ]]; then
 				IP="$IP2"
 			fi
+			[[ $(grep -wc 'open.py' /etc/autostart) != '0' ]] && pt_proxy=$(grep -w 'open.py' /etc/autostart| cut -d' ' -f6) || pt_proxy=80
 			cat <<-EOF >/etc/openvpn/client-common.txt
 				# OVPN_ACCESS_SERVER_PROFILE=[SSHPLUS]
 				client
@@ -1245,9 +1260,9 @@ exit 0' >$RCLOCAL
 				proto $PROTOCOL
 				sndbuf 0
 				rcvbuf 0
-				remote /SSHPLUS? $porta
-				#payload "CONNECT 127.0.0.1:1194[split][crlf] HTTP/1.0 [crlf][crlf]#"
-				http-proxy $IP 80
+				remote 127.0.0.1 2222
+				route $IP 255.255.255.255 net_gateway
+				#MODO SLOWDNS, UTILIZE O APP OPENVPN PARA ANDROID, SELECIONE O TERMUX EM APLICAÇÕES PERMITIDAS
 				resolv-retry 5
 				nobind
 				persist-key
@@ -1339,10 +1354,10 @@ exit 0' >$RCLOCAL
 					sleep 1
 					screen -dmS proxy python /etc/SSHPlus/proxy.py $porta
 					[[ $(grep -wc "proxy.py" /etc/autostart) = '0' ]] && {
-						echo -e "netstat -tlpn | grep -w $porta > /dev/null || screen -dmS proxy python /etc/SSHPlus/proxy.py $porta" >>/etc/autostart
+						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'proxy' -X quit;  screen -dmS proxy python /etc/SSHPlus/proxy.py $porta; }" >>/etc/autostart
 					} || {
 						sed -i '/proxy.py/d' /etc/autostart
-						echo -e "netstat -tlpn | grep -w $porta > /dev/null || screen -dmS proxy python /etc/SSHPlus/proxy.py $porta" >>/etc/autostart
+						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'proxy' -X quit;  screen -dmS proxy python /etc/SSHPlus/proxy.py $porta; }" >>/etc/autostart
 					}
 				}
 				echo ""
@@ -1399,10 +1414,10 @@ exit 0' >$RCLOCAL
 					sleep 1
 					screen -dmS openpy python /etc/SSHPlus/open.py $porta
 					[[ $(grep -wc "open.py" /etc/autostart) = '0' ]] && {
-						echo -e "netstat -tlpn | grep -w $porta > /dev/null || screen -dmS openpy python /etc/SSHPlus/open.py $porta" >>/etc/autostart
+						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'openpy' -X quit;  screen -dmS openpy python /etc/SSHPlus/open.py $porta; }" >>/etc/autostart
 					} || {
 						sed -i '/open.py/d' /etc/autostart
-						echo -e "netstat -tlpn | grep -w $porta > /dev/null || screen -dmS openpy python /etc/SSHPlus/open.py $porta" >>/etc/autostart
+						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'openpy' -X quit;  screen -dmS openpy python /etc/SSHPlus/open.py $porta; }" >>/etc/autostart
 					}
 				}
 				echo ""
@@ -1689,7 +1704,11 @@ exit 0' >$RCLOCAL
 			clear
 			echo -e "\E[44;1;37m                MODO DE CONEXAO                 \E[0m\n"
 			echo -e "\033[1;32mSERVICO: \033[1;33mOPENSSH \033[1;32mPORTA: \033[1;37m$(grep 'Port' /etc/ssh/sshd_config | cut -d' ' -f2 | grep -v 'no' | xargs)" && sts6="\033[1;32m◉ "
-
+			[[ "$(ps x | grep 'slow_dns' | grep -v 'grep'|wc -l)" != '0' ]] && {
+				sts8="\033[1;32m◉ "
+			} || {
+				sts8="\033[1;31m○ "
+			}
 			[[ "$(netstat -tlpn | grep 'sslh' | wc -l)" != '0' ]] && {
 				echo -e "\033[1;32mSERVICO: \033[1;33mSSLH: \033[1;32mPORTA: \033[1;37m$(netstat -nplt | grep 'sslh' | awk {'print $4'} | cut -d: -f2 | xargs)"
 				sts7="\033[1;32m◉ "
@@ -1737,7 +1756,8 @@ exit 0' >$RCLOCAL
 [\033[1;36m05\033[1;31m] \033[1;37m• \033[1;33mPROXY SOCKS $sts4\033[1;31m
 [\033[1;36m06\033[1;31m] \033[1;37m• \033[1;33mSSL TUNNEL $sts3\033[1;31m
 [\033[1;36m07\033[1;31m] \033[1;37m• \033[1;33mSSLH MULTIPLEX $sts7\033[1;31m
-[\033[1;36m08\033[1;31m] \033[1;37m• \033[1;33mVOLTAR \033[1;32m<\033[1;33m<\033[1;31m< \033[1;31m
+[\033[1;36m08\033[1;31m] \033[1;37m• \033[1;33mSLOWDNS $sts8\033[1;31m
+[\033[1;36m09\033[1;31m] \033[1;37m• \033[1;33mVOLTAR \033[1;32m<\033[1;33m<\033[1;31m< \033[1;31m
 [\033[1;36m00\033[1;31m] \033[1;37m• \033[1;33mSAIR \033[1;32m<\033[1;33m<\033[1;31m< \033[0m"
 			echo ""
 			echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
@@ -1769,7 +1789,10 @@ exit 0' >$RCLOCAL
 			7 | 07)
 				fun_sslh
 				;;
-			8 | 08)
+		    8 | 08)
+				slow_dns
+				;;
+			9 | 09)
 				menu
 				;;
 			0 | 00)

@@ -62,45 +62,69 @@ echo -e " \033[1;33m[\033[1;31m####################\033[1;33m] - \033[1;32m100%\
 sleep 1s
 }
 fun_shadowsocks () {
-[[ -e /etc/shadowsocks-libev/config.json ]] && {
-[[ $(ps ax|grep ss-server|grep -v grep|awk '{print $1}') != "" ]] && kill -9 $(ps ax|grep ss-server|grep -v grep|awk '{print $1}') > /dev/null 2>&1 && ss-server -c /etc/shadowsocks-libev/config.json -d stop > /dev/null 2>&1
-echo -e "\033[1;33m $(fun_trans ${id} "SHADOWSOCKS PLUS PARADO")"
+[[ -e /etc/shadowsocks.json ]] && {
+[[ $(ps x|grep ssserver|grep -v grep|awk '{print $1}') != "" ]] && kill -9 $(ps x|grep ssserver|grep -v grep|awk '{print $1}') > /dev/null 2>&1 && ssserver -c /etc/shadowsocks.json -d stop > /dev/null 2>&1
+echo -e "\033[1;33m $(fun_trans ${id} "SHADOWSOCKS PARADO")"
 msg -bar
-rm /etc/shadowsocks-libev/config.json
+rm /etc/shadowsocks.json
 return 0
 }
-echo -e "${cor[3]}  INSTALADOR SHADOWSOCK-LIBEV+(obfs) By @Kalix1"
+       while true; do
+	   echo -e "\033[1;32m $(fun_trans ${id} "INSTALADOR SHADOWSOCKS ADM-NEW By @Kalix1")"
+	   msg -bar
+       echo -e "\033[1;33m $(fun_trans ${id} "Selecione una Criptografia")"
+	   msg -bar
+       encript=(aes-256-gcm aes-192-gcm aes-128-gcm aes-256-ctr aes-192-ctr aes-128-ctr aes-256-cfb aes-192-cfb aes-128-cfb camellia-128-cfb camellia-192-cfb camellia-256-cfb chacha20-ietf-poly1305 chacha20-ietf chacha20 rc4-md5)
+       for((s=0; s<${#encript[@]}; s++)); do
+       echo -e " [${s}] - ${encript[${s}]}"
+       done
+       msg -bar
+       while true; do
+       unset cript
+       read -p "Escoja una Criptografia: " -e -i 0 cript
+       [[ ${encript[$cript]} ]] && break
+       echo -e "$(fun_trans ${id} "Opcion Invalida")"
+       done
+       encriptacao="${encript[$cript]}"
+       [[ ${encriptacao} != "" ]] && break
+       echo -e "$(fun_trans ${id} "Opcion Invalida")"
+      done
+#ESCOLHENDO LISTEN
 msg -bar
-echo -e "${cor[1]} Escoja la opcion deseada."
+      echo -e "\033[1;33m $(fun_trans ${id} "Seleccione puerto para el Shadowsocks Escuchar")\033[0m"
+	  msg -bar
+      while true; do
+      unset Lport
+      read -p " Puerto: " Lport
+      [[ $(mportas|grep "$Lport") = "" ]] && break
+      echo -e " ${Lport}: $(fun_trans ${id} "Puerto Invalido")"      
+      done
+#INICIANDO
 msg -bar
-echo "1).- INSTALAR SHADOWSOCK-LIBEV"
-echo "2).- DESINSTALAR SHADOWSOCK-LIBEV"
+echo -e "\033[1;33m $(fun_trans ${id} "Ingrese la contraseña Shadowsocks")\033[0m"
+read -p" Contraseña: " Pass
 msg -bar
-echo -n "Digite solo el numero segun su respuesta: "
-read opcao
-case $opcao in
-1)
+echo -e "\033[1;33m $(fun_trans ${id} "Iniciando Instalacion")"
 msg -bar
-wget --no-check-certificate -O Instalador-Shadowsocks-libev.sh https://raw.githubusercontent.com/VPS-MX/VPS-MX-8.0/master/ArchivosUtilitarios/Instalador-Shadowsocks-libev.sh > /dev/null 2>&1
-chmod +x Instalador-Shadowsocks-libev.sh
-./Instalador-Shadowsocks-libev.sh 2>&1 | tee Instalador-Shadowsocks-libev.log
-
-;;
-2)
+fun_bar 'sudo apt-get install shadowsocks -y'
+fun_bar 'sudo apt-get install libsodium-dev -y'
+fun_bar 'sudo apt-get install python-pip -y'
+fun_bar 'sudo pip install --upgrade setuptools'
+fun_bar 'pip install --upgrade pip -y'
+fun_bar 'pip install https://github.com/shadowsocks/shadowsocks/archive/master.zip -U'
+echo -ne '{\n"server":"' > /etc/shadowsocks.json
+echo -ne "0.0.0.0" >> /etc/shadowsocks.json
+echo -ne '",\n"server_port":' >> /etc/shadowsocks.json
+echo -ne "${Lport},\n" >> /etc/shadowsocks.json
+echo -ne '"local_port":1080,\n"password":"' >> /etc/shadowsocks.json
+echo -ne "${Pass}" >> /etc/shadowsocks.json
+echo -ne '",\n"timeout":600,\n"method":"' >> /etc/shadowsocks.json
+echo -ne "${encriptacao}" >> /etc/shadowsocks.json
+echo -ne '"\n}' >> /etc/shadowsocks.json
 msg -bar
-echo -e "\033[1;93m  Desinstalar  ..."
-msg -bar
-wget --no-check-certificate -O Instalador-Shadowsocks-libev.sh https://raw.githubusercontent.com/VPS-MX/VPS-MX-8.0/master/ArchivosUtilitarios/Instalador-Shadowsocks-libev.sh > /dev/null 2>&1
-chmod +x Instalador-Shadowsocks-libev.sh
-./Instalador-Shadowsocks-libev.sh uninstall
-rm -rf Instalador-Shadowsocks-libev.sh
-msg -bar
-sleep 3
-exit
-;;
-esac
-rm -rf Instalador-Shadowsocks-libev.sh
-value=$(ps ax |grep ss-server|grep -v grep)
+echo -e "\033[1;31m INICIANDO\033[0m"
+ssserver -c /etc/shadowsocks.json -d start > /dev/null 2>&1
+value=$(ps x |grep ssserver|grep -v grep)
 [[ $value != "" ]] && value="\033[1;32mINICIADO CON EXITO" || value="\033[1;31mERROR"
 msg -bar
 echo -e "${value}"
@@ -108,4 +132,3 @@ msg -bar
 return 0
 }
 fun_shadowsocks
-rm -rf shadowsocks-all.sh

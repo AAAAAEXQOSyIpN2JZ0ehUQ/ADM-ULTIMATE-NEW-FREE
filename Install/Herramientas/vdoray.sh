@@ -63,13 +63,13 @@ case $opx in
 	2)
 	v2ray
 	break;;
-    3)
+	3)
 	v2ray tls
 	break;;
 	4)
 	v2ray info
 	break;;
-    5)
+	5)
 	exit;;
   
 esac

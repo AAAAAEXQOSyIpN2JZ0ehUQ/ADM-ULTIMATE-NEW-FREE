@@ -12,6 +12,7 @@ intallv2ray () {
 apt install python3-pip -y 
 source <(curl -sL https://multi.netlify.app/v2ray.sh)
 msg -ama "$(fun_trans "Intalado con Exito")!"
+echo "#V2RAY ON" > /etc/v2ray-on
 }
 
 protocolv2ray () {
@@ -31,11 +32,13 @@ echo ""
 v2ray tls
 }
 
-unistallv2 () {
-source <(curl -sL https://multi.netlify.app/v2ray.sh) --remove
-}
 infocuenta () {
 v2ray info
+}
+
+unistallv2 () {
+source <(curl -sL https://multi.netlify.app/v2ray.sh) --remove
+rm -rf /etc/v2ray-on
 }
 
 msg -ama "$(fun_trans "INSTALAR V2RAY")"

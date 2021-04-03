@@ -39,10 +39,11 @@ echo -e "\033[1;32m[4] > \033[1;36m$(fun_trans "SHADOWSOCKS-NORMAL")"
 echo -e "$barra"
 echo -e "\033[1;32m[5] > \033[1;36m$(fun_trans "V2ray Panel")"
 echo -e "\033[1;32m[6] > \033[1;36m$(fun_trans "V2ray Manager")"
+echo -e "\033[1;32m[7] > \033[1;36m$(fun_trans "V2ray VPS-MX 8.4")"
 echo -e "$barra"
-echo -e "\033[1;32m[7] > \033[1;36m$(fun_trans "Menu SSHPlus Coneccion ")"
+echo -e "\033[1;32m[8] > \033[1;36m$(fun_trans "Menu SSHPlus Coneccion ")"
 echo -e "$barra"
-echo -e "\033[1;32m[8] > \033[1;36m$(fun_trans "Menu Beta v.2")\n${barra}"
+echo -e "\033[1;32m[9] > \033[1;36m$(fun_trans "Menu Beta v.2")\n${barra}"
 while [[ ${opx} != @(0|[1-9]) ]]; do
 echo -ne "${cor[0]}$(fun_trans "Digite a Opcao"): \033[1;37m" && read opx
 tput cuu1 && tput dl1
@@ -69,9 +70,12 @@ break;;
 wget -O /bin/vdoray.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/vdoray.sh > /dev/null 2>&1; chmod +x /bin/vdoray.sh; vdoray.sh
 break;;
 7)
-wget -O /bin/conexao.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/conexao.sh > /dev/null 2>&1; chmod +x /bin/conexao.sh; conexao.sh
+wget -O /bin/vdoray.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/v2ray84.sh > /dev/null 2>&1; chmod +x /bin/v2ray.sh; v2ray.sh
 break;;
 8)
+wget -O /bin/conexao.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/conexao.sh > /dev/null 2>&1; chmod +x /bin/conexao.sh; conexao.sh
+break;;
+7)
 menu
 break;;
 esac

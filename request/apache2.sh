@@ -160,11 +160,11 @@ unset OPENBAR
 msg -ama "$(fun_trans "MENU") APACHE2"
 mine_port
 msg -bar
-echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "Voltar")"
-echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "Remover") Apache2 $OPENBAR"
-echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "Alterar porta") Apache2"
-echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "Iniciar ou Reiniciar") Apache2"
-echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "Parar") Apache2"
+echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR ")"
+echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "REMOVER") APACHE2 $OPENBAR"
+echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "ALTERAR PORTA") APACHE2"
+echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "REINICIAR") APACHE2"
+echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "PARAR") APACHE2"
 msg -bar
 while [[ ${arquivoonlineadm} != @(0|[1-4]) ]]; do
 read -p "[0-4]: " arquivoonlineadm

@@ -1,12 +1,12 @@
 #!/bin/bash
-declare -A cor=( [0]="\033[1;37m" [1]="\033[1;34m" [2]="\033[1;32m" [3]="\033[1;36m" [4]="\033[1;31m" )
+declare -A cor=( [0]="\033[1;37m" [1]="\033[1;34m" [2]="\033[1;31m" [3]="\033[1;33m" [4]="\033[1;32m" )
 barra="\033[0m\e[34m======================================================\033[1;37m"
 SCPdir="/etc/newadm" && [[ ! -d ${SCPdir} ]] && exit 1
 SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 
-# https://github.com/Jrohy
+# https://github.com/Jrohy/
 
 fun_bar () {
 comando="$1"
@@ -28,31 +28,6 @@ done
 echo -e " \033[1;33m[\033[1;31m####################\033[1;33m] - \033[1;32m100%\033[0m"
 sleep 1s
 }
-
-fun_trans () { 
-local texto
-local retorno
-declare -A texto
-SCPidioma="${SCPdir}/idioma"
-[[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
-local LINGUAGE=$(cat ${SCPidioma})
-[[ -z $LINGUAGE ]] && LINGUAGE=pt
-[[ $LINGUAGE = "pt" ]] && echo "$@" && return
-[[ ! -e /etc/texto-adm ]] && touch /etc/texto-adm
-source /etc/texto-adm
-if [[ -z "$(echo ${texto[$@]})" ]]; then
-if [[ `echo "$@" | grep -o '*'` = "*" ]]; then
-retorno="$(source trans -e bing -b pt:${LINGUAGE} "$@"|sed -e 's/[^a-z0-9 -]//ig'| awk '{print toupper($0)}' 2>/dev/null)"
-else
-retorno="$(source trans -e bing -b pt:${LINGUAGE} "$@"|sed -e 's/[^a-z0-9 -]//ig' 2>/dev/null)"
-fi
-echo "texto[$@]='$retorno'"  >> /etc/texto-adm
-echo "$retorno"
-else
-echo "${texto[$@]}"
-fi
-}
-
 v2ray_ps () {
 msg -bar
 msg -ama " $(fun_trans "INSTALANDO V2RAY")"
@@ -66,7 +41,7 @@ v2ray stream
 }
 
 corregir_fun () {
-echo -e " \033[1;36m $(fun_trans "INSTALAR V2RAY")"
+echo -e " \033[1;36m $(fun_trans "INSTALAR V2RAY") \033[1;32m[NEW-ADM]"
 echo -e "$barra"
 while true; do
 echo -e "${cor[4]} [1] > ${cor[5]}$(fun_trans "INSTALAR V2RAY")"

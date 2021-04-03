@@ -1,490 +1,217 @@
 #!/bin/bash
-#25/01/2021 by @Kalix1
-declare -A cor=( [0]="\033[1;37m" [1]="\033[1;34m" [2]="\033[1;31m" [3]="\033[1;33m" [4]="\033[1;32m" )
-SCPdir="/etc/newadm" && [[ ! -d ${SCPdir} ]] && exit 1
-SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
-SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
-SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
-err_fun () {
-     case $1 in
-     1)msg -verm "$(fun_trans "Usuario Nulo")"; sleep 2s; tput cuu1; tput dl1; tput cuu1; tput dl1;;
-     2)msg -verm "$(fun_trans "Nombre muy corto (MIN: 2 CARACTERES)")"; sleep 2s; tput cuu1; tput dl1; tput cuu1; tput dl1;;
-     3)msg -verm "$(fun_trans "Nombre muy grande (MAX: 5 CARACTERES)")"; sleep 2s; tput cuu1; tput dl1; tput cuu1; tput dl1;;
-     4)msg -verm "$(fun_trans "Contraseña Nula")"; sleep 2s; tput cuu1; tput dl1; tput cuu1; tput dl1;;
-     5)msg -verm "$(fun_trans "Contraseña muy corta")"; sleep 2s; tput cuu1; tput dl1; tput cuu1; tput dl1;;
-     6)msg -verm "$(fun_trans "Contraseña muy grande")"; sleep 2s; tput cuu1; tput dl1; tput cuu1; tput dl1;;
-     7)msg -verm "$(fun_trans "Duracion Nula")"; sleep 2s; tput cuu1; tput dl1; tput cuu1; tput dl1;;
-     8)msg -verm "$(fun_trans "Duracion invalida utilize numeros")"; sleep 2s; tput cuu1; tput dl1; tput cuu1; tput dl1;;
-     9)msg -verm "$(fun_trans "Duracion maxima y de un año")"; sleep 2s; tput cuu1; tput dl1; tput cuu1; tput dl1;;
-     11)msg -verm "$(fun_trans "Limite Nulo")"; sleep 2s; tput cuu1; tput dl1; tput cuu1; tput dl1;;
-     12)msg -verm "$(fun_trans "Limite invalido utilize numeros")"; sleep 2s; tput cuu1; tput dl1; tput cuu1; tput dl1;;
-     13)msg -verm "$(fun_trans "Limite maximo de 999")"; sleep 2s; tput cuu1; tput dl1; tput cuu1; tput dl1;;
-     14)msg -verm "$(fun_trans "Usuario Ya Existe")"; sleep 2s; tput cuu1; tput dl1; tput cuu1; tput dl1;;
-	 15)msg -verm "$(fun_trans "(Solo numeros) GB = Min: 1gb Max: 1000gb")"; sleep 2s; tput cuu1; tput dl1; tput cuu1; tput dl1;;
-	 16)msg -verm "$(fun_trans "(Solo numeros)")"; sleep 2s; tput cuu1; tput dl1; tput cuu1; tput dl1;;
-	 17)msg -verm "$(fun_trans "(Sin Informacion - Para Cancelar Digite CRTL + C)")"; sleep 4s; tput cuu1; tput dl1; tput cuu1; tput dl1;;
-     esac
-}
-intallv2ray () {
-apt install python3-pip -y 
-source <(curl -sL https://www.dropbox.com/s/ukkyksfdo3lqqmc/install-v2ray.sh)
-msg -ama "$(fun_trans "Intalado con Exito")!"
-USRdatabase="/etc/newadm/RegV2ray"
-[[ ! -e ${USRdatabase} ]] && touch ${USRdatabase}
-sort ${USRdatabase} | uniq > ${USRdatabase}tmp
-mv -f ${USRdatabase}tmp ${USRdatabase}
-msg -bar
-msg -ne "Enter Para Continuar" && read enter
-${SCPinst}/v2ray.sh
 
-}
-protocolv2ray () {
-msg -ama "$(fun_trans "Escojer opcion 3 y poner el dominio de nuestra IP")!"
-msg -bar
-v2ray stream
-msg -bar
-msg -ne "Enter Para Continuar" && read enter
-${SCPinst}/v2ray.sh
-}
-tls () {
-msg -ama "$(fun_trans "Activar o Desactivar TLS")!"
-msg -bar
-v2ray tls
-msg -bar
-msg -ne "Enter Para Continuar" && read enter
-${SCPinst}/v2ray.sh
-}
-portv () {
-msg -ama "$(fun_trans "Cambiar Puerto v2ray")!"
-msg -bar
-v2ray port
-msg -bar
-msg -ne "Enter Para Continuar" && read enter
-${SCPinst}/v2ray.sh
-}
-stats () {
-msg -ama "$(fun_trans "Estadisticas de Consumo")!"
-msg -bar
-v2ray stats
-msg -bar
-msg -ne "Enter Para Continuar" && read enter
-${SCPinst}/v2ray.sh
-}
-unistallv2 () {
-source <(curl -sL https://www.dropbox.com/s/ukkyksfdo3lqqmc/install-v2ray.sh) --remove > /dev/null 2>&1
-rm -rf /etc/newadm/RegV2ray > /dev/null 2>&1
-echo -e "\033[1;92m                  V2RAY REMOVIDO OK "
-msg -bar
-msg -ne "Enter Para Continuar" && read enter
-${SCPinst}/v2ray.sh
-}
-infocuenta () {
-v2ray info
-msg -bar
-msg -ne "Enter Para Continuar" && read enter
-${SCPinst}/v2ray.sh
-}
-addusr () {
-clear 
-clear
-msg -bar
-msg -ama "             AGREGAR USUARIO | UUID V2RAY"
-msg -bar
-##DAIS
-valid=$(date '+%C%y-%m-%d' -d " +31 days")		  
-##CORREO		  
-MAILITO=$(cat /dev/urandom | tr -dc '[:alnum:]' | head -c 10)
-##ADDUSERV2RAY		  
-UUID=`uuidgen`	  
-sed -i '13i\           \{' /etc/v2ray/config.json
-sed -i '14i\           \"alterId": 0,' /etc/v2ray/config.json
-sed -i '15i\           \"id": "'$UUID'",' /etc/v2ray/config.json
-sed -i '16i\           \"email": "'$MAILITO'@gmail.com"' /etc/v2ray/config.json
-sed -i '17i\           \},' /etc/v2ray/config.json
-echo ""
-while true; do
-echo -ne "\e[91m >> Digita un Nombre: \033[1;92m"
-     read -p ": " nick
-     nick="$(echo $nick|sed -e 's/[^a-z0-9 -]//ig')"
-     if [[ -z $nick ]]; then
-     err_fun 17 && continue
-     elif [[ "${#nick}" -lt "2" ]]; then
-     err_fun 2 && continue
-     elif [[ "${#nick}" -gt "5" ]]; then
-     err_fun 3 && continue
-     fi
-     break
-done
-echo -e "\e[91m >> Agregado UUID: \e[92m$UUID "
-while true; do
-     echo -ne "\e[91m >> Duracion de UUID (Dias):\033[1;92m " && read diasuser
-     if [[ -z "$diasuser" ]]; then
-     err_fun 17 && continue
-     elif [[ "$diasuser" != +([0-9]) ]]; then
-     err_fun 8 && continue
-     elif [[ "$diasuser" -gt "360" ]]; then
-     err_fun 9 && continue
-     fi 
-     break
-done
-#Lim
-[[ $(cat /etc/passwd |grep $1: |grep -vi [a-z]$1 |grep -v [0-9]$1 > /dev/null) ]] && return 1
-valid=$(date '+%C%y-%m-%d' -d " +$diasuser days") && datexp=$(date "+%F" -d " + $diasuser days")
-echo -e "\e[91m >> Expira el : \e[92m$datexp "
-##Registro
-echo "  $UUID | $nick | $valid " >> /etc/newadm/RegV2ray
-v2ray restart > /dev/null 2>&1
-echo ""
-v2ray info > /etc/newadm/v2ray/confuuid.log
-lineP=$(sed -n '/'${UUID}'/=' /etc/newadm/v2ray/confuuid.log)
-numl1=4
-let suma=$lineP+$numl1
-sed -n ${suma}p /etc/newadm/v2ray/confuuid.log 
-echo ""
-msg -bar
-echo -e "\e[92m           UUID AGREGEGADO CON EXITO "
-msg -bar
-msg -ne "Enter Para Continuar" && read enter
-${SCPinst}/v2ray.sh
-}
+SCPdir="/etc/newadm"
+SCPusr="${SCPdir}/ger-user"
+SCPfrm="/etc/ger-frm"
+SCPfrm3="/etc/adm-lite"
+SCPinst="/etc/ger-inst"
+SCPidioma="${SCPdir}/idioma"
 
-delusr () {
-clear 
-clear
-invaliduuid () {
-msg -bar
-echo -e "\e[91m                    UUID INVALIDO \n$(msg -bar)"
-msg -ne "Enter Para Continuar" && read enter
-${SCPinst}/v2ray.sh
-}
-msg -bar
-msg -ama "             ELIMINAR USUARIO | UUID V2RAY"
-msg -bar
-echo -e "\e[97m               USUARIOS REGISTRADOS"
-echo -e "\e[33m$(cat /etc/newadm/RegV2ray|cut -d '|' -f2,1)" 
-msg -bar
-echo -ne "\e[91m >> Digita el UUID a elininar:\n \033[1;92m " && read uuidel
-[[ $(sed -n '/'${uuidel}'/=' /etc/v2ray/config.json|head -1) ]] || invaliduuid
-lineP=$(sed -n '/'${uuidel}'/=' /etc/v2ray/config.json)
-linePre=$(sed -n '/'${uuidel}'/=' /etc/newadm/RegV2ray)
-sed -i "${linePre}d" /etc/newadm/RegV2ray
-numl1=2
-let resta=$lineP-$numl1
-sed -i "${resta}d" /etc/v2ray/config.json
-sed -i "${resta}d" /etc/v2ray/config.json
-sed -i "${resta}d" /etc/v2ray/config.json
-sed -i "${resta}d" /etc/v2ray/config.json
-sed -i "${resta}d" /etc/v2ray/config.json
-v2ray restart > /dev/null 2>&1
-msg -bar
-msg -ne "Enter Para Continuar" && read enter
-${SCPinst}/v2ray.sh
-}
+BARRA1="\e[1;30m➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖\e[0m"
+BARRA="\e[0;31m--------------------------------------------------------------------\e[0m"
+blan='\033[1;37m'
+ama='\033[1;33m'
+blue='\033[1;34m'
+asul='\033[0;34m'
+red='\033[0;31m'
+green='\033[0;32m'
+yellow='\033[0;33m'
+plain='\033[0m'
 
-mosusr_kk() {
-clear 
-clear
-msg -bar
-msg -ama "         USUARIOS REGISTRADOS | UUID V2RAY"
-msg -bar
-# usersss=$(cat /etc/newadm/RegV2ray|cut -d '|' -f1)
-# cat /etc/newadm/RegV2ray|cut -d'|' -f3
-VPSsec=$(date +%s)
-local HOST="/etc/newadm/RegV2ray"
-local HOST2="/etc/newadm/RegV2ray"
-local RETURN="$(cat $HOST|cut -d'|' -f2)"
-local IDEUUID="$(cat $HOST|cut -d'|' -f1)"
-if [[ -z $RETURN ]]; then
-echo -e "----- NINGUN USER REGISTRADO -----"
-msg -ne "Enter Para Continuar" && read enter
-${SCPinst}/v2ray.sh
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
+export PATH
 
+meu_ip () {
+if [[ -e /etc/MEUIPADM ]]; then
+echo "$(cat /etc/MEUIPADM)"
 else
-i=1
-echo -e "\e[97m                 UUID                | USER | EXPIRACION \e[93m"
-msg -bar
-while read hostreturn ; do
-DateExp="$(cat /etc/newadm/RegV2ray|grep -w "$hostreturn"|cut -d'|' -f3)"
-if [[ ! -z $DateExp ]]; then             
-DataSec=$(date +%s --date="$DateExp")
-[[ "$VPSsec" -gt "$DataSec" ]] && EXPTIME="\e[91m[EXPIRADO]\e[97m" || EXPTIME="\e[92m[$(($(($DataSec - $VPSsec)) / 86400))]\e[97m Dias"
-else
-EXPTIME="\e[91m[ S/R ]"
-fi 
-usris="$(cat /etc/newadm/RegV2ray|grep -w "$hostreturn"|cut -d'|' -f2)"
-local contador_secuencial+="\e[93m$hostreturn \e[97m|\e[93m$usris\e[97m|\e[93m $EXPTIME \n"           
-      if [[ $i -gt 30 ]]; then
-	      echo -e "$contador_secuencial"
-	  unset contador_secuencial
-	  unset i
-	  fi
-let i++
-done <<< "$IDEUUID"
-
-[[ ! -z $contador_secuencial ]] && {
-linesss=$(cat /etc/newadm/RegV2ray | wc -l)
-	      echo -e "$contador_secuencial \n Numero de Registrados: $linesss"
-	}
+MEU_IP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
+MEU_IP2=$(wget -qO- ipv4.icanhazip.com)
+[[ "$MEU_IP" != "$MEU_IP2" ]] && echo "$MEU_IP2" || echo "$MEU_IP"
+echo "$MEU_IP2" > /etc/MEUIPADM
 fi
-msg -bar
-msg -ne "Enter Para Continuar" && read enter
-${SCPinst}/v2ray.sh
 }
-lim_port () {
-clear 
-clear
-msg -bar
-msg -ama "          LIMITAR MB X PORT | UUID V2RAY"
-msg -bar
-###VER
-estarts () {
-VPSsec=$(date +%s)
-local HOST="/etc/newadm/v2ray/lisportt.log"
-local HOST2="/etc/newadm/v2ray/lisportt.log"
-local RETURN="$(cat $HOST|cut -d'|' -f2)"
-local IDEUUID="$(cat $HOST|cut -d'|' -f1)"
-if [[ -z $RETURN ]]; then
-echo -e "----- NINGUN PUERTO REGISTRADO -----"
-msg -ne "Enter Para Continuar" && read enter
-${SCPinst}/v2ray.sh
+IP="$(meu_ip)"
+ 
+fun_V2ray () {
+if [[ -e /usr/local/V2ray.Fun ]]; then
+ clear
+   v2ray
 else
-i=1
-while read hostreturn ; do
-iptables -n -v -L > /etc/newadm/v2ray/data1.log 
-statsss=$(cat /etc/newadm/v2ray/data1.log|grep -w "tcp spt:$hostreturn quota:"|cut -d' ' -f3,4,5)
-gblim=$(cat /etc/newadm/v2ray/lisportt.log|grep -w "$hostreturn"|cut -d'|' -f2)
-local contador_secuencial+="         \e[97mPUERTO: \e[93m$hostreturn \e[97m|\e[93m$statsss \e[97m|\e[93m $gblim GB  \n"          
-      if [[ $i -gt 30 ]]; then
-	      echo -e "$contador_secuencial"
-	  unset contador_secuencial
-	  unset i
-	  fi
-let i++
-done <<< "$IDEUUID"
-
-[[ ! -z $contador_secuencial ]] && {
-linesss=$(cat /etc/newadm/v2ray/lisportt.log | wc -l)
-	      echo -e "$contador_secuencial \n Puertos Limitados: $linesss"
-	}
+   install_V2ray
 fi
-msg -bar
-msg -ne "Enter Para Continuar" && read enter
-${SCPinst}/v2ray.sh 
 }
-###LIM
-liport () {
-while true; do
-     echo -ne "\e[91m >> Digite Port a Limitar:\033[1;92m " && read portbg
-     if [[ -z "$portbg" ]]; then
-     err_fun 17 && continue
-     elif [[ "$portbg" != +([0-9]) ]]; then
-     err_fun 16 && continue
-     elif [[ "$portbg" -gt "1000" ]]; then
-     err_fun 16 && continue
-     fi 
-     break
-done
-while true; do
-     echo -ne "\e[91m >> Digite Cantidad de GB:\033[1;92m " && read capgb
-     if [[ -z "$capgb" ]]; then
-     err_fun 17 && continue
-     elif [[ "$capgb" != +([0-9]) ]]; then
-     err_fun 15 && continue
-     elif [[ "$capgb" -gt "1000" ]]; then
-     err_fun 15 && continue
-     fi 
-     break
-done
-uml1=1073741824
-gbuser="$capgb"
-let multiplicacion=$uml1*$gbuser
-sudo iptables -I OUTPUT -p tcp --sport $portbg -j DROP
-sudo iptables -I OUTPUT -p tcp --sport $portbg -m quota --quota $multiplicacion -j ACCEPT
-iptables-save > /etc/iptables/rules.v4
-echo ""
-echo -e " Port Seleccionado: $portbg | Cantidad de GB: $gbuser"
-echo ""
-echo " $portbg | $gbuser | $multiplicacion " >> /etc/newadm/v2ray/lisportt.log 
-msg -bar
-msg -ne "Enter Para Continuar" && read enter
-${SCPinst}/v2ray.sh
-}
-###RES
-resdata () {
-VPSsec=$(date +%s)
-local HOST="/etc/newadm/v2ray/lisportt.log"
-local HOST2="/etc/newadm/v2ray/lisportt.log"
-local RETURN="$(cat $HOST|cut -d'|' -f2)"
-local IDEUUID="$(cat $HOST|cut -d'|' -f1)"
-if [[ -z $RETURN ]]; then
-echo -e "----- NINGUN PUERTO REGISTRADO -----"
-return 0
-else
-i=1
-while read hostreturn ; do
-iptables -n -v -L > /etc/newadm/v2ray/data1.log 
-statsss=$(cat /etc/newadm/v2ray/data1.log|grep -w "tcp spt:$hostreturn quota:"|cut -d' ' -f3,4,5)
-gblim=$(cat /etc/newadm/v2ray/lisportt.log|grep -w "$hostreturn"|cut -d'|' -f2)
-local contador_secuencial+="         \e[97mPUERTO: \e[93m$hostreturn \e[97m|\e[93m$statsss \e[97m|\e[93m $gblim GB  \n"  
-        
-      if [[ $i -gt 30 ]]; then
-	      echo -e "$contador_secuencial"
-	  unset contador_secuencial
-	  unset i
-	  fi
-let i++
-done <<< "$IDEUUID"
-
-[[ ! -z $contador_secuencial ]] && {
-linesss=$(cat /etc/newadm/v2ray/lisportt.log | wc -l)
-	      echo -e "$contador_secuencial \n Puertos Limitados: $linesss"
-	}
-fi
-msg -bar
-
-while true; do
-     echo -ne "\e[91m >> Digite Puerto a Limpiar:\033[1;92m " && read portbg
-     if [[ -z "$portbg" ]]; then
-     err_fun 17 && continue
-     elif [[ "$portbg" != +([0-9]) ]]; then
-     err_fun 16 && continue
-     elif [[ "$portbg" -gt "1000" ]]; then
-     err_fun 16 && continue
-     fi 
-     break
-done
-invaliduuid () {
-msg -bar
-echo -e "\e[91m                PUERTO INVALIDO \n$(msg -bar)"
-msg -ne "Enter Para Continuar" && read enter
-${SCPinst}/v2ray.sh
-}
-[[ $(sed -n '/'${portbg}'/=' /etc/newadm/v2ray/lisportt.log|head -1) ]] || invaliduuid
-gblim=$(cat /etc/newadm/v2ray/lisportt.log|grep -w "$portbg"|cut -d'|' -f3)
-sudo iptables -D OUTPUT -p tcp --sport $portbg -j DROP
-sudo iptables -D OUTPUT -p tcp --sport $portbg -m quota --quota $gblim -j ACCEPT
-iptables-save > /etc/iptables/rules.v4
-lineP=$(sed -n '/'${portbg}'/=' /etc/newadm/v2ray/lisportt.log)
-sed -i "${linePre}d" /etc/newadm/v2ray/lisportt.log
-msg -bar
-msg -ne "Enter Para Continuar" && read enter
-${SCPinst}/v2ray.sh 
-}
-## MENU
-echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "LIMITAR DATA x PORT") "
-echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "RESETEAR DATA DE PORT") "
-echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "VER DATOS CONSUMIDOS") "
-echo -ne "$(msg -bar)\n\033[1;32m [0] > " && msg -bra "\e[97m\033[1;41m VOLVER \033[1;37m"
-msg -bar
-selection=$(selection_fun 3)
-case ${selection} in
-1)liport ;;
-2)resdata;;
-3)estarts;;
-0)
-${SCPinst}/v2ray.sh
-;;
-esac
-}
-
-limpiador_activador () {
-unset PIDGEN
-PIDGEN=$(ps aux|grep -v grep|grep "limv2ray")
-if [[ ! $PIDGEN ]]; then
-screen -dmS limv2ray watch -n 21600 limv2ray
-else
-#killall screen
-screen -S limv2ray -p 0 -X quit
-fi
-unset PID_GEN
-PID_GEN=$(ps x|grep -v grep|grep "limv2ray")
-[[ ! $PID_GEN ]] && PID_GEN="\e[91m [ DESACTIVADO ] " || PID_GEN="\e[92m [ ACTIVADO ] "
-statgen="$(echo $PID_GEN)"
-clear 
+ 
+ 
+install_V2ray () {
 clear
-msg -bar
-msg -ama "          ELIMINAR EXPIRADOS | UUID V2RAY"
-msg -bar
+tput setaf 7 ; tput setab 4 ; tput bold ; printf '%30s%s%-10s\n' "V2ray PANEL OFC BY DANKELHAHER" ; tput sgr0 ; echo ""
+echo -e "$BARRA1"
+echo -e "${blue}ESTE SCRIPT INSTALARA V2ray PANEL EN SU VPS, ESTO${plain}"
+echo -e "${blue}TOMARA UNOS MINUTOS SEA PACIENTE${plain}"
+echo -e "$BARRA1"
+    echo -e "${blan}Presione ENTER para comenzar o presione Ctrl + C para cancelar. Continue!${plain}"
+    read enter
+echo -e "$BARRA1"
+ 
+#Check Root
+[ $(id -u) != "0" ] && { echo "${CFAILURE}Error: Debe ser root para ejecutar este script${CEND}"; exit 1; }
+ 
+#Check OS
+if [ -n "$(grep 'Aliyun Linux release' /etc/issue)" -o -e /etc/redhat-release ]; then
+  OS=CentOS
+  [ -n "$(grep ' 7\.' /etc/redhat-release)" ] && CentOS_RHEL_version=7
+  [ -n "$(grep ' 6\.' /etc/redhat-release)" -o -n "$(grep 'Aliyun Linux release6 15' /etc/issue)" ] && CentOS_RHEL_version=6
+  [ -n "$(grep ' 5\.' /etc/redhat-release)" -o -n "$(grep 'Aliyun Linux release5' /etc/issue)" ] && CentOS_RHEL_version=5
+elif [ -n "$(grep 'Amazon Linux AMI release' /etc/issue)" -o -e /etc/system-release ]; then
+  OS=CentOS
+  CentOS_RHEL_version=6
+elif [ -n "$(grep bian /etc/issue)" -o "$(lsb_release -is 2>/dev/null)" == 'Debian' ]; then
+  OS=Debian
+  [ ! -e "$(which lsb_release)" ] && { apt-get -y update; apt-get -y install lsb-release; clear; }
+  Debian_version=$(lsb_release -sr | awk -F. '{print $1}')
+elif [ -n "$(grep Deepin /etc/issue)" -o "$(lsb_release -is 2>/dev/null)" == 'Deepin' ]; then
+  OS=Debian
+  [ ! -e "$(which lsb_release)" ] && { apt-get -y update; apt-get -y install lsb-release; clear; }
+  Debian_version=$(lsb_release -sr | awk -F. '{print $1}')
+elif [ -n "$(grep Ubuntu /etc/issue)" -o "$(lsb_release -is 2>/dev/null)" == 'Ubuntu' -o -n "$(grep 'Linux Mint' /etc/issue)" ]; then
+  OS=Ubuntu
+  [ ! -e "$(which lsb_release)" ] && { apt-get -y update; apt-get -y install lsb-release; clear; }
+  Ubuntu_version=$(lsb_release -sr | awk -F. '{print $1}')
+  [ -n "$(grep 'Linux Mint 18' /etc/issue)" ] && Ubuntu_version=16
+else
+  echo "${CFAILURE} no es compatible con este sistema operativo, comuníquese con el autor! ${CEND}"
+  kill -9 $$
+fi
+ 
+#Install Needed Packages
+ 
+if [ ${OS} == Ubuntu ] || [ ${OS} == Debian ];then
+    apt-get update -y
+    apt-get install wget curl socat git unzip python python-dev openssl libssl-dev ca-certificates supervisor -y
+    wget -O - "https://bootstrap.pypa.io/get-pip.py" | python
+    pip install --upgrade pip
+    pip install flask requests urllib3 Flask-BasicAuth Jinja2 requests six wheel
+    pip install pyOpenSSL
+fi
+ 
+if [ ${OS} == CentOS ];then
+    yum install epel-release -y
+    yum install python-pip python-devel socat ca-certificates openssl unzip git curl crontabs wget -y
+    pip install --upgrade pip
+    pip install flask requests urllib3 Flask-BasicAuth supervisor Jinja2 requests six wheel
+    pip install pyOpenSSL
+fi
+ 
+if [ ${Debian_version} == 9 ];then
+    wget -N --no-check-certificate https://github.com/Dankelthaher/V2ray.Fun/blob/master/enable-debian9-rclocal.sh
+    bash enable-debian9-rclocal.sh
+    rm enable-debian9-rclocal.sh
+fi
+ 
+ 
+#Install acme.sh
+curl https://get.acme.sh | sh
+ 
+#Install V2ray
+curl -L -s https://install.direct/go.sh | bash
+ 
+#Install V2ray.Fun
+cd /usr/local/
+git clone https://github.com/Dankelthaher/V2ray.Fun
+ 
+#Generate Default Configurations
+cd /usr/local/V2ray.Fun/ && python init.py
+cp /usr/local/V2ray.Fun/v2ray.py /usr/local/bin/v2ray
+chmod +x /usr/local/bin/v2ray
+chmod +x /usr/local/V2ray.Fun/start.sh
+ 
+#Start All services
+service v2ray start
+ 
+#Configure Supervisor
+mkdir /etc/supervisor
+mkdir /etc/supervisor/conf.d
+echo_supervisord_conf > /etc/supervisor/supervisord.conf
+cat>>/etc/supervisor/supervisord.conf<<EOF
+[include]
+files = /etc/supervisor/conf.d/*.ini
+EOF
+touch /etc/supervisor/conf.d/v2ray.fun.ini
+cat>>/etc/supervisor/conf.d/v2ray.fun.ini<<EOF
+[program:v2ray.fun]
+command=/usr/local/V2ray.Fun/start.sh run
+stdout_logfile=/var/log/v2ray.fun
+autostart=true
+autorestart=true
+startsecs=5
+priority=1
+stopasgroup=true
+killasgroup=true
+EOF
+ 
+echo -e "${blue}ESTOS DATOS SE USARAN PARA ENRAR AL PANEL${plain}"
+echo -e "$BARRA1"
+read -p "ingrese el nombre de usuario [predeterminado admin]: " un
+echo -e "$BARRA"
+read -p "Ingrese la contrasena de inicio de sesion [predeterminado admin]: " pw
+echo -e "$BARRA"
+read -p "Introduzca el numero de puerto [predeterminado 5000]: " uport
+if [[ -z "${uport}" ]];then
+    uport="5000"
+else
+    if [[ "$uport" =~ ^(-?|\+?)[0-9]+(\.?[0-9]+)?$ ]];then
+        if [[ $uport -ge "65535" || $uport -le 1 ]];then
+            echo -e "${red}valor de rango de puerto [1,65535], aplique el numero de puerto predeterminado 5000${plain}"
+            unset uport
+            uport="5000"
+        else
+            tport=`netstat -anlt | awk '{print $4}' | sed -e '1,2d' | awk -F : '{print $NF}' | sort -n | uniq | grep "$uport"`
+            if [[ ! -z ${tport} ]];then
+                echo -e "${red}El numero de puerto ya existe! Aplique el numero de puerto predeterminado 5000${plain}"
+                unset uport
+                uport="5000"
+            fi
+        fi
+    else
+        echo -e "${blan}Por favor, ingrese un número. Aplique el número de puerto predeterminado 5000${plain}"
+        uport="5000"
+    fi
+fi
+if [[ -z "${un}" ]];then
+    un="admin"
+fi
+if [[ -z "${pw}" ]];then
+    pw="admin"
+fi
+sed -i "s/%%username%%/${un}/g" /usr/local/V2ray.Fun/panel.config
+sed -i "s/%%passwd%%/${pw}/g" /usr/local/V2ray.Fun/panel.config
+sed -i "s/%%port%%/${uport}/g" /usr/local/V2ray.Fun/panel.config
+chmod 777 /etc/v2ray/config.json
+supervisord -c /etc/supervisor/supervisord.conf
+echo "supervisord -c /etc/supervisor/supervisord.conf">>/etc/rc.local
+chmod +x /etc/rc.local
+ 
+echo -e "$BARRA1"
+echo -e "${green}La instalacion ah sido exitosa!${plain}"
+
+echo -e "${blan}con estos datos entrara al panel${plain}"
+echo -e "$BARRA1"
 echo ""
-echo -e "                    $statgen " 
-echo "" 						
-msg -bar
-msg -ne "Enter Para Continuar" && read enter
-${SCPinst}/v2ray.sh
-
+echo -e "${blan}Puerto del panel:${plain} ${uport}"
+echo -e "$BARRA"
+echo -e "${blan}Nombre de usuario:${plain} ${un}"
+echo -e "$BARRA"
+echo -e "${blan}Contrasena:${plain} ${pw}"
+echo -e "$BARRA"
+echo -e "${blan}Acceso al panel: http://$IP:${uport}${plain}"
+echo -e "${blan}O use la direccion de su dominio mas el puerto${plain}"
+echo -e "$BARRA1"
+echo ''
+echo "Gracias por utilizar v2ray OFC BY DANKELTHAHER"
+ 
+#LIMPIAR ARCHIVOS BASURA
+rm -rf /root/config.json
+rm -rf /root/install-debian.sh
 }
-
-selection_fun () {
-local selection="null"
-local range
-for((i=0; i<=$1; i++)); do range[$i]="$i "; done
-while [[ ! $(echo ${range[*]}|grep -w "$selection") ]]; do
-echo -ne "\033[1;37m$(fun_trans " ► Selecione una Opcion"): " >&2
-read selection
-tput cuu1 >&2 && tput dl1 >&2
-done
-echo $selection
-}
-
-# Menu v2ray
-clear
-PID_GEN=$(ps x|grep -v grep|grep "limv2ray")
-[[ ! $PID_GEN ]] && PID_GEN="\e[91m [ DESACTIVADO ] " || PID_GEN="\e[92m [ ACTIVADO ] "
-statgen="$(echo $PID_GEN)"
-msg -bar
-msg -ama "$(fun_trans "INSTALADOR DE V2RAY (PASO A PASO) ")"
-msg -bar
-## INSTALADOR
-echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLVER") "
-msg -bar
-echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "INSTALAR V2RAY") "
-echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "CAMBIAR PROTOCOLO") "
-echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "ACTIVAR TLS") "
-echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "CAMBIAR PUERTO V2RAY")\n$(msg -bar) "
-## CONTROLER
-echo -ne "\033[1;32m [5] > " && msg -azu "AGREGAR USUARIO UUID "
-echo -ne "\033[1;32m [6] > " && msg -azu "ELIMINAR USUARIO UUID"
-echo -ne "\033[1;32m [7] > " && msg -azu "MOSTAR USUARIOS REGISTRADOS"
-echo -ne "\033[1;32m [8] > " && msg -azu "INFORMACION DE CUENTAS"
-echo -ne "\033[1;32m [9] > " && msg -azu "ESTADISTICAS DE CONSUMO "
-echo -ne "\033[1;32m [10] > " && msg -azu "LIMITADOR POR CONSUMO\e[91m ( BETA x PORT )"
-echo -ne "\033[1;32m [11] > " && msg -azu "LIMPIADOR DE EXPIRADOS ------- $statgen\n$(msg -bar)"
-## DESISNTALAR
-echo -ne "\033[1;32m [12] > " && msg -azu "\033[1;31mDESINSTALAR V2RAY  \033[1;37m"
-msg -bar
-pid_inst () {
-[[ $1 = "" ]] && echo -e "\033[1;31m[OFF]" && return 0
-unset portas
-portas_var=$(lsof -V -i -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND")
-i=0
-while read port; do
-var1=$(echo $port | awk '{print $1}') && var2=$(echo $port | awk '{print $9}' | awk -F ":" '{print $2}')
-[[ "$(echo -e ${portas[@]}|grep "$var1 $var2")" ]] || {
-    portas[$i]="$var1 $var2\n"
-    let i++
-    }
-done <<< "$portas_var"
-[[ $(echo "${portas[@]}"|grep "$1") ]] && echo -e "\033[1;32m[ Servicio Activo ]" || echo -e "\033[1;31m[ Servicio Desactivado ]"
-}
-echo -e "        \e[97mEstado actual: $(pid_inst v2ray)"
-msg -bar
-# while [[ ${arquivoonlineadm} != @(0|[1-99]) ]]; do
-# read -p "Seleccione una Opcion [0-12]: " arquivoonlineadm
-# tput cuu1 && tput dl1
-# done
-selection=$(selection_fun 18)
-case ${selection} in
-0)exit;;
-1)intallv2ray;;
-2)protocolv2ray;;
-3)tls;;
-4)portv;;
-5)addusr;;
-6)delusr;;
-7)mosusr_kk;;
-8)infocuenta;;
-9)stats;;
-10)lim_port;;
-11)limpiador_activador;;
-12)unistallv2;;
-esac
+fun_V2ray

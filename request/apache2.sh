@@ -124,10 +124,12 @@ msg -bar
 }
 
 apache2_restart () {
-msg -ama " $(fun_trans "Apache2 ira iniciar ou reiniciar")"
-msg -ama " $(fun_trans "E recuperando a porta 81 por padrao")"
+msg -ama " $(fun_trans "REINICIENADO APACHE2")"
 msg -bar
+/etc/init.d/apache2 stop > /dev/null 2>&1
 fun_bar "apt-get install apache2 -y"
+msg -bar
+msg -ama " $(fun_trans "RECUPERANDO PORTA 81 POR PADRAO")"
 sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf
 sleep 0.5s
 msg -bar
@@ -146,6 +148,8 @@ msg -ama " $(fun_trans "Apache2 Nao Encontrado")"
 msg -bar
 exit 1
 fi
+msg -ama " $(fun_trans "PARANDO") APACHE2"
+msg -bar
 fun_bar "service apache2 stop"
 /etc/init.d/apache2 stop > /dev/null 2>&1
 #apt-get purge apache2 -y &>/dev/null

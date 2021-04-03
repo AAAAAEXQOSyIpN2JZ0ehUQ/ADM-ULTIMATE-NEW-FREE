@@ -38,7 +38,7 @@ infocuenta () {
 v2ray info
 }
 
-msg -ama "$(fun_trans "MENU DE UTILITARIOS")"
+msg -ama "$(fun_trans "INSTALAR V2RAY")"
 msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLVER")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "INSTALAR V2RAY") "

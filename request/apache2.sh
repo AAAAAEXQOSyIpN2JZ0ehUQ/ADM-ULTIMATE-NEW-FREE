@@ -73,7 +73,7 @@ msg -ama " $(fun_trans "REMOVENDO APACHE2")"
 msg -bar
 /etc/init.d/apache2 stop > /dev/null 2>&1
 fun_bar "apt-get purge apache2 -y"
-#apt-get purge apache2 -y &>/dev/null
+# apt-get purge apache2 -y &>/dev/null
 sleep 0.5s
 msg -bar
 msg -ama " $(fun_trans "Apache2 removido Com Sucesso!")"
@@ -127,7 +127,9 @@ apache2_restart () {
 msg -ama " $(fun_trans "REINICIENADO APACHE2")"
 msg -bar
 /etc/init.d/apache2 stop > /dev/null 2>&1
-fun_bar "apt-get install apache2 -y"
+fun_bar "apt-get purge apache2 -y"
+# apt-get purge apache2 -y &>/dev/null
+apt-get install apache2 -y -y &>/dev/null
 msg -bar
 msg -ama " $(fun_trans "RECUPERANDO PORTA 81 POR PADRAO")"
 sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf

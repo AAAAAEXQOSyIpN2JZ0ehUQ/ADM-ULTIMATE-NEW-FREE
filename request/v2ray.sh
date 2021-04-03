@@ -6,7 +6,7 @@ SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 
-# https://github.com/Jrohy (19/12/2019 - k8.3.1)
+# github: https://github.com/Jrohy (19/12/2019 - k8.3.1)
 
 intallv2ray () {
 apt install python3-pip -y 

@@ -34,7 +34,7 @@ fun_scriptsalternos () {
 while true; do
 echo -e "\033[1;33m$(fun_trans "TESTE SCRIPTS ALTERNOS")"
 msg -bar
-echo -e "\033[1;37m[0] > \033[1;36m$(fun_trans "VOLTAR")"
+echo -e "\033[1;32m[0] > \033[1;37m$(fun_trans "VOLTAR")"
 msg -bar
 echo -e "\033[1;32m[1] > \033[1;36m$(fun_trans "ADMINISTRAR CUENTAS SS/SSRR")"
 echo -e "\033[1;32m[2] > \033[1;36m$(fun_trans "SHADOWSOCKS-LIBEV")"
@@ -45,7 +45,7 @@ echo -e "\033[1;32m[5] > \033[1;36m$(fun_trans "V2ray Panel")"
 echo -e "\033[1;32m[6] > \033[1;36m$(fun_trans "V2ray Manager")"
 echo -e "\033[1;32m[7] > \033[1;36m$(fun_trans "V2ray VPS-MX 8.4")"
 msg -bar
-echo -e "\033[1;32m[8] > \033[1;36m$(fun_trans "Menu SSHPlus Coneccion ")"
+echo -e "\033[1;32m[8] > \033[1;36m$(fun_trans "Menu SSHPlus Conexao ")"
 msg -bar
 echo -e "\033[1;32m[9] > \033[1;36m$(fun_trans "Menu Beta v.2")"
 msg -bar

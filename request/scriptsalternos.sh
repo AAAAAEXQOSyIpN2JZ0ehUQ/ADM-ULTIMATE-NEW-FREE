@@ -7,13 +7,14 @@ SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 
 #LIPIAR SCRIPTS
-rm -rf /bin/conexao.sh > /dev/null 2>&1
 rm -rf /bin/C-SSR.sh
 rm -rf /bin/Shadowsocks-libev.sh
 rm -rf /bin/Shadowsocks-R.sh
 rm -rf /bin/shadowsocks.sh
 rm -rf /bin/v2ray.sh > /dev/null 2>&1
 rm -rf /bin/vdoray.sh > /dev/null 2>&1
+rm -rf /bin/v2ray84.sh > /dev/null 2>&1
+rm -rf /bin/conexao.sh > /dev/null 2>&1
 
 menu () {
 echo -ne " \033[1;31m[ ! ] Instalando Menu Beta v.2"
@@ -23,26 +24,26 @@ chmod 777 /etc/newadm/menu > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo
 echo -ne " \033[1;31m[ ! ] Accediendo al menu... \033[1;32m [OK]"
 sleep 3
 chmod 777 /etc/newadm/menu; /etc/newadm/menu
-echo -e "$barra"
+msg -bar
 }
 
 fun_scriptsalternos () {
 while true; do
 echo -e "\033[1;33m$(fun_trans "TESTE SCRIPTS ALTERNOS")"
-echo -e "$barra"
+msg -bar
 echo -e "\033[1;32m[0] > ${cor[0]}$(fun_trans "VOLTAR")"
-echo -e "$barra"
+msg -bar
 echo -e "\033[1;32m[1] > \033[1;36m$(fun_trans "ADMINISTRAR CUENTAS SS/SSRR")"
 echo -e "\033[1;32m[2] > \033[1;36m$(fun_trans "SHADOWSOCKS-LIBEV")"
 echo -e "\033[1;32m[3] > \033[1;36m$(fun_trans "SHADOWSOCKS-R")"
 echo -e "\033[1;32m[4] > \033[1;36m$(fun_trans "SHADOWSOCKS-NORMAL")"
-echo -e "$barra"
+msg -bar
 echo -e "\033[1;32m[5] > \033[1;36m$(fun_trans "V2ray Panel")"
 echo -e "\033[1;32m[6] > \033[1;36m$(fun_trans "V2ray Manager")"
 echo -e "\033[1;32m[7] > \033[1;36m$(fun_trans "V2ray VPS-MX 8.4")"
-echo -e "$barra"
+msg -bar
 echo -e "\033[1;32m[8] > \033[1;36m$(fun_trans "Menu SSHPlus Coneccion ")"
-echo -e "$barra"
+msg -bar
 echo -e "\033[1;32m[9] > \033[1;36m$(fun_trans "Menu Beta v.2")\n${barra}"
 while [[ ${opx} != @(0|[1-9]) ]]; do
 echo -ne "${cor[0]}$(fun_trans "Digite a Opcao"): \033[1;37m" && read opx

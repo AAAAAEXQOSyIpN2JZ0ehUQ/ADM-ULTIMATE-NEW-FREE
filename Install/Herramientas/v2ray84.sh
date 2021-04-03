@@ -48,7 +48,6 @@ msg -bar
 msg -ne "Enter Para Continuar" && read enter
 bin/v2ray.sh
 }
-dirapache="/usr/local/lib/ubuntn/apache/ver" && [[ ! -d ${dirapache} ]] && exit
 tls () {
 msg -ama "$(fun_trans "Activar o Desactivar TLS")!"
 msg -bar

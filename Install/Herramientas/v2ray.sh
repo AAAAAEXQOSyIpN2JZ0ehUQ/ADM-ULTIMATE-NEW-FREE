@@ -105,7 +105,7 @@ fi
  
 if [ ${Debian_version} == 9 ];then
     wget -N --no-check-certificate https://raw.githubusercontent.com/Dankelthaher/V2ray.Fun/master/enable-debian9-rclocal.sh 
-    bash enable-debian9-rclocal.sh
+    # bash enable-debian9-rclocal.sh
     rm enable-debian9-rclocal.sh
 fi
  

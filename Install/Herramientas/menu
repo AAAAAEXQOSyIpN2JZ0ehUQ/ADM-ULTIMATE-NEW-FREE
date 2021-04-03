@@ -176,6 +176,9 @@ Port=$(echo {$port} | awk '{print $9}' | awk -F ":" '{print $2}')
 [[ $(echo -e $NOREPEAT|grep -w "$Port") ]] && continue
 NOREPEAT+="$Port\n"
 case ${reQ} in
+v2-ui)
+[[ -z $V2R ]] && local V2R="\033[1;31mV2RAY: \033[1;32m"
+V2R+="$Port ";;
 squid|squid3)
 [[ -z $SQD ]] && local SQD="\033[1;31mSQUID: \033[1;32m"
 SQD+="$Port ";;
@@ -197,6 +200,9 @@ OVPN+="$Port ";;
 stunnel4|stunnel)
 [[ -z $SSL ]] && local SSL="\033[1;31mSSL: \033[1;32m"
 SSL+="$Port ";;
+sslh)
+[[ -z $SSLH ]] && local SSLH="\033[1;31mSSLH: \033[1;32m"
+SSLH+="$Port ";;
 python|python3)
 [[ -z $PY3 ]] && local PY3="\033[1;31mSOCKS: \033[1;32m"
 PY3+="$Port ";;
@@ -218,6 +224,7 @@ openvpn)
 OVPN+="$Port ";;
 esac
 done <<< "${portasVAR}"
+[[ ! -z $V2R ]] && echo -e $V2R
 [[ ! -z $SQD ]] && echo -e $SQD
 [[ ! -z $APC ]] && echo -e $APC
 [[ ! -z $SSH ]] && echo -e $SSH
@@ -226,6 +233,7 @@ done <<< "${portasVAR}"
 [[ ! -z $PY3 ]] && echo -e $PY3
 [[ ! -z $SSL ]] && echo -e $SSL
 [[ ! -z $SSV ]] && echo -e $SSV
+[[ ! -z $SSLH ]] && echo -e $SSLH
 }
 mine_port2 () {
 unset portas

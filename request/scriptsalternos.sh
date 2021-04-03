@@ -47,7 +47,8 @@ msg -bar
 echo -e "\033[1;32m[9] > \033[1;36m$(fun_trans "Menu Beta v.2")"
 msg -bar
 while [[ ${opx} != @(0|[1-9]) ]]; do
-echo -ne "${cor[0]}$(fun_trans "Digite a Opcao"): \033[1;37m" && read opx
+echo -ne "$(fun_trans "Digite a Opcao"): \033[1;37m" && read opx
+
 tput cuu1 && tput dl1
 done
 case $opx in

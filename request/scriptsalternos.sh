@@ -45,6 +45,7 @@ msg -bar
 echo -e "\033[1;32m[8] > \033[1;36m$(fun_trans "Menu SSHPlus Coneccion ")"
 msg -bar
 echo -e "\033[1;32m[9] > \033[1;36m$(fun_trans "Menu Beta v.2")"
+msg -bar
 while [[ ${opx} != @(0|[1-9]) ]]; do
 echo -ne "${cor[0]}$(fun_trans "Digite a Opcao"): \033[1;37m" && read opx
 tput cuu1 && tput dl1
@@ -76,7 +77,7 @@ break;;
 8)
 wget -O /bin/conexao.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/conexao.sh > /dev/null 2>&1; chmod +x /bin/conexao.sh; conexao.sh
 break;;
-7)
+9)
 menu
 break;;
 esac

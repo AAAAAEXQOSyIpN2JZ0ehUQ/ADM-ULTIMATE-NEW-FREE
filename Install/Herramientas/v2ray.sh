@@ -104,7 +104,7 @@ if [ ${OS} == CentOS ];then
 fi
  
 if [ ${Debian_version} == 9 ];then
-    wget -N --no-check-certificate https://github.com/Dankelthaher/V2ray.Fun/blob/master/enable-debian9-rclocal.sh
+    wget -N --no-check-certificate https://raw.githubusercontent.com/Dankelthaher/V2ray.Fun/master/enable-debian9-rclocal.sh 
     bash enable-debian9-rclocal.sh
     rm enable-debian9-rclocal.sh
 fi
@@ -117,6 +117,7 @@ curl https://get.acme.sh | sh
 curl -L -s https://install.direct/go.sh | bash
  
 #Install V2ray.Fun
+apt-get install git -y
 cd /usr/local/
 git clone https://github.com/Dankelthaher/V2ray.Fun
  

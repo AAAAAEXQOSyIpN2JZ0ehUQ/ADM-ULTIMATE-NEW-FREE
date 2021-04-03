@@ -32,8 +32,20 @@ echo ""
 v2ray tls
 }
 
+portv () {
+msg -ama "$(fun_trans "Cambiar Puerto v2ray")!"
+msg -bar
+v2ray port
+}
+
 infocuenta () {
 v2ray info
+}
+
+stats () {
+msg -ama "$(fun_trans "Estadisticas de Consumo")!"
+msg -bar
+v2ray stats
 }
 
 unistallv2 () {
@@ -47,7 +59,9 @@ echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLVER")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "INSTALAR V2RAY") "
 echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "CAMBIAR PROTOCOLO")"
 echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "ACTIVAR TLS") "
+echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "CAMBIAR PUERTO V2RAY") "
 echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "INFORMACION DE CUENTA")"
+echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "ESTADISTICAS DE CONSUMO")"
 echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "DESINTALAR V2RAY")"
 msg -bar
 while [[ ${arquivoonlineadm} != @(0|[1-5]) ]]; do

@@ -6,7 +6,8 @@ SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 
-#LIPIAR SCRIPTS
+
+limpiar () {
 rm -rf /bin/C-SSR.sh
 rm -rf /bin/Shadowsocks-libev.sh
 rm -rf /bin/Shadowsocks-R.sh
@@ -15,6 +16,8 @@ rm -rf /bin/v2ray.sh > /dev/null 2>&1
 rm -rf /bin/vdoray.sh > /dev/null 2>&1
 rm -rf /bin/v2ray84.sh > /dev/null 2>&1
 rm -rf /bin/conexao.sh > /dev/null 2>&1
+}
+limpiar
 
 menu () {
 echo -ne " \033[1;31m[ ! ] Instalando Menu Beta v.2"
@@ -47,7 +50,7 @@ msg -bar
 echo -e "\033[1;32m[9] > \033[1;36m$(fun_trans "Menu Beta v.2")"
 msg -bar
 while [[ ${opx} != @(0|[1-9]) ]]; do
-echo -ne "$(fun_trans "Digite a Opcao"): \033[1;37m" && read opx
+echo -ne "[1-9]: \033[1;37m" && read opx
 
 tput cuu1 && tput dl1
 done

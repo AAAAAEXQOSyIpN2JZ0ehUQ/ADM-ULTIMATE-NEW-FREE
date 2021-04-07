@@ -113,7 +113,7 @@ return 0
 }
 
 edit_openssh () {
-msg -ama " $(fun_trans "Agora Escolha as Portas que Deseja No Squid*")"
+msg -ama " $(fun_trans "Agora Escolha as Portas que Deseja No OpenSSH*")"
 msg -ama " $(fun_trans "Escolha As Portas Validas Em Ordem Sequencial Exemplo: 80 8080 8799 3128")"
 msg -bar
 local CONF="/etc/ssh/sshd_config"

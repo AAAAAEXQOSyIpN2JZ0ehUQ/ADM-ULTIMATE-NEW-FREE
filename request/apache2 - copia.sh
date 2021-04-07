@@ -141,7 +141,7 @@ echo -e "\033[1;32m[OK]"
 msg -bar
 sleep 0.5s
 msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
-# msg -bar
+msg -bar
 }
 
 apache2_stop () {
@@ -162,11 +162,6 @@ msg -bar
 }
 
 fun_apache2 () {
-if [[ ! -e /etc/apache2/ports.conf ]]; then
-apache2_restart
-msg -bar
-exit 1
-fi
 unset OPENBAR
 [[ $(port|grep -w "apache2") ]] && OPENBAR="\033[1;32mOnline" || OPENBAR="\033[1;31mOffline"
 # [[ -e /etc/apache2/ports.conf ]] && OPENBAR="\033[1;32mOnline" || OPENBAR="\033[1;31mOffline"
@@ -176,7 +171,7 @@ msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR ")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "REMOVER") APACHE2"
 echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "ALTERAR PORTA") APACHE2"
-echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "Editar Cliente") APACHE2 \033[1;31m(comand nano)"
+echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "REINICIAR") APACHE2"
 echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "PARAR") APACHE2 $OPENBAR"
 msg -bar
 while [[ ${arquivoonlineadm} != @(0|[1-4]) ]]; do
@@ -187,9 +182,7 @@ case $arquivoonlineadm in
 0)exit;;
 1)remover_apache2;;
 2)edit_apache;;
-3)
-   nano /etc/apache2/ports.conf
-   return 0;;
+3)apache2_restart;;
 4)apache2_stop;;
 esac
 }

@@ -124,7 +124,7 @@ msg -bar
 }
 
 apache2_restart () {
-msg -ama " $(fun_trans "REINICIENADO APACHE2")"
+msg -ama " $(fun_trans "REINSTALANDO APACHE2")"
 msg -bar
 /etc/init.d/apache2 stop > /dev/null 2>&1
 fun_bar "apt-get purge apache2 -y"

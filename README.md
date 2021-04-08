@@ -1,6 +1,6 @@
-﻿# NEW-ULTIMATE r6.3.8
+﻿# NEW-ULTIMATE
 ```
-* UPDATE 28/03/2021 - PROYECTO FINALIZADO
+* UPDATE 08/04/2021 - PROYECTO FINALIZADO
 ```
 ![logo](https://github.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/blob/master/Imagenes/ADM_ULTIMATE_NEW_FREE.jpg)
 
@@ -13,7 +13,7 @@
 * Recomendamos Ubuntu 16.04 Server x86_64
 * Se recomienda usar una distro nueva o formatiada
 * Si te da errores de taduccion ejecutar el siguiennte comando:  
-                            echo "pt" > /etc/newadm/idioma && chmod +x /etc/newadm/idioma
+  echo "pt" > /etc/newadm/idioma && chmod +x /etc/newadm/idioma
 
 ## :book: Installation
 
@@ -26,7 +26,7 @@ NEW-ULTIMATE (las dependencias faltantes se instalarán automáticamente)
 
 ## :scroll: Registro de cambios
 
-**VERSION: r6.3.8**
+**VERSION: r6.4.0**
 
 https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/versao
 

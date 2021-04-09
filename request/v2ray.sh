@@ -11,21 +11,39 @@ SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 intallv2ray () {
 apt install python3-pip -y 
 source <(curl -sL https://multi.netlify.app/v2ray.sh)
-msg -ama "$(fun_trans "Intalado con Exito")!"
+msg -ama "$(fun_trans "Instalado com sucesso ")!"
 echo "#V2RAY ON" > /etc/v2ray-on
 }
 
 protocolv2ray () {
-msg -ama "$(fun_trans "Escojer opcion 3 y poner el dominio de nuestra IP")!"
+if [[ ! -d /etc/v2ray-on ]]; then
+msg -ama " $(fun_trans "V2ray Nao Encontrado")"
+msg -bar
+exit 1
+fi
+msg -ama "$(fun_trans "Escolha a opcao 3 e coloque o dominio do nosso IP")!"
 msg -bar
 v2ray stream
 }
 
 tls () {
-msg -ama "$(fun_trans "Activar o Desactivar TLS")!"
+if [[ ! -d /etc/v2ray-on ]]; then
+msg -ama " $(fun_trans "V2ray Nao Encontrado")"
 msg -bar
-echo -ne "\033[1;97mTip elige opcion -1.open TLS- y eliges la opcion 1 para\ngenerar los certificados automaticamente y seguir los pasos\nsi te marca algun error esocjer la opcion 1 de nuevo pero\nahora elegir opcion 2 para gregar las rutas del certificado\nmanualmente.\n\033[1;93m
-certificado = /root/cer.crt\nkey= /root/key.key\n\033[1;97m"
+exit 1
+fi
+msg -ama "$(fun_trans "Habilitar ou desabilitar TLS")!"
+msg -bar
+echo -ne "\033[1;97m
+Tip elige opcion -1.open TLS- y eliges la opcion 1 para\n
+generar los certificados automaticamente y seguir los pasos\n
+si te marca algun error esocjer la opcion 1 de nuevo pero\n
+ahora elegir opcion 2 para gregar las rutas del certificado\n
+manualmente.\n
+\033[1;93m
+certificado = /root/cer.crt\n
+key= /root/key.key\n
+\033[1;97m"
 openssl genrsa -out key.key 2048 > /dev/null 2>&1
 (echo ; echo ; echo ; echo ; echo ; echo ; echo ) | openssl req -new -key key.key -x509 -days 1000 -out cer.crt > /dev/null 2>&1
 echo ""
@@ -33,36 +51,56 @@ v2ray tls
 }
 
 portv () {
-msg -ama "$(fun_trans "Cambiar Puerto v2ray")!"
+if [[ ! -d /etc/v2ray-on ]]; then
+msg -ama " $(fun_trans "V2ray Nao Encontrado")"
+msg -bar
+exit 1
+fi
+msg -ama "$(fun_trans "Alterar porta v2ray")!"
 msg -bar
 v2ray port
 }
 
 infocuenta () {
+if [[ ! -d /etc/v2ray-on ]]; then
+msg -ama " $(fun_trans "V2ray Nao Encontrado")"
+msg -bar
+exit 1
+fi
 v2ray info
 }
 
 stats () {
-msg -ama "$(fun_trans "Estadisticas de Consumo")!"
+if [[ ! -d /etc/v2ray-on ]]; then
+msg -ama " $(fun_trans "V2ray Nao Encontrado")"
+msg -bar
+exit 1
+fi
+msg -ama "$(fun_trans "Estatisticas de Consumo ")!"
 msg -bar
 v2ray stats
 }
 
 unistallv2 () {
+if [[ ! -d /etc/v2ray-on ]]; then
+msg -ama " $(fun_trans "V2ray Nao Encontrado")"
+msg -bar
+exit 1
+fi
 source <(curl -sL https://multi.netlify.app/v2ray.sh) --remove
 rm -rf /etc/v2ray-on
 }
 
-msg -ama "$(fun_trans "INSTALAR V2RAY")"
+msg -ama "$(fun_trans "V2RAY")"
 msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLVER")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "INSTALAR V2RAY") "
-echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "CAMBIAR PROTOCOLO")"
-echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "ACTIVAR TLS") "
-echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "CAMBIAR PUERTO V2RAY") "
-echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "INFORMACION DE CUENTA")"
-echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "ESTADISTICAS DE CONSUMO")"
-echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "DESINTALAR V2RAY")"
+echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "MUDAR PROTOCOLO")"
+echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "ATIVAR TLS") "
+echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "MUDAR PORTA V2RAY") "
+echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "IINFORMACOES DA CONTA")"
+echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "ESTATISTICAS DE CONSUMO")"
+echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "UNINTALING V2RAY")"
 msg -bar
 while [[ ${arquivoonlineadm} != @(0|[1-7]) ]]; do
 read -p "[0-7]: " arquivoonlineadm

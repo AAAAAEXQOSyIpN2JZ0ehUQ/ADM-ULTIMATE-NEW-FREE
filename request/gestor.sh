@@ -93,7 +93,13 @@ tput cuu1 && tput dl1
 done
 hostnamectl set-hostname $name 
 if [ $(hostnamectl status | head -1  | awk '{print $3}') = "${name}" ]; then 
-echo -e "\033[1;33m $(fun_trans "Host alterado corretamente")!, $(fun_trans "reiniciar VPS")"
+echo -e "\033[1;33m $(fun_trans "Host alterado corretamente")"
+msg -bar
+echo -e "$(fun_trans "Reiniciar Sistema?")"
+read -p " [S/N]: " -e -i s PROS
+[[ $PROS = @(s|S|y|Y) ]] || return 1
+#Inicia Procedimentos
+reiniciar_vps
 else
 echo -e "\033[1;33m $(fun_trans "Host no modificado")!"
 fi
@@ -163,22 +169,22 @@ echo -e "$(fun_trans "Deseja Prosseguir?")"
 read -p " [S/N]: " -e -i n PROS
 [[ $PROS = @(s|S|y|Y) ]] || return 1
 msg -bar
+fun_bar "service ssh restart"
+sed -i 's/.*pam_cracklib.so.*/password sufficient pam_unix.so sha512 shadow nullok try_first_pass #use_authtok/' /etc/pam.d/common-password
+service ssh restart > /dev/null 2>&1
 #-----------------------------------------------------------------------------------------------------------------
 # sudo apt-get install libpam-cracklib -y > /dev/null 2>&1
 # wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/VPS-MX/main/VPS-MX_Oficial/ArchivosUtilitarios/common-password -O /etc/pam.d/common-password > /dev/null 2>&1 
 # chmod +x /etc/pam.d/common-password
 #-----------------------------------------------------------------------------------------------------------------
-fun_bar "service ssh restart"
-sed -i 's/.*pam_cracklib.so.*/password sufficient pam_unix.so sha512 shadow nullok try_first_pass #use_authtok/' /etc/pam.d/common-password
-service ssh restart > /dev/null 2>&1
 msg -bar
 echo -e " \033[1;31m[ ! ]\033[1;33m $(fun_trans "Configuraciones VURTL aplicadas")"
 msg -bar
-echo -e "$(fun_trans "Passwd Alfanumerico Desactivado con EXITO")"
+echo -e "${cor[3]} $(fun_trans "Passwd Alfanumerico Desactivado con EXITO")"
 return
 }
 
-rootpass () {
+aplica_root () {
 echo -e "${cor[3]} $(fun_trans "Esta herramienta cambia a usuario root las VPS de")"
 echo -e "${cor[3]} $(fun_trans "GoogleCloud y Amazon")"
 msg -bar
@@ -293,6 +299,25 @@ fun_nettools () {
 [[ ! -e /bin/nettools.py ]] && wget -O /bin/nettools.py https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/nettools.py > /dev/null 2>&1; chmod +x /bin/nettools.py; /bin/nettools.py
 }
 
+resetiptables () {
+echo -e "Reiniciando Ipetables espere"
+iptables -F && iptables -X && iptables -t nat -F && iptables -t nat -X && iptables -t mangle -F && iptables -t mangle -X && iptables -t raw -F && iptables -t raw -X && iptables -t security -F && iptables -t security -X && iptables -P INPUT ACCEPT && iptables -P FORWARD ACCEPT && iptables -P OUTPUT ACCEPT
+echo -e "iptables reiniciadas con exito"
+}
+packobs () {
+msg -ama "Buscando Paquetes Obsoletos"
+dpkg -l | grep -i ^rc
+msg -ama "Limpiando Paquetes Obsoloteos"
+dpkg -l |grep -i ^rc | cut -d " " -f 3 | xargs dpkg --purge
+msg -ama "Limpieza Completa"
+}
+
+RAM () {
+sudo sync
+sudo sysctl -w vm.drop_caches=3 > /dev/null 2>&1
+msg -ama "   Ram limpiada con Exito!"
+}
+
 selection_fun () {
 local selection="null"
 local range
@@ -336,7 +361,7 @@ case ${selection} in
 6)act_hora;;
 7)newadm_color;;
 8)pamcrack;;
-9)rootpass;;
+9)aplica_root;;
 10)fun_nload;;
 11)fun_htop;;
 12)fun_statussistema;;

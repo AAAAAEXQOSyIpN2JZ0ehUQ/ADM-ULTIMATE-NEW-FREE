@@ -185,8 +185,8 @@ return
 }
 
 aplica_root () {
-echo -e "${cor[3]} $(fun_trans "Esta herramienta cambia a usuario root las VPS de")"
-echo -e "${cor[3]} $(fun_trans "GoogleCloud y Amazon")"
+echo -e "${cor[3]} $(fun_trans "Esta herramienta cambia a usuario root")"
+echo -e "${cor[3]} $(fun_trans "las VPS de GoogleCloud y Amazon")"
 msg -bar
 echo -e "$(fun_trans "Deseja Prosseguir?")"
 read -p " [S/N]: " -e -i n PROS
@@ -340,18 +340,18 @@ echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "CAMBIAR CONTRASEÑA ROOT 
 echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "ATUALIZAR HORA AMERICA-SANTIAGO")"
 echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "MUDAR CORES SISTEMA A RED-TEME")"
 echo -ne "\033[1;32m [8] > " && msg -azu "$(fun_trans "DESBLOQUEAR VURTL PARA CREAR USUARIOS") \033[1;33m(\033[1;37mBETA\033[1;33m)"
-echo -ne "\033[1;32m [9] > " && msg -azu "$(fun_trans "APLICAR ROOT A GOOGLECLOUD Y AMAZON") \033[1;33m(\033[1;37mBETA\033[1;33m)"
+echo -ne "\033[1;32m [9] > " && msg -azu "$(fun_trans "APLICAR ROOT A GOOGLECLOUD Y AMAZON")"
 echo -ne "\033[1;32m [10] > " && msg -azu "$(fun_trans "TRAFICO DE RED NLOAD")"
 echo -ne "\033[1;32m [11] > " && msg -azu "$(fun_trans "PROCESOS DEL SISTEMA HTOP")"
 echo -ne "\033[1;32m [12] > " && msg -azu "$(fun_trans "DETALHES DO SISTEMA") \033[1;33m(\033[1;37mBETA\033[1;33m)"
 echo -ne "\033[1;32m [13] > " && msg -azu "$(fun_trans "NET TOOLS TARGET") \033[1;33m(\033[1;37mBETA\033[1;33m)"
 msg -bar
+selection=$(selection_fun 18)
+case ${selection} in
 # while [[ ${arquivoonlineadm} != @(0|[1-9]) ]]; do
 # read -p "[0-13]: " arquivoonlineadm
 # tput cuu1 && tput dl1
 # done
-selection=$(selection_fun 18)
-case ${selection} in
 # case $arquivoonlineadm in
 1)update_pak;;
 2)reiniciar_ser;;

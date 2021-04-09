@@ -6,29 +6,17 @@ SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 
-
 limpiar () {
-rm -rf /bin/C-SSR.sh
-rm -rf /bin/Shadowsocks-libev.sh
-rm -rf /bin/Shadowsocks-R.sh
-rm -rf /bin/shadowsocks.sh
+rm -rf /bin/C-SSR.sh > /dev/null 2>&1
+rm -rf /bin/Shadowsocks-libev.sh > /dev/null 2>&1
+rm -rf /bin/Shadowsocks-R.sh > /dev/null 2>&1
+rm -rf /bin/shadowsocks.sh > /dev/null 2>&1
 rm -rf /bin/v2ray.sh > /dev/null 2>&1
 rm -rf /bin/vdoray.sh > /dev/null 2>&1
 rm -rf /bin/v2ray84.sh > /dev/null 2>&1
 rm -rf /bin/conexao.sh > /dev/null 2>&1
 }
 limpiar
-
-menu () {
-echo -ne " \033[1;31m[ ! ] Instalando Menu Beta v.2"
-wget -O /etc/newadm/menu https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/menu > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-echo -ne " \033[1;31m[ ! ] Cocediendo Permisos"
-chmod 777 /etc/newadm/menu > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-echo -ne " \033[1;31m[ ! ] Accediendo al menu... \033[1;32m [OK]"
-sleep 3
-chmod 777 /etc/newadm/menu; /etc/newadm/menu
-msg -bar
-}
 
 fun_scriptsalternos () {
 while true; do
@@ -51,7 +39,6 @@ echo -e "\033[1;32m[9] > \033[1;36m$(fun_trans "Menu Beta v.2")"
 msg -bar
 while [[ ${opx} != @(0|[1-9]) ]]; do
 echo -ne "[1-9]: \033[1;37m" && read opx
-
 tput cuu1 && tput dl1
 done
 case $opx in
@@ -82,7 +69,7 @@ break;;
 wget -O /bin/conexao.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/conexao.sh > /dev/null 2>&1; chmod +x /bin/conexao.sh; conexao.sh
 break;;
 9)
-menu
+wget -O /etc/newadm/menu https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/menu; chmod 777 /etc/newadm/menu; /etc/newadm/menu
 break;;
 esac
 done

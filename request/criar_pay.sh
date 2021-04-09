@@ -17,14 +17,14 @@ MEU_IP2=$(wget -qO- ipv4.icanhazip.com)
 [[ "$MEU_IP" != "$MEU_IP2" ]] && IP="$MEU_IP2" || IP="$MEU_IP"
 }
 
-echo -e "${cor[3]} $(fun_trans "GERADOR DE PAYLOAD") ${cor[2]}[NEW-ADM]"
-echo -e "$barra"
-echo -e "${cor[0]} $(fun_trans "DIGITE UM HOST PARA CRIAR PAYLOADS GENERICAS!")"
-echo -e "${cor[0]} $(fun_trans "CRIADOR DE PAYLOADS DIGITE THE HOST")"
-echo -e "$barra"
-read -p "$(fun_trans "HOST"): " valor1
+msg -ama "$(fun_trans "GERADOR DE PAYLOAD") \033[1;32m[NEW-ADM]"
+msg -bar
+msg -bra "$(fun_trans " Digite um host para criar payloads genericas!")"
+msg -bra "$(fun_trans " Criador de payloads digite the host")"
+msg -bar
+read -p "$(fun_trans " host"): " valor1
 if [ "$valor1" = "" ]; then
-echo -e "${cor[5]} $(fun_trans "Não adicione nada.")"
+msg -bra "$(fun_trans "Não adicione nada.")"
 return
 fi
 meu_ip
@@ -32,10 +32,10 @@ valor2="$IP"
 if [ "$valor2" = "" ]; then
 valor2="127.0.0.1"
 fi
-echo -e "$barra"
-echo -e "${cor[3]} $(fun_trans "ESCOLHA O METODO DE REQUISICAO") ${cor[3]}"
-echo -e "$barra"
-echo -e " 1-GET"
+msg -bar
+msg -ama "$(fun_trans "ESCOLHA O METODO DE REQUISICAO")"
+msg -bar
+echo -e "\033[1;37m 1-GET"
 echo -e " 2-CONNECT"
 echo -e " 3-PUT"
 echo -e " 4-OPTIONS"
@@ -44,8 +44,8 @@ echo -e " 6-HEAD"
 echo -e " 7-TRACE"
 echo -e " 8-PROPATCH"
 echo -e " 9-PATCH"
-echo -e "$barra"
-read -p "$(fun_trans "Digite a Opcao"): " valor3
+msg -bar
+read -p "[1-9]: " valor3
 case $valor3 in
 1)
 req="GET"
@@ -78,15 +78,15 @@ req="PATCH"
 req="GET"
 ;;
 esac
-echo -e "$barra"
-echo -e "${cor[3]} $(fun_trans "E POR ULTIMO, ESCOLHA")"
-echo -e "${cor[3]} $(fun_trans "METODO DE INJECAO!") ${cor[3]}"
-echo -e "$barra"
-echo -e " 1-realData"
+msg -bar
+msg -ama "$(fun_trans "E POR ULTIMO, ESCOLHA")"
+msg -ama "$(fun_trans "METODO DE INJECAO!")"
+msg -bar
+echo -e "\033[1;37m 1-realData"
 echo -e " 2-netData"
 echo -e " 3-raw"
-echo -e "$barra"
-read -p "$(fun_trans "Digite a Opcao"): " valor4
+msg -bar
+read -p "[1-3]: " valor4
 case $valor4 in
 1)
 in="realData"
@@ -101,7 +101,7 @@ in="raw"
 in="netData"
 ;;
 esac
-echo -e "$barra"
+msg -bar
 name=$(echo $valor1 | awk -F "/" '{print $2'})
 if [ "$name" = "" ]; then
 name=$(echo $valor1 | awk -F "/" '{print $1'})
@@ -116,10 +116,10 @@ sed -i "s;mhost;$valor1;g" $HOME/$name.txt
 sed -i "s;mip;$valor2;g" $HOME/$name.txt
 if [ "$(cat $HOME/$name.txt | egrep -o "$valor1")" = "" ]; then
 echo -e ""
-echo -e "${cor[3]} $(fun_trans "ALGO DEU") \033[1;36m$(fun_trans "ERRADO!")"
+echo -e "\033[1;33m $(fun_trans "ALGO DEU") \033[1;36m$(fun_trans "ERRADO!")"
 rm $HOME/$name.txt
 return
 fi
 echo -e "\033[1;36m $(fun_trans "SUCESSO, PAYLOADS GERADAS")"
-echo -e "\033[1;36m $(fun_trans "DIRETORIO:") \033[1;31m$HOME/$name.txt"
-echo -e "$barra"
+echo -e "\033[1;36m $(fun_trans "DIRETORIO:") \033[1;32m$HOME/$name.txt"
+msg -bar

@@ -54,7 +54,7 @@ function aguarde() {
 		done
 		tput cnorm
 	}
-	echo -ne "\033[1;33m LIMPANDO MEMORIA \033[1;32mRAM \033[1;33me \033[1;32mSWAP\033[1;32m.\033[1;33m.\033[1;31m. \033[1;33m"
+	echo -ne "\033[1;33m LIMPANDO MEMORIA \033[1;32mRAM \033[1;33me \033[1;32mSWAP\033[1;31m... \033[1;33m"
 	helice
 	echo -e "\e[1DOk"
 }
@@ -97,7 +97,7 @@ echo -e "\033[1;37mMemória \033[1;32mRAM \033[1;37mapós a Otimizacao:\033[1;36
 echo ""
 msg -bra " $(fun_trans "Economia de"):\033[1;31m $(expr $MEM1 - $MEM2)%\033[0m"
 msg -bar
-msg -ama " $(fun_trans "PROCESSO CONCLUIDO")"
+msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
 msg -bar
 }
 fun_optimizer

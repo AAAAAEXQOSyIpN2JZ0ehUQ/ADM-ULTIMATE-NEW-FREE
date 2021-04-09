@@ -17,10 +17,9 @@ MEU_IP2=$(wget -qO- ipv4.icanhazip.com)
 [[ "$MEU_IP" != "$MEU_IP2" ]] && IP="$MEU_IP2" || IP="$MEU_IP"
 }
 
-msg -ama "$(fun_trans "GERADOR DE PAYLOAD") \033[1;32m[NEW-ADM]"
+msg -azu "$(fun_trans "GERADOR DE PAYLOAD") \033[1;32m[NEW-ADM]"
 msg -bar
-msg -bra "$(fun_trans " Digite um host para criar payloads genericas!")"
-msg -bra "$(fun_trans " Criador de payloads digite the host")"
+msg -ama "$(fun_trans " Digite um host para criar payloads genericas!")"
 msg -bar
 read -p "$(fun_trans " host"): " valor1
 if [ "$valor1" = "" ]; then

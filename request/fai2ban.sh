@@ -1,10 +1,10 @@
 #!/bin/bash
-declare -A cor=( [0]="\033[1;37m" [1]="\033[1;34m" [2]="\033[1;32m" [3]="\033[1;36m" [4]="\033[1;31m" )
+declare -A cor=( [0]="\033[1;37m" [1]="\033[1;34m" [2]="\033[1;31m" [3]="\033[1;33m" [4]="\033[1;32m" )
 barra="\033[0m\e[34m======================================================\033[1;37m"
-jaillocal="/etc/fail2ban/jail.local"
-SCPdir="/etc/newadm" && [[ ! -d ${SCPdir} ]] && exit
+SCPdir="/etc/newadm" && [[ ! -d ${SCPdir} ]] && exit 1
 SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
+SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 serv_sshd=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN" | grep "sshd")
 serv_squid=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN" | grep "squid")
 serv_dropbear=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN" | grep "dropbear")
@@ -58,7 +58,7 @@ else
 echo -e "\033[1;31m $(fun_trans "Não foi encontrados IPs BLOQUEADAS")!"
 fi
 rm $fail2ban_list
-echo -e "$barra"
+msg -bar
 #UNBAN LISTA
 grep "Unban " /var/log/fail2ban.log|awk '{print $8}'| sort --unique >> $fail2ban_list
 if [[ $(awk '{x++}END{print x}' $fail2ban_list) != "" ]]; then
@@ -70,7 +70,7 @@ else
 echo -e "\033[1;31m $(fun_trans "Não foi encontrados IPs LIBERADA")!"
 fi 
 rm $fail2ban_list
-echo -e "$barra"
+msg -bar
 #FoundLista
 echo -e "\033[1;37m ¿$(fun_trans "Você deseja ver a lista de IPs detectados")?"
 read -p " $(fun_trans "Digite a Opcao"): [s/n] " -e -i n sshsn
@@ -83,7 +83,7 @@ while read linea; do
 echo -e "\033[1;37m IP: $(echo $linea|awk '{print $1}') \033[1;36m[$(fun_trans "DETECTADA")] \033[1;31m->\033[1;33m$(geoiplookup $(echo $linea|awk '{print $1}')|awk '{$1=""}{$2=""}{$3="";print}' )"
 done < $fail2ban_list
 rm $fail2ban_list
-echo -e "$barra"
+msg -bar
 }
 }
 #FUN_BAR
@@ -303,7 +303,7 @@ fun_bar "apt-get remove fail2ban -y"
 fun_bar "apt-get purge fail2ban -y"
 [[ -d /etc/fail2ban ]] && rm -rf /etc/fail2ban
 bin_remove
-echo -e "$barra"
+msg -bar
 }
 Fail2Ban_update () {
 if [[ -e /etc/fail2ban/jail.conf ]]; then
@@ -315,13 +315,14 @@ fi
 exit
 }
 fail2ban_function () {
-echo -e " \033[1;36m $(fun_trans "FAIL2BAN PROTECAO") \033[1;32m[NEW-ADM]"
-echo -e "$barra"
+echo -e "\033[1;36m$(fun_trans "FAIL2BAN PROTECAO")"
+msg -bar
 if [[ -e /etc/fail2ban/jail.conf ]]; then
 while true; do
-echo -e "${cor[2]} [1] > \033[1;37m$(fun_trans "Ver registro de IP")s"
-echo -e "${cor[2]} [2] > \033[1;37m$(fun_trans "Remover") fail2ban"
-echo -e "${cor[2]} [0] > \033[1;37m$(fun_trans "VOLTAR")\n${barra}"
+echo -ne "\033[1;32m [0] > " && msg -azu "$(fun_trans "VOLTAR")"
+echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "Ver registro de IP")s"
+echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "Remover") fail2ban"
+msg -bar
 while [[ ${lo_og} != [0-2] ]]; do
 echo -ne "\033[1;37m $(fun_trans "Digite a Opcao"): " && read lo_og
 tput cuu1 && tput dl1
@@ -344,13 +345,13 @@ fail2ban-client -x stop > /dev/null 2>&1
 fail2ban-client -x start > /dev/null 2>&1
 [[ -e $HOME/fail2ban ]] && rm $HOME/fail2ban
 [[ -d $HOME/fail2ban-0.10 ]] && rm -rf $HOME/fail2ban-0.10
-echo -e "$barra"
+msg -bar
 if [ "$failtwoban" != "" ]; then
 echo -e "\033[1;31m FAIL2BAN $(fun_trans "no se instalo")!"
-echo -e "$barra"
+msg -bar
 else
 echo -e "\033[1;32m FAIL2BAN $(fun_trans "instalado")!"
-echo -e "$barra"
+msg -bar
 fi
 return
 }

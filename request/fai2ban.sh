@@ -4,7 +4,6 @@ barra="\033[0m\e[34m======================================================\033[1
 SCPdir="/etc/newadm" && [[ ! -d ${SCPdir} ]] && exit 1
 SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
-SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 serv_sshd=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN" | grep "sshd")
 serv_squid=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN" | grep "squid")
 serv_dropbear=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN" | grep "dropbear")
@@ -315,7 +314,7 @@ fi
 exit
 }
 fail2ban_function () {
-echo -e "\033[1;36m$(fun_trans "FAIL2BAN PROTECAO")"
+echo -e "\033[1;36m$(fun_trans "FAIL2BAN PROTECAO") \033[1;32m[NEW-ADM]"
 msg -bar
 if [[ -e /etc/fail2ban/jail.conf ]]; then
 while true; do

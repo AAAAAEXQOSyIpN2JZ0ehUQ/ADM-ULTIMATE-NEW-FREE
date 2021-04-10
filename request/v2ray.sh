@@ -92,7 +92,7 @@ rm -rf /etc/v2ray-on
 [[ -e /etc/v2ray-on ]] && OPENBAR="\033[1;32mOnline" || OPENBAR="\033[1;31mOffline"
 msg -azu "$(fun_trans "MENU V2RAY")"
 msg -bar
-echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLVER")"
+echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR ")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "INSTALAR V2RAY") "
 echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "MUDAR PROTOCOLO")"
 echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "ATIVAR TLS") "

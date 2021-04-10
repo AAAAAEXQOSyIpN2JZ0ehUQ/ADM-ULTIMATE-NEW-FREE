@@ -35,15 +35,13 @@ fi
 msg -ama "$(fun_trans "Habilitar ou desabilitar TLS")!"
 msg -bar
 echo -ne "\033[1;97m
-Tip elige opcion -1.open TLS- y eliges la opcion 1 para\n
-generar los certificados automaticamente y seguir los pasos\n
-si te marca algun error esocjer la opcion 1 de nuevo pero\n
+Dica: escolha a opcao -1.open TLS- e escolha a opcao 1 para\n
+gere os certificados automaticamente e siga as etapas\n
+Se voce cometer um erro, escolha a opcao 1 novamente, mas\n
 ahora elegir opcion 2 para gregar las rutas del certificado\n
-manualmente.\n
-\033[1;93m
+manualmente.\n\033[1;93m
 certificado = /root/cer.crt\n
-key= /root/key.key\n
-\033[1;97m"
+key= /root/key.key\n\033[1;97m"
 openssl genrsa -out key.key 2048 > /dev/null 2>&1
 (echo ; echo ; echo ; echo ; echo ; echo ; echo ) | openssl req -new -key key.key -x509 -days 1000 -out cer.crt > /dev/null 2>&1
 echo ""

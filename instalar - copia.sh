@@ -126,18 +126,6 @@ echo -e " menu / adm"
 msg -bar2
 }
 
-install_hosts () {
-_arq_host="/etc/hosts"
-_host[0]="www.whatsapp.net"
-_host[1]="dns.whatsapp.net"
-_host[2]="c.whatsapp.net"
-for host in ${_host[@]}; do
-	if [[ "$(grep -w "$host" $_arq_host | wc -l)" = "0" ]]; then
-		sed -i "3i\127.0.0.1 $host" $_arq_host
-	fi
-done
-}
-
 ofus () {
 unset txtofus
 number=$(expr length $1)
@@ -239,7 +227,6 @@ if [[ -e $HOME/lista-arq ]] && [[ ! $(cat $HOME/lista-arq|grep "KEY INVALIDA!") 
    echo "${SCPdir}/menu" > /bin/h && chmod +x /bin/h
    wget -O $HOME/versao https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/versao &> /dev/null
    inst_components
-   install_hosts
    echo "$Key" > ${SCPdir}/key.txt
    [[ -d ${SCPinstal} ]] && rm -rf ${SCPinstal}   
    [[ ${#id} -gt 2 ]] && echo "pt" > ${SCPidioma} || echo "${id}" > ${SCPidioma}

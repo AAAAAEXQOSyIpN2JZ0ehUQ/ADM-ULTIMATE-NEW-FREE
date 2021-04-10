@@ -16,7 +16,7 @@ echo "#V2RAY ON" > /etc/v2ray-on
 }
 
 protocolv2ray () {
-if [[ ! -d /etc/v2ray-on ]]; then
+if [[ ! -e /etc/v2ray-on ]]; then
 msg -ama " $(fun_trans "V2ray Nao Encontrado")"
 msg -bar
 exit 1
@@ -27,7 +27,7 @@ v2ray stream
 }
 
 tls () {
-if [[ ! -d /etc/v2ray-on ]]; then
+if [[ ! -e /etc/v2ray-on ]]; then
 msg -ama " $(fun_trans "V2ray Nao Encontrado")"
 msg -bar
 exit 1
@@ -49,7 +49,7 @@ v2ray tls
 }
 
 portv () {
-if [[ ! -d /etc/v2ray-on ]]; then
+if [[ ! -e /etc/v2ray-on ]]; then
 msg -ama " $(fun_trans "V2ray Nao Encontrado")"
 msg -bar
 exit 1
@@ -60,7 +60,7 @@ v2ray port
 }
 
 infocuenta () {
-if [[ ! -d /etc/v2ray-on ]]; then
+if [[ ! -e /etc/v2ray-on ]]; then
 msg -ama " $(fun_trans "V2ray Nao Encontrado")"
 msg -bar
 exit 1
@@ -69,7 +69,7 @@ v2ray info
 }
 
 stats () {
-if [[ ! -d /etc/v2ray-on ]]; then
+if [[ ! -e /etc/v2ray-on ]]; then
 msg -ama " $(fun_trans "V2ray Nao Encontrado")"
 msg -bar
 exit 1
@@ -80,7 +80,7 @@ v2ray stats
 }
 
 unistallv2 () {
-if [[ ! -d /etc/v2ray-on ]]; then
+if [[ ! -e /etc/v2ray-on ]]; then
 msg -ama " $(fun_trans "V2ray Nao Encontrado")"
 msg -bar
 exit 1

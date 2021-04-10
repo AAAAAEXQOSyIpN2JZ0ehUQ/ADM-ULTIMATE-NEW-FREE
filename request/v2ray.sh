@@ -89,7 +89,8 @@ source <(curl -sL https://multi.netlify.app/v2ray.sh) --remove
 rm -rf /etc/v2ray-on
 }
 
-msg -azu " $(fun_trans "V2RAY")"
+[[ -e /etc/v2ray-on ]] && OPENBAR="\033[1;32mOnline" || OPENBAR="\033[1;31mOffline"
+msg -azu "$(fun_trans "MENU V2RAY")"
 msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLVER")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "INSTALAR V2RAY") "
@@ -98,7 +99,7 @@ echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "ATIVAR TLS") "
 echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "MUDAR PORTA V2RAY") "
 echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "IINFORMACOES DA CONTA")"
 echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "ESTATISTICAS DE CONSUMO")"
-echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "UNINTALING V2RAY")"
+echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "UNINTALING V2RAY") $OPENBAR"
 msg -bar
 while [[ ${arquivoonlineadm} != @(0|[1-7]) ]]; do
 read -p "[0-7]: " arquivoonlineadm

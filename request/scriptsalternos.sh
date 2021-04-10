@@ -35,7 +35,7 @@ echo -e "\033[1;32m[7] > \033[1;36m$(fun_trans "V2ray VPS-MX 8.4")"
 msg -bar
 echo -e "\033[1;32m[8] > \033[1;36m$(fun_trans "Menu SSHPlus Conexao ")"
 msg -bar
-echo -e "\033[1;32m[9] > \033[1;36m$(fun_trans "Menu Beta v.2")"
+echo -e "\033[1;32m[9] > \033[1;36m$(fun_trans "TCP ACELERACION") (BBR/PLUS)"
 msg -bar
 while [[ ${opx} != @(0|[1-9]) ]]; do
 echo -ne "[1-9]: \033[1;37m" && read opx
@@ -68,8 +68,8 @@ break;;
 8)
 wget -O /bin/conexao.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/conexao.sh > /dev/null 2>&1; chmod +x /bin/conexao.sh; conexao.sh
 break;;
-9)
-wget -O /etc/newadm/menu https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/menu > /dev/null 2>&1; chmod 777 /etc/newadm/menu; /etc/newadm/menu
+99)
+wget -O /bin/tcp.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/tcp.sh > /dev/null 2>&1; chmod 777 /bin/tcp.sh; tcp.sh
 break;;
 esac
 done

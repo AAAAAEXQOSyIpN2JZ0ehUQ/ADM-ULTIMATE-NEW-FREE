@@ -89,7 +89,7 @@ source <(curl -sL https://multi.netlify.app/v2ray.sh) --remove
 rm -rf /etc/v2ray-on
 }
 
-msg -ama "$(fun_trans "V2RAY")"
+msg -azu " $(fun_trans "V2RAY")"
 msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLVER")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "INSTALAR V2RAY") "

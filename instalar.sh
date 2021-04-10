@@ -128,9 +128,14 @@ msg -bar2
 
 install_hosts () {
 _arq_host="/etc/hosts"
-_host[0]="www.whatsapp.net"
+_host[0]="d1n212ccp6ldpw.cloudfront.net"
 _host[1]="dns.whatsapp.net"
-_host[2]="c.whatsapp.net"
+_host[2]="portalrecarga.vivo.com.br/recarga"
+_host[3]="navegue.vivo.com.br/controle/"
+_host[4]="navegue.vivo.com.br/pre/"
+_host[5]="www.whatsapp.net"
+_host[6]="c.whatsapp.net"
+_host[7]="www.instagram.com"
 for host in ${_host[@]}; do
 	if [[ "$(grep -w "$host" $_arq_host | wc -l)" = "0" ]]; then
 		sed -i "3i\127.0.0.1 $host" $_arq_host

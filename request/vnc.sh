@@ -62,7 +62,7 @@ echo -e "\033[1;33m $(fun_trans "ENTRE UMA SENHA E DEPOIS DE CONFIRMAR")\033[1;3
 msg -bar
 vncserver
 msg -bar
-echo -e "\033[1;32m $(fun_trans "VNC conecta usando o ip do vps na porta") 5901"
+echo -e "\033[1;32m $(fun_trans "VNC conecta usando o ip do vps na porta") \033[1;37m5901"
 echo -e "\033[1;37m Ex: $IP:5901"
 echo -e "\033[1;32m $(fun_trans "Para acessar a interface gráfica") "
 echo -e "\033[1;32m $(fun_trans "Faça o download da PlayStore:") VNC VIWER"

@@ -608,6 +608,7 @@ case $1 in
 "utils2.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "(Nload/htop/sistemadetalhes/nettools) $dev";;
 "paysnd.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "PAYLOAD FORCA BRUTA BASH*") $dev";;
 "fai2ban.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "FAIL2BAN PROTECAO*") $dev";;
+"vnc.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "VNC SERVER*") $dev";;
 "scriptsalternos.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "TESTE SCRIPTS ALTERNOS*") \033[1;33m(\033[1;37mBETA\033[1;33m) $dev";;
 # Menu Instalação Ger-Inst OFC
 "apache2.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "APACHE2 $(pid_inst apache2)";;
@@ -620,7 +621,6 @@ case $1 in
 "sockspy.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "SOCKS PYTHON $(pid_inst python)";;
 "v2ray.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "V2RAY $(pid_inst v2ray)";;
 "budp.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "BADVPN $(pid_inst badvpn)";;
-"vnc.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "VNC SERVER*") $dev";;
 # "vnc.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "VNC SERVER $(pid_inst vnc)";;
 "webmin.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "WEBMIN $(pid_inst miniserv.)";;
 "PDirect.py")return 1;;

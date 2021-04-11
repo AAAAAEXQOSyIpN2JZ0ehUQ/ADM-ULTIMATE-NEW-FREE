@@ -209,7 +209,22 @@ for ufww in $(mportas|awk '{print $2}'); do
 ufw allow $ufww > /dev/null 2>&1
 done
 }
-addhost () {
+online_squid () {
+payload="/etc/payloads"
+msg -azu " $(fun_trans "CONFIGURAÇÃO DE SQUID*")"
+msg -bar
+echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "Voltar")"
+echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "Lugar um Host no Squid")"
+echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "Remover Host do Squid")"
+echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "Desinstalar o Squid")"
+msg -bar
+while [[ $varpay != @(0|[1-3]) ]]; do
+read -p "[0/3]: " varpay
+tput cuu1 && tput dl1
+done
+if [[ "$varpay" = "0" ]]; then
+return 1
+elif [[ "$varpay" = "1" ]]; then
 msg -ama " $(fun_trans "Hos_ts Atuais Dentro do Squid")"
 msg -bar
 cat $payload | awk -F "/" '{print $1,$2,$3,$4}'
@@ -238,8 +253,7 @@ else
 service squid restart > /dev/null 2>&1
 fi	
 return 0
-}
-removehost () {
+elif [[ "$varpay" = "2" ]]; then
 echo -e "${cor[4]} $(fun_trans "Hos_ts Atuais Dentro do Squ_id")"
 msg -bar 
 cat $payload | awk -F "/" '{print $1,$2,$3,$4}'
@@ -268,72 +282,9 @@ else
 service squid restart > /dev/null 2>&1
 fi	
 return 0
-}
-SquidCACHE () {
-msg -ama "$(fun_trans "Squid Cache, Aplica cache no squid")"
-msg -ama "$(fun_trans "melhora a velocidade do squid")"
-msg -bar
-if [ -e /etc/squid/squid.conf ]; then
-squid_var="/etc/squid/squid.conf"
-elif [ -e /etc/squid3/squid.conf ]; then
-squid_var="/etc/squid3/squid.conf"
-else
-msg -ama "$(fun_trans "Seu sistema nao possui um squid")!" && return 1
+elif [[ "$varpay" = "3" ]]; then
+fun_squid
 fi
-teste_cache="#CACHE DO SQUID"
-if [[ `grep -c "^$teste_cache" $squid_var` -gt 0 ]]; then
-  [[ -e ${squid_var}.bakk ]] && {
-  msg -ama "$(fun_trans "Cache squid identificado, removendo")!"
-  mv -f ${squid_var}.bakk $squid_var
-  msg -ama "$(fun_trans "cache squid removido")!"
-  service squid restart > /dev/null 2>&1 &
-  service squid3 restart > /dev/null 2>&1 &
-  msg -bar
-  return 0
-  }
-fi
-msg -ama "$(fun_trans "Aplicando Cache Squid")!"
-msg -bar
-_tmp="#CACHE DO SQUID\ncache_mem 200 MB\nmaximum_object_size_in_memory 32 KB\nmaximum_object_size 1024 MB\nminimum_object_size 0 KB\ncache_swap_low 90\ncache_swap_high 95"
-[[ "$squid_var" = "/etc/squid/squid.conf" ]] && _tmp+="\ncache_dir ufs /var/spool/squid 100 16 256\naccess_log /var/log/squid/access.log squid" || _tmp+="\ncache_dir ufs /var/spool/squid3 100 16 256\naccess_log /var/log/squid3/access.log squid"
-while read s_squid; do
-[[ "$s_squid" != "cache deny all" ]] && _tmp+="\n${s_squid}"
-done < $squid_var
-cp ${squid_var} ${squid_var}.bakk
-echo -e "${_tmp}" > $squid_var
-msg -ama "$(fun_trans "Cache Aplicado Com Sucesso")!"
-service squid restart > /dev/null 2>&1 &
-service squid3 restart > /dev/null 2>&1 &
-msg -bar	
-return 0
-}
-online_squid () {
-payload="/etc/payloads"
-on="\033[1;32mOnline" && off="\033[1;31mOffline"
-if [ -e /etc/squid/squid.conf ]; then
-[[ `grep -c "^#CACHE DO SQUID" /etc/squid/squid.conf` -gt 0 ]] && squid=$on || squid=$off
-elif [ -e /etc/squid3/squid.conf ]; then
-[[ `grep -c "^#CACHE DO SQUID" /etc/squid3/squid.conf` -gt 0 ]] && squid=$on || squid=$off
-fi
-msg -azu " $(fun_trans "CONFIGURAÇÃO DE SQUID*")"
-msg -bar
-echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "Voltar")"
-echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "Lugar um Host no Squid")"
-echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "Remover Host do Squid")"
-echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "Cache do Squid") $squid"
-echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "Desinstalar o Squid")"
-msg -bar
-while [[ ${arquivoonlineadm} != @(0|[1-4]) ]]; do
-read -p "[0-4]: " arquivoonlineadm
-tput cuu1 && tput dl1
-done
-case $arquivoonlineadm in
-0)exit;;
-1)addhost;;
-2)removehost;;
-3)SquidCACHE;;
-4)fun_squid;;
-esac
 }
 if [[ -e /etc/squid/squid.conf ]]; then
 online_squid

@@ -184,6 +184,7 @@ echo "#TORRENT-ADM ON" > /etc/torrent-on
 msg -bar
 echo -e " $(fun_trans "Aplicado!")"
 }
+fun_utils () {
 on="\033[1;32mon" && off="\033[1;31moff"
 [[ $(ps x | grep badvpn | grep -v grep | awk '{print $1}') ]] && badvpn=$on || badvpn=$off
 [[ `grep -c "^#ADM" /etc/sysctl.conf` -eq 0 ]] && tcp=$off || tcp=$on
@@ -212,4 +213,5 @@ case $arquivoonlineadm in
 4)block_torrent;;
 0)exit;;
 esac
-msg -bar
+}
+fun_utils

@@ -44,9 +44,9 @@ png=$(cat speed | sed -n '5 p' |awk -F : {'print $NF'})
 down=$(cat speed | sed -n '7 p' |awk -F :  {'print $NF'})
 upl=$(cat speed | sed -n '9 p' |awk -F :  {'print $NF'})
 lnk=$(cat speed | sed -n '10 p' |awk {'print $NF'})
-msg -verd " \033[1;32m$(fun_trans "Latencia"): \033[1;37m$png"
-msg -verd " \033[1;32m$(fun_trans "Download"): \033[1;37m$down"
-msg -verd " \033[1;32m$(fun_trans "Upload"): \033[1;37m$upl"
-msg -verd " \033[1;32m$(fun_trans "Result"): \033[1;33m$lnk"
+msg -verd " \033[1;32m$(fun_trans "PING") (Latencia): \033[1;37m$png"
+msg -verd " \033[1;32m$(fun_trans "DOWNLOAD"): \033[1;37m$down"
+msg -verd " \033[1;32m$(fun_trans "UPLOAD"): \033[1;37m$upl"
+msg -verd " \033[1;32m$(fun_trans "LINK"): \033[1;33m$lnk"
 rm -rf $HOME/speed
 msg -bar

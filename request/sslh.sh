@@ -5,23 +5,6 @@ SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 
-verif_ptrs() {
-porta=$1
-PT=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" | grep -v "COMMAND" | grep "LISTEN")
-for pton in $(echo -e "$PT" | cut -d: -f2 | cut -d' ' -f1 | uniq); do
-svcs=$(echo -e "$PT" | grep -w "$pton" | awk '{print $1}' | uniq)
-[[ "$porta" = "$pton" ]] && {
-msg -bar
-echo -e "\033[1;31mPORTA \033[1;32m$porta \033[1;31mEM USO PELO \033[1;37m$svcs\033[0m"
-msg -bar
-# Retornando
-echo -e "\033[1;31mRetornando Aguarde...\033[0m"
-sleep 5
-menu
-}
-done
-}
-
 fun_bar () {
 comando[0]="$1"
 comando[1]="$2"
@@ -47,6 +30,20 @@ done
 echo -e "\033[1;33m]\033[1;31m -\033[1;32m 100%\033[1;37m"
 }
 
+verif_ptrs() {
+porta=$1
+PT=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" | grep -v "COMMAND" | grep "LISTEN")
+for pton in $(echo -e "$PT" | cut -d: -f2 | cut -d' ' -f1 | uniq); do
+svcs=$(echo -e "$PT" | grep -w "$pton" | awk '{print $1}' | uniq)
+[[ "$porta" = "$pton" ]] && {
+msg -bar
+echo -e "\033[1;31mPORTA \033[1;32m$porta \033[1;31mEM USO PELO \033[1;37m$svcs\033[0m"
+msg -bar
+msg -ne "$(fun_trans "Enter Para Continuar")" && read enter
+${SCPdir}/menu
+}
+done
+}
 x="ok"
 
 fun_sslh() {

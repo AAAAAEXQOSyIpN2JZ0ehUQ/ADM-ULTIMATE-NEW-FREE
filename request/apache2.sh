@@ -137,7 +137,7 @@ sleep 0.5s
 msg -bar
 msg -ne "\033[1;31m [ ! ] \033[1;33m$(fun_trans "REINICIANDO SERVICOS")"
 service apache2 restart > /dev/null 2>&1 &
-echo -e "\033[1;32m[OK]"
+echo -e " \033[1;32m[OK]"
 msg -bar
 sleep 0.5s
 msg -ama " $(fun_trans "Sucesso Procedimento Feito")"

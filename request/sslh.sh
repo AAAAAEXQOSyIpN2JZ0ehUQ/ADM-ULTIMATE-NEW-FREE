@@ -74,7 +74,7 @@ service sslh restart > /dev/null 2>&1
 echo -e " \033[1;32m[OK]"
 msg -bar
 sleep 0.5s
-[[ $(netstat -nplt | grep -w 'sslh' | wc -l) != '0' ]] && msg -ama " $(fun_trans "INSTALADO COM SUCESSO") !\033[0m" || echo -e " \033[1;31m$(fun_trans "ERRO INESPERADO") !\033[0m"
+[[ $(netstat -nplt | grep -w 'sslh' | wc -l) != '0' ]] && msg -ama " $(fun_trans "INSTALADO COM SUCESSO") \033[0m" || echo -e " \033[1;31m$(fun_trans "ERRO INESPERADO") \033[0m"
 sleep 3
 msg -bar
 return 0

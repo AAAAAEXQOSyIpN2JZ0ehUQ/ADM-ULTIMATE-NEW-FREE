@@ -27,6 +27,7 @@ paysnd.sh
 ports.sh
 scriptsalternos.sh
 speed.sh
+sslh.sh
 speedtest.py
 ultrahost
 utils.sh

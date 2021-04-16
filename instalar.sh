@@ -177,6 +177,7 @@ case $1 in
 "budp.sh")ARQ="${SCPinst}/";; #Instalacao
 "apache2.sh")ARQ="${SCPinst}/";; #Instalacao
 "squid.sh")ARQ="${SCPinst}/";; #Instalacao
+"sslh.sh")ARQ="${SCPinst}/";; #Instalacao
 "dropbear.sh")ARQ="${SCPinst}/";; #Instalacao
 "openvpn.sh")ARQ="${SCPinst}/";; #Instalacao
 "ssl.sh")ARQ="${SCPinst}/";; #Instalacao

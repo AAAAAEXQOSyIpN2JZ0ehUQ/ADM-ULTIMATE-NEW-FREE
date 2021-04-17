@@ -321,11 +321,11 @@ echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "Voltar")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "Lugar um Host no Squid")"
 echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "Remover Host do Squid")"
 echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "Cache do Squid") $squid"
-echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "Editar Cliente") SQUID \033[1;31m(comand nano)"
+echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "Editar Cliente SQUID") \033[1;31m(comand nano)"
 echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "Desinstalar o Squid")"
 msg -bar
-while [[ ${arquivoonlineadm} != @(0|[1-4]) ]]; do
-read -p "[0-4]: " arquivoonlineadm
+while [[ ${arquivoonlineadm} != @(0|[1-5]) ]]; do
+read -p "[0-5]: " arquivoonlineadm
 tput cuu1 && tput dl1
 done
 case $arquivoonlineadm in

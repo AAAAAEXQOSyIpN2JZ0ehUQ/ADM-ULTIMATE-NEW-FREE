@@ -116,16 +116,20 @@ msg -ama " $(fun_trans "CONFIGURACAO DE SSL STUNNEL*")"
 msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "Voltar")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "Adicionar uma porta ")"
-echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "Desinstalar SSL Stunnel ")"
+echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "Editar Cliente SSL Stunnel") \033[1;31m(comand nano)"
+echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "Desinstalar SSL Stunnel ")"
 msg -bar
-while [[ ${arquivoonlineadm} != @(0|[1-2]) ]]; do
-read -p "[0-2]: " arquivoonlineadm
+while [[ ${arquivoonlineadm} != @(0|[1-3]) ]]; do
+read -p "[0-3]: " arquivoonlineadm
 tput cuu1 && tput dl1
 done
 case $arquivoonlineadm in
 0)exit;;
 1)ssl_redir;;
-2)ssl_stunel;;
+2)
+   nano /etc/stunnel/stunnel.conf
+   return 0;;
+3)ssl_stunel;;
 esac
 }
 if [[ -e /etc/stunnel/stunnel.conf ]]; then

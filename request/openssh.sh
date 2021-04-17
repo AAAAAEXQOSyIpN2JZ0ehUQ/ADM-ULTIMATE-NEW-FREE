@@ -161,9 +161,10 @@ echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "AUTO CONFIGURAÇAO")"
 echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "DOWNLOAD CONFIGURAÇAO")"
 echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "REDEFINIR PORTA")"
+echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "Editar Cliente OPENSSH") \033[1;31m(comand nano)"
 msg -bar
-while [[ ${arquivoonlineadm} != @(0|[1-3]) ]]; do
-read -p "[0-3]: " arquivoonlineadm
+while [[ ${arquivoonlineadm} != @(0|[1-4]) ]]; do
+read -p "[0-4]: " arquivoonlineadm
 tput cuu1 && tput dl1
 done
 case $arquivoonlineadm in
@@ -171,6 +172,9 @@ case $arquivoonlineadm in
 1)opssh_fun;;
 2)download_ssh;;
 3)edit_openssh;;
+4)
+   nano /etc/ssh/sshd_config
+   return 0;;
 esac
 }
 openssh

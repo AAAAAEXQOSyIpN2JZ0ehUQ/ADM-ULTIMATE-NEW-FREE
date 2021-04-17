@@ -182,6 +182,7 @@ case $1 in
 "openvpn.sh")ARQ="${SCPinst}/";; #Instalacao
 "ssl.sh")ARQ="${SCPinst}/";; #Instalacao
 "shadowsocks.sh")ARQ="${SCPinst}/";; #Instalacao
+"vnc.sh")ARQ="${SCPinst}/";; #Instalacao
 "webmin.sh")ARQ="${SCPinst}/";; #Instalacao
 "v2ray.sh")ARQ="${SCPinst}/";; #Instalacao
 "sockspy.sh"|"PDirect.py"|"PPub.py"|"PPriv.py"|"POpen.py"|"PGet.py")ARQ="${SCPinst}/";; #Instalacao

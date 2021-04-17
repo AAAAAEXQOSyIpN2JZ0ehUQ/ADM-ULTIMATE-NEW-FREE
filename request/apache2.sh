@@ -123,34 +123,13 @@ msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
 msg -bar
 }
 
-apache2_restart () {
-msg -ama " $(fun_trans "REINSTALANDO APACHE2")"
-msg -bar
-/etc/init.d/apache2 stop > /dev/null 2>&1
-fun_bar "apt-get purge apache2 -y"
-# apt-get purge apache2 -y &>/dev/null
-apt-get install apache2 -y -y &>/dev/null
-msg -bar
-msg -ama " $(fun_trans "RECUPERANDO PORTA 81 POR PADRAO")"
-sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf
-sleep 0.5s
-msg -bar
-msg -ne "\033[1;31m [ ! ] \033[1;33m$(fun_trans "REINICIANDO SERVICOS")"
-service apache2 restart > /dev/null 2>&1 &
-echo -e " \033[1;32m[OK]"
-msg -bar
-sleep 0.5s
-msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
-# msg -bar
-}
-
 apache2_stop () {
-if [[ ! -d /etc/apache2 ]]; then
+if [[ ! -e /etc/apache2/ports.conf ]]; then
 msg -ama " $(fun_trans "Apache2 Nao Encontrado")"
 msg -bar
 exit 1
 fi
-msg -ama " $(fun_trans "PARANDO") APACHE2"
+msg -ama " $(fun_trans "PARANDO APACHE2")"
 msg -bar
 fun_bar "service apache2 stop"
 /etc/init.d/apache2 stop > /dev/null 2>&1
@@ -169,15 +148,14 @@ exit 1
 fi
 unset OPENBAR
 [[ $(port|grep -w "apache2") ]] && OPENBAR="\033[1;32mOnline" || OPENBAR="\033[1;31mOffline"
-# [[ -e /etc/apache2/ports.conf ]] && OPENBAR="\033[1;32mOnline" || OPENBAR="\033[1;31mOffline"
 msg -ama "$(fun_trans "MENU") APACHE2"
 mine_port
 msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR ")"
-echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "REMOVER") APACHE2"
-echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "ALTERAR PORTA") APACHE2"
-echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "Editar Cliente") APACHE2 \033[1;31m(comand nano)"
-echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "PARAR") APACHE2 $OPENBAR"
+echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "REMOVER APACHE2")"
+echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "ALTERAR PORTA APACHE2")"
+echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "Editar Cliente APACHE2") \033[1;31m(comand nano)"
+echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "PARAR APACHE2") $OPENBAR"
 msg -bar
 while [[ ${arquivoonlineadm} != @(0|[1-4]) ]]; do
 read -p "[0-4]: " arquivoonlineadm

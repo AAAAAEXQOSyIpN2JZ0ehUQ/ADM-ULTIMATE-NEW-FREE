@@ -104,6 +104,37 @@ service squid restart > /dev/null 2>&1 &
 service squid3 restart > /dev/null 2>&1 &
 }
 block_torrent () {
+ arq="/etc/torrent-adm"
+ fun_fireoff () {
+ iptables -P INPUT ACCEPT
+ iptables -P OUTPUT ACCEPT
+ iptables -P FORWARD ACCEPT
+ iptables -t mangle -F
+ iptables -t mangle -X
+ iptables -t nat -F
+ iptables -t nat -X
+ iptables -t filter -F
+ iptables -t filter -X
+ iptables -F
+ iptables -X
+ rm $arq
+ sleep 3
+ }
+ [[ -e /etc/torrent-adm ]] && {
+ echo -e "\033[1;33m $(fun_trans "REMOVENDO TORRENT*")"
+ msg -bar
+ service ssh restart > /dev/null 2>&1
+ service sshd restart > /dev/null 2>&1
+ fun_bar "fun_fireoff"
+ msg -bar
+ echo -e "\033[1;32m $(fun_trans "Reinicie o Sistema Pra Concluir") (reboot)"
+ msg -bar
+ echo -e "\033[1;33m $(fun_trans "Seu Torrent foi Removido com sucesso")!"
+ # msg -bar
+ [[ -e /etc/torrent-adm ]] && rm /etc/torrent-adm
+ return 0
+ }
+arq="/etc/torrent-adm"
 mportas () {
 unset portas
 portas_var=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
@@ -126,26 +157,27 @@ fi
 }
 [[ $(iptables -h|wc -l) -lt 5 ]] && apt-get install iptables -y > /dev/null 2>-1
 NIC=$(ip -4 route ls | grep default | grep -Po '(?<=dev )(\S+)' | head -1)
-echo -e "$(fun_trans "Essas configuracoes so Devem ser adicionadas")"
-echo -e "$(fun_trans "apos a vps estar totalmente configurada!")"
+msg -ama "$(fun_trans "Essas configuracoes so Devem ser adicionadas")"
+msg -ama "$(fun_trans "apos a vps estar totalmente configurada!")"
 msg -bar
 echo -e "$(fun_trans "Deseja Prosseguir?")"
 read -p " [S/N]: " -e -i n PROS
 [[ $PROS = @(s|S|y|Y) ]] || return 1
 fun_ip #Pega IP e armazena em uma variavel
+msg -bar
+fun_bar "service ssh restart"
 #Inicia Procedimentos
 #Parametros iniciais
 echo 'iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 iptables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 iptables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
-iptables -t filter -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT' > ./torrent-adm
-chmod +x ./torrent-adm
+iptables -t filter -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT' > $arq
 #libera DNS
 echo 'iptables -A OUTPUT -p tcp --dport 53 -m state --state NEW -j ACCEPT
-iptables -A OUTPUT -p udp --dport 53 -m state --state NEW -j ACCEPT' >> ./torrent-adm
+iptables -A OUTPUT -p udp --dport 53 -m state --state NEW -j ACCEPT' >> $arq
 #Liberar DHCP
 echo 'iptables -A OUTPUT -p tcp --dport 67 -m state --state NEW -j ACCEPT
-iptables -A OUTPUT -p udp --dport 67 -m state --state NEW -j ACCEPT' >> ./torrent-adm
+iptables -A OUTPUT -p udp --dport 67 -m state --state NEW -j ACCEPT' >> $arq
 #Liberando Serviços Ativos
 list_ips=$(mportas|awk '{print $2}')
 while read PORT; do
@@ -156,18 +188,18 @@ iptables -A OUTPUT -p udp --dport $PORT -j ACCEPT
 iptables -A FORWARD -p tcp --dport $PORT -j ACCEPT
 iptables -A FORWARD -p udp --dport $PORT -j ACCEPT
 iptables -A OUTPUT -p tcp -d $IP --dport $PORT -m state --state NEW -j ACCEPT
-iptables -A OUTPUT -p udp -d $IP --dport $PORT -m state --state NEW -j ACCEPT" >> ./torrent-adm
+iptables -A OUTPUT -p udp -d $IP --dport $PORT -m state --state NEW -j ACCEPT" >> $arq
 done <<< "$list_ips"
 #Bloqueando Ping
-echo 'iptables -A INPUT -p icmp --icmp-type echo-request -j DROP' >> ./torrent-adm
+echo 'iptables -A INPUT -p icmp --icmp-type echo-request -j DROP' >> $arq
 #Liberar WEBMIN
 echo 'iptables -A INPUT -p tcp --dport 10000 -j ACCEPT
-iptables -A OUTPUT -p tcp --dport 10000 -j ACCEPT' >> ./torrent-adm
+iptables -A OUTPUT -p tcp --dport 10000 -j ACCEPT' >> $arq
 #Bloqueando torrent
 echo "iptables -t nat -A PREROUTING -i $NIC -p tcp --dport 6881:6889 -j DNAT --to-dest $IP
 iptables -A FORWARD -p tcp -i $NIC --dport 6881:6889 -d $IP -j REJECT
 iptables -A OUTPUT -p tcp --dport 6881:6889 -j DROP
-iptables -A OUTPUT -p udp --dport 6881:6889 -j DROP" >> ./torrent-adm
+iptables -A OUTPUT -p udp --dport 6881:6889 -j DROP" >> $arq
 echo 'iptables -A FORWARD -m string --algo bm --string "BitTorrent" -j DROP
 iptables -A FORWARD -m string --algo bm --string "BitTorrent protocol" -j DROP
 iptables -A FORWARD -m string --algo bm --string "peer_id=" -j DROP
@@ -178,16 +210,20 @@ iptables -A FORWARD -m string --algo bm --string "announce" -j DROP
 iptables -A FORWARD -m string --algo bm --string "info_hash" -j DROP
 iptables -A FORWARD -m string --string "get_peers" --algo bm -j DROP
 iptables -A FORWARD -m string --string "announce_peer" --algo bm -j DROP
-iptables -A FORWARD -m string --string "find_node" --algo bm -j DROP' >> ./torrent-adm
-./torrent-adm
-echo "#TORRENT-ADM ON" > /etc/torrent-on
+iptables -A FORWARD -m string --string "find_node" --algo bm -j DROP' >> $arq
+sleep 2
+chmod +x $arq
+/etc/torrent-adm > /dev/null
+#ServiceInicia
+service ssh restart > /dev/null 2>&1
+service sshd restart > /dev/null 2>&1
 msg -bar
-echo -e " $(fun_trans "Aplicado!")"
+msg -ama " $(fun_trans "Seu Torrent foi Aplicado com sucesso")"
 }
 on="\033[1;32mon" && off="\033[1;31moff"
 [[ $(ps x | grep badvpn | grep -v grep | awk '{print $1}') ]] && badvpn=$on || badvpn=$off
 [[ `grep -c "^#ADM" /etc/sysctl.conf` -eq 0 ]] && tcp=$off || tcp=$on
-[[ -e /etc/torrent-on ]] && torrent=$(echo -e "\033[1;32mon ") || torrent=$(echo -e "\033[1;31moff ")
+[[ -e /etc/torrent-adm ]] && torrent=$(echo -e "\033[1;32mon ") || torrent=$(echo -e "\033[1;31moff ")
 if [ -e /etc/squid/squid.conf ]; then
 [[ `grep -c "^#CACHE DO SQUID" /etc/squid/squid.conf` -gt 0 ]] && squid=$on || squid=$off
 elif [ -e /etc/squid3/squid.conf ]; then

@@ -786,7 +786,7 @@ menu_info
 # [[ -e ${SCPdir}/message.txt ]] && msg -bar && msg -bra "MESSAGE: $(cat ${SCPdir}/message.txt)"
 # [[ -e ${SCPdir}/key.txt ]] && msg -bar && msg -bra "USER-KEY: $(cat ${SCPdir}/key.txt)"
 # NOVO SISTEMA DE MENUS
-[[ -e /etc/newadm/ger-user/Limiter.log ]] && log=$(echo -e "\033[1;32mLOG ") || log=$(echo -e "\033[1;31mOFF ")
+[[ -e /etc/newadm/ger-user/Limiter.log ]] && log=$(echo -e "\033[1;32mLOG ") || log=$(echo -e "\033[1;31mLOG ")
 _total=$(awk  -F : '$3 >= 500 {print  $1}'  /etc/passwd | grep -v "nobody" | sort | wc -l)
 msg -bar
 msg -ama "\033[1;31m[\033[1;32m NEW-ULTIMATE \033[1;31m] \033[1;31mIP \033[1;37m$(meu_ip) \033[1;31mUSER VPS: \033[1;37m$_total $log"

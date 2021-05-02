@@ -167,7 +167,7 @@ echo -e "\033[01;31mINSTALANDO\033[01;37m at\033[01;37m..............$STATUS "
  }
 [[ $(dpkg --get-selections|grep -w "apache2"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
 [[ $(dpkg --get-selections|grep -w "apache2"|head -1) ]] && STATUS=`echo -e "\033[92mOK"` &>/dev/null
-echo -e "\033[01;33mINSTALANDO\033[01;37m apache2\033[01;37m.........$STATUS "
+echo -e "\033[01;31mINSTALANDO\033[01;37m apache2\033[01;37m.........$STATUS "
 }
 
 funcao_idioma () {
@@ -218,7 +218,7 @@ byinst="true"
 install_fim () {
 msg -bar2
 msg -ama "$(source trans -b pt:${id} "Instalacao Completa, Utilize os Comandos"|sed -e 's/[^a-z -]//ig')" && msg bar2
-echo -e " menu / adm / h"
+echo -e " menu / adm"
 msg -bar2
 }
 

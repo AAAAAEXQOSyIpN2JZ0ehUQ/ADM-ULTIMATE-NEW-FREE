@@ -83,7 +83,7 @@ echo -e "\033[01;31mINSTALANDO\033[01;37m screen\033[01;37m..........$STATUS "
 [[ $(dpkg --get-selections|grep -w "python"|head -1) ]] || apt-get install python -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "python"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
 [[ $(dpkg --get-selections|grep -w "python"|head -1) ]] && STATUS=`echo -e "\033[92mOK"` &>/dev/null
-echo -e "\033[01;31mINSTALANDO\033[01;33m python\033[01;37m..........$STATUS "
+echo -e "\033[01;31mINSTALANDO\033[01;37m python\033[01;37m..........$STATUS "
 #python3
 [[ $(dpkg --get-selections|grep -w "python3"|head -1) ]] || apt-get install python3 -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "python3"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
@@ -168,6 +168,9 @@ echo -e "\033[01;31mINSTALANDO\033[01;37m at\033[01;37m..............$STATUS "
 [[ $(dpkg --get-selections|grep -w "apache2"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
 [[ $(dpkg --get-selections|grep -w "apache2"|head -1) ]] && STATUS=`echo -e "\033[92mOK"` &>/dev/null
 echo -e "\033[01;31mINSTALANDO\033[01;37m apache2\033[01;37m.........$STATUS "
+tput cuu1 && tput dl1
+done
+sleep 3s
 }
 
 funcao_idioma () {

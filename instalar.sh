@@ -60,7 +60,6 @@ MIP2=$(wget -qO- ipv4.icanhazip.com)
 }
 
 inst_components () {
-echo -e "\033[01;36mINSTALANDO RECURSOS\033[01;37m........\033[92mOK"
 apt-get install grep -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "grep"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
 [[ $(dpkg --get-selections|grep -w "grep"|head -1) ]] && STATUS=`echo -e "\033[92mOK"` &>/dev/null
@@ -215,7 +214,7 @@ byinst="true"
 
 install_fim () {
 msg -ama "$(source trans -b pt:${id} "Instalacao Completa, Utilize os Comandos"|sed -e 's/[^a-z -]//ig')" && msg bar2
-echo -e " menu / adm"
+echo -e " menu / adm / h"
 msg -bar2
 }
 

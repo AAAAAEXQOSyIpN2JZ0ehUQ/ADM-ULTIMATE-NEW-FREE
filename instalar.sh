@@ -13,6 +13,7 @@ SUB_DOM='base64 -d'
 [[ $(dpkg --get-selections|grep -w "curl"|head -1) ]] || apt-get install curl -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "netcat-openbsd"|head -1) ]] || apt-get install netcat-openbsd -y &>/dev/null
 rm $(pwd)/$0 &> /dev/null
+rm $HOME/instalar.sh &> /dev/null
 
 msg () {
 local colors="/etc/new-adm-color"

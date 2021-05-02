@@ -13,7 +13,7 @@
 * Recomendamos Ubuntu 16.04 Server x86_64
 * Se recomienda usar una distro nueva o formatiada
 * Si te da errores de taduccion ejecutar el siguiennte comando:  
-  echo "pt" > /etc/newadm/idioma && chmod +x /etc/newadm/idioma
+  echo "pt" > /etc/newadm/idioma
 
 ## :book: Installation
 

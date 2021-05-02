@@ -12,11 +12,10 @@ intallv2ray () {
 apt install python3-pip -y 
 source <(curl -sL https://multi.netlify.app/v2ray.sh)
 msg -ama "$(fun_trans "Instalado com sucesso ")!"
-echo "#V2RAY ON" > /etc/v2ray-on
 }
 
 protocolv2ray () {
-if [[ ! -e /etc/v2ray-on ]]; then
+if [[ ! -e /etc/v2ray/config.json ]]; then
 msg -ama " $(fun_trans "V2ray Nao Encontrado")"
 msg -bar
 exit 1
@@ -27,7 +26,7 @@ v2ray stream
 }
 
 tls () {
-if [[ ! -e /etc/v2ray-on ]]; then
+if [[ ! -e /etc/v2ray/config.json ]]; then
 msg -ama " $(fun_trans "V2ray Nao Encontrado")"
 msg -bar
 exit 1
@@ -49,7 +48,7 @@ v2ray tls
 }
 
 portv () {
-if [[ ! -e /etc/v2ray-on ]]; then
+if [[ ! -e /etc/v2ray/config.json ]]; then
 msg -ama " $(fun_trans "V2ray Nao Encontrado")"
 msg -bar
 exit 1
@@ -60,7 +59,7 @@ v2ray port
 }
 
 infocuenta () {
-if [[ ! -e /etc/v2ray-on ]]; then
+if [[ ! -e /etc/v2ray/config.json ]]; then
 msg -ama " $(fun_trans "V2ray Nao Encontrado")"
 msg -bar
 exit 1
@@ -69,7 +68,7 @@ v2ray info
 }
 
 stats () {
-if [[ ! -e /etc/v2ray-on ]]; then
+if [[ ! -e /etc/v2ray/config.json ]]; then
 msg -ama " $(fun_trans "V2ray Nao Encontrado")"
 msg -bar
 exit 1
@@ -80,16 +79,15 @@ v2ray stats
 }
 
 unistallv2 () {
-if [[ ! -e /etc/v2ray-on ]]; then
+if [[ ! -e /etc/v2ray/config.json ]]; then
 msg -ama " $(fun_trans "V2ray Nao Encontrado")"
 msg -bar
 exit 1
 fi
 source <(curl -sL https://multi.netlify.app/v2ray.sh) --remove
-rm -rf /etc/v2ray-on
 }
 
-[[ -e /etc/v2ray-on ]] && OPENBAR="\033[1;32mOnline" || OPENBAR="\033[1;31mOffline"
+[[ -e /etc/v2ray/config.json ]] && OPENBAR="\033[1;32mOnline" || OPENBAR="\033[1;31mOffline"
 msg -azu "$(fun_trans "MENU V2RAY")"
 msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR ")"

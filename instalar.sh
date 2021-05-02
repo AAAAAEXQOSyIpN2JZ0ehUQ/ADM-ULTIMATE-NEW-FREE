@@ -168,9 +168,6 @@ echo -e "\033[01;31mINSTALANDO\033[01;37m at\033[01;37m..............$STATUS "
 [[ $(dpkg --get-selections|grep -w "apache2"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
 [[ $(dpkg --get-selections|grep -w "apache2"|head -1) ]] && STATUS=`echo -e "\033[92mOK"` &>/dev/null
 echo -e "\033[01;31mINSTALANDO\033[01;37m apache2\033[01;37m.........$STATUS "
-tput cuu1 && tput dl1
-done
-sleep 3s
 }
 
 funcao_idioma () {

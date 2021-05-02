@@ -101,7 +101,7 @@ msg -ama "$(fun_trans "ATUALIZADOR ADM SCRIPTS*"): \033[1;31m[NEW-ULTIMATE]"
 msg -verm "$(fun_trans "Ao Prosseguirmos Dados como Tempo de uso Serao Perdidos"): "
 msg -bar2
 while [[ $Key != @(s|S|y|Y|n|N) ]]; do
-msg -ne "$(fun_trans "Concorda")? [S/N]: " -e -i s && read Key
+msg -ne "$(fun_trans "Concorda")? [S/N]: " && read Key
 tput cuu1 && tput dl1
 done
 if [[ $Key = @(s|S|y|Y) ]]; then

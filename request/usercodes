@@ -11,6 +11,7 @@ VERY="$(ps aux|grep "${SCPusr}/usercodes verificar"| grep -v grep)"
 [[ ! -e ${USRdatabase} ]] && touch ${USRdatabase}
 sort ${USRdatabase} | uniq > ${USRdatabase}tmp
 mv -f ${USRdatabase}tmp ${USRdatabase}
+cp /etc/ADMuser /root/usuarios.db
 # Open VPN
 newclient () {
 #Nome #Senha

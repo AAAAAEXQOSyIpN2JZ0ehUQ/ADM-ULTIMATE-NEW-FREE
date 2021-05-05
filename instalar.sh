@@ -65,8 +65,8 @@ clear
 msg -bar2
 msg -ama "   $(source trans -b pt:${id} "INSTALADOR DO") NEW - ULTIMATE - SCRIPT"
 msg -bar2
-echo -e "\033[01;32m$(source trans -b pt:${id} "Este script ira")!:"
-echo -e "\033[01;32m$(source trans -b pt:${id} "Instalar o gerenciador")\033[01;37m NEW-ULTIMATE-MANAGER"
+echo -e "\033[01;32mEste script ira!:"
+echo -e "\033[01;32mInstalar o gerenciador \033[01;37m NEW-ULTIMATE-MANAGER"
 msg -bar2
 PRETTY_NAME=$(cat /etc/os-release | grep "PRETTY_NAME" | sed 's/"//g' | cut -d "=" -f2-)
 echo -e "\033[01;31mOS:\033[01;37m $PRETTY_NAME"
@@ -304,6 +304,7 @@ chmod +x ${ARQ}/$1
 fun_ip
 wget -O /usr/bin/trans https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/trans &> /dev/null
 inst_components
+clear
 clear
 msg -bar2
 msg -ama "[ NEW - ULTIMATE - SCRIPT ]            \033[1;37m@admmanagerfree"

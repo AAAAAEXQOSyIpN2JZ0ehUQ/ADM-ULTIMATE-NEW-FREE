@@ -60,23 +60,12 @@ MIP2=$(wget -qO- ipv4.icanhazip.com)
 inst_components () {
 clear
 clear
-[[ $(dpkg --get-selections|grep -w "curl"|head -1) ]] || apt-get install curl -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "netcat-openbsd"|head -1) ]] || apt-get install netcat-openbsd -y &>/dev/null
 msg -bar2
-msg -ama "   SEJA BEM VINDO AO INSTALADOR DO NEW - ULTIMATE - SCRIPT"
+msg -ama "[ NEW - ULTIMATE - SCRIPT ]            \033[1;37m@admmanagerfree"
 msg -bar2
-echo -e "\033[01;33mEste script irá:"
-echo -e "\033[01;32mInstalar o gerenciador\033[01;37m NEW-ULTIMATE."
-msg -bar2
-PRETTY_NAME=$(cat /etc/os-release | grep "PRETTY_NAME" | sed 's/"//g' | cut -d "=" -f2-)
-echo -e "\033[01;36mSISTEMA OPERACIONAL:\033[01;33m $PRETTY_NAME"
-echo -e "\033[01;36mSUA IP:\033[01;33m $IP"
-msg -bar2
-echo -e "\033[01;31mATUALIZANDO REPOSITÓRIOS\033[01;37m...\033[92mOK"
-apt-get update -y &>/dev/null
-#apt-get upgrade -y &>/dev/null
-echo -e "\033[01;31mINSTALANDO RECURSOS\033[01;37m........\033[92mOK"
 apt-get install grep -y &>/dev/null
+apt-get install curl -y &>/dev/null
+apt-get install netcat-openbsd -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "grep"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
 [[ $(dpkg --get-selections|grep -w "grep"|head -1) ]] && STATUS=`echo -e "\033[92mOK"` &>/dev/null
 echo -e "\033[01;31mINSTALANDO\033[01;37m grep\033[01;37m............$STATUS "

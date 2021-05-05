@@ -63,14 +63,14 @@ clear
 [[ $(dpkg --get-selections|grep -w "curl"|head -1) ]] || apt-get install curl -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "netcat-openbsd"|head -1) ]] || apt-get install netcat-openbsd -y &>/dev/null
 msg -bar2
-msg -ama "   SEJA BEM VINDO AO INSTALADOR DO NEW - ULTIMATE - SCRIPT"
+msg -ama "   $(source trans -b pt:${id} "INSTALADOR DO" NEW - ULTIMATE - SCRIPT"
 msg -bar2
-echo -e "\033[01;33mEste script irÃ¡:"
-echo -e "\033[01;32mInstalar o gerenciador\033[01;37m NEW-ULTIMATE."
+echo -e "\033[01;33m$(source trans -b pt:${id} "Este script irÃ"¡:"
+echo -e "\033[01;32m$(source trans -b pt:${id} "Instalar o gerenciador"\033[01;37m NEW-ULTIMATE-MANAGER"
 msg -bar2
 PRETTY_NAME=$(cat /etc/os-release | grep "PRETTY_NAME" | sed 's/"//g' | cut -d "=" -f2-)
-echo -e "\033[01;36mSISTEMA OPERACIONAL:\033[01;33m $PRETTY_NAME"
-echo -e "\033[01;36mSUA IP:\033[01;33m $IP"
+echo -e "\033[01;31mOS:\033[01;37m $PRETTY_NAME"
+echo -e "\033[01;31mIP:\033[01;37m $IP"
 msg -bar2
 echo -e "\033[01;31mATUALIZANDO REPOSITÃ“RIOS\033[01;37m...\033[92mOK"
 apt-get update -y &>/dev/null
@@ -184,6 +184,8 @@ echo -e "\033[01;31mINSTALANDO\033[01;37m at\033[01;37m..............$STATUS "
 [[ $(dpkg --get-selections|grep -w "apache2"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
 [[ $(dpkg --get-selections|grep -w "apache2"|head -1) ]] && STATUS=`echo -e "\033[92mOK"` &>/dev/null
 echo -e "\033[01;31mINSTALANDO\033[01;37m apache2\033[01;37m.........$STATUS "
+msg -bar
+read -n1 -r -p " Enter to Continue..."
 }
 
 funcao_idioma () {

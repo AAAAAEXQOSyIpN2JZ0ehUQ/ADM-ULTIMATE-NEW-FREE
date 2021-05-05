@@ -65,7 +65,7 @@ clear
 msg -bar2
 msg -ama "   $(source trans -b pt:${id} "INSTALADOR DO") NEW - ULTIMATE - SCRIPT"
 msg -bar2
-echo -e "\033[01;32m$(source trans -b pt:${id} "Este script ira")¡:"
+echo -e "\033[01;32m$(source trans -b pt:${id} "Este script ira")!:"
 echo -e "\033[01;32m$(source trans -b pt:${id} "Instalar o gerenciador")\033[01;37m NEW-ULTIMATE-MANAGER"
 msg -bar2
 PRETTY_NAME=$(cat /etc/os-release | grep "PRETTY_NAME" | sed 's/"//g' | cut -d "=" -f2-)

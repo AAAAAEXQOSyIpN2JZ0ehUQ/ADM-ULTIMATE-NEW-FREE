@@ -9,24 +9,28 @@ SUB_DOM='base64 -d'
 wget -O /usr/bin/trans $(echo $API_TRANS|$SUB_DOM) &> /dev/null
 
 fun_bar () {
-comando="$1"
- _=$(
-$comando > /dev/null 2>&1
-) & > /dev/null
-pid=$!
-while [[ -d /proc/$pid ]]; do
-echo -ne " \033[1;33m["
+comando[0]="$1"
+comando[1]="$2"
+ (
+[[ -e $HOME/fim ]] && rm $HOME/fim
+${comando[0]} -y > /dev/null 2>&1
+${comando[1]} -y > /dev/null 2>&1
+touch $HOME/fim
+ ) > /dev/null 2>&1 &
+echo -ne "\033[1;33m ["
+while true; do
    for((i=0; i<10; i++)); do
    echo -ne "\033[1;31m##"
-   sleep 0.2
+   sleep 0.1s
    done
-echo -ne "\033[1;33m]"
-sleep 1s
-echo
-tput cuu1 && tput dl1
+   [[ -e $HOME/fim ]] && rm $HOME/fim && break
+   echo -e "\033[1;33m]"
+   sleep 1s
+   tput cuu1
+   tput dl1
+   echo -ne "\033[1;33m ["
 done
-echo -e " \033[1;33m[\033[1;31m####################\033[1;33m] - \033[1;32m100%\033[0m"
-sleep 1s
+echo -e "\033[1;33m]\033[1;31m -\033[1;32m 100%\033[1;37m"
 }
 
 port () {
@@ -149,7 +153,7 @@ sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf
 sleep 0.5s
 msg -ne "\033[1;31m [ ! ] \033[1;33m$(fun_trans "REINICIANDO SERVICOS")"
 service apache2 restart > /dev/null 2>&1 &
-echo -e "\033[1;32m[OK]"
+echo -e " \033[1;32m[OK]"
 msg -bar
 sleep 0.5s
 msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
@@ -159,7 +163,6 @@ msg -bar
 fun_apache2 () {
 if [[ ! -e /etc/apache2/ports.conf ]]; then
 apache2_restart
-msg -bar
 exit 1
 fi
 unset OPENBAR

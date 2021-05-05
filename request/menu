@@ -652,10 +652,10 @@ let Numb++
 echo -ne "$(msg -verd "[$Numb]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "LIMPAR CACHE SISTEMA*") $ofc"
 script[$Numb]="limpar"
 let Numb++
-echo -ne "$(msg -verd "[$Numb]") $(msg -verm2 ">") \033[1;33m[!] \033[1;32m$(fun_trans "ADICIONAR FERRAMENTAS*")\n"
+echo -ne "$(msg -verd "[$Numb]") $(msg -verm2 ">") \033[1;33m[!]" && echo -e "\033[1;32m" "$(fun_trans "ADICIONAR FERRAMENTAS*")"
 script[$Numb]="agregar"
 let Numb++
-echo -ne "$(msg -verd "[$Numb]") $(msg -verm2 ">") \033[1;33m[!] \033[1;31m$(fun_trans "REMOVER FERRAMENTAS*")\n"
+echo -ne "$(msg -verd "[$Numb]") $(msg -verm2 ">") \033[1;33m[!]" && echo -e "\033[1;31m" "$(fun_trans "REMOVER FERRAMENTAS*")"
 script[$Numb]="remove"
 msg -bar2
 selection=$(selection_fun $Numb)

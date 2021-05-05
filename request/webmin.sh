@@ -54,7 +54,10 @@ service webmin restart > /dev/null 2>&1
 
 web_min () {
  [[ -e /etc/webmin/miniserv.conf ]] && {
- msg -ama " $(fun_trans "REMOVENDO WEBMIN")"
+ msg -ama " $(fun_trans "REMOVER WEBMIN")"
+ msg -bar
+ echo -ne " $(fun_trans "Deseja Prosseguir?") [S/N]: "; read x
+ [[ $x = @(n|N) ]] && msg -bar && return
  msg -bar
  fun_bar "apt-get remove webmin -y"
  msg -bar
@@ -64,6 +67,9 @@ web_min () {
  return 0
  }
 msg -ama " $(fun_trans "INSTALADOR WEBMIN")"
+msg -bar
+echo -ne " $(fun_trans "Deseja Prosseguir?") [S/N]: "; read x
+[[ $x = @(n|N) ]] && msg -bar && return
 msg -bar
 fun_bar "service ssh restart"
 msg -bar

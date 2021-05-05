@@ -140,6 +140,22 @@ msg -ama " $(fun_trans "Parado Com Sucesso!")"
 msg -bar
 }
 
+apache2_restart () {
+msg -ama " $(fun_trans "Apache2 ira iniciar ou reiniciar")"
+msg -ama " $(fun_trans "E recuperando a porta 81 por padrao")"
+msg -bar
+fun_bar "apt-get install apache2 -y"
+sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf
+sleep 0.5s
+msg -ne "\033[1;31m [ ! ] \033[1;33m$(fun_trans "REINICIANDO SERVICOS")"
+service apache2 restart > /dev/null 2>&1 &
+echo -e "\033[1;32m[OK]"
+msg -bar
+sleep 0.5s
+msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
+msg -bar
+}
+
 fun_apache2 () {
 if [[ ! -e /etc/apache2/ports.conf ]]; then
 apache2_restart

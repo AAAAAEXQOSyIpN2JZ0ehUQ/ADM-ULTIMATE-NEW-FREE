@@ -60,9 +60,22 @@ MIP2=$(wget -qO- ipv4.icanhazip.com)
 inst_components () {
 clear
 clear
+
+
 msg -bar2
-msg -ama "[ NEW - ULTIMATE - SCRIPT ]            \033[1;37m@admmanagerfree"
+echo -e " BEM VINDO AO NEW - ULTIMATE - SCRIPT"
+echo ""
+echo -e "             \033[1;31mATENCAO! \033[1;33mESSE SCRIPT IRA !"
+echo ""
+echo -e "\033[1;31m• \033[1;33mINSTALAR UM CONJUNTO DE SCRIPTS COMO FERRAMENTAS" 
+echo -e "\033[1;33m  PARA O GERENCIAMENTO DE REDE, SISTEMA E USUARIOS
+echo ""
+echo -e "\033[1;32m• \033[1;32mDICA! \033[1;33mULTILIZE O TEMA DARK EM SEU TERMINAL PARA"
+echo -e "\033[1;33m  UMA MELHOR EXPERIÊNCIA E VISUALIZACAO DO MESMO!"
 msg -bar2
+read -p "$(echo -e "\033[1;36mDeseja Instalar [N/S]: \033[1;37m")" -e -i s resp
+[[ $resp = @(n|N) ]] && rm $HOME/instalar.sh && exit 0
+cp /etc/ssh/sshd_config /etc/ssh/sshd_back
 apt-get install grep -y &>/dev/null
 apt-get install curl -y &>/dev/null
 apt-get install netcat-openbsd -y &>/dev/null
@@ -221,7 +234,6 @@ byinst="true"
 }
 
 install_fim () {
-msg -bar2
 msg -ama "$(source trans -b pt:${id} "Instalacao Completa, Utilize os Comandos"|sed -e 's/[^a-z -]//ig')" && msg bar2
 echo -e " menu / adm"
 msg -bar2
@@ -235,6 +247,7 @@ _host[2]="portalrecarga.vivo.com.br/recarga"
 _host[3]="navegue.vivo.com.br/controle/"
 _host[4]="navegue.vivo.com.br/pre/"
 _host[5]="www.whatsapp.net"
+_host[6]="c.whatsapp.net"
 for host in ${_host[@]}; do
 	if [[ "$(grep -w "$host" $_arq_host | wc -l)" = "0" ]]; then
 		sed -i "3i\127.0.0.1 $host" $_arq_host

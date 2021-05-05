@@ -63,10 +63,10 @@ clear
 [[ $(dpkg --get-selections|grep -w "curl"|head -1) ]] || apt-get install curl -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "netcat-openbsd"|head -1) ]] || apt-get install netcat-openbsd -y &>/dev/null
 msg -bar2
-msg -ama "   $(source trans -b pt:${id} "INSTALADOR DO" NEW - ULTIMATE - SCRIPT"
+msg -ama "   $(source trans -b pt:${id} "INSTALADOR DO") NEW - ULTIMATE - SCRIPT"
 msg -bar2
-echo -e "\033[01;33m$(source trans -b pt:${id} "Este script ir√"°:"
-echo -e "\033[01;32m$(source trans -b pt:${id} "Instalar o gerenciador"\033[01;37m NEW-ULTIMATE-MANAGER"
+echo -e "\033[01;33m$(source trans -b pt:${id} "Este script ir√")°:"
+echo -e "\033[01;32m$(source trans -b pt:${id} "Instalar o gerenciador")\033[01;37m NEW-ULTIMATE-MANAGER"
 msg -bar2
 PRETTY_NAME=$(cat /etc/os-release | grep "PRETTY_NAME" | sed 's/"//g' | cut -d "=" -f2-)
 echo -e "\033[01;31mOS:\033[01;37m $PRETTY_NAME"

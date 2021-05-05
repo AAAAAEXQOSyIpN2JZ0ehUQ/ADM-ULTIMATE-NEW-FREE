@@ -145,7 +145,7 @@ read -p " [S/N]: " -e -i n PROS
 msg -bar
 echo -ne " \033[1;31m[ ! ] new-adm-color"
 rm -rf /etc/new-adm-color > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-echo "2 2 2 4 2 4 7 " > /etc/new-adm-color
+echo "4 1 7 3 2 2 4 " > /etc/new-adm-color
 chmod +x /etc/new-adm-color
 return
 }
@@ -336,11 +336,6 @@ echo -ne "\033[1;32m [13] > " && msg -azu "$(fun_trans "NET TOOLS TARGET") \033[
 msg -bar
 selection=$(selection_fun 18)
 case ${selection} in
-# while [[ ${arquivoonlineadm} != @(0|[1-9]) ]]; do
-# read -p "[0-13]: " arquivoonlineadm
-# tput cuu1 && tput dl1
-# done
-# case $arquivoonlineadm in
 1)update_pak;;
 2)reiniciar_ser;;
 3)reiniciar_vps;;

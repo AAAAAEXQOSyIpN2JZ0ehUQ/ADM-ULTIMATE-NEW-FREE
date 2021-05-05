@@ -53,13 +53,13 @@ canbio_color () {
 msg -ama "$(fun_trans "Ola esse e o Gerenciador de Cores") \033[1;31m[NEW-ULTIMATE]"
 msg -bar2
 msg -ama "$(fun_trans "Selecione 7 cores"): "
-echo -e '\033[1;37m [1] ###\033[0m'
-echo -e '\e[31m [2] ###\033[0m'
-echo -e '\e[32m [3] ###\033[0m'
-echo -e '\e[33m [4] ###\033[0m'
-echo -e '\e[34m [5] ###\033[0m'
-echo -e '\e[35m [6] ###\033[0m'
-echo -e '\033[1;36m [7] ###\033[0m'
+echo -e '\033[1;37m [1] #BRAN\033[0m'
+echo -e '\e[31m [2] #VERMELHO\033[0m'
+echo -e '\e[32m [3] #VERDE\033[0m'
+echo -e '\e[33m [4] #AMAREL\033[0m'
+echo -e '\e[34m [5] #AZUL\033[0m'
+echo -e '\e[35m [6] #MAGENTA\033[0m'
+echo -e '\033[1;36m [7] #MAG\033[0m'
 msg -bar2
 for number in $(echo {1..7}); do
 msg -ne "$(fun_trans "Digite a Cor") [$number]: " && read corselect

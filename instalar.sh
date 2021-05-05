@@ -10,8 +10,6 @@ SCPresq="aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0FBQUFBRVhRT1N5SXBOMkpaMGV
 SUB_DOM='base64 -d'
 [[ $(dpkg --get-selections|grep -w "gawk"|head -1) ]] || apt-get install gawk -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "mlocate"|head -1) ]] || apt-get install mlocate -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "curl"|head -1) ]] || apt-get install curl -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "netcat-openbsd"|head -1) ]] || apt-get install netcat-openbsd -y &>/dev/null
 rm $(pwd)/$0 &> /dev/null
 
 msg () {
@@ -61,10 +59,13 @@ MIP2=$(wget -qO- ipv4.icanhazip.com)
 
 inst_components () {
 clear
+clear
 msg -bar2
 msg -ama "[ NEW - ULTIMATE - SCRIPT ]            \033[1;37m@admmanagerfree"
 msg -bar2
 apt-get install grep -y &>/dev/null
+apt-get install curl -y &>/dev/null
+apt-get install netcat-openbsd -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "grep"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
 [[ $(dpkg --get-selections|grep -w "grep"|head -1) ]] && STATUS=`echo -e "\033[92mOK"` &>/dev/null
 echo -e "\033[01;31mINSTALANDO\033[01;37m grep\033[01;37m............$STATUS "

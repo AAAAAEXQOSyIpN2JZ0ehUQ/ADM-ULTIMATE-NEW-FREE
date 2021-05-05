@@ -72,10 +72,6 @@ PRETTY_NAME=$(cat /etc/os-release | grep "PRETTY_NAME" | sed 's/"//g' | cut -d "
 echo -e "\033[01;31mOS:\033[01;37m $PRETTY_NAME"
 echo -e "\033[01;31mIP:\033[01;37m $IP"
 msg -bar2
-echo -e "\033[01;31mATUALIZANDO REPOSITÓRIOS\033[01;37m...\033[92mOK"
-apt-get update -y &>/dev/null
-#apt-get upgrade -y &>/dev/null
-echo -e "\033[01;31mINSTALANDO RECURSOS\033[01;37m........\033[92mOK"
 apt-get install grep -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "grep"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
 [[ $(dpkg --get-selections|grep -w "grep"|head -1) ]] && STATUS=`echo -e "\033[92mOK"` &>/dev/null

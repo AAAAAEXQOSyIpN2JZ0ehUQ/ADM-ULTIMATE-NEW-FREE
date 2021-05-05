@@ -145,7 +145,7 @@ read -p " [S/N]: " -e -i n PROS
 msg -bar
 echo -ne " \033[1;31m[ ! ] new-adm-color"
 rm -rf /etc/new-adm-color > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-echo "4 1 7 3 2 2 4 " > /etc/new-adm-color
+echo "4 1 7 3 2 5 4 " > /etc/new-adm-color
 chmod +x /etc/new-adm-color
 return
 }

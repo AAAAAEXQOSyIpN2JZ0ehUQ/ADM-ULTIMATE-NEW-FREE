@@ -60,6 +60,9 @@ function aguarde() {
 }
 
 fun_optimizer () {
+clear
+clear
+msg -bar
 [[ $(grep -wc mlocate /var/lib/dpkg/statoverride) != '0' ]] && sed -i '/mlocate/d' /var/lib/dpkg/statoverride
 msg -ama " $(fun_trans "LIMPAR MEMORIA E CACHE SISTEMA")"
 msg -bar

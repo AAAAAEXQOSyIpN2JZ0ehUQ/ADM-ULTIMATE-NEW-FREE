@@ -11,6 +11,11 @@ MEU_IP2=$(wget -qO- ipv4.icanhazip.com)
 [[ "$MEU_IP" != "$MEU_IP2" ]] && echo "$MEU_IP2" || echo "$MEU_IP"
 }
 IP="$(fun_ip)"
+clear
+clear
+msg -bar
+msg -azu "$(fun_trans "GERENCIAR ARQUIVO ONLINE")"
+msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "COLOCAR ARQUIVO ONLINE")"
 echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "REMOVER ARQUIVO ONLINE")"

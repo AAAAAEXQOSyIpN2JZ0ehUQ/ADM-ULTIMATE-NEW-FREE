@@ -317,6 +317,9 @@ tput cuu1 >&2 && tput dl1 >&2
 done
 echo $selection
 }
+clear
+clear
+msg -bar
 msg -ama " $(fun_trans "GERENCIAR SISTEMA INTERNO")"
 msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"

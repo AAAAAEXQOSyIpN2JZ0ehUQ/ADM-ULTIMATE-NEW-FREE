@@ -314,6 +314,9 @@ fi
 exit
 }
 fail2ban_function () {
+clear
+clear
+msg -bar
 echo -e "\033[1;36m$(fun_trans "FAIL2BAN PROTECAO") \033[1;32m[NEW-ADM]"
 msg -bar
 if [[ -e /etc/fail2ban/jail.conf ]]; then

@@ -585,22 +585,34 @@ based=$(cat /etc/*release | grep ID_LIKE | awk -F "=" '{print $2}')
 processor=$(cat /proc/cpuinfo | grep "model name" | uniq | awk -F ":" '{print $2}')
 cpus=$(cat /proc/cpuinfo | grep processor | wc -l)
 # SISTEMA OPERACIONAL
+echo ""
+echo -e "\033[1;31m• \033[1;32mSISTEMA OPERACIONAL\033[1;31m •\033[0m"
+echo ""
 msg -ama "$(fun_trans "Nome Da Maquina"): ${null}$(hostname)"
 [[ "$system" ]] && msg -ama "$(fun_trans "Sistema"): ${null}$system" || msg -ama "$(fun_trans "Sistema"): ${null}???"
 msg -ama "$(fun_trans "Endereco Da Maquina"): ${null}$(ip addr | grep inet | grep -v inet6 | grep -v "host lo" | awk '{print $2}' | awk -F "/" '{print $1}')"
 msg -ama "$(fun_trans "Versao do Kernel"): ${null}$(uname -r)"
 [[ "$based" ]] && msg -ama "$(fun_trans "Baseado"): ${null}$based" || msg -ama "$(fun_trans "Baseado"): ${null}???"
 # PROCESSADOR
+echo ""
+echo -e "\033[1;31m• \033[1;32mPROCESSADOR\033[1;31m •\033[0m"
+echo ""
 [[ "$processor" ]] && msg -ama "$(fun_trans "Processador"): ${null}$processor x$cpus" || msg -ama "$(fun_trans "Processador"): ${null}???"
 [[ "$clock" ]] && msg -ama "$(fun_trans "Frequecia de Operacao"): ${null}$clock MHz" || msg -ama "$(fun_trans "Frequecia de Operacao"): ${null}???"
 msg -ama "$(fun_trans "Arquitetura"): ${null}$(uname -m)"
 # MEMORIA RAM
+echo ""
+echo -e "\033[1;31m• \033[1;32mMEMORIA RAM\033[1;31m •\033[0m"
+echo ""
 msg -ama "$(fun_trans "Uso do Processador"): ${null}$(ps aux  | awk 'BEGIN { sum = 0 }  { sum += sprintf("%f",$3) }; END { printf " " "%.2f" "%%", sum}')"
 msg -ama "$(fun_trans "Memoria Virtual Total"): ${null}$(($totalram / 1024))"
 msg -ama "$(fun_trans "Memoria Virtual Em Uso"): ${null}$(($usedram / 1024))"
 msg -ama "$(fun_trans "Memoria Virtual Livre"): ${null}$(($freeram / 1024))"
 msg -ama "$(fun_trans "Memoria Virtual Swap"): ${null}$(($swapram / 1024))MB"
 # TEMPO ONLINE
+echo ""
+echo -e "\033[1;31m• \033[1;32mTEMPO ONLINE\033[1;31m •\033[0m"
+echo ""
 msg -ama "$(fun_trans "Tempo Online"): ${null}$(uptime)"
 msg -bar
 return 0

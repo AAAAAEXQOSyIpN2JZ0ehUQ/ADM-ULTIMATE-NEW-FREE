@@ -9,9 +9,15 @@ SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 # github: https://github.com/Jrohy (19/12/2019 - k8.3.1)
 
 intallv2ray () {
+msg -ama " $(fun_trans "V2Ray ira Instalar")"
+msg -bar
+sleep 5s
 apt install python3-pip -y 
 source <(curl -sL https://multi.netlify.app/v2ray.sh)
-msg -ama "$(fun_trans "Instalado com sucesso ")!"
+msg -bar
+sleep 0.5s
+msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
+msg -bar
 }
 
 protocolv2ray () {
@@ -87,32 +93,36 @@ fi
 source <(curl -sL https://multi.netlify.app/v2ray.sh) --remove
 }
 
+if [[ ! -e /etc/v2ray/config.json ]]; then
+intallv2ray
+exit 1
+fi
 [[ -e /etc/v2ray/config.json ]] && OPENBAR="\033[1;32mOnline" || OPENBAR="\033[1;31mOffline"
 msg -azu "$(fun_trans "MENU V2RAY")"
 msg -bar
 msg -azu " \033[1;31m[\033[1;33m!\033[1;31m]\033[1;33m$(fun_trans "FUNCAO BETA ULTILIZE POR SUA CONTA EM RISCO")"
 msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR ")"
-echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "INSTALAR V2RAY") "
-echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "MUDAR PROTOCOLO")"
-echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "ATIVAR TLS") "
-echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "MUDAR PORTA V2RAY") "
-echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "IINFORMACOES DA CONTA")"
-echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "ESTATISTICAS DE CONSUMO")"
-echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "UNINTALING V2RAY") $OPENBAR"
+# echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "INSTALAR V2RAY") "
+echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "MUDAR PROTOCOLO")"
+echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "ATIVAR TLS") "
+echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "MUDAR PORTA V2RAY") "
+echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "IINFORMACOES DA CONTA")"
+echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "ESTATISTICAS DE CONSUMO")"
+echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "UNINTALING V2RAY") $OPENBAR"
 msg -bar
-while [[ ${arquivoonlineadm} != @(0|[1-7]) ]]; do
-read -p "[0-7]: " arquivoonlineadm
+while [[ ${arquivoonlineadm} != @(0|[1-6]) ]]; do
+read -p "[0-6]: " arquivoonlineadm
 tput cuu1 && tput dl1
 done
 case $arquivoonlineadm in
-1)intallv2ray;;
-2)protocolv2ray;;
-3)tls;;
-4)portv;;
+99)intallv2ray;;
+1)protocolv2ray;;
+2)tls;;
+3)portv;;
 5)infocuenta;;
-6)stats;;
-7)unistallv2;;
+5)stats;;
+6)unistallv2;;
 0)exit;;
 esac
 msg -bar

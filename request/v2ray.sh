@@ -89,9 +89,7 @@ source <(curl -sL https://multi.netlify.app/v2ray.sh) --remove
 }
 
 [[ -e /etc/v2ray/config.json ]] && OPENBAR="\033[1;32mOnline" || OPENBAR="\033[1;31mOffline"
-msg -azu "$(fun_trans "MENU V2RAY")"
-msg -bar
-msg -azu " \033[1;31m[\033[1;33m!\033[1;31m]\033[1;33m$(fun_trans "FUNCAO BETA ULTILIZE POR SUA CONTA EM RISCO")"
+msg -azu "$(fun_trans "MENU V2RAY") \033[1;31m[\033[1;33m!\033[1;31m]\033[1;33m $(fun_trans "BETA") \033[1;31m[\033[1;33m!\033[1;31m]"
 msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR ")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "INSTALAR V2RAY") "

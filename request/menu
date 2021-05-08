@@ -50,6 +50,9 @@ SEMCOR='\e[0m'
  esac
 }
 canbio_color () {
+clear
+clear
+msg -bar2
 msg -ama "$(fun_trans "Ola esse e o Gerenciador de Cores") \033[1;31m[NEW-ULTIMATE]"
 msg -bar2
 msg -ama "$(fun_trans "Selecione 7 cores"): "
@@ -96,6 +99,8 @@ fi
 atualiza_fun () {
 cd $HOME
 tput cuu1 && tput dl1
+clear
+clear
 msg -bar2
 msg -ama "$(fun_trans "ATUALIZADOR ADM SCRIPTS*"): \033[1;31m[NEW-ULTIMATE]"
 msg -verm "$(fun_trans "Ao Prosseguirmos Dados como Tempo de uso Serao Perdidos"): "
@@ -123,6 +128,8 @@ fi
 }
 funcao_idioma () {
 tput cuu1 && tput dl1
+clear
+clear
 msg -bar2
 declare -A idioma=( [1]="en English" [2]="fr Franch" [3]="de German" [4]="it Italian" [5]="pl Polish" [6]="pt Portuguese" [7]="es Spanish" [8]="tr Turkish" )
 for ((i=1; i<=12; i++)); do
@@ -317,6 +324,9 @@ done
 echo "$txtofus" | rev
 }
 remove_ferramenta () {
+clear
+clear
+msg -bar2
 echo -e "\033[1;31m$(fun_trans "ATENCAO"): "
 echo -e "\033[1;33m$(fun_trans "Esse Processo Nao Podera ser Desfeito")"
 echo -e "\033[1;33m$(fun_trans "Selecione a Ferramenta que Deseja Remover")"
@@ -337,6 +347,8 @@ selection=$(selection_fun $Numb)
 }
 agregar_ferramenta () {
 tput cuu1 && tput dl1
+clear
+clear
 msg -bar2
 unset Key
 echo -e "\033[1;31m$(fun_trans "ATENCAO"): "
@@ -521,6 +533,9 @@ system=$(echo $(cat -n /etc/issue |grep 1 |cut -d' ' -f6,7,8 |sed 's/1//' |sed '
 echo $system|awk '{print $1, $2}'
 }
 remove_script () {
+clear
+clear
+msg -bar2
 msg -ama "$(fun_trans "CONFIRMA REMOCAO TOTAL DOS SCRIPTS")?"
 msg -bar
 while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
@@ -551,6 +566,9 @@ fi
 }
 # Menu Ferramentas
 systen_info () {
+clear
+clear
+msg -bar2
 msg -ama "$(fun_trans "DETALHES DO SISTEMA")"
 msg -bar
 null="\033[1;31m"
@@ -634,6 +652,8 @@ esac
 }
 ferramentas_fun () {
 tput cuu1 && tput dl1
+clear
+clear
 msg -bar2
 msg -ama "$(fun_trans "MENU DE FERRAMENTAS*")"
 msg -bar2
@@ -717,6 +737,9 @@ menu_inst () {
 export -f fun_eth
 export -f fun_bar
 menuTXT="$(fun_trans "VOLTAR*")"
+clear
+clear
+msg -bar2
 msg -ama "$(fun_trans "MENU DE INSTALACAO*")"
 msg -bar
 msg -ama "$(fun_trans "Portas Ativas No Momento!")"
@@ -773,6 +796,7 @@ export -f fun_trans
 export -f  menu_func
 export -f meu_ip
 export -f fun_ip
+clear
 clear
 msg -bar
 msg -ama "INFORMACOES DO SERVIDOR                     \033[1;31m[\033[1;37m r6.4.0 \033[1;31m] "

@@ -79,16 +79,10 @@ local USRloked="/etc/newadm-userlock"
 [[ ! -e ${USRloked} ]] && touch ${USRloked}
 usuarios_ativos=($(mostrar_usuarios))
 if [[ -z ${usuarios_ativos[@]} ]]; then
-clear
-clear
-msg -bar
 msg -verm "$(fun_trans "Nenhum Usuario Cadastrado")"
 msg -bar
 return 1
 else
-clear
-clear
-msg -bar
 msg -ama "$(fun_trans "Usuarios Atualmente Ativos no Servidor")"
 msg -bar
 Numb=0
@@ -272,15 +266,9 @@ err_fun () {
 new_user () {
 usuarios_ativos=($(mostrar_usuarios))
 if [[ -z ${usuarios_ativos[@]} ]]; then
-clear
-clear
-msg -bar
 msg -verm "$(fun_trans "Nenhum Usuario Cadastrado")"
 msg -bar
 else
-clear
-clear
-msg -bar
 msg -ama "$(fun_trans "Usuarios Atualmente Ativos no Servidor")"
 msg -bar
 for us in $(echo ${usuarios_ativos[@]}); do
@@ -343,11 +331,6 @@ done
      tput cuu1 && tput dl1
      tput cuu1 && tput dl1
      tput cuu1 && tput dl1
-     clear
-     clear
-     msg -bar
-     msg -ama "$(fun_trans "DETALHES DO USUARIO")"
-     msg -bar
      msg -ne "$(fun_trans "IP do Servidor"): " && echo -e "$(meu_ip)"
      msg -ne "$(fun_trans "Usuario"): " && echo -e "$nomeuser"
      msg -ne "$(fun_trans "Senha"): " && echo -e "$senhauser"
@@ -362,16 +345,10 @@ msg -bar
 remove_user () {
 usuarios_ativos=($(mostrar_usuarios))
 if [[ -z ${usuarios_ativos[@]} ]]; then
-clear
-clear
-msg -bar
 msg -verm "$(fun_trans "Nenhum Usuario Cadastrado")"
 msg -bar
 return 1
 else
-clear
-clear
-msg -bar
 msg -ama "$(fun_trans "Usuarios Atualmente Ativos no Servidor")"
 msg -bar
 i=0
@@ -410,16 +387,10 @@ msg -bar
 renew_user () {
 usuarios_ativos=($(mostrar_usuarios))
 if [[ -z ${usuarios_ativos[@]} ]]; then
-clear
-clear
-msg -bar
 msg -verm "$(fun_trans "Nenhum Usuario Cadastrado")"
 msg -bar
 return 1
 else
-clear
-clear
-msg -bar
 msg -ama "$(fun_trans "Usuarios Atualmente Ativos no Servidor")"
 msg -bar
 i=0
@@ -471,16 +442,10 @@ msg -bar
 edit_user () {
 usuarios_ativos=($(mostrar_usuarios))
 if [[ -z ${usuarios_ativos[@]} ]]; then
-clear
-clear
-msg -bar
 msg -verm "$(fun_trans "Nenhum Usuario Cadastrado")"
 msg -bar
 return 1
 else
-clear
-clear
-msg -bar
 msg -ama "$(fun_trans "Usuarios Atualmente Ativos no Servidor")"
 msg -bar
 i=0
@@ -567,16 +532,10 @@ red=$(tput setaf 1)
 gren=$(tput setaf 2)
 yellow=$(tput setaf 3)
 if [[ ! -e "${USRdatabase}" ]]; then
-clear
-clear
-msg -bar
 msg -verm "$(fun_trans "Nao Foi Identificado uma Database Com Usuarios")"
 msg -verm "$(fun_trans "Os Usuarios a Seguir Nao Contem Nenhuma Informacao")"
 msg -bar2
 fi
-clear
-clear
-msg -bar
 txtvar=$(printf '%-16s' "USER")
 txtvar+=$(printf '%-16s' "PASS")
 txtvar+=$(printf '%-16s' "DATE")
@@ -616,9 +575,6 @@ msg -bar2
 monit_user () {
 yellow=$(tput setaf 3)
 gren=$(tput setaf 2)
-clear
-clear
-msg -bar
 msg -verm "$(fun_trans "Monitor de Conexoes de Usuarios")"
 msg -bar
 txtvar=$(printf '%-13s' "USER")
@@ -763,13 +719,9 @@ verif_fun () {
     echo "${EXPIRED}0"|bc > ${SCPdir}/USRexpired
     sleep 2s # TEMPO DE ESPERA DO LOOP
     clear
-    clear
     done
 }
 backup_fun () {
-clear
-clear
-msg -bar
 msg -ama "$(fun_trans "FERRAMENTA DE BACKUP DE USUARIOS")"
 # msg -ama "$(fun_trans "Backup Local"): \033[1;31m[ \033[1;32m/root/Backup-adm \033[1;31m]"
 msg -bar
@@ -833,20 +785,14 @@ done <<< "$chk"
 mv -f /tmp/ssh-conf /etc/ssh/sshd_config
 echo "Banner /etc/bannerssh" >> /etc/ssh/sshd_config
 local="/etc/bannerssh"
-clear
-clear
-msg -bar
-# msg -verd "$(fun_trans "Bem vindo esse e o instalador do banner")"
-msg -ama "$(fun_trans "INSTALADOR DO BANNER")"
+msg -verd "$(fun_trans "Bem vindo esse e o instalador do banner")"
 msg -bar
 msg -ne "$(fun_trans "digite a mensagem principal do banner"): " && read ban_ner
-msg -bar
 echo -e " \033[1;32m[1] >\033[1;32m $(fun_trans "Verde")"
 echo -e " \033[1;32m[2] >\033[1;31m $(fun_trans "Vermelho")"
 echo -e " \033[1;32m[3] >\033[1;34m $(fun_trans "Azul")"
 echo -e " \033[1;32m[4] >\033[1;33m $(fun_trans "Amarelo")"
 echo -e " \033[1;32m[5] >\033[1;35m $(fun_trans "Roxo")"
-msg -bar
 msg -ne "$(fun_trans "Perfeito Agora a Cor"): " && read ban_ner_cor
 echo '<h1><font>=============================</font></h1>' > $local
 if [[ "$ban_ner_cor" = "1" ]]; then
@@ -866,15 +812,12 @@ echo "$ban_ner" >> $local
 echo '</font></h1>' >> $local
 echo '<h1><font>=============================</font></h1>' >> $local
 txt_font () {
-msg -bar
 msg -ne "$(fun_trans "digite a mensagem secundaria"): " && read ban_ner2
-msg -bar
 echo -e " \033[1;32m[1] >\033[1;32m $(fun_trans "Verde")"
 echo -e " \033[1;32m[2] >\033[1;31m $(fun_trans "Vermelho")"
 echo -e " \033[1;32m[3] >\033[1;34m $(fun_trans "Azul")"
 echo -e " \033[1;32m[4] >\033[1;33m $(fun_trans "Amarelo")"
 echo -e " \033[1;32m[5] >\033[1;35m $(fun_trans "Roxo")"
-msg -bar
 msg -ne "$(fun_trans "Perfeito Agora a Cor"): " && read ban_ner2_cor
 if [ "$ban_ner2_cor" = "1" ]; then
 echo '<h6><font color="green">' >> $local
@@ -893,7 +836,6 @@ echo "$ban_ner2" >> $local
 echo "</h6></font>" >> $local
 }
 while true; do
-msg -bar
 msg -ne "$(fun_trans "Adicionar Mensagem Secundaria")? [S/N]: " && read sin_nao
 if [[ "$sin_nao" = @(s|S|y|Y) ]]; then
 txt_font
@@ -914,9 +856,6 @@ service dropbear restart > /dev/null 2>&1 &
 /etc/init.d/stunnel4 restart > /dev/null 2>&1
 }
 # Execução
-clear
-clear
-msg -bar
 if [[ "$1" = "verificar" ]]; then
 verif_fun
 exit

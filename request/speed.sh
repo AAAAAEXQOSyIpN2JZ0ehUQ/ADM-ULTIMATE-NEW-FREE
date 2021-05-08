@@ -33,7 +33,10 @@ fun_tst () {
 speedtest --share > speed
 }
 
-msg -ama " $(fun_trans "Speed Test") ${cor[4]}[NEW-ADM]"
+clear
+clear
+msg -bar
+msg -azu " $(fun_trans "Speed Test") \033[1;32m[NEW-ADM]"
 msg -bar
 # PROGRESS INSTALL - BAR
 #apt-get install python3 -y  > /dev/null 2>&1

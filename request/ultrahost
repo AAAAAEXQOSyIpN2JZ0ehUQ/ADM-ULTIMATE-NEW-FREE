@@ -48,6 +48,9 @@ randomize="$RANDOM"
 }
 
 scan_funtion () {
+clear
+clear
+echo -e "$barra"
 echo -e "\033[1;33m$(fun_trans "SCANNER DE SUBDOMINIO") \033[1;32m[NEW-ADM]"
 echo -e "$barra"
 #INICIA SCRIPT

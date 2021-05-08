@@ -367,6 +367,9 @@ done
 proxy_fun
 }
 paysnd_fun () {
+clear
+clear
+echo -e "$barra"
 echo -e "\033[1;33m PAYLOAD $(fun_trans ${id} "FORCA BRUTA") \033[1;32m[NEW-ADM]"
 echo -e "$barra"
 while true; do

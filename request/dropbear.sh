@@ -88,7 +88,7 @@ msg -bar
 echo -e "\033[1;32m $(fun_trans "INSTALADOR DROPBEAR*")ADM-ULTIMATE"
 msg -bar
 echo -e "\033[1;31m $(fun_trans "Selecione Portas Validas em Ordem Sequencial")"
-echo -e "\033[1;31m $(fun_trans "Exemplo: \033[1;32m 22 80 81 82 85 90\033[1;37m"
+echo -e "\033[1;31m $(fun_trans "Exemplo"):\033[1;32m 22 80 81 82 85 90\033[1;37m"
 msg -bar
 echo -ne "\033[1;31m $(fun_trans "Digite a Porta"): \033[1;37m" && read DPORT
 tput cuu1 && tput dl1

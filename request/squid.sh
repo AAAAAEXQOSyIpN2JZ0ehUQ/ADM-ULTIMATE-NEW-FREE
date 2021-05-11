@@ -39,7 +39,8 @@ fun_ip
 msg -ne " $(fun_trans "Confirme seu ip")"; read -p ": " -e -i $IP ip
 msg -bar
 msg -ama " $(fun_trans "Agora Escolha as Portas que Deseja No Squid*")"
-msg -ama " $(fun_trans "Escolha As Portas Em Ordem Sequencial Exemplo: 80 8080 8799 3128")"
+msg -ama " $(fun_trans "Escolha As Portas Em Ordem Sequencial")"
+msg -ama " $(fun_trans "Exemplo: 80 8080 8799 3128")"
 msg -bar
 msg -ne " $(fun_trans "Digite as Portas:") "; read portasx
 totalporta=($portasx)

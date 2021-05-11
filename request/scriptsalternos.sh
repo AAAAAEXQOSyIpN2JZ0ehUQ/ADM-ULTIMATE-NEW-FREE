@@ -36,16 +36,14 @@ echo -e "\033[1;32m[2] > \033[1;36m$(fun_trans "SHADOWSOCKS-LIBEV")"
 echo -e "\033[1;32m[3] > \033[1;36m$(fun_trans "SHADOWSOCKS-R")"
 echo -e "\033[1;32m[4] > \033[1;36m$(fun_trans "SHADOWSOCKS-NORMAL")"
 msg -bar
-echo -e "\033[1;32m[5] > \033[1;36m$(fun_trans "V2ray Panel")"
-echo -e "\033[1;32m[6] > \033[1;36m$(fun_trans "V2ray Manager")"
-echo -e "\033[1;32m[7] > \033[1;36m$(fun_trans "V2ray VPS-MX 8.4")"
+echo -e "\033[1;32m[5] > \033[1;36m$(fun_trans "V2ray VPS-MX 8.4")"
 msg -bar
-echo -e "\033[1;32m[8] > \033[1;36m$(fun_trans "Menu SSHPlus Conexao ")"
+echo -e "\033[1;32m[6] > \033[1;36m$(fun_trans "Menu SSHPlus Conexao ")"
 msg -bar
-echo -e "\033[1;32m[9] > \033[1;36m$(fun_trans "TCP ACELERACION") (BBR/PLUS)"
+echo -e "\033[1;32m[7] > \033[1;36m$(fun_trans "TCP ACELERACION") (BBR/PLUS)"
 msg -bar
-while [[ ${opx} != @(0|[1-9]) ]]; do
-echo -ne "[1-9]: \033[1;37m" && read opx
+while [[ ${opx} != @(0|[1-7]) ]]; do
+echo -ne "[1-7]: \033[1;37m" && read opx
 tput cuu1 && tput dl1
 done
 case $opx in
@@ -63,22 +61,13 @@ exit
 4) wget -O /bin/shadowsocks.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/shadowsocks.sh > /dev/null 2>&1; chmod +x /bin/shadowsocks.sh; shadowsocks.sh
 exit
 ;;
-5) wget -O /bin/v2ray.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/v2ray.sh > /dev/null 2>&1; chmod +x /bin/v2ray.sh; v2ray.sh
+5) wget -O /bin/v2ray.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/v2ray84.sh > /dev/null 2>&1; chmod +x /bin/v2ray.sh; v2ray.sh
 exit
 ;;
-6) wget -O /bin/vdoray.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/vdoray.sh > /dev/null 2>&1; chmod +x /bin/vdoray.sh; vdoray.sh
-exit
-;;
-7) wget -O /bin/v2ray.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/v2ray84.sh > /dev/null 2>&1; chmod +x /bin/v2ray.sh; v2ray.sh
-exit
-;;
-8) wget -O /bin/conexao.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/conexao.sh > /dev/null 2>&1; chmod +x /bin/conexao.sh; conexao.sh
+6) wget -O /bin/conexao.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/conexao.sh > /dev/null 2>&1; chmod +x /bin/conexao.sh; conexao.sh
 exit
 ;;  
-9) wget -O /bin/tcp.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/tcp.sh > /dev/null 2>&1; chmod 777 /bin/tcp.sh; tcp.sh
-exit
-;;
-10) wget -O /bin/blockBT.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/blockBT.sh > /dev/null 2>&1; chmod 777 /bin/blockBT.sh; blockBT.sh
+7) wget -O /bin/tcp.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/tcp.sh > /dev/null 2>&1; chmod 777 /bin/tcp.sh; tcp.sh
 exit
 ;;
 esac

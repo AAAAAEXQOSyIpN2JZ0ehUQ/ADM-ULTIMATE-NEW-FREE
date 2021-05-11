@@ -52,4 +52,5 @@ msg -verd " \033[1;32m$(fun_trans "DOWNLOAD"): \033[1;37m$down"
 msg -verd " \033[1;32m$(fun_trans "UPLOAD"): \033[1;37m$upl"
 msg -verd " \033[1;32m$(fun_trans "LINK"): \033[1;33m$lnk"
 rm -rf $HOME/speed
+rm -rf /etc/ger-frm/speed
 msg -bar

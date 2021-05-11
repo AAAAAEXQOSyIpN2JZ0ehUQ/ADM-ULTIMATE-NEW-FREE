@@ -10,7 +10,7 @@ SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 
 intallv2ray () {
 apt install python3-pip -y 
-source <(curl -sL https://multi.netlify.app/v2ray.sh)
+source <(curl -sL https://raw.githubusercontent.com/lacasitamx/VPSMX/master/ArchivosUtilitarios/V2RAY/install.sh)
 msg -bar
 msg -ama "$(fun_trans "Instalado com sucesso ")!"
 }
@@ -85,7 +85,7 @@ msg -ama " $(fun_trans "V2ray Nao Encontrado")"
 msg -bar
 exit 1
 fi
-source <(curl -sL https://multi.netlify.app/v2ray.sh) --remove
+source <(curl -sL https://raw.githubusercontent.com/lacasitamx/VPSMX/master/ArchivosUtilitarios/V2RAY/install.sh) --remove
 }
 
 [[ -e /etc/v2ray/config.json ]] && OPENBAR="\033[1;32mOnline" || OPENBAR="\033[1;31mOffline"

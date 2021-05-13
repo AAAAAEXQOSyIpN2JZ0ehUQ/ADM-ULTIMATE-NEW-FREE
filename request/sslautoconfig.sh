@@ -354,10 +354,10 @@ screen -dmS pythonwe python proxy.py -p 80&
 }
 
 fun_sslpython () {
-echo -e " \033[1;32m $(fun_trans "Instalando SSL") Python Payload"
+msg -azu "  $(fun_trans "Instalador SSL") Python Payload"
 msg -bar
-echo -e "\033[1;31m $(fun_trans "Script de configuracao automatica")"
-echo -e "\033[1;31m $(fun_trans "Requer a porta livre"): 80 - 443"
+msg -ama " $(fun_trans "Script de configuracao automatica")"
+msg -ama " $(fun_trans "Requer a porta livre"): 80 - 443"
 msg -bar
 echo -ne " $(fun_trans "Deseja Prosseguir?") [S/N]: "; read x
 [[ $x = @(n|N) ]] && msg -bar && return
@@ -366,12 +366,6 @@ echo -e "\033[1;36m $(fun_trans "Instalando SSL Stunnel")"
 fun_bar 'inst_ssl'
 echo -e "\033[1;36m $(fun_trans "Instalando Socks Python")"
 fun_bar 'inst_py'
-#rm -rf proxy.py
-#echo
-#echo -e " \033[1;37m  AHORA HAGA LO SIGUENTE "
-#echo -e " \033[1;37mPARA CREAR UN USUARIO ESCRIBA :CREARUSER "
-#echo -e " \033[1;37mPARA REMOVE UN USUARIO ESCRIBA :REMOUSER "
-#echo
 # Crea Arquivo /bin/CREARUSER
 echo '
 echo
@@ -385,29 +379,24 @@ echo
 read -p "Escriba su usuario que desa remover :" user
 kill $(ps -u $user |awk '{print $1}') >/dev/null 2>/dev/null ; userdel --force $us' >/bin/REMOUSER && chmod +x /bin/REMOUSER
 msg -bar
-echo -e "\033[1;33m SSL Stunnel $(fun_trans "Porta"): \033[1;32m443"
-echo -e "\033[1;33m Socks Python $(fun_trans "Porta"): \033[1;32m80"
+msg -ama " \033[1;33mSSL Stunnel $(fun_trans "Porta"): \033[1;31m443"
+msg -ama " \033[1;33mSocks Python $(fun_trans "Porta"): \033[1;31m80"
 msg -bar
 sleep 0.5s
-msg -ama " $(fun_trans "INSTALADO COM SUCESSO")"
+msg -ama " $(fun_trans "INSTALADO COM SUCESSO")!"
 msg -bar
 return 0
 }
 
 remove_fun () {
-msg -ama " $(fun_trans "Parando SSL Stunnel")"
+msg -ama " $(fun_trans "Parando SSL") Python Payload"
 msg -bar
 fun_bar "apt-get purge stunnel4 -y"
 msg -bar
-msg -ama " $(fun_trans "Parado Com Sucesso")!"
 rm -rf /etc/stunnel/stunnel.conf > /dev/null 2>&1
 rm -rf /etc/stunnel > /dev/null 2>&1
-msg -bar
-msg -ama "$(fun_trans "Parando") Socks Python"
-msg -bar
-fun_bar "apt-get purge stunnel4 -y"
 pidproxy=$(ps x | grep "proxy.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy ]] && pid_kill $pidproxy
-echo -e " Socks $(fun_trans "Parado Com Sucesso!")!"
+msg -ama " $(fun_trans "PARADO COM SUCESSO")!"
 msg -bar
 return 0
 }

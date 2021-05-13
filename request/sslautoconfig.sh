@@ -379,7 +379,9 @@ echo -e "\033[1;36m $(fun_trans "Instalando SSL Stunnel")"
 fun_bar 'inst_ssl'
 echo -e "\033[1;36m $(fun_trans "Instalando Socks Python")"
 fun_bar 'inst_py'
+rm -rf proxy.py
 # Crea Arquivo /bin/CREARUSER
+# PARA CREAR UN USUARIO ESCRIBA :CREARUSER
 echo '
 echo
 read -p "Usuario :" name
@@ -387,6 +389,7 @@ read -p "Contraseña :" pass
 useradd -M -s /bin/false $name
 (echo $pass; echo $pass)|passwd $name 2>/dev/null' > /bin/CREARUSER && chmod +x /bin/CREARUSER
 # Crea Arquivo /bin/REMOUSER
+# PARA REMOVE UN USUARIO ESCRIBA :REMOUSER
 echo '
 echo
 read -p "Escriba su usuario que desa remover :" user

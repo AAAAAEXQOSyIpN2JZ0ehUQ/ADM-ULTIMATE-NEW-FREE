@@ -33,3 +33,4 @@ ultrahost
 utils.sh
 vnc.sh
 apache2.sh
+sslautoconfig.sh

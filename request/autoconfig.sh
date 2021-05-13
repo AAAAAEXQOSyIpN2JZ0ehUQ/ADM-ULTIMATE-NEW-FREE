@@ -7,8 +7,8 @@ SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 
 #############################################################################
 # 
-# CREDITOS A DEV @killshito
-# CREDITOS A @PANCHO7532
+# CREDITOS A DEV @PANCHO7532
+# CREDITOS A @killshito
 # 
 ##############################################################################
 

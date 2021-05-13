@@ -1,51 +1,42 @@
 #!/bin/bash
-col1='\033[1;31m' 
-col2='\033[1;32m' 
-col3='\033[1;33m' 
-col4='\033[1;34m' 
-col5='\033[1;35m' 
-col6='\033[1;36m'
-col7='\033[1;37m' 
+declare -A cor=( [0]="\033[1;37m" [1]="\033[1;34m" [2]="\033[1;32m" [3]="\033[1;36m" [4]="\033[1;31m" )
+SCPdir="/etc/newadm" && [[ ! -d ${SCPdir} ]] && exit 1
+SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
+SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
+SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
+
+#############################################################################
+# 
+# CREDITOS A DEV @PANCHO7532
+# CREDITOS A @killshito
+# 
+##############################################################################
 
 fun_bar () {
-          comando[0]="$1"
-          comando[1]="$2"
-          (
-          [[ -e $HOME/fim ]] && rm $HOME/fim
-          ${comando[0]} > /dev/null 2>&1
-          ${comando[1]} > /dev/null 2>&1
-          touch $HOME/fim
-          ) > /dev/null 2>&1 &
-          tput civis
-		  echo -e "${col1}---------------------------------------------------${col0}"
-          echo -ne "${col7}    ESPERE..${col5}["
-          while true; do
-          for((i=0; i<18; i++)); do
-          echo -ne "${col4}#"
-          sleep 0.2s
-          done
-         [[ -e $HOME/fim ]] && rm $HOME/fim && break
-         echo -e "${col5}"
-         sleep 1s
-         tput cuu1
-         tput dl1
-         echo -ne "${col7}    ESPERE..${col5}["
-         done
-         echo -e "${col5}]${col7} -${col2} INSTALADO !${col7}"
-         tput cnorm
-		 echo -e "${col1}---------------------------------------------------${col0}"
-        }
-        
+comando[0]="$1"
+comando[1]="$2"
+ (
+[[ -e $HOME/fim ]] && rm $HOME/fim
+${comando[0]} -y > /dev/null 2>&1
+${comando[1]} -y > /dev/null 2>&1
+touch $HOME/fim
+ ) > /dev/null 2>&1 &
+echo -ne "\033[1;33m ["
+while true; do
+   for((i=0; i<10; i++)); do
+   echo -ne "\033[1;31m##"
+   sleep 0.1s
+   done
+   [[ -e $HOME/fim ]] && rm $HOME/fim && break
+   echo -e "\033[1;33m]"
+   sleep 1s
+   tput cuu1
+   tput dl1
+   echo -ne "\033[1;33m ["
+done
+echo -e "\033[1;33m]\033[1;31m -\033[1;32m 100%\033[1;37m"
+}        
 
-clear&&clear
-echo -e "\033[1;31m———————————————————————————————————————————————————\033[1;37m"
-echo -e "\033[1;32m            PAYLOAD + SSL |BY KILLSHITO "
-echo -e "\033[1;31m———————————————————————————————————————————————————\033[1;37m"
-echo -e "\033[1;36m               SCRIPT AUTOCONFIGURACION "
-echo -e "\033[1;31m———————————————————————————————————————————————————\033[1;37m"
-echo -e "\033[1;37mRequiere tener el puerto libre ,80 y el 443"
-echo
-echo -e "\033[1;33m INSTALADO SSL.. "
 inst_ssl () {
 pkill -f stunnel4
 pkill -f stunnel
@@ -66,15 +57,12 @@ service stunnel4 restart
 service stunnel restart
 service stunnel4 start
 }
-fun_bar 'inst_ssl'
-echo -e "\033[1;33m CONFIGURANDO PYTHON.. "
-inst_py () {
 
+inst_py () {
 pkill -f 80
 pkill python
 apt install python -y
 apt install screen -y
-
 pt=$(netstat -nplt |grep 'sshd' | awk -F ":" NR==1{'print $2'} | cut -d " " -f 1)
 
  cat <<EOF > proxy.py
@@ -350,21 +338,42 @@ EOF
 screen -dmS pythonwe python proxy.py -p 80&
 
 }
+
+fun_sslpython () {
+echo -e "\033[1;32m $(fun_trans "INSTALADOR SSL PYTHON*") PAYLOAD \033[1;31m[\033[1;33m!\033[1;31m]\033[1;33m $(fun_trans "BETA") \033[1;31m[\033[1;33m!\033[1;31m]"
+msg -bar
+echo -e "\033[1;31m $(fun_trans "Script autoconfiguracion")"
+echo -e "\033[1;31m $(fun_trans "Requiere tener el puerto libre"): 80 - 443"
+msg -bar
+echo -ne " $(fun_trans "Deseja Prosseguir?") [S/N]: "; read x
+[[ $x = @(n|N) ]] && msg -bar && return
+msg -bar
+echo -e "\033[1;36m $(fun_trans "Instalando SSL Stunnel")"
+fun_bar 'inst_ssl'
+echo -e "\033[1;36m $(fun_trans "Instalando Socks Python")"
 fun_bar 'inst_py'
-rm -rf proxy.py
-echo
-echo -e " \033[1;37m  AHORA HAGA LO SIGUENTE "
-echo -e " \033[1;37mPARA CREAR UN USUARIO ESCRIBA :CREARUSER "
-echo -e " \033[1;37mPARA REMOVE UN USUARIO ESCRIBA :REMOUSER "
-echo
-echo
+#rm -rf proxy.py
+#echo
+#echo -e " \033[1;37m  AHORA HAGA LO SIGUENTE "
+#echo -e " \033[1;37mPARA CREAR UN USUARIO ESCRIBA :CREARUSER "
+#echo -e " \033[1;37mPARA REMOVE UN USUARIO ESCRIBA :REMOUSER "
+#echo
+# Crea Arquivo /bin/CREARUSER
 echo '
 echo
 read -p "Usuario :" name
 read -p "Contraseña :" pass
 useradd -M -s /bin/false $name
 (echo $pass; echo $pass)|passwd $name 2>/dev/null' > /bin/CREARUSER &&chmod +x /bin/CREARUSER
+# Crea Arquivo /bin/REMOUSER
 echo '
 echo
 read -p "Escriba su usuario que desa remover :" user
 kill $(ps -u $user |awk '{print $1}') >/dev/null 2>/dev/null ; userdel --force $us' >/bin/REMOUSER &&chmod +x /bin/REMOUSER
+msg -bar
+sleep 0.5s
+msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
+msg -bar
+}
+fun_sslpython
+#fim

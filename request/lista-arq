@@ -28,9 +28,9 @@ ports.sh
 scriptsalternos.sh
 speed.sh
 sslh.sh
+autoconfig.sh
 speedtest.py
 ultrahost
 utils.sh
 vnc.sh
 apache2.sh
-sslpythonAUT.sh

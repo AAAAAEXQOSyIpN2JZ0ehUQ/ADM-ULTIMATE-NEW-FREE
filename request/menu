@@ -652,7 +652,7 @@ case $1 in
 "budp.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "BADVPN $(pid_inst badvpn)";;
 "vnc.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "VNC SERVER $(pid_inst vnc)";;
 "webmin.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "WEBMIN $(pid_inst miniserv.)";;
-"sslpythonAUT.sh")return 1;;
+"autoconfig.sh")return 1;;
 "PDirect.py")return 1;;
 "PGet.py")return 1;;
 "POpen.py")return 1;;

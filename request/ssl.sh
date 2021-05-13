@@ -116,7 +116,7 @@ msg -ama " $(fun_trans "CONFIGURACAO DE SSL STUNNEL*")"
 msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "Voltar")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "Adicionar uma porta ")"
-echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "Instalar SSL Python* Payload ")"
+echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "Instalar SSL") Python Payload"
 echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "Editar Cliente SSL Stunnel") \033[1;31m(comand nano)"
 echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "Desinstalar SSL Stunnel ")"
 msg -bar
@@ -134,9 +134,8 @@ case $arquivoonlineadm in
 4)ssl_stunel;;
 esac
 }
+if [[ -e /etc/stunnel/stunnel.conf ]]; then
 fun_ssl
-# if [[ -e /etc/stunnel/stunnel.conf ]]; then
-# fun_ssl
-# else
-# ssl_stunel
-# fi
+else
+ssl_stunel
+fi

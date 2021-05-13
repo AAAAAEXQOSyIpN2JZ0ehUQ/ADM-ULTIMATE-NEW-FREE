@@ -50,7 +50,7 @@ apt-get install stunnel -y
 pt=$(netstat -nplt |grep 'sshd' | awk -F ":" NR==1{'print $2'} | cut -d " " -f 1)
 echo -e "cert = /etc/stunnel/stunnel.pem\nclient = no\nsocket = a:SO_REUSEADDR=1\nsocket = l:TCP_NODELAY=1\nsocket = r:TCP_NODELAY=1\n\n[stunnel]\nconnect = 127.0.0.1:${pt}\naccept = 443" > /etc/stunnel/stunnel.conf
 openssl genrsa -out key.pem 2048 > /dev/null 2>&1
-(echo br; echo br; echo uss; echo speed; echo pnl; echo killshito; echo @killshito.com)|openssl req -new -x509 -key key.pem -out cert.pem -days 1095 > /dev/null 2>&1
+(echo br; echo br; echo uss; echo speed; echo pnl; echo ultimate; echo @admultimate)|openssl req -new -x509 -key key.pem -out cert.pem -days 1095 > /dev/null 2>&1
 cat key.pem cert.pem >> /etc/stunnel/stunnel.pem
 sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
 service stunnel4 restart
@@ -342,8 +342,8 @@ screen -dmS pythonwe python proxy.py -p 80&
 fun_sslpython () {
 echo -e "\033[1;32m $(fun_trans "INSTALADOR SSL PYTHON*") PAYLOAD \033[1;31m[\033[1;33m!\033[1;31m]\033[1;33m $(fun_trans "BETA") \033[1;31m[\033[1;33m!\033[1;31m]"
 msg -bar
-echo -e "\033[1;31m $(fun_trans "Script autoconfiguracion")"
-echo -e "\033[1;31m $(fun_trans "Requiere tener el puerto libre"): 80 - 443"
+echo -e "\033[1;31m $(fun_trans "Script de configuracao automatica")"
+echo -e "\033[1;31m $(fun_trans "Requer a porta livre"): 80 - 443"
 msg -bar
 echo -ne " $(fun_trans "Deseja Prosseguir?") [S/N]: "; read x
 [[ $x = @(n|N) ]] && msg -bar && return
@@ -364,15 +364,18 @@ echo
 read -p "Usuario :" name
 read -p "Contraseña :" pass
 useradd -M -s /bin/false $name
-(echo $pass; echo $pass)|passwd $name 2>/dev/null' > /bin/CREARUSER &&chmod +x /bin/CREARUSER
+(echo $pass; echo $pass)|passwd $name 2>/dev/null' > /bin/CREARUSER && chmod +x /bin/CREARUSER
 # Crea Arquivo /bin/REMOUSER
 echo '
 echo
 read -p "Escriba su usuario que desa remover :" user
-kill $(ps -u $user |awk '{print $1}') >/dev/null 2>/dev/null ; userdel --force $us' >/bin/REMOUSER &&chmod +x /bin/REMOUSER
+kill $(ps -u $user |awk '{print $1}') >/dev/null 2>/dev/null ; userdel --force $us' >/bin/REMOUSER && chmod +x /bin/REMOUSER
+msg -bar
+echo -e "\033[1;33m SSL Stunnel $(fun_trans "Porta"): \033[1;32m443"
+echo -e "\033[1;33m Socks Python $(fun_trans "Porta"): \033[1;32m80"
 msg -bar
 sleep 0.5s
-msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
+msg -ama " $(fun_trans "INSTALADO COM SUCESSO")"
 msg -bar
 }
 fun_sslpython

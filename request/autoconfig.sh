@@ -345,6 +345,9 @@ msg -bar
 echo -e "\033[1;31m $(fun_trans "Script autoconfiguracion")"
 echo -e "\033[1;31m $(fun_trans "Requiere tener el puerto libre"): 80 - 443"
 msg -bar
+echo -ne " $(fun_trans "Deseja Prosseguir?") [S/N]: "; read x
+[[ $x = @(n|N) ]] && msg -bar && return
+msg -bar
 echo -e "\033[1;36m $(fun_trans "Instalando SSL Stunnel")"
 fun_bar 'inst_ssl'
 echo -e "\033[1;36m $(fun_trans "Instalando Socks Python")"

@@ -367,7 +367,7 @@ return 0
 }
 
 fun_sslpython () {
-msg -azu "  $(fun_trans "Instalador SSL") Python Payload"
+msg -azu " $(fun_trans "Instalador SSL") Python Payload"
 msg -bar
 msg -ama " $(fun_trans "Script de configuracao automatica")"
 msg -ama " $(fun_trans "Requer a porta livre"): 80 - 443"

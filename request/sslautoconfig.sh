@@ -353,6 +353,19 @@ screen -dmS pythonwe python proxy.py -p 80&
 
 }
 
+remove_fun () {
+msg -ama " $(fun_trans "Parando SSL") Python Payload"
+msg -bar
+fun_bar "apt-get purge stunnel4 -y"
+msg -bar
+rm -rf /etc/stunnel/stunnel.conf > /dev/null 2>&1
+rm -rf /etc/stunnel > /dev/null 2>&1
+pidproxy=$(ps x | grep "proxy.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy ]] && pid_kill $pidproxy
+msg -ama " $(fun_trans "PARADO COM SUCESSO")!"
+msg -bar
+return 0
+}
+
 fun_sslpython () {
 msg -azu "  $(fun_trans "Instalador SSL") Python Payload"
 msg -bar
@@ -387,41 +400,4 @@ msg -ama " $(fun_trans "INSTALADO COM SUCESSO")!"
 msg -bar
 return 0
 }
-
-remove_fun () {
-msg -ama " $(fun_trans "Parando SSL") Python Payload"
-msg -bar
-fun_bar "apt-get purge stunnel4 -y"
-msg -bar
-rm -rf /etc/stunnel/stunnel.conf > /dev/null 2>&1
-rm -rf /etc/stunnel > /dev/null 2>&1
-pidproxy=$(ps x | grep "proxy.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy ]] && pid_kill $pidproxy
-msg -ama " $(fun_trans "PARADO COM SUCESSO")!"
-msg -bar
-return 0
-}
-
-fun_menu () {
-msg -ama "$(fun_trans "SSL PYTHON*") PAYLOAD \033[1;31m[\033[1;33m!\033[1;31m]\033[1;33m $(fun_trans "BETA") \033[1;31m[\033[1;33m!\033[1;31m]"
-msg -bar
-echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "Voltar")"
-echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "Instalar SSL") Python Payload"
-echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "Editar Cliente SSL Stunnel") \033[1;31m(comand nano)"
-echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "Desinstalar SSL") Python Payload"
-msg -bar
-while [[ ${arquivoonlineadm} != @(0|[1-3]) ]]; do
-read -p "[0-3]: " arquivoonlineadm
-tput cuu1 && tput dl1
-done
-case $arquivoonlineadm in
-0)exit;;
-1)fun_sslpython;;
-2)
-   if [[ -e /etc/stunnel/stunnel.conf ]]; then
-   nano /etc/stunnel/stunnel.conf
-   fi
-   return 0;;
-3)remove_fun;;
-esac
-}
-fun_menu
+fun_sslpython

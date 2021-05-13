@@ -289,7 +289,6 @@ case $1 in
 "dropbear.sh")ARQ="${SCPinst}/";; #Instalacao
 "openvpn.sh")ARQ="${SCPinst}/";; #Instalacao
 "ssl.sh")ARQ="${SCPinst}/";; #Instalacao
-"autoconfig.sh")ARQ="${SCPinst}/";; #Instalacao
 "shadowsocks.sh")ARQ="${SCPinst}/";; #Instalacao
 "vnc.sh")ARQ="${SCPinst}/";; #Instalacao
 "webmin.sh")ARQ="${SCPinst}/";; #Instalacao

@@ -5,12 +5,26 @@ SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 
-#############################################################################
-# 
 # CREDITOS A DEV @PANCHO7532
-# CREDITOS A @killshito
-# 
-##############################################################################
+# CREDITOS A @killshito 
+
+mportas () {
+unset portas
+portas_var=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
+while read port; do
+var1=$(echo $port | awk '{print $1}') && var2=$(echo $port | awk '{print $9}' | awk -F ":" '{print $2}')
+[[ "$(echo -e $portas|grep "$var1 $var2")" ]] || portas+="$var1 $var2\n"
+done <<< "$portas_var"
+i=1
+echo -e "$portas"
+}
+pid_kill () {
+[[ -z $1 ]] && refurn 1
+pids="$@"
+for pid in $(echo $pids); do
+kill -9 $pid &>/dev/null
+done
+}
 
 fun_bar () {
 comando[0]="$1"
@@ -340,7 +354,7 @@ screen -dmS pythonwe python proxy.py -p 80&
 }
 
 fun_sslpython () {
-echo -e "\033[1;32m $(fun_trans "INSTALADOR SSL PYTHON*") PAYLOAD \033[1;31m[\033[1;33m!\033[1;31m]\033[1;33m $(fun_trans "BETA") \033[1;31m[\033[1;33m!\033[1;31m]"
+echo -e " \033[1;32m $(fun_trans "Instalando SSL") Python Payload"
 msg -bar
 echo -e "\033[1;31m $(fun_trans "Script de configuracao automatica")"
 echo -e "\033[1;31m $(fun_trans "Requer a porta livre"): 80 - 443"
@@ -377,6 +391,48 @@ msg -bar
 sleep 0.5s
 msg -ama " $(fun_trans "INSTALADO COM SUCESSO")"
 msg -bar
+return 0
 }
-fun_sslpython
-#fim
+
+remove_fun () {
+msg -ama " $(fun_trans "Parando SSL Stunnel")"
+msg -bar
+fun_bar "apt-get purge stunnel4 -y"
+msg -bar
+msg -ama " $(fun_trans "Parado Com Sucesso")!"
+rm -rf /etc/stunnel/stunnel.conf > /dev/null 2>&1
+rm -rf /etc/stunnel > /dev/null 2>&1
+msg -bar
+msg -ama "$(fun_trans "Parando") Socks Python"
+msg -bar
+fun_bar "apt-get purge stunnel4 -y"
+pidproxy=$(ps x | grep "proxy.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy ]] && pid_kill $pidproxy
+echo -e " Socks $(fun_trans "Parado Com Sucesso!")!"
+msg -bar
+return 0
+}
+
+fun_menu () {
+msg -ama "$(fun_trans "SSL PYTHON*") PAYLOAD \033[1;31m[\033[1;33m!\033[1;31m]\033[1;33m $(fun_trans "BETA") \033[1;31m[\033[1;33m!\033[1;31m]"
+msg -bar
+echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "Voltar")"
+echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "Instalar SSL") Python Payload"
+echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "Editar Cliente SSL Stunnel") \033[1;31m(comand nano)"
+echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "Desinstalar SSL") Python Payload"
+msg -bar
+while [[ ${arquivoonlineadm} != @(0|[1-3]) ]]; do
+read -p "[0-3]: " arquivoonlineadm
+tput cuu1 && tput dl1
+done
+case $arquivoonlineadm in
+0)exit;;
+1)fun_sslpython;;
+2)
+   if [[ -e /etc/stunnel/stunnel.conf ]]; then
+   nano /etc/stunnel/stunnel.conf
+   fi
+   return 0;;
+3)remove_fun;;
+esac
+}
+fun_menu

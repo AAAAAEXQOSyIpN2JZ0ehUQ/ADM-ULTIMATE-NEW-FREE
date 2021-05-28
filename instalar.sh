@@ -13,41 +13,24 @@ SUB_DOM='base64 -d'
 rm $(pwd)/$0 &> /dev/null
 
 msg () {
-local colors="/etc/new-adm-color"
-if [[ ! -e $colors ]]; then
-COLOR[0]='\033[1;37m' #BRAN='\033[1;37m'
-COLOR[1]='\e[31m' #VERMELHO='\e[31m'
-COLOR[2]='\e[32m' #VERDE='\e[32m'
-COLOR[3]='\e[33m' #AMARELO='\e[33m'
-COLOR[4]='\e[34m' #AZUL='\e[34m'
-COLOR[5]='\e[35m' #MAGENTA='\e[35m'
-COLOR[6]='\033[1;36m' #MAG='\033[1;36m'
-else
-local COL=0
-for number in $(cat $colors); do
-case $number in
-1)COLOR[$COL]='\033[1;37m';;
-2)COLOR[$COL]='\e[31m';;
-3)COLOR[$COL]='\e[32m';;
-4)COLOR[$COL]='\e[33m';;
-5)COLOR[$COL]='\e[34m';;
-6)COLOR[$COL]='\e[35m';;
-7)COLOR[$COL]='\033[1;36m';;
-esac
-let COL++
-done
-fi
-NEGRITO='\e[1m'
+BRAN='\033[1;37m' && 
+VERMELHO='\e[31m' && 
+VERDE='\e[32m' && 
+AMARELO='\e[33m'
+AZUL='\e[34m' && 
+MAGENTA='\e[35m' && 
+MAG='\033[1;36m' && 
+NEGRITO='\e[1m' && 
 SEMCOR='\e[0m'
  case $1 in
-  -ne)cor="${COLOR[1]}${NEGRITO}" && echo -ne "${cor}${2}${SEMCOR}";;
-  -ama)cor="${COLOR[3]}${NEGRITO}" && echo -e "${cor}${2}${SEMCOR}";;
-  -verm)cor="${COLOR[3]}${NEGRITO}[!] ${COLOR[1]}" && echo -e "${cor}${2}${SEMCOR}";;
-  -verm2)cor="${COLOR[1]}${NEGRITO}" && echo -e "${cor}${2}${SEMCOR}";;
-  -azu)cor="${COLOR[6]}${NEGRITO}" && echo -e "${cor}${2}${SEMCOR}";;
-  -verd)cor="${COLOR[2]}${NEGRITO}" && echo -e "${cor}${2}${SEMCOR}";;
-  -bra)cor="${COLOR[0]}${NEGRITO}" && echo -e "${cor}${2}${SEMCOR}";;
-  "-bar2"|"-bar")cor="${COLOR[4]}——————————————————————————————————————————————————————" && echo -e "${SEMCOR}${cor}${SEMCOR}";;
+  -ne)cor="${VERMELHO}${NEGRITO}" && echo -ne "${cor}${2}${SEMCOR}";;
+  -ama)cor="${AMARELO}${NEGRITO}" && echo -e "${cor}${2}${SEMCOR}";;
+  -verm)cor="${AMARELO}${NEGRITO}[!] ${VERMELHO}" && echo -e "${cor}${2}${SEMCOR}";;
+  -azu)cor="${MAG}${NEGRITO}" && echo -e "${cor}${2}${SEMCOR}";;
+  -verd)cor="${VERDE}${NEGRITO}" && echo -e "${cor}${2}${SEMCOR}";;
+  -bra)cor="${BRAN}${NEGRITO}" && echo -ne "${cor}${2}${SEMCOR}";;
+  -bar2)cor="${AZUL}${NEGRITO}======================================================" && echo -e "${cor}${SEMCOR}";;
+  -bar)cor="${AZUL}${NEGRITO}========================================" && echo -e "${cor}${SEMCOR}";;
  esac
 }
 
@@ -73,18 +56,6 @@ inst_components () {
  sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf
  service apache2 restart > /dev/null 2>&1 &
  }
-}
-
-inst_components2 () {
-[[ $(dpkg --get-selections|grep -w "curl"|head -1) ]] || apt-get install curl -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "netcat-openbsd"|head -1) ]] || apt-get install netcat-openbsd -y &>/dev/null
-apt-get install grep -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "net-tools"|head -1) ]] || apt-get install net-tools -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "dos2unix"|head -1) ]] || apt-get install dos2unix -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "nload"|head -1) ]] || apt-get install nload -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "jq"|head -1) ]] || apt-get install jq -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "python-pip"|head -1) ]] || apt-get install python-pip -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "at"|head -1) ]] || apt-get install at -y &>/dev/null
 }
 
 funcao_idioma () {
@@ -138,22 +109,6 @@ echo -e " menu / adm"
 msg -bar2
 }
 
-install_hosts () {
-_arq_host="/etc/hosts"
-_host[0]="d1n212ccp6ldpw.cloudfront.net"
-_host[1]="dns.whatsapp.net"
-_host[2]="portalrecarga.vivo.com.br/recarga"
-_host[3]="navegue.vivo.com.br/controle/"
-_host[4]="navegue.vivo.com.br/pre/"
-_host[5]="www.whatsapp.net"
-_host[6]="c.whatsapp.net"
-for host in ${_host[@]}; do
-	if [[ "$(grep -w "$host" $_arq_host | wc -l)" = "0" ]]; then
-		sed -i "3i\127.0.0.1 $host" $_arq_host
-	fi
-done
-}
-
 ofus () {
 unset txtofus
 number=$(expr length $1)
@@ -184,19 +139,15 @@ verificar_arq () {
 case $1 in
 "menu"|"message.txt")ARQ="${SCPdir}/";; #Menu
 "usercodes")ARQ="${SCPusr}/";; #User
-"apache2.sh")ARQ="${SCPinst}/";; #Instalacao
-"budp.sh")ARQ="${SCPinst}/";; #Instalacao
-"dropbear.sh")ARQ="${SCPinst}/";; #Instalacao
 "openssh.sh")ARQ="${SCPinst}/";; #Instalacao
-"openvpn.sh")ARQ="${SCPinst}/";; #Instalacao
-"shadowsocks.sh")ARQ="${SCPinst}/";; #Instalacao
+"apache2.sh")ARQ="${SCPinst}/";; #Instalacao
 "squid.sh")ARQ="${SCPinst}/";; #Instalacao
-"sslh.sh")ARQ="${SCPinst}/";; #Instalacao
+"dropbear.sh")ARQ="${SCPinst}/";; #Instalacao
+"openvpn.sh")ARQ="${SCPinst}/";; #Instalacao
 "ssl.sh")ARQ="${SCPinst}/";; #Instalacao
-"sslautoconfig.sh")ARQ="${SCPinst}/";; #Instalacao
-"v2ray.sh")ARQ="${SCPinst}/";; #Instalacao
-"vnc.sh")ARQ="${SCPinst}/";; #Instalacao
+"shadowsocks.sh")ARQ="${SCPinst}/";; #Instalacao
 "webmin.sh")ARQ="${SCPinst}/";; #Instalacao
+"v2ray.sh")ARQ="${SCPinst}/";; #Instalacao
 "sockspy.sh"|"PDirect.py"|"PPub.py"|"PPriv.py"|"POpen.py"|"PGet.py")ARQ="${SCPinst}/";; #Instalacao
 *)ARQ="${SCPfrm}/";; #Ferramentas
 esac
@@ -256,11 +207,8 @@ if [[ -e $HOME/lista-arq ]] && [[ ! $(cat $HOME/lista-arq|grep "KEY INVALIDA!") 
    echo "${SCPdir}/menu" > /usr/bin/menu && chmod +x /usr/bin/menu
    echo "${SCPdir}/menu" > /usr/bin/adm && chmod +x /usr/bin/adm
    echo "${SCPdir}/menu" > /bin/h && chmod +x /bin/h
-   rm versao* &> /dev/null
-   wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/versao &> /dev/null
+   wget -O $HOME/versao https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/versao &> /dev/null
    inst_components
-   inst_components2
-   install_hosts
    echo "$Key" > ${SCPdir}/key.txt
    [[ -d ${SCPinstal} ]] && rm -rf ${SCPinstal}   
    [[ ${#id} -gt 2 ]] && echo "pt" > ${SCPidioma} || echo "${id}" > ${SCPidioma}

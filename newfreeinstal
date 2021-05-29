@@ -1,0 +1,108 @@
+#!/bin/bash
+clear
+
+# VARIÁVEIS DE CORES
+COLOR[0]='\033[1;37m' #BRAN='\033[1;37m'
+
+COLOR[1]='\e[31m' #VERMELHO='\e[31m'
+COLOR[2]='\e[32m' #VERDE='\e[32m'
+COLOR[3]='\e[33m' #AMARELO='\e[33m'
+COLOR[4]='\e[34m' #AZUL='\e[34m'
+COLOR[5]='\e[35m' #MAGENTA='\e[35m'
+COLOR[6]='\033[1;36m' #MAG='\033[1;36m'
+
+# LOGO DO INSTALADOR
+fun_logo(){
+BARRA="\033[1;36m--------------------------------------------------------------------\033[0m"
+echo -e "$BARRA"
+cat << EOF
+
+           INSTALADOR ADM-NEW FREE OFICIAL
+           FEITO POR LUIS 8TH (BOM USO)
+           
+EOF
+echo -e "$BARRA"
+}
+meu_ip(){
+MIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
+if [[ $MIP = "127.0.0.1" ]]; then
+MIP=$(wget -qO- ipv4.icanhazip.com)
+elif [[ ! $MIP ]]; then
+MIP=$(wget -qO- ipv4.icanhazip.com)
+fi
+echo "$MIP"
+}
+
+fun_logo
+
+# Variaveis
+Basic="menu PGet.py ports.sh ADMbot.sh usercodes sockspy.sh POpen.py PPriv.py PPub.py PDirect.py speedtest.py speed.sh utils.sh dropbear.sh apacheon.sh openvpn.sh shadowsocks.sh ssl.sh squid.sh"
+LINK="https://www.dropbox.com/s/iqb019bchwui00l/ADMBASE.zip?dl=0"
+TEMP="$HOME/$RANDOM" && [[ ! -d ${TEMP} ]] && mkdir ${TEMP}
+SCPdir="/etc/newadm" && [[ ! -d ${SCPdir} ]] && mkdir ${SCPdir}
+SCPusr="${SCPdir}/ger-user" && [[ ! -d ${SCPusr} ]] && mkdir ${SCPusr}
+SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && mkdir ${SCPfrm}
+SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && mkdir ${SCPinst}
+SCPidioma="${SCPdir}/idioma"
+
+# Instalação 
+apt-get update -y >/dev/null 2>&1 && echo -e "${COLOR[0]}UPDATE OK"
+apt-get upgrade -y >/dev/null 2>&1 && echo -e "UPGRADE OK"
+apt-get install screen -y >/dev/null 2>&1
+apt-get install zip -y >/dev/null 2>&1 && echo -e "UNZIP OK"
+apt-get python -y >/dev/null 2>&1
+apt-get install unzip -y >/dev/null 2>&1 && echo -e "EXECUTANDO DOWLOAD"
+apt-get python3 -y >/dev/null 2>&1
+wget ${LINK} -O $HOME/ADM -o /dev/null && echo -e "EXTRAINDO ARQUIVOS ${COLOR[3]}"
+cd ${TEMP} && unzip $HOME/ADM && echo -e "${COLOR[0]}EXTRACAO CONCLUIDA!"
+
+echo -e "${COLOR[0]}INSTALANDO..."
+echo -ne "${COLOR[3]}["
+#Transferencia de arquivo.
+for arq in `ls ${TEMP}`; do
+echo -ne "${COLOR[1]}X" && sleep 0.2s
+case $arq in
+"openssh.sh")mv -f ${TEMP}/$arq ${SCPinst}/$arq && chmod +x ${SCPinst}/$arq;;
+"squid.sh")mv -f ${TEMP}/$arq ${SCPinst}/$arq && chmod +x ${SCPinst}/$arq;;
+"dropbear.sh")mv -f ${TEMP}/$arq ${SCPinst}/$arq && chmod +x ${SCPinst}/$arq;;
+"openvpn.sh")mv -f ${TEMP}/$arq ${SCPinst}/$arq && chmod +x ${SCPinst}/$arq;;
+"ssl.sh")mv -f ${TEMP}/$arq ${SCPinst}/$arq && chmod +x ${SCPinst}/$arq;;
+"shadowsocks.sh")mv -f ${TEMP}/$arq ${SCPinst}/$arq && chmod +x ${SCPinst}/$arq;;
+"sockspy.sh")mv -f ${TEMP}/$arq ${SCPinst}/$arq && chmod +x ${SCPinst}/$arq;;
+"PDirect.py")mv -f ${TEMP}/$arq ${SCPinst}/$arq && chmod +x ${SCPinst}/$arq;;
+"PGet.py")mv -f ${TEMP}/$arq ${SCPinst}/$arq && chmod +x ${SCPinst}/$arq;;
+"POpen.py")mv -f ${TEMP}/$arq ${SCPinst}/$arq && chmod +x ${SCPinst}/$arq;;
+"PPriv.py")mv -f ${TEMP}/$arq ${SCPinst}/$arq && chmod +x ${SCPinst}/$arq;;
+"PPub.py")mv -f ${TEMP}/$arq ${SCPinst}/$arq && chmod +x ${SCPinst}/$arq;;
+"ports.sh")mv -f ${TEMP}/$arq ${SCPfrm}/$arq && chmod +x ${SCPfrm}/$arq;;
+"fai2ban.sh")mv -f ${TEMP}/$arq ${SCPfrm}/$arq && chmod +x ${SCPfrm}/$arq;;
+"paysnd.sh")mv -f ${TEMP}/$arq ${SCPfrm}/$arq && chmod +x ${SCPfrm}/$arq;;
+"apacheon.sh")mv -f ${TEMP}/$arq ${SCPfrm}/$arq && chmod +x ${SCPfrm}/$arq;;
+"utils.sh")mv -f ${TEMP}/$arq ${SCPfrm}/$arq && chmod +x ${SCPfrm}/$arq;;
+"dados.sh")mv -f ${TEMP}/$arq ${SCPfrm}/$arq && chmod +x ${SCPfrm}/$arq;;
+"speed.sh")mv -f ${TEMP}/$arq ${SCPfrm}/$arq && chmod +x ${SCPfrm}/$arq;;
+"ultrahost")mv -f ${TEMP}/$arq ${SCPfrm}/$arq && chmod +x ${SCPfrm}/$arq;;
+"ADMbot.sh")mv -f ${TEMP}/$arq ${SCPfrm}/$arq && chmod +x ${SCPfrm}/$arq;;
+"speedtest.py")mv -f ${TEMP}/$arq ${SCPfrm}/$arq && chmod +x ${SCPfrm}/$arq;;
+"usercodes")mv -f ${TEMP}/$arq ${SCPusr}/$arq && chmod +x ${SCPusr}/$arq;;
+*)mv -f ${TEMP}/$arq ${SCPdir}/$arq && chmod +x ${SCPdir}/$arq;;
+esac
+done && rm -rf ${TEMP}
+echo -e "${COLOR[3]}]"
+
+#Criando Inicializador
+cat << EOF > /bin/adm
+#!/bin/bash
+cd ${SCPdir} && ./menu
+EOF
+cat << EOF > /bin/menu
+#!/bin/bash
+cd ${SCPdir} && ./menu
+EOF
+chmod +x /bin/adm && chmod +x /bin/menu
+
+#Eliminando Arqs
+rm $HOME/ADM > /dev/null 2>&1
+rm $HOME/$0  > /dev/null 2>&1
+
+echo -e "${COLOR[0]}INSTALACAO CONCLUIDA DIGITE OS COMANDOS: ${COLOR[1]}adm menu \033[0m'"

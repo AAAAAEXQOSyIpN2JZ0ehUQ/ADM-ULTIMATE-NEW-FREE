@@ -59,130 +59,33 @@ MIP2=$(wget -qO- ipv4.icanhazip.com)
 }
 
 inst_components () {
-clear
-clear
-[[ $(dpkg --get-selections|grep -w "curl"|head -1) ]] || apt-get install curl -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "netcat-openbsd"|head -1) ]] || apt-get install netcat-openbsd -y &>/dev/null
-msg -bar2
-msg -ama "   $(source trans -b pt:${id} "INSTALADOR DO") NEW - ULTIMATE - SCRIPT"
-msg -bar2
-msg -azu "ESTE SCRIPT IRA!:"
-msg -azu "INSTALAR O GERENCIADOR \033[01;31m New-Ultimate-Manager"
-msg -bar2
-PRETTY_NAME=$(cat /etc/os-release | grep "PRETTY_NAME" | sed 's/"//g' | cut -d "=" -f2-)
-echo -e "\033[01;31mOS:\033[01;37m $PRETTY_NAME"
-echo -e "\033[01;31mIP:\033[01;37m $IP"
-msg -bar2
-apt-get install grep -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "grep"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
-[[ $(dpkg --get-selections|grep -w "grep"|head -1) ]] && STATUS=`echo -e "\033[92mOK"` &>/dev/null
-echo -e "\033[01;31mINSTALANDO\033[01;37m grep\033[01;37m............$STATUS "
-#nano
 [[ $(dpkg --get-selections|grep -w "nano"|head -1) ]] || apt-get install nano -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "nano"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
-[[ $(dpkg --get-selections|grep -w "nano"|head -1) ]] && STATUS=`echo -e "\033[92mOK"` &>/dev/null
-echo -e "\033[01;31mINSTALANDO\033[01;37m nano\033[01;37m............$STATUS "
-#bc
 [[ $(dpkg --get-selections|grep -w "bc"|head -1) ]] || apt-get install bc -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "bc"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
-[[ $(dpkg --get-selections|grep -w "bc"|head -1) ]] && STATUS=`echo -e "\033[92mOK"` &>/dev/null
-echo -e "\033[01;31mINSTALANDO\033[01;37m bc\033[01;37m..............$STATUS "
-#screen
 [[ $(dpkg --get-selections|grep -w "screen"|head -1) ]] || apt-get install screen -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "screen"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
-[[ $(dpkg --get-selections|grep -w "screen"|head -1) ]] && STATUS=`echo -e "\033[92mOK"` &>/dev/null
-echo -e "\033[01;31mINSTALANDO\033[01;37m screen\033[01;37m..........$STATUS "
-#python
 [[ $(dpkg --get-selections|grep -w "python"|head -1) ]] || apt-get install python -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "python"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
-[[ $(dpkg --get-selections|grep -w "python"|head -1) ]] && STATUS=`echo -e "\033[92mOK"` &>/dev/null
-echo -e "\033[01;31mINSTALANDO\033[01;37m python\033[01;37m..........$STATUS "
-#python3
 [[ $(dpkg --get-selections|grep -w "python3"|head -1) ]] || apt-get install python3 -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "python3"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
-[[ $(dpkg --get-selections|grep -w "python3"|head -1) ]] && STATUS=`echo -e "\033[92mOK"` &>/dev/null
-echo -e "\033[01;31mINSTALANDO\033[01;37m python3\033[01;37m.........$STATUS "
-#curl
 [[ $(dpkg --get-selections|grep -w "curl"|head -1) ]] || apt-get install curl -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "curl"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
-[[ $(dpkg --get-selections|grep -w "curl"|head -1) ]] && STATUS=`echo -e "\033[92mOK"` &>/dev/null
-echo -e "\033[01;31mINSTALANDO\033[01;37m curl\033[01;37m............$STATUS "
-#ufw
 [[ $(dpkg --get-selections|grep -w "ufw"|head -1) ]] || apt-get install ufw -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "ufw"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
-[[ $(dpkg --get-selections|grep -w "ufw"|head -1) ]] && STATUS=`echo -e "\033[92mOK"` &>/dev/null
-echo -e "\033[01;31mINSTALANDO\033[01;37m ufw\033[01;37m.............$STATUS "
-#unzip
 [[ $(dpkg --get-selections|grep -w "unzip"|head -1) ]] || apt-get install unzip -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "unzip"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
-[[ $(dpkg --get-selections|grep -w "unzip"|head -1) ]] && STATUS=`echo -e "\033[92mOK"` &>/dev/null
-echo -e "\033[01;31mINSTALANDO\033[01;37m unzip\033[01;37m...........$STATUS "
-#zip
 [[ $(dpkg --get-selections|grep -w "zip"|head -1) ]] || apt-get install zip -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "zip"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
-[[ $(dpkg --get-selections|grep -w "zip"|head -1) ]] && STATUS=`echo -e "\033[92mOK"` &>/dev/null
-echo -e "\033[01;31mINSTALANDO\033[01;37m zip\033[01;37m.............$STATUS "
-#lsof
 [[ $(dpkg --get-selections|grep -w "lsof"|head -1) ]] || apt-get install lsof -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "lsof"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
-[[ $(dpkg --get-selections|grep -w "lsof"|head -1) ]] && STATUS=`echo -e "\033[92mOK"` &>/dev/null
-echo -e "\033[01;31mINSTALANDO\033[01;37m lsof\033[01;37m............$STATUS "
-#net-tools
-[[ $(dpkg --get-selections|grep -w "net-tools"|head -1) ]] || apt-get install net-tools -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "net-tools"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
-[[ $(dpkg --get-selections|grep -w "net-tools"|head -1) ]] && STATUS=`echo -e "\033[92mOK"` &>/dev/null
-echo -e "\033[01;31mINSTALANDO\033[01;37m net-tools\033[01;37m.......$STATUS "
-#dos2unix
-[[ $(dpkg --get-selections|grep -w "dos2unix"|head -1) ]] || apt-get install dos2unix -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "dos2unix"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
-[[ $(dpkg --get-selections|grep -w "dos2unix"|head -1) ]] && STATUS=`echo -e "\033[92mOK"` &>/dev/null
-echo -e "\033[01;31mINSTALANDO\033[01;37m dos2unix\033[01;37m........$STATUS "
-#nload
-[[ $(dpkg --get-selections|grep -w "nload"|head -1) ]] || apt-get install nload -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "nload"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
-[[ $(dpkg --get-selections|grep -w "nload"|head -1) ]] && STATUS=`echo -e "\033[92mOK"` &>/dev/null
-echo -e "\033[01;31mINSTALANDO\033[01;37m nload\033[01;37m...........$STATUS "
-#jq
-[[ $(dpkg --get-selections|grep -w "jq"|head -1) ]] || apt-get install jq -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "jq"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
-[[ $(dpkg --get-selections|grep -w "jq"|head -1) ]] && STATUS=`echo -e "\033[92mOK"` &>/dev/null
-echo -e "\033[01;31mINSTALANDO\033[01;37m jq\033[01;37m..............$STATUS "
-#python-pip
-[[ $(dpkg --get-selections|grep -w "python-pip"|head -1) ]] || apt-get install python-pip -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "python-pip"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
-[[ $(dpkg --get-selections|grep -w "python-pip"|head -1) ]] && STATUS=`echo -e "\033[92mOK"` &>/dev/null
-echo -e "\033[01;31mINSTALANDO\033[01;37m python-pip\033[01;37m......$STATUS "
-#ufw
-[[ $(dpkg --get-selections|grep -w "ufw"|head -1) ]] || apt-get install ufw -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "ufw"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
-[[ $(dpkg --get-selections|grep -w "ufw"|head -1) ]] && STATUS=`echo -e "\033[92mOK"` &>/dev/null
-echo -e "\033[01;31mINSTALANDO\033[01;37m ufw\033[01;37m.............$STATUS "
-#gawk
-[[ $(dpkg --get-selections|grep -w "gawk"|head -1) ]] || apt-get install gawk -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "gawk"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
-[[ $(dpkg --get-selections|grep -w "gawk"|head -1) ]] && STATUS=`echo -e "\033[92mOK"` &>/dev/null
-echo -e "\033[01;31mINSTALANDO\033[01;37m gawk\033[01;37m............$STATUS "
-#mlocate
-[[ $(dpkg --get-selections|grep -w "mlocate"|head -1) ]] || apt-get install mlocate -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "mlocate"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
-[[ $(dpkg --get-selections|grep -w "mlocate"|head -1) ]] && STATUS=`echo -e "\033[92mOK"` &>/dev/null
-echo -e "\033[01;31mINSTALANDO\033[01;37m mlocate\033[01;37m.........$STATUS "
-#at
-[[ $(dpkg --get-selections|grep -w "at"|head -1) ]] || apt-get install at -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "at"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
-[[ $(dpkg --get-selections|grep -w "at"|head -1) ]] && STATUS=`echo -e "\033[92mOK"` &>/dev/null
-echo -e "\033[01;31mINSTALANDO\033[01;37m at\033[01;37m..............$STATUS "
-#apache2
 [[ $(dpkg --get-selections|grep -w "apache2"|head -1) ]] || {
  apt-get install apache2 -y &>/dev/null
  sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf
  service apache2 restart > /dev/null 2>&1 &
  }
-[[ $(dpkg --get-selections|grep -w "apache2"|head -1) ]] || STATUS=`echo -e "\033[91mERRO"` &>/dev/null
-[[ $(dpkg --get-selections|grep -w "apache2"|head -1) ]] && STATUS=`echo -e "\033[92mOK"` &>/dev/null
-echo -e "\033[01;31mINSTALANDO\033[01;37m apache2\033[01;37m.........$STATUS "
-msg -bar
-read -n1 -r -p " Enter to Continue..."
+}
+
+inst_components2 () {
+[[ $(dpkg --get-selections|grep -w "curl"|head -1) ]] || apt-get install curl -y &>/dev/null
+[[ $(dpkg --get-selections|grep -w "netcat-openbsd"|head -1) ]] || apt-get install netcat-openbsd -y &>/dev/null
+apt-get install grep -y &>/dev/null
+[[ $(dpkg --get-selections|grep -w "net-tools"|head -1) ]] || apt-get install net-tools -y &>/dev/null
+[[ $(dpkg --get-selections|grep -w "dos2unix"|head -1) ]] || apt-get install dos2unix -y &>/dev/null
+[[ $(dpkg --get-selections|grep -w "nload"|head -1) ]] || apt-get install nload -y &>/dev/null
+[[ $(dpkg --get-selections|grep -w "jq"|head -1) ]] || apt-get install jq -y &>/dev/null
+[[ $(dpkg --get-selections|grep -w "python-pip"|head -1) ]] || apt-get install python-pip -y &>/dev/null
+[[ $(dpkg --get-selections|grep -w "at"|head -1) ]] || apt-get install at -y &>/dev/null
 }
 
 funcao_idioma () {
@@ -282,19 +185,19 @@ verificar_arq () {
 case $1 in
 "menu"|"message.txt")ARQ="${SCPdir}/";; #Menu
 "usercodes")ARQ="${SCPusr}/";; #User
-"openssh.sh")ARQ="${SCPinst}/";; #Instalacao
-"budp.sh")ARQ="${SCPinst}/";; #Instalacao
 "apache2.sh")ARQ="${SCPinst}/";; #Instalacao
+"budp.sh")ARQ="${SCPinst}/";; #Instalacao
+"dropbear.sh")ARQ="${SCPinst}/";; #Instalacao
+"openssh.sh")ARQ="${SCPinst}/";; #Instalacao
+"openvpn.sh")ARQ="${SCPinst}/";; #Instalacao
+"shadowsocks.sh")ARQ="${SCPinst}/";; #Instalacao
 "squid.sh")ARQ="${SCPinst}/";; #Instalacao
 "sslh.sh")ARQ="${SCPinst}/";; #Instalacao
-"dropbear.sh")ARQ="${SCPinst}/";; #Instalacao
-"openvpn.sh")ARQ="${SCPinst}/";; #Instalacao
 "ssl.sh")ARQ="${SCPinst}/";; #Instalacao
 "sslautoconfig.sh")ARQ="${SCPinst}/";; #Instalacao
-"shadowsocks.sh")ARQ="${SCPinst}/";; #Instalacao
+"v2ray.sh")ARQ="${SCPinst}/";; #Instalacao
 "vnc.sh")ARQ="${SCPinst}/";; #Instalacao
 "webmin.sh")ARQ="${SCPinst}/";; #Instalacao
-"v2ray.sh")ARQ="${SCPinst}/";; #Instalacao
 "sockspy.sh"|"PDirect.py"|"PPub.py"|"PPriv.py"|"POpen.py"|"PGet.py")ARQ="${SCPinst}/";; #Instalacao
 *)ARQ="${SCPfrm}/";; #Ferramentas
 esac
@@ -305,8 +208,6 @@ chmod +x ${ARQ}/$1
 # Instalação NEW-ULTIMATE
 fun_ip
 wget -O /usr/bin/trans https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/trans &> /dev/null
-inst_components
-clear
 clear
 msg -bar2
 msg -ama "[ NEW - ULTIMATE - SCRIPT ]            \033[1;37m@admmanagerfree"
@@ -358,7 +259,8 @@ if [[ -e $HOME/lista-arq ]] && [[ ! $(cat $HOME/lista-arq|grep "KEY INVALIDA!") 
    echo "${SCPdir}/menu" > /bin/h && chmod +x /bin/h
    rm versao* &> /dev/null
    wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/versao &> /dev/null
-   # inst_components
+   inst_components
+   inst_components2
    install_hosts
    echo "$Key" > ${SCPdir}/key.txt
    [[ -d ${SCPinstal} ]] && rm -rf ${SCPinstal}   

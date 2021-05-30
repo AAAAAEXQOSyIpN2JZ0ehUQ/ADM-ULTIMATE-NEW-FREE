@@ -47,8 +47,7 @@ SEMCOR='\e[0m'
   -azu)cor="${COLOR[6]}${NEGRITO}" && echo -e "${cor}${2}${SEMCOR}";;
   -verd)cor="${COLOR[2]}${NEGRITO}" && echo -e "${cor}${2}${SEMCOR}";;
   -bra)cor="${COLOR[0]}${NEGRITO}" && echo -e "${cor}${2}${SEMCOR}";;
-  -bar2)cor="${COLOR[4]}——————————————————————————————————————————————————————" && echo -e "${cor}${SEMCOR}";;
-  -bar)cor="${COLOR[4]}——————————————————————————————————————————————————————" && echo -e "${cor}${SEMCOR}";;
+  "-bar2"|"-bar")cor="${COLOR[4]}——————————————————————————————————————————————————————" && echo -e "${SEMCOR}${cor}${SEMCOR}";;
  esac
 }
 
@@ -134,7 +133,7 @@ byinst="true"
 }
 
 install_fim () {
-msg -ama "$(source trans -b pt:${id} "Instalacao Completa, Utilize os Comandos"|sed -e 's/[^a-z -]//ig')" && msg bar2
+msg -ama "$(fun_trans "Instalacao Completa, Utilize os Comandos"|sed -e 's/[^a-z -]//ig')" && msg bar2
 echo -e " menu / adm"
 msg -bar2
 }
@@ -215,7 +214,7 @@ msg -ama "[ NEW - ULTIMATE - SCRIPT ]            \033[1;37m@admmanagerfree"
 [[ ${#1} -gt 2 ]] && funcao_idioma || id="$1"
  }
 error_fun () {
-msg -bar2 && msg -verm "$(source trans -b pt:${id} "Esta Chave Era de Outro Servidor Portanto Foi Excluida"|sed -e 's/[^a-z -]//ig') " && msg -bar2
+msg -bar2 && msg -verm "$(fun_trans "Esta Chave Era de Outro Servidor Portanto Foi Excluida"|sed -e 's/[^a-z -]//ig') " && msg -bar2
 [[ -d ${SCPinstal} ]] && rm -rf ${SCPinstal}
 exit 1
 }
@@ -238,10 +237,10 @@ sleep 1s
 updatedb
 if [[ -e $HOME/lista-arq ]] && [[ ! $(cat $HOME/lista-arq|grep "KEY INVALIDA!") ]]; then
    msg -bar2
-   msg -ama "$(source trans -b pt:${id} "BEM VINDO, OBRIGADO POR UTILIZAR"|sed -e 's/[^a-z -]//ig'): \033[1;31m[NEW-ULTIMATE]"
+   msg -ama "$(fun_trans "BEM VINDO, OBRIGADO POR UTILIZAR"|sed -e 's/[^a-z -]//ig'): \033[1;31m[NEW-ULTIMATE]"
    [[ ! -d ${SCPinstal} ]] && mkdir ${SCPinstal}
    pontos="."
-   stopping="$(source trans -b pt:${id} "Verificando Atualizacoes"|sed -e 's/[^a-z -]//ig')"
+   stopping="$(fun_trans "Verificando Atualizacoes"|sed -e 's/[^a-z -]//ig')"
    for arqx in $(cat $HOME/lista-arq); do
    msg -verm "${stopping}${pontos}"
    wget -O ${SCPinstal}/${arqx} ${REQUEST}/${arqx} > /dev/null 2>&1 && verificar_arq "${arqx}" || error_fun

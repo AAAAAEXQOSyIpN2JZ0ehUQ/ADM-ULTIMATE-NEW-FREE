@@ -47,57 +47,8 @@ SEMCOR='\e[0m'
   -azu)cor="${COLOR[6]}${NEGRITO}" && echo -e "${cor}${2}${SEMCOR}";;
   -verd)cor="${COLOR[2]}${NEGRITO}" && echo -e "${cor}${2}${SEMCOR}";;
   -bra)cor="${COLOR[0]}${NEGRITO}" && echo -e "${cor}${2}${SEMCOR}";;
-  "-bar2"|"-bar")cor="${COLOR[4]}——————————————————————————————————————————————————————" && echo -e "${SEMCOR}${cor}${SEMCOR}";;
+  -bar2"|"-bar")cor="${COLOR[4]}——————————————————————————————————————————————————————" && echo -e "${SEMCOR}${cor}${SEMCOR}";;
  esac
-}
-
-canbio_color () {
-clear
-clear
-msg -bar2
-msg -ama "$(fun_trans "Ola esse e o Gerenciador de Cores") \033[1;31m[NEW-ULTIMATE]"
-msg -bar2
-msg -ama "$(fun_trans "Selecione 7 cores"): "
-echo -e '\033[1;37m [1] #BRAN\033[0m'
-echo -e '\e[31m [2] #VERMELHO\033[0m'
-echo -e '\e[32m [3] #VERDE\033[0m'
-echo -e '\e[33m [4] #AMAREL\033[0m'
-echo -e '\e[34m [5] #AZUL\033[0m'
-echo -e '\e[35m [6] #MAGENTA\033[0m'
-echo -e '\033[1;36m [7] #MAG\033[0m'
-msg -bar2
-for number in $(echo {1..7}); do
-msg -ne "$(fun_trans "Digite a Cor") [$number]: " && read corselect
-[[ $corselect != @([1-7]) ]] && corselect=1
-cores+="$corselect "
-corselect=0
-done
-echo "$cores" > /etc/new-adm-color
-msg -bar2
-}
-
-fun_trans () { 
-local texto
-local retorno
-declare -A texto
-SCPidioma="${SCPdir}/idioma"
-[[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
-local LINGUAGE=$(cat ${SCPidioma})
-[[ -z $LINGUAGE ]] && LINGUAGE=pt
-[[ $LINGUAGE = "pt" ]] && echo "$@" && return
-[[ ! -e /etc/texto-adm ]] && touch /etc/texto-adm
-source /etc/texto-adm
-if [[ -z "$(echo ${texto[$@]})" ]]; then
-if [[ `echo "$@" | grep -o '*'` = "*" ]]; then
-retorno="$(source trans -e bing -b pt:${LINGUAGE} "$@"|sed -e 's/[^a-z0-9 -]//ig'| awk '{print toupper($0)}' 2>/dev/null)"
-else
-retorno="$(source trans -e bing -b pt:${LINGUAGE} "$@"|sed -e 's/[^a-z0-9 -]//ig' 2>/dev/null)"
-fi
-echo "texto[$@]='$retorno'"  >> /etc/texto-adm
-echo "$retorno"
-else
-echo "${texto[$@]}"
-fi
 }
 
 fun_ip () {

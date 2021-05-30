@@ -99,8 +99,6 @@ fi
 atualiza_fun () {
 cd $HOME
 tput cuu1 && tput dl1
-clear
-clear
 msg -bar2
 msg -ama "$(fun_trans "ATUALIZADOR ADM SCRIPTS*"): \033[1;31m[NEW-ULTIMATE]"
 msg -verm "$(fun_trans "Ao Prosseguirmos Dados como Tempo de uso Serao Perdidos"): "

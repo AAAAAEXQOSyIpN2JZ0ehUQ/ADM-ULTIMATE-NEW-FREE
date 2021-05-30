@@ -2,7 +2,7 @@
 ```
 * UPDATE 08/05/2021 - PROYECTO FINALIZADO
 ```
-![logo](https://github.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/blob/master/Imagenes/ADM_ULTIMATE_NEW_FREE.jpg)
+![logo](https://github.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/blob/master/Imagenes/ADM_ULTIMATE_NEW_FREE.png)
 
 **Manager Script**
 

@@ -114,7 +114,8 @@ return 0
 
 edit_openssh () {
 msg -ama " $(fun_trans "Agora Escolha as Portas que Deseja No OpenSSH*")"
-msg -ama " $(fun_trans "Escolha As Portas Validas Em Ordem Sequencial Exemplo: 80 8080 8799 3128")"
+msg -ama " $(fun_trans "Escolha As Portas Validas Em Ordem Sequencial")"
+msg -ama " $(fun_trans "Exemplo: 22 443 2231 8081")"
 msg -bar
 local CONF="/etc/ssh/sshd_config"
 local NEWCONF="$(cat ${CONF}|grep -v [Pp]ort)"

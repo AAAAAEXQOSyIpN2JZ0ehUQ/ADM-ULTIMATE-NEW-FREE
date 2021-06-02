@@ -136,9 +136,9 @@ read -p " [S/N]: " -e -i n PROS
 [[ $PROS = @(s|S|y|Y) ]] || return 1
 #Inicia Procedimentos
 msg -bar
-fun_bar "apt-get install nload -y"
-sleep 2s
+[[ $(dpkg --get-selections|grep -w "nload"|head -1) ]] || apt-get install nload -y &>/dev/null
 nload
+msg -ama " $(fun_trans "Procedimento concluido")"
 }
 
 fun_htop () {
@@ -149,9 +149,9 @@ read -p " [S/N]: " -e -i n PROS
 [[ $PROS = @(s|S|y|Y) ]] || return 1
 #Inicia Procedimentos
 msg -bar
-fun_bar "apt-get install htop -y"
-sleep 2s
+[[ $(dpkg --get-selections|grep -w "htop"|head -1) ]] || apt-get install htop -y &>/dev/null
 htop
+msg -ama " $(fun_trans "Procedimento concluido")"
 }
 
 clear

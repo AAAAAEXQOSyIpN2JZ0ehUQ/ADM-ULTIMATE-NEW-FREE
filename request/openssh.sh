@@ -87,7 +87,7 @@ read  -p " Nuevo passwd: " pass
 (echo $pass; echo $pass)|passwd 2>/dev/null
 msg -bar
 msg -ama " $(fun_trans "CONFIGURACOES ROOT APLICADAS")!"
-echo -e "\033[1;31m $(fun_trans "SENHA ATUAL")ROOT: \033[1;32m$pass"
+echo -e "\033[1;31m $(fun_trans "SENHA ATUAL") ROOT: \033[1;32m$pass"
 msg -bar
 msg -ne "\033[1;31m [ ! ] \033[1;33m$(fun_trans "REINICIANDO SERVICOS*")"
 service ssh restart > /dev/null 2>&1
@@ -100,7 +100,7 @@ return 0
 }
 
 download_ssh () {
-msg -verd " $(fun_trans "OPENSSH DOWNLOAD-CONFIGURAÇAO")"
+msg -verd " $(fun_trans "OPENSSH DOWNLOAD-CONFIGURAÇAO") ROOT"
 msg -bar
 fun_ip
 msg -ne " $(fun_trans "Confirme seu ip")"; read -p ": " -e -i $IP ip
@@ -111,7 +111,13 @@ fun_bar "apt-get update -y" "apt-get upgrade -y"
 service ssh restart > /dev/null 2>&1
 cp /etc/ssh/sshd_config /etc/ssh/sshd_back
 wget -O /etc/ssh/sshd_config https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/sshd_config > /dev/null 2>&1
+grep -v "^PasswordAuthentication yes" /etc/ssh/sshd_config >/tmp/passlogin && mv /tmp/passlogin /etc/ssh/sshd_config
+echo "PasswordAuthentication yes" >>/etc/ssh/sshd_config
+grep -v "^PermitTunnel yes" /etc/ssh/sshd_config >/tmp/ssh && mv /tmp/ssh /etc/ssh/sshd_config
+echo "PermitTunnel yes" >>/etc/ssh/sshd_config
 chmod +x /etc/ssh/sshd_config
+msg -bar
+msg -ama " $(fun_trans "CONFIGURACOES ROOT APLICADAS")!"
 msg -bar
 msg -ne "\033[1;31m [ ! ] \033[1;33m$(fun_trans "REINICIANDO SERVICOS*")"
 service ssh restart > /dev/null 2>&1

@@ -83,7 +83,7 @@ ram3=$(free -h | grep -i mem | awk {'print $3'})
 swap1=$(free -h | grep -i swap | awk {'print $2'})
 swap2=$(free -h | grep -i swap | awk {'print $4'})
 swap3=$(free -h | grep -i swap | awk {'print $3'})
-echo -e "\033[1;37mMemória \033[1;32mRAM \033[1;37mAntes da Otimizacao:\033[1;36m" $MEM1%
+echo -e " \033[1;37mMemória \033[1;32mRAM \033[1;37mAntes da Otimizacao:\033[1;36m" $MEM1%
 msg -bar
 sleep 1
 aguarde
@@ -96,7 +96,7 @@ ram3=$(free -h | grep -i mem | awk {'print $3'})
 swap1=$(free -h | grep -i swap | awk {'print $2'})
 swap2=$(free -h | grep -i swap | awk {'print $4'})
 swap3=$(free -h | grep -i swap | awk {'print $3'})
-echo -e "\033[1;37mMemória \033[1;32mRAM \033[1;37mapós a Otimizacao:\033[1;36m" $MEM2%
+echo -e " \033[1;37mMemória \033[1;32mRAM \033[1;37mapós a Otimizacao:\033[1;36m" $MEM2%
 echo ""
 msg -bra " $(fun_trans "Economia de"):\033[1;31m $(expr $MEM1 - $MEM2)%\033[0m"
 msg -bar

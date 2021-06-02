@@ -123,6 +123,7 @@ else
 msg -verm "$(fun_trans "Procedimento Cancelado"): "
 msg -bar2
 fi
+[[ -e $HOME/instalar.sh ]] && rm $HOME/instalar.sh*
 }
 funcao_idioma () {
 tput cuu1 && tput dl1

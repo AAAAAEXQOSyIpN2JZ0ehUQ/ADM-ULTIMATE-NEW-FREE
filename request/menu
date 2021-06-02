@@ -618,7 +618,7 @@ return 0
 float_data () {
 ofc="\033[0m${gren}(#OFC)"
 dev="\033[0m${gren}(#DEV)"
-dev="\033[0m${gren}(#BETA)"
+beta="\033[0m${gren}(#BETA)"
 case $1 in
 # Menu Instalação Ger-Frm OFC
 "ADMbot.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "BOT DE GERENCIAMENTO*") TELEGRAM $ofc";;

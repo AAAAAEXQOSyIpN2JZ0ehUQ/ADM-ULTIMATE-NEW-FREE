@@ -131,7 +131,7 @@ return
 clear
 clear
 msg -bar
-msg -ama "$(fun_trans " GERENCIAR SISTEMA INTERNO")"
+msg -ama "$(fun_trans " GERENCIAR SISTEMA")"
 msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "ATUALIZAR PACOTES")"

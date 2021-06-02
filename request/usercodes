@@ -785,7 +785,6 @@ case ${selection} in
 cp ${USRdatabase} $HOME/Backup-adm
 msg -azu "$(fun_trans "Procedimento Feito")"
 echo -e "\033[1;31mBACKUP > \033[1;31m[ \033[1;32m$HOME/Backup-adm \033[1;31m]"
-msg -bar
 ;;
 2)
 while [[ ! -e ${dirbackup} ]]; do

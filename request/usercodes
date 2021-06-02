@@ -783,13 +783,13 @@ done
 case ${selection} in
 1)
 cp ${USRdatabase} $HOME/Backup-adm
+msg -azu "$(fun_trans "Procedimento Feito")"
 echo -e "\033[1;31mBACKUP > \033[1;31m[ \033[1;32m$HOME/Backup-adm \033[1;31m]"
 msg -bar
-msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
 ;;
 2)
 while [[ ! -e ${dirbackup} ]]; do
-echo -ne "\033[1;37m$(fun_trans "Digite o Local Do Backup-adm") : " && read dirbackup
+echo -ne "\033[1;37m$(fun_trans "Digite o Local Do Backup-adm"): " && read dirbackup
 tput cuu1 && tput dl1
 done
 VPSsec=$(date +%s)
@@ -808,7 +808,6 @@ add_user "$nome" "$senha" "$dias" "$limite" && msg -verd "$nome [OK]" || msg -ve
 done < ${dirbackup}
 ;;
 esac
-msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
 msg -bar
 }
 verif_funx () {

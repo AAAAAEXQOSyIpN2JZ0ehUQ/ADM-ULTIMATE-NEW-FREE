@@ -66,24 +66,35 @@ service ssh restart > /dev/null 2>&1 &
 }
 
 opssh_fun () {
-msg -verd " $(fun_trans "OPENSSH AUTO-CONFIGURAÇAO")"
+msg -verd " $(fun_trans "OPENSSH AUTO-CONFIGURAÇAO") ROOT"
 msg -bar
 fun_ip
 msg -ne " $(fun_trans "Confirme seu ip")"; read -p ": " -e -i $IP ip
 msg -bar
-msg -ama " $(fun_trans "AUTO CONFIGURAÇAO PORTA 22 ")"
+#Inicia Procedimentos
+msg -ama " $(fun_trans "AUTO CONFIGURAÇAO")"
 msg -bar
 fun_bar "apt-get update -y" "apt-get upgrade -y"
 service ssh restart > /dev/null 2>&1
 cp /etc/ssh/sshd_config /etc/ssh/sshd_back
-fun_ssh
+sed -i "s;PermitRootLogin prohibit-password;PermitRootLogin yes;g" /etc/ssh/sshd_config
+sed -i "s;PermitRootLogin without-password;PermitRootLogin yes;g" /etc/ssh/sshd_config
+sed -i "s;PasswordAuthentication no;PasswordAuthentication yes;g" /etc/ssh/sshd_config
+msg -bar
+echo -e "\033[1;37m $(fun_trans "DIGITE SUA SENHA ATUAL OU UMA NOVA SENHA")"
+msg -bar
+read  -p " Nuevo passwd: " pass
+(echo $pass; echo $pass)|passwd 2>/dev/null
+msg -bar
+msg -ama " $(fun_trans "CONFIGURA��ES ROOT APLICADAS")!"
+echo -e "\033[1;31m $(fun_trans "SENHA"): \033[1;32m$pass"
 msg -bar
 msg -ne "\033[1;31m [ ! ] \033[1;33m$(fun_trans "REINICIANDO SERVICOS*")"
 service ssh restart > /dev/null 2>&1
 service sshd restart > /dev/null 2>&1
 echo -e " \033[1;32m[OK]"
 msg -bar
-msg -ama " $(fun_trans "Seu Openssh foi configurado com sucesso Porta 22")"
+msg -ama " $(fun_trans "Seu Openssh foi configurado com sucesso")"
 msg -bar
 return 0
 }

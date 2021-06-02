@@ -104,7 +104,7 @@ hostnamectl set-hostname $name
 if [ $(hostnamectl status | head -1  | awk '{print $3}') = "${name}" ]; then 
 echo -e "\033[1;33m $(fun_trans "NOME ALTERADO COM SUCESSO")!"
 else
-echo -e "\033[1;33m $(fun_trans "Falhou")!"
+echo -e "\033[1;31m $(fun_trans "Falhou")!"
 fi
 return
 }
@@ -124,7 +124,7 @@ read  -p " Nuevo passwd: " pass
 sleep 1s
 msg -bar
 msg -ama " $(fun_trans "SENHA ALTERADA COM SUCESSO")!"
-echo -e "\033[1;31m $(fun_trans "NOVA SENHA"): ${cor[4]}$pass"
+echo -e "\033[1;31m $(fun_trans "NOVA SENHA"): \033[1;32m$pass"
 return
 }
 

@@ -39,91 +39,8 @@ echo -e " \033[1;33m[\033[1;31m####################\033[1;33m] - \033[1;32m100%\
 sleep 1s
 }
 
-update_pak () {
-echo -ne " \033[1;31m[ ! ] apt-get update"
-apt-get update -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-echo -ne " \033[1;31m[ ! ] apt-get upgrade"
-apt-get upgrade -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-return
-}
-
-reiniciar_ser () {
-echo -ne " \033[1;31m[ ! ] Services ssh restart"
-service ssh restart > /dev/null 2>&1
-[[ -e /etc/init.d/ssh ]] && /etc/init.d/ssh restart > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-echo -ne " \033[1;31m[ ! ] Services dropbear restart"
-service dropbear restart > /dev/null 2>&1
-[[ -e /etc/init.d/dropbear ]] && /etc/init.d/dropbear restart > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-echo -ne " \033[1;31m[ ! ] Services squid restart"
-service squid restart > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-echo -ne " \033[1;31m[ ! ] Services squid3 restart"
-service squid3 restart > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-echo -ne " \033[1;31m[ ! ] Services openvpn restart"
-service openvpn restart > /dev/null 2>&1
-[[ -e /etc/init.d/openvpn ]] && /etc/init.d/openvpn restart > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-echo -ne " \033[1;31m[ ! ] Services stunnel4 restart"
-service stunnel4 restart > /dev/null 2>&1
-[[ -e /etc/init.d/stunnel4 ]] && /etc/init.d/stunnel4 restart > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-echo -ne " \033[1;31m[ ! ] Services apache2 restart"
-service apache2 restart > /dev/null 2>&1
-[[ -e /etc/init.d/apache2 ]] && /etc/init.d/apache2 restart > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-echo -ne " \033[1;31m[ ! ] Services fail2ban restart"
-( 
-[[ -e /etc/init.d/ssh ]] && /etc/init.d/ssh restart
-fail2ban-client -x stop && fail2ban-client -x start
-) > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-return
-}
-
-reiniciar_vps () {
-echo -ne " \033[1;31m[ ! ] Sudo Reboot"
-sleep 3s
-echo -e "\033[1;32m [OK]"
-(
-reboot
-) > /dev/null 2>&1
-return
-}
-
-host_name () {
-unset name
-while [[ ${name} = "" ]]; do
-echo -ne "\033[1;37m $(fun_trans "Nuevo nombre del host"): " && read name
-tput cuu1 && tput dl1
-done
-hostnamectl set-hostname $name 
-if [ $(hostnamectl status | head -1  | awk '{print $3}') = "${name}" ]; then 
-echo -e "\033[1;33m $(fun_trans "Host alterado corretamente")"
-msg -bar
-echo -e "$(fun_trans "Reiniciar Sistema?")"
-read -p " [S/N]: " -e -i s PROS
-[[ $PROS = @(s|S|y|Y) ]] || return 1
-#Inicia Procedimentos
-reiniciar_vps
-else
-echo -e "\033[1;33m $(fun_trans "Host no modificado")!"
-fi
-return
-}
-
-cambiopass () {
-echo -e "${cor[3]} $(fun_trans "Esta herramienta cambia la contraseña de su servidor vps")"
-echo -e "${cor[3]} $(fun_trans "Esta contraseña es utilizada como usuario") root"
-msg -bar
-echo -e "$(fun_trans "Deseja Prosseguir?")"
-read -p " [S/N]: " -e -i n PROS
-[[ $PROS = @(s|S|y|Y) ]] || return 1
-#Inicia Procedimentos
-msg -bar
-echo -e "\033[1;37m $(fun_trans "Escriba su nueva contraseña")"
-msg -bar
-read  -p " Nuevo passwd: " pass
-(echo $pass; echo $pass)|passwd 2>/dev/null
-sleep 1s
-msg -bar
-echo -e "${cor[3]} $(fun_trans "Contraseña cambiada con exito!")"
-echo -e "${cor[2]} $(fun_trans "Su contraseña ahora es"): ${cor[4]}$pass"
-return
+fun_nettools () {
+[[ ! -e /bin/nettools.py ]] && wget -O /bin/nettools.py https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/nettools.py > /dev/null 2>&1; chmod +x /bin/nettools.py; /bin/nettools.py
 }
 
 act_hora () {
@@ -283,15 +200,12 @@ for porta in `echo -e "$PT" | cut -d: -f2 | cut -d' ' -f1 | uniq`; do
 done
 }
 
-fun_nettools () {
-[[ ! -e /bin/nettools.py ]] && wget -O /bin/nettools.py https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/nettools.py > /dev/null 2>&1; chmod +x /bin/nettools.py; /bin/nettools.py
-}
-
 resetiptables () {
 echo -e "Reiniciando Ipetables espere"
 iptables -F && iptables -X && iptables -t nat -F && iptables -t nat -X && iptables -t mangle -F && iptables -t mangle -X && iptables -t raw -F && iptables -t raw -X && iptables -t security -F && iptables -t security -X && iptables -P INPUT ACCEPT && iptables -P FORWARD ACCEPT && iptables -P OUTPUT ACCEPT
 echo -e "iptables reiniciadas con exito"
 }
+
 packobs () {
 msg -ama "Buscando Paquetes Obsoletos"
 dpkg -l | grep -i ^rc
@@ -300,60 +214,48 @@ dpkg -l |grep -i ^rc | cut -d " " -f 3 | xargs dpkg --purge
 msg -ama "Limpieza Completa"
 }
 
-RAM () {
-sudo sync
-sudo sysctl -w vm.drop_caches=3 > /dev/null 2>&1
-msg -ama "   Ram limpiada con Exito!"
-}
-
 selection_fun () {
 local selection="null"
 local range
 for((i=0; i<=$1; i++)); do range[$i]="$i "; done
 while [[ ! $(echo ${range[*]}|grep -w "$selection") ]]; do
-echo -ne "[0-13]: " >&2
+echo -ne "[0-99]: " >&2
 read selection
 tput cuu1 >&2 && tput dl1 >&2
 done
 echo $selection
 }
-clear
+
 clear
 msg -bar
-msg -ama " $(fun_trans "GERENCIAR SISTEMA INTERNO")"
+msg -ama " $(fun_trans "MENU DE UTILITARIOS") TEST"
 msg -bar
 msg -azu " \033[1;31m[\033[1;33m!\033[1;31m]\033[1;33m$(fun_trans "FUNCAO BETA ULTILIZE POR SUA CONTA EM RISCO")"
 msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
-echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "ATUALIZAR PACOTES")"
-echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "REINICIAR OS SERVICO")"
-echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "REINICIAR SISTEMA")"
-echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "ALTERAR O NOME DO SISTEMA")"
-echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "CAMBIAR CONTRASEÑA ROOT DEL SISTEMA")"
-echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "ATUALIZAR HORA AMERICA-SANTIAGO")"
-echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "MUDAR CORES SISTEMA A RED-TEME")"
-echo -ne "\033[1;32m [8] > " && msg -azu "$(fun_trans "DESBLOQUEAR VURTL PARA CREAR USUARIOS") \033[1;33m(\033[1;37mBETA\033[1;33m)"
-echo -ne "\033[1;32m [9] > " && msg -azu "$(fun_trans "APLICAR ROOT A GOOGLECLOUD Y AMAZON")"
-echo -ne "\033[1;32m [10] > " && msg -azu "$(fun_trans "TRAFICO DE RED NLOAD")"
-echo -ne "\033[1;32m [11] > " && msg -azu "$(fun_trans "PROCESOS DEL SISTEMA HTOP")"
-echo -ne "\033[1;32m [12] > " && msg -azu "$(fun_trans "DETALHES DO SISTEMA") \033[1;33m(\033[1;37mBETA\033[1;33m)"
-echo -ne "\033[1;32m [13] > " && msg -azu "$(fun_trans "NET TOOLS TARGET") \033[1;33m(\033[1;37mBETA\033[1;33m)"
+echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "ATUALIZAR HORA AMERICA-SANTIAGO")"
+echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "MUDAR CORES SISTEMA A RED-TEME")"
+echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "DESBLOQUEAR VURTL PARA CREAR USUARIOS")"
+echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "APLICAR ROOT A GOOGLECLOUD Y AMAZON")"
+echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "TRAFICO DE RED NLOAD")"
+echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "PROCESOS DEL SISTEMA HTOP")"
+echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "DETALHES DO SISTEMA")"
+echo -ne "\033[1;32m [8] > " && msg -azu "$(fun_trans "NET TOOLS TARGET")"
+echo -ne "\033[1;32m [9] > " && msg -azu "$(fun_trans "Reiniciar iptables")"
+echo -ne "\033[1;32m [10] > " && msg -azu "$(fun_trans "Limpar pacotes Obsoletos")"
 msg -bar
-selection=$(selection_fun 18)
+selection=$(selection_fun 10)
 case ${selection} in
-1)update_pak;;
-2)reiniciar_ser;;
-3)reiniciar_vps;;
-4)host_name;;
-5)cambiopass;;
-6)act_hora;;
-7)newadm_color;;
-8)pamcrack;;
-9)aplica_root;;
-10)fun_nload;;
-11)fun_htop;;
-12)fun_statussistema;;
-13)fun_nettools;;
+1)act_hora;;
+2)newadm_color;;
+3)pamcrack;;
+4)aplica_root;;
+5)fun_nload;;
+6)fun_htop;;
+7)fun_statussistema;;
+8)fun_nettools;;
+9)resetiptables;;
+10)packobs;;
 0)exit;;
 esac
 msg -bar

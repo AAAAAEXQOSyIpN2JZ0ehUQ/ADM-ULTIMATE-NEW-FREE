@@ -123,25 +123,15 @@ read  -p " Nuevo passwd: " pass
 (echo $pass; echo $pass)|passwd 2>/dev/null
 sleep 1s
 msg -bar
-echo -e "${cor[3]} $(fun_trans "SENHA ALTERADA COM SUCESSO")!"
-echo -e "${cor[2]} $(fun_trans "NOVA SENHA"): ${cor[4]}$pass"
+echo -e "\033[1;33m $(fun_trans "SENHA ALTERADA COM SUCESSO")!"
+echo -e "\033[1;31m $(fun_trans "NOVA SENHA"): ${cor[4]}$pass"
 return
 }
-
-on="\033[1;32mon" && off="\033[1;31moff"
-[[ $(ps x | grep badvpn | grep -v grep | awk '{print $1}') ]] && badvpn=$on || badvpn=$off
-[[ `grep -c "^#ADM" /etc/sysctl.conf` -eq 0 ]] && tcp=$off || tcp=$on
-[[ -e /etc/torrent-on ]] && torrent=$(echo -e "\033[1;32mon ") || torrent=$(echo -e "\033[1;31moff ")
-if [ -e /etc/squid/squid.conf ]; then
-[[ `grep -c "^#CACHE DO SQUID" /etc/squid/squid.conf` -gt 0 ]] && squid=$on || squid=$off
-elif [ -e /etc/squid3/squid.conf ]; then
-[[ `grep -c "^#CACHE DO SQUID" /etc/squid3/squid.conf` -gt 0 ]] && squid=$on || squid=$off
-fi
 
 clear
 clear
 msg -bar
-msg -ama "$(fun_trans "GERENCIAR SISTEMA INTERNO")"
+msg -ama "$(fun_trans " GERENCIAR SISTEMA INTERNO")"
 msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "ATUALIZAR PACOTES")"
@@ -150,8 +140,8 @@ echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "REINICIAR SISTEMA")"
 echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "ALTERAR O NOME DO SISTEMA")"
 echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "ALTERAR SENHA ROOT")"
 msg -bar
-while [[ ${arquivoonlineadm} != @(0|[1-9]) ]]; do
-read -p "[0-9]: " arquivoonlineadm
+while [[ ${arquivoonlineadm} != @(0|[1-5]) ]]; do
+read -p "[0-5]: " arquivoonlineadm
 tput cuu1 && tput dl1
 done
 case $arquivoonlineadm in

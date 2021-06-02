@@ -116,24 +116,6 @@ echo -e "${cor[2]} $(fun_trans "Su contraseña ahora es"): ${cor[4]}$pass"
 return
 }
 
-fun_nload () {
-echo -e "${cor[4]} $(fun_trans "PARA SALIR DEL PANEL PRESIONE") ${cor[3]}CTLR + C"
-msg -bar
-sleep 1s
-fun_bar "apt-get install nload -y"
-sleep 2s
-nload
-}
-
-fun_htop () {
-echo -e "${cor[4]} $(fun_trans "PARA SALIR DEL PANEL PRESIONE") ${cor[3]}CTLR + C"
-msg -bar
-sleep 1s
-fun_bar "apt-get install htop -y"
-sleep 2s
-htop
-}
-
 fun_statussistema () {
 echo -e "\033[1;33m DETALHES DO SISTEMA"
 msg -bar
@@ -237,12 +219,10 @@ echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "ATUALIZAR HORA AMERICA-SA
 echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "MUDAR CORES SISTEMA A RED-TEME")"
 echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "DESBLOQUEAR VURTL PARA CREAR USUARIOS")"
 echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "APLICAR ROOT A GOOGLECLOUD Y AMAZON")"
-echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "TRAFICO DE RED NLOAD")"
-echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "PROCESOS DEL SISTEMA HTOP")"
-echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "DETALHES DO SISTEMA")"
-echo -ne "\033[1;32m [8] > " && msg -azu "$(fun_trans "NET TOOLS TARGET")"
-echo -ne "\033[1;32m [9] > " && msg -azu "$(fun_trans "Reiniciar iptables")"
-echo -ne "\033[1;32m [10] > " && msg -azu "$(fun_trans "Limpar pacotes Obsoletos")"
+echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "DETALHES DO SISTEMA")"
+echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "NET TOOLS TARGET")"
+echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "Reiniciar iptables")"
+echo -ne "\033[1;32m [8] > " && msg -azu "$(fun_trans "Limpar pacotes Obsoletos")"
 msg -bar
 selection=$(selection_fun 10)
 case ${selection} in
@@ -250,12 +230,10 @@ case ${selection} in
 2)newadm_color;;
 3)pamcrack;;
 4)aplica_root;;
-5)fun_nload;;
-6)fun_htop;;
-7)fun_statussistema;;
-8)fun_nettools;;
+5)fun_statussistema;;
+6)fun_nettools;;
 9)resetiptables;;
-10)packobs;;
+8)packobs;;
 0)exit;;
 esac
 msg -bar

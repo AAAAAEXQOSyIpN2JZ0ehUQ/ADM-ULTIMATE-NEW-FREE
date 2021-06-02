@@ -110,7 +110,7 @@ return
 }
 
 senharoot () {
-echo -e "${cor[3]} $(fun_trans "Essa senha sera usada para entrar no seu servidor")"
+msg -ama " $(fun_trans "Essa senha sera usada para entrar no seu servidor")"
 msg -bar
 echo -e "$(fun_trans "Deseja Prosseguir?")"
 read -p " [S/N]: " -e -i n PROS
@@ -123,9 +123,35 @@ read  -p " Nuevo passwd: " pass
 (echo $pass; echo $pass)|passwd 2>/dev/null
 sleep 1s
 msg -bar
-echo -e "\033[1;33m $(fun_trans "SENHA ALTERADA COM SUCESSO")!"
+msg -ama " $(fun_trans "SENHA ALTERADA COM SUCESSO")!"
 echo -e "\033[1;31m $(fun_trans "NOVA SENHA"): ${cor[4]}$pass"
 return
+}
+
+fun_nload () {
+msg -azu " $(fun_trans "PARA SALIR DEL PANEL PRESIONE") \033[1;33mCTLR + C"
+msg -bar
+echo -e "$(fun_trans "Deseja Prosseguir?")"
+read -p " [S/N]: " -e -i n PROS
+[[ $PROS = @(s|S|y|Y) ]] || return 1
+#Inicia Procedimentos
+msg -bar
+fun_bar "apt-get install nload -y"
+sleep 2s
+nload
+}
+
+fun_htop () {
+msg -azu " $(fun_trans "PARA SALIR DEL PANEL PRESIONE") \033[1;33mCTLR + C"
+msg -bar
+echo -e "$(fun_trans "Deseja Prosseguir?")"
+read -p " [S/N]: " -e -i n PROS
+[[ $PROS = @(s|S|y|Y) ]] || return 1
+#Inicia Procedimentos
+msg -bar
+fun_bar "apt-get install htop -y"
+sleep 2s
+htop
 }
 
 clear
@@ -139,9 +165,11 @@ echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "REINICIAR SERVICOS")"
 echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "REINICIAR SISTEMA")"
 echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "ALTERAR O NOME DO SISTEMA")"
 echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "ALTERAR SENHA ROOT")"
+echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "TRAFICO DE RED NLOAD")"
+echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "PROCESOS DEL SISTEMA HTOP")"
 msg -bar
-while [[ ${arquivoonlineadm} != @(0|[1-5]) ]]; do
-read -p "[0-5]: " arquivoonlineadm
+while [[ ${arquivoonlineadm} != @(0|[1-7]) ]]; do
+read -p "[0-7]: " arquivoonlineadm
 tput cuu1 && tput dl1
 done
 case $arquivoonlineadm in
@@ -150,6 +178,8 @@ case $arquivoonlineadm in
 3)reiniciar_vps;;
 4)host_name;;
 5)senharoot;;
+6)fun_nload;;
+7)fun_htop;;
 0)exit;;
 esac
 msg -bar

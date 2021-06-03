@@ -174,6 +174,7 @@ dpkg -l |grep -i ^rc | cut -d " " -f 3 | xargs dpkg --purge
 msg -ama "Limpieza Completa"
 }
 
+# SISTEMA DE SELECAO
 selection_fun () {
 local selection="null"
 local range
@@ -198,9 +199,10 @@ echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "MUDAR CORES SISTEMA A RED
 echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "APLICAR ROOT A GOOGLECLOUD Y AMAZON")"
 echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "DETALHES DO SISTEMA")"
 echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "NET TOOLS TARGET")"
-echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "Reiniciar iptables")"
-echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "Limpar pacotes Obsoletos")"
+echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "REINICIAR IPTABLES")"
+echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "LIMPAR PACOTES OBSOLETOS")"
 msg -bar
+# FIM
 selection=$(selection_fun 7)
 case ${selection} in
 1)act_hora;;

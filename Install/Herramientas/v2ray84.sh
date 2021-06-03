@@ -39,7 +39,7 @@ sort ${USRdatabase} | uniq > ${USRdatabase}tmp
 mv -f ${USRdatabase}tmp ${USRdatabase}
 msg -bar
 msg -ne "Enter Para Continuar" && read enter
-/bin/v2ray.sh
+/etc/ger-inst/v2ray.sh
 
 }
 protocolv2ray () {
@@ -48,7 +48,7 @@ msg -bar
 v2ray stream
 msg -bar
 msg -ne "Enter Para Continuar" && read enter
-/bin/v2ray.sh
+/etc/ger-inst/v2ray.sh
 }
 tls () {
 msg -ama "$(fun_trans "Activar o Desactivar TLS")!"
@@ -56,7 +56,7 @@ msg -bar
 v2ray tls
 msg -bar
 msg -ne "Enter Para Continuar" && read enter
-/bin/v2ray.sh
+/etc/ger-inst/v2ray.sh
 }
 portv () {
 msg -ama "$(fun_trans "Cambiar Puerto v2ray")!"
@@ -64,7 +64,7 @@ msg -bar
 v2ray port
 msg -bar
 msg -ne "Enter Para Continuar" && read enter
-/bin/v2ray.sh
+/etc/ger-inst/v2ray.sh
 }
 stats () {
 msg -ama "$(fun_trans "Estadisticas de Consumo")!"
@@ -72,7 +72,7 @@ msg -bar
 v2ray stats
 msg -bar
 msg -ne "Enter Para Continuar" && read enter
-/bin/v2ray.sh
+/etc/ger-inst/v2ray.sh
 }
 unistallv2 () {
 source <(curl -sL https://www.dropbox.com/s/ukkyksfdo3lqqmc/install-v2ray.sh) --remove > /dev/null 2>&1
@@ -80,13 +80,13 @@ rm -rf /etc/VPS-MX/RegV2ray > /dev/null 2>&1
 echo -e "\033[1;92m                  V2RAY REMOVIDO OK "
 msg -bar
 msg -ne "Enter Para Continuar" && read enter
-/bin/v2ray.sh
+/etc/ger-inst/v2ray.sh
 }
 infocuenta () {
 v2ray info
 msg -bar
 msg -ne "Enter Para Continuar" && read enter
-/bin/v2ray.sh
+/etc/ger-inst/v2ray.sh
 }
 addusr () {
 clear 
@@ -149,7 +149,7 @@ msg -bar
 echo -e "\e[92m           UUID AGREGEGADO CON EXITO "
 msg -bar
 msg -ne "Enter Para Continuar" && read enter
-/bin/v2ray.sh
+/etc/ger-inst/v2ray.sh
 }
 
 delusr () {
@@ -159,7 +159,7 @@ invaliduuid () {
 msg -bar
 echo -e "\e[91m                    UUID INVALIDO \n$(msg -bar)"
 msg -ne "Enter Para Continuar" && read enter
-/bin/v2ray.sh
+/etc/ger-inst/v2ray.sh
 }
 msg -bar
 msg -ama "             ELIMINAR USUARIO | UUID V2RAY"
@@ -182,7 +182,7 @@ sed -i "${resta}d" /etc/v2ray/config.json
 v2ray restart > /dev/null 2>&1
 msg -bar
 msg -ne "Enter Para Continuar" && read enter
-/bin/v2ray.sh
+/etc/ger-inst/v2ray.sh
 }
 
 mosusr_kk() {
@@ -201,7 +201,7 @@ local IDEUUID="$(cat $HOST|cut -d'|' -f1)"
 if [[ -z $RETURN ]]; then
 echo -e "----- NINGUN USER REGISTRADO -----"
 msg -ne "Enter Para Continuar" && read enter
-/bin/v2ray.sh
+/etc/ger-inst/v2ray.sh
 
 else
 i=1
@@ -232,7 +232,7 @@ linesss=$(cat /etc/VPS-MX/RegV2ray | wc -l)
 fi
 msg -bar
 msg -ne "Enter Para Continuar" && read enter
-/bin/v2ray.sh
+/etc/ger-inst/v2ray.sh
 }
 lim_port () {
 clear 
@@ -250,7 +250,7 @@ local IDEUUID="$(cat $HOST|cut -d'|' -f1)"
 if [[ -z $RETURN ]]; then
 echo -e "----- NINGUN PUERTO REGISTRADO -----"
 msg -ne "Enter Para Continuar" && read enter
-/bin/v2ray.sh
+/etc/ger-inst/v2ray.sh
 else
 i=1
 while read hostreturn ; do
@@ -273,7 +273,7 @@ linesss=$(cat /etc/VPS-MX/v2ray/lisportt.log | wc -l)
 fi
 msg -bar
 msg -ne "Enter Para Continuar" && read enter
-/bin/v2ray.sh 
+/etc/ger-inst/v2ray.sh 
 }
 ###LIM
 liport () {
@@ -311,7 +311,7 @@ echo ""
 echo " $portbg | $gbuser | $multiplicacion " >> /etc/VPS-MX/v2ray/lisportt.log 
 msg -bar
 msg -ne "Enter Para Continuar" && read enter
-/bin/v2ray.sh
+/etc/ger-inst/v2ray.sh
 }
 ###RES
 resdata () {
@@ -361,7 +361,7 @@ invaliduuid () {
 msg -bar
 echo -e "\e[91m                PUERTO INVALIDO \n$(msg -bar)"
 msg -ne "Enter Para Continuar" && read enter
-/bin/v2ray.sh
+/etc/ger-inst/v2ray.sh
 }
 [[ $(sed -n '/'${portbg}'/=' /etc/VPS-MX/v2ray/lisportt.log|head -1) ]] || invaliduuid
 gblim=$(cat /etc/VPS-MX/v2ray/lisportt.log|grep -w "$portbg"|cut -d'|' -f3)
@@ -372,7 +372,7 @@ lineP=$(sed -n '/'${portbg}'/=' /etc/VPS-MX/v2ray/lisportt.log)
 sed -i "${linePre}d" /etc/VPS-MX/v2ray/lisportt.log
 msg -bar
 msg -ne "Enter Para Continuar" && read enter
-/bin/v2ray.sh 
+/etc/ger-inst/v2ray.sh 
 }
 ## MENU
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "LIMITAR DATA x PORT") "
@@ -386,7 +386,7 @@ case ${selection} in
 2)resdata;;
 3)estarts;;
 0)
-/bin/v2ray.sh
+/etc/ger-inst/v2ray.sh
 ;;
 esac
 }
@@ -414,7 +414,7 @@ echo -e "                    $statgen "
 echo "" 						
 msg -bar
 msg -ne "Enter Para Continuar" && read enter
-/bin/v2ray.sh
+/etc/ger-inst/v2ray.sh
 
 }
 

@@ -154,6 +154,29 @@ htop
 msg -ama " $(fun_trans "Procedimento concluido")"
 }
 
+pamcrack () {
+#-----------------------------------------------------------------------------------------------------------------
+# sudo apt-get install libpam-cracklib -y > /dev/null 2>&1
+# wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/VPS-MX/main/VPS-MX_Oficial/ArchivosUtilitarios/common-password -O /etc/pam.d/common-password > /dev/null 2>&1 
+# chmod +x /etc/pam.d/common-password
+#-----------------------------------------------------------------------------------------------------------------
+msg -azu " $(fun_trans "Liberar Passwd para VURTL")"
+msg -ama " $(fun_trans "Desbloquea Vurtl Para Crear Usuarios")"
+msg -bar
+echo -e "$(fun_trans "Deseja Prosseguir?")"
+read -p " [S/N]: " -e -i n PROS
+[[ $PROS = @(s|S|y|Y) ]] || return 1
+msg -bar
+fun_bar "service ssh restart"
+sed -i 's/.*pam_cracklib.so.*/password sufficient pam_unix.so sha512 shadow nullok try_first_pass #use_authtok/' /etc/pam.d/common-password
+service ssh restart > /dev/null 2>&1
+msg -bar
+msg -ama " \033[1;32m[ ! ]\033[1;33m $(fun_trans "Configuracoes VURLT aplicadas")"
+msg -bar
+msg -ama " $(fun_trans "Passwd Alphanumeric Disabled Com Sucesso")"
+return
+}
+
 clear
 clear
 msg -bar
@@ -166,10 +189,11 @@ echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "REINICIAR SISTEMA")"
 echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "ALTERAR O NOME DO SISTEMA")"
 echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "ALTERAR SENHA ROOT")"
 echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "TRAFICO DE RED NLOAD")"
-echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "PROCESOS DEL SISTEMA HTOP")"
+echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "PROCESOS DE SISTEMA HTOP")"
+echo -ne "\033[1;32m [8] > " && msg -azu "$(fun_trans "LIBERAR PASSWD VURTL")"
 msg -bar
-while [[ ${arquivoonlineadm} != @(0|[1-7]) ]]; do
-read -p "[0-7]: " arquivoonlineadm
+while [[ ${arquivoonlineadm} != @(0|[1-8]) ]]; do
+read -p "[0-8]: " arquivoonlineadm
 tput cuu1 && tput dl1
 done
 case $arquivoonlineadm in
@@ -180,6 +204,7 @@ case $arquivoonlineadm in
 5)senharoot;;
 6)fun_nload;;
 7)fun_htop;;
+8)pamcrack;;
 0)exit;;
 esac
 msg -bar

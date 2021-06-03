@@ -67,28 +67,6 @@ chmod +x /etc/new-adm-color
 return
 }
 
-pamcrack () {
-echo -e "${cor[3]} $(fun_trans "Liberar passwd para VURTL")"
-msg -bar
-echo -e "$(fun_trans "Deseja Prosseguir?")"
-read -p " [S/N]: " -e -i n PROS
-[[ $PROS = @(s|S|y|Y) ]] || return 1
-msg -bar
-fun_bar "service ssh restart"
-sed -i 's/.*pam_cracklib.so.*/password sufficient pam_unix.so sha512 shadow nullok try_first_pass #use_authtok/' /etc/pam.d/common-password
-service ssh restart > /dev/null 2>&1
-#-----------------------------------------------------------------------------------------------------------------
-# sudo apt-get install libpam-cracklib -y > /dev/null 2>&1
-# wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/VPS-MX/main/VPS-MX_Oficial/ArchivosUtilitarios/common-password -O /etc/pam.d/common-password > /dev/null 2>&1 
-# chmod +x /etc/pam.d/common-password
-#-----------------------------------------------------------------------------------------------------------------
-msg -bar
-echo -e " \033[1;31m[ ! ]\033[1;33m $(fun_trans "Configuraciones VURTL aplicadas")"
-msg -bar
-echo -e "${cor[3]} $(fun_trans "Passwd Alfanumerico Desactivado con EXITO")"
-return
-}
-
 aplica_root () {
 echo -e "${cor[3]} $(fun_trans "Esta herramienta cambia a usuario root")"
 echo -e "${cor[3]} $(fun_trans "las VPS de GoogleCloud y Amazon")"
@@ -217,23 +195,21 @@ msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "ATUALIZAR HORA AMERICA-SANTIAGO")"
 echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "MUDAR CORES SISTEMA A RED-TEME")"
-echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "DESBLOQUEAR VURTL PARA CREAR USUARIOS")"
-echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "APLICAR ROOT A GOOGLECLOUD Y AMAZON")"
-echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "DETALHES DO SISTEMA")"
-echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "NET TOOLS TARGET")"
-echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "Reiniciar iptables")"
-echo -ne "\033[1;32m [8] > " && msg -azu "$(fun_trans "Limpar pacotes Obsoletos")"
+echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "APLICAR ROOT A GOOGLECLOUD Y AMAZON")"
+echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "DETALHES DO SISTEMA")"
+echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "NET TOOLS TARGET")"
+echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "Reiniciar iptables")"
+echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "Limpar pacotes Obsoletos")"
 msg -bar
-selection=$(selection_fun 10)
+selection=$(selection_fun 7)
 case ${selection} in
 1)act_hora;;
 2)newadm_color;;
-3)pamcrack;;
-4)aplica_root;;
-5)fun_statussistema;;
-6)fun_nettools;;
-9)resetiptables;;
-8)packobs;;
+3)aplica_root;;
+4)fun_statussistema;;
+5)fun_nettools;;
+6)resetiptables;;
+7)packobs;;
 0)exit;;
 esac
 msg -bar

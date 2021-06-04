@@ -71,10 +71,14 @@ msg -bar
 fun_ip
 msg -ne " $(fun_trans "Confirme seu ip")"; read -p ": " -e -i $IP ip
 msg -bar
-#Inicia Procedimentos
+#Inicia Update and Upgrade
 msg -ama " $(fun_trans "AUTO CONFIGURAÇAO")"
 msg -bar
 fun_bar "apt-get update -y" "apt-get upgrade -y"
+msg -bar
+#Inicia Procedimentos
+msg -ama " $(fun_trans "APLICANDO O ROOT AO GOOGLE CLOUD E AMAZON ")"
+sleep 2
 service ssh restart > /dev/null 2>&1
 cp /etc/ssh/sshd_config /etc/ssh/sshd_back
 sed -i "s;PermitRootLogin prohibit-password;PermitRootLogin yes;g" /etc/ssh/sshd_config
@@ -111,6 +115,9 @@ fun_bar "apt-get update -y" "apt-get upgrade -y"
 service ssh restart > /dev/null 2>&1
 cp /etc/ssh/sshd_config /etc/ssh/sshd_back
 wget -O /etc/ssh/sshd_config https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/sshd_config > /dev/null 2>&1
+chmod +x /etc/ssh/sshd_config
+msg -bar
+msg -ama " $(fun_trans "APLICANDO O ROOT AO GOOGLE CLOUD E AMAZON ")"
 grep -v "^PasswordAuthentication yes" /etc/ssh/sshd_config >/tmp/passlogin && mv /tmp/passlogin /etc/ssh/sshd_config
 echo "PasswordAuthentication yes" >>/etc/ssh/sshd_config
 grep -v "^PermitTunnel yes" /etc/ssh/sshd_config >/tmp/ssh && mv /tmp/ssh /etc/ssh/sshd_config

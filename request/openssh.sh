@@ -66,18 +66,18 @@ service ssh restart > /dev/null 2>&1 &
 }
 
 opssh_fun () {
-msg -verd " $(fun_trans "OPENSSH AUTO-CONFIGURAÇAO") ROOT"
+msg -verd " $(fun_trans "OPENSSH AUTO-CONFIGURAÇAO")"
 msg -bar
 fun_ip
 msg -ne " $(fun_trans "Confirme seu ip")"; read -p ": " -e -i $IP ip
 msg -bar
-#Inicia Update and Upgrade
 msg -ama " $(fun_trans "AUTO CONFIGURAÇAO")"
 msg -bar
+#Inicia Update and Upgrade
 fun_bar "apt-get update -y" "apt-get upgrade -y"
 msg -bar
 #Inicia Procedimentos
-msg -ama " $(fun_trans "APLICANDO O ROOT AO GOOGLE CLOUD E AMAZON ")"
+msg -ama " $(fun_trans "Aplicando o Root ao Google Cloud e Amazon ")"
 sleep 2
 service ssh restart > /dev/null 2>&1
 cp /etc/ssh/sshd_config /etc/ssh/sshd_back
@@ -85,13 +85,13 @@ sed -i "s;PermitRootLogin prohibit-password;PermitRootLogin yes;g" /etc/ssh/sshd
 sed -i "s;PermitRootLogin without-password;PermitRootLogin yes;g" /etc/ssh/sshd_config
 sed -i "s;PasswordAuthentication no;PasswordAuthentication yes;g" /etc/ssh/sshd_config
 msg -bar
-echo -e "\033[1;37m $(fun_trans "DIGITE SUA SENHA ATUAL OU UMA NOVA SENHA")"
+echo -e "\033[1;37m $(fun_trans "Digite Sua Senha aAtual ou Uma Nova Senha")"
 msg -bar
 read  -p " Nuevo passwd: " pass
 (echo $pass; echo $pass)|passwd 2>/dev/null
 msg -bar
 msg -ama " $(fun_trans "CONFIGURACOES ROOT APLICADAS")!"
-echo -e "\033[1;31m $(fun_trans "SENHA ATUAL") ROOT: \033[1;32m$pass"
+echo -e "\033[1;31m $(fun_trans "Senha Atual") Root: \033[1;32m$pass"
 msg -bar
 msg -ne "\033[1;31m [ ! ] \033[1;33m$(fun_trans "REINICIANDO SERVICOS*")"
 service ssh restart > /dev/null 2>&1
@@ -99,25 +99,27 @@ service sshd restart > /dev/null 2>&1
 echo -e " \033[1;32m[OK]"
 msg -bar
 msg -ama " $(fun_trans "Seu Openssh foi configurado com sucesso")"
+echo -e " \033[1;31mRUTA > \033[1;31m[ \033[1;32m/etc/ssh/sshd_config \033[1;31m]"
 msg -bar
 return 0
 }
 
 download_ssh () {
-msg -verd " $(fun_trans "OPENSSH DOWNLOAD-CONFIGURAÇAO") ROOT"
+msg -verd " $(fun_trans "OPENSSH DOWNLOAD-CONFIGURAÇAO")"
 msg -bar
 fun_ip
 msg -ne " $(fun_trans "Confirme seu ip")"; read -p ": " -e -i $IP ip
 msg -bar
 msg -ama " $(fun_trans "DOWNLOAD CONFIGURAÇAO PORTA 22 ")"
 msg -bar
+#Inicia Update and Upgrade
 fun_bar "apt-get update -y" "apt-get upgrade -y"
+#Inicia Procedimentos
 service ssh restart > /dev/null 2>&1
 cp /etc/ssh/sshd_config /etc/ssh/sshd_back
 wget -O /etc/ssh/sshd_config https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/sshd_config > /dev/null 2>&1
 chmod +x /etc/ssh/sshd_config
-msg -bar
-msg -ama " $(fun_trans "APLICANDO O ROOT AO GOOGLE CLOUD E AMAZON ")"
+#Inicia Modificacion
 grep -v "^PasswordAuthentication yes" /etc/ssh/sshd_config >/tmp/passlogin && mv /tmp/passlogin /etc/ssh/sshd_config
 echo "PasswordAuthentication yes" >>/etc/ssh/sshd_config
 grep -v "^PermitTunnel yes" /etc/ssh/sshd_config >/tmp/ssh && mv /tmp/ssh /etc/ssh/sshd_config
@@ -132,6 +134,7 @@ service sshd restart > /dev/null 2>&1
 echo -e " \033[1;32m[OK]"
 msg -bar
 msg -ama " $(fun_trans "Seu Openssh foi configurado com sucesso Porta 22")"
+echo -e " \033[1;31mRUTA > \033[1;31m[ \033[1;32m/etc/ssh/sshd_config \033[1;31m]"
 msg -bar
 return 0
 }

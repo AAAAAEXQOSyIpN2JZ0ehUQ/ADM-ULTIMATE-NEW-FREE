@@ -622,24 +622,21 @@ dev="\033[0m${gren}(#DEV)"
 beta="\033[0m${red}(#BETA)"
 case $1 in
 # Menu Instalação Ger-Frm OFC
+"MasterBin.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "CONSULTAR UN BIN*") $ofc";;
+"payySND.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "PAYLOAD FORCA BRUTA PYTHON*") $ofc";;
+# Menu Instalação Ger-Frm
 "ADMbot.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "BOT DE GERENCIAMENTO*") TELEGRAM $ofc";;
 "apacheon.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "COMPARTILHAR ARQUIVO ONLINE*") $ofc";;
 "ports.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "GERENCIAMENTO DE PORTAS*") $ofc";;
 "speed.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "TESTE DE VELOCIDADE*") $ofc";;
 "utils.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "(Tcpspeed/torrent) $ofc";;
-# Menu Instalação Ger-Frm OFC
-"MasterBin.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "CONSULTAR UN BIN*") $ofc";;
-"payySND.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "PAYLOAD FORCA BRUTA PYTHON*") $ofc";;
-# Menu Instalação Ger-Frm NO OFICIAL DEV
 "ultrahost")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ESCANER DE SUBDOMINIOS*") $dev";;
 "criar_pay.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "GERADOR DE*") PAYLOAD $dev";;
 "optimizar.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "OTIMIZAR SISTEMA *") $dev";;
 "fai2ban.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "FAIL2BAN PROTECAO*") $dev";;
-## "gestor.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "GERENCIAR SISTEMA*") $beta";;
 "paysnd.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "PAYLOAD $(fun_trans "FORCA BRUTA*") BASH $beta";;
 "scriptsalternos.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "TESTE SCRIPTS ALTERNOS*") $beta";;
-"utilsbeta.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "MENU DE UTILITARIOS*") TESTE $beta";;
-# Menu Instalação Ger-Inst OFC
+# Menu Instalação Ger-Inst
 "apache2.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "APACHE2 $(pid_inst apache2)";;
 "openssh.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "OPENSSH $(pid_inst sshd)";;
 "squid.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "SQUID $(pid_inst squid)";;

@@ -6,20 +6,6 @@ SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 
-limpiar () {
-rm -rf /bin/C-SSR.sh > /dev/null 2>&1
-rm -rf /bin/Shadowsocks-libev.sh > /dev/null 2>&1
-rm -rf /bin/Shadowsocks-R.sh > /dev/null 2>&1
-rm -rf /bin/shadowsocks.sh > /dev/null 2>&1
-rm -rf /bin/v2ray.sh > /dev/null 2>&1
-rm -rf /bin/vdoray.sh > /dev/null 2>&1
-rm -rf /bin/v2ray84.sh > /dev/null 2>&1
-rm -rf /bin/conexao.sh > /dev/null 2>&1
-rm -rf /bin/tcp.sh > /dev/null 2>&1
-rm -rf /bin/blockBT.sh > /dev/null 2>&1
-}
-limpiar
-
 meu_ip () {
 if [[ -e /etc/MEUIPADM ]]; then
 echo "$(cat /etc/MEUIPADM)"
@@ -53,10 +39,6 @@ echo -e " \033[1;33m[\033[1;31m####################\033[1;33m] - \033[1;32m100%\
 sleep 1s
 }
 
-fun_nettools () {
-[[ ! -e /bin/nettools.py ]] && wget -O /bin/nettools.py https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/nettools.py > /dev/null 2>&1; chmod +x /bin/nettools.py; /bin/nettools.py
-}
-
 act_hora () {
 echo -ne " \033[1;31m[ ! ] timedatectl"
 timedatectl > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
@@ -81,31 +63,8 @@ chmod +x /etc/new-adm-color
 return
 }
 
-aplica_root () {
-echo -e "${cor[3]} $(fun_trans "Esta herramienta cambia a usuario root")"
-echo -e "${cor[3]} $(fun_trans "las VPS de GoogleCloud y Amazon")"
-msg -bar
-echo -e "$(fun_trans "Deseja Prosseguir?")"
-read -p " [S/N]: " -e -i n PROS
-[[ $PROS = @(s|S|y|Y) ]] || return 1
-msg -bar
-#Inicia Procedimentos
-fun_bar "service ssh restart"
-#Parametros Aplicados
-sed -i "s;PermitRootLogin prohibit-password;PermitRootLogin yes;g" /etc/ssh/sshd_config
-sed -i "s;PermitRootLogin without-password;PermitRootLogin yes;g" /etc/ssh/sshd_config
-sed -i "s;PasswordAuthentication no;PasswordAuthentication yes;g" /etc/ssh/sshd_config
-msg -bar
-echo -e "\033[1;37m $(fun_trans "Escriba su contraseña root actual o cambiela")"
-msg -bar
-read  -p " Nuevo passwd: " pass
-(echo $pass; echo $pass)|passwd 2>/dev/null
-sleep 1s
-service ssh restart &>/dev/null
-msg -bar
-echo -e "${cor[3]} $(fun_trans "Configuraciones aplicadas con exito!")"
-echo -e "${cor[2]} $(fun_trans "Su contraseña ahora es"): ${cor[4]}$pass"
-return
+fun_nettools () {
+[[ ! -e /bin/nettools.py ]] && wget -O /bin/nettools.py https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/nettools.py > /dev/null 2>&1; chmod +x /bin/nettools.py; /bin/nettools.py
 }
 
 fun_statussistema () {
@@ -187,6 +146,20 @@ msg -ama "Limpiando Paquetes Obsoloteos"
 dpkg -l |grep -i ^rc | cut -d " " -f 3 | xargs dpkg --purge
 msg -ama "Limpieza Completa"
 }
+
+limpiar () {
+rm -rf /bin/C-SSR.sh > /dev/null 2>&1
+rm -rf /bin/Shadowsocks-libev.sh > /dev/null 2>&1
+rm -rf /bin/Shadowsocks-R.sh > /dev/null 2>&1
+rm -rf /bin/shadowsocks.sh > /dev/null 2>&1
+rm -rf /bin/v2ray.sh > /dev/null 2>&1
+rm -rf /bin/vdoray.sh > /dev/null 2>&1
+rm -rf /bin/v2ray84.sh > /dev/null 2>&1
+rm -rf /bin/conexao.sh > /dev/null 2>&1
+rm -rf /bin/tcp.sh > /dev/null 2>&1
+rm -rf /bin/blockBT.sh > /dev/null 2>&1
+}
+limpiar
 
 # SISTEMA DE SELECAO
 selection_fun () {

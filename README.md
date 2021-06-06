@@ -26,7 +26,7 @@ NEW-ULTIMATE (las dependencias faltantes se instalarán automáticamente)
 
 ## :scroll: Registro de cambios
 
-**VERSION: r6.4.0**
+**VERSION: r6.4.1**
 
 https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/versao
 

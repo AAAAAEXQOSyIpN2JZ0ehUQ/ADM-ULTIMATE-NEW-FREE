@@ -200,7 +200,7 @@ msg -bar
 echo -ne "\033[1;32m [13] > " && msg -azu "$(fun_trans "TCP ACELERACION") (BBR/PLUS)"
 msg -bar
 # FIM
-selection=$(selection_fun 7)
+selection=$(selection_fun 13)
 case ${selection} in
 1)act_hora;;
 2)newadm_color;;

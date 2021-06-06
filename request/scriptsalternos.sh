@@ -176,7 +176,7 @@ echo $selection
 
 clear
 msg -bar
-msg -ama " $(fun_trans "MENU DE UTILITARIOS") TEST"
+msg -ama " $(fun_trans "TESTE SCRIPTS ALTERNOS")"
 msg -bar
 msg -azu " \033[1;31m[\033[1;33m!\033[1;31m]\033[1;33m$(fun_trans "FUNCAO BETA ULTILIZE POR SUA CONTA EM RISCO")"
 msg -bar

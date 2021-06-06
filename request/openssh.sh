@@ -75,10 +75,7 @@ msg -ama " $(fun_trans "AUTO CONFIGURAÇAO")"
 msg -bar
 #Inicia Update and Upgrade
 fun_bar "apt-get update -y" "apt-get upgrade -y"
-msg -bar
 #Inicia Procedimentos
-msg -ama " $(fun_trans "Aplicando o Root ao Google Cloud e Amazon ")"
-sleep 2
 service ssh restart > /dev/null 2>&1
 cp /etc/ssh/sshd_config /etc/ssh/sshd_back
 sed -i "s;PermitRootLogin prohibit-password;PermitRootLogin yes;g" /etc/ssh/sshd_config
@@ -87,13 +84,7 @@ sed -i "s;PasswordAuthentication no;PasswordAuthentication yes;g" /etc/ssh/sshd_
 # grep -v "^PermitTunnel yes" /etc/ssh/sshd_config >/tmp/ssh && mv /tmp/ssh /etc/ssh/sshd_config
 # echo "PermitTunnel yes" >>/etc/ssh/sshd_config
 msg -bar
-echo -e "\033[1;37m $(fun_trans "Digite Sua Senha aAtual ou Uma Nova Senha")"
-msg -bar
-read  -p " Nuevo passwd: " pass
-(echo $pass; echo $pass)|passwd 2>/dev/null
-msg -bar
 msg -ama " $(fun_trans "CONFIGURACOES APLICADAS")!"
-echo -e "\033[1;31m $(fun_trans "Senha Atual") Root: \033[1;32m$pass"
 msg -bar
 msg -ne "\033[1;31m [ ! ] \033[1;33m$(fun_trans "REINICIANDO SERVICOS*")"
 service ssh restart > /dev/null 2>&1

@@ -194,9 +194,7 @@ echo -ne "\033[1;32m [9] > " && msg -azu "$(fun_trans "SHADOWSOCKS-R")"
 echo -ne "\033[1;32m [10] > " && msg -azu "$(fun_trans "SHADOWSOCKS-NORMAL")"
 msg -bar
 echo -ne "\033[1;32m [11] > " && msg -azu "$(fun_trans "V2ray VPS-MX 8.4")"
-msg -bar
 echo -ne "\033[1;32m [12] > " && msg -azu "$(fun_trans "Menu SSHPlus Conexao ")"
-msg -bar
 echo -ne "\033[1;32m [13] > " && msg -azu "$(fun_trans "TCP ACELERACION") (BBR/PLUS)"
 msg -bar
 # FIM

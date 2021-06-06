@@ -31,8 +31,6 @@ link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-
 [[ ! -e /etc/SSHPlus/proxy.py ]] && wget -O /etc/SSHPlus/proxy.py ${link_bin} > /dev/null 2>&1 && chmod +x /etc/SSHPlus/proxy.py
 link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Herramientas/open.py"
 [[ ! -e /etc/SSHPlus/open.py ]] && wget -O /etc/SSHPlus/open.py ${link_bin} > /dev/null 2>&1 && chmod +x /etc/SSHPlus/open.py
-link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Herramientas/slow_dns"
-[[ ! -e /bin/slow_dns ]] && wget -O /bin/slow_dns ${link_bin} > /dev/null 2>&1 && chmod +x /bin/slow_dns
 #====================================================
 #	SCRIPT: CONEXAO SSHPLUS MANAGER
 #	DESENVOLVIDO POR:	CRAZY_VPN
@@ -415,11 +413,11 @@ link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-
 				echo ""
 				fun_dropunistall() {
 					service dropbear stop && /etc/init.d/dropbear stop
-					apt remove dropbear-run -y
-					apt remove dropbear -y
-					apt purge dropbear -y
+					apt-get autoremove dropbear -y
+					apt-get remove dropbear-run -y
+					apt-get remove dropbear -y
+					apt-get purge dropbear -y
 					rm -rf /etc/default/dropbear
-                    apt autoremove -y
 				}
 				fun_bar 'fun_dropunistall'
 				echo -e "\n\033[1;32mDROPBEAR REMOVIDO COM SUCESSO !\033[0m"
@@ -476,7 +474,6 @@ link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-
 				echo -e "\033[1;32mFINALIZANDO INSTALACAO !\033[0m"
 				echo ""
 				fun_ondrop() {
-				    service ssh restart
 					service dropbear start
 					/etc/init.d/dropbear restart
 				}
@@ -567,7 +564,7 @@ link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-
 			[[ "$resposta" = 's' ]] && {
 				echo -e "\n\033[1;33mDEFINA UMA PORTA PARA O SSL TUNNEL !\033[0m"
 				echo ""
-				read -p "$(echo -e "\033[1;32mQUAL PORTA DESEJA UTILIZAR? \033[1;37m")" -e -i 443 porta
+				read -p "$(echo -e "\033[1;32mQUAL PORTA DESEJA UTILIZAR? \033[1;37m")" -e -i 3128 porta
 				[[ -z "$porta" ]] && {
 					echo ""
 					echo -e "\033[1;31mPorta invalida!"
@@ -582,7 +579,7 @@ link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-
 				echo -e "\n\033[1;32mCONFIGURANDO O SSL TUNNEL !\033[0m"
 				echo ""
 				ssl_conf() {
-					echo -e "cert = /etc/stunnel/stunnel.pem\nclient = no\nsocket = a:SO_REUSEADDR=1\nsocket = l:TCP_NODELAY=1\nsocket = r:TCP_NODELAY=1\n\n[stunnel]\nconnect = 0.0.0.0:22\naccept = ${porta}\nsslVersion = all" >/etc/stunnel/stunnel.conf
+					echo -e "cert = /etc/stunnel/stunnel.pem\nclient = no\nsocket = a:SO_REUSEADDR=1\nsocket = l:TCP_NODELAY=1\nsocket = r:TCP_NODELAY=1\n\n[stunnel]\nconnect = 127.0.0.1:22\naccept = ${porta}" >/etc/stunnel/stunnel.conf
 				}
 				fun_bar 'ssl_conf'
 				echo -e "\n\033[1;32mCRIANDO CERTIFICADO !\033[0m"
@@ -1652,16 +1649,16 @@ exit 0' >$RCLOCAL
 		[[ "$(netstat -nltp | grep 'sslh' | wc -l)" = '0' ]] && {
 			clear
 			echo -e "\E[44;1;37m             INSTALADOR SSLH               \E[0m\n"
-			echo -e "\n\033[1;33m[\033[1;31m!\033[1;33m] \033[1;32mA PORTA \033[1;37m3128 \033[1;32mSERA USADA POR PADRAO\033[0m\n"
+			echo -e "\n\033[1;33m[\033[1;31m!\033[1;33m] \033[1;32mA PORTA \033[1;37m443 \033[1;32mSERA USADA POR PADRAO\033[0m\n"
 			echo -ne "\033[1;32mREALMENTE DESEJA INSTALAR O SSLH \033[1;31m? \033[1;33m[s/n]:\033[1;37m "
 			read resp
 			[[ "$resp" = 's' ]] && {
-				verif_ptrs 3128
+				verif_ptrs 443
 				fun_instsslh() {
 					[[ -e "/etc/stunnel/stunnel.conf" ]] && ptssl="$(netstat -nplt | grep 'stunnel' | awk {'print $4'} | cut -d: -f2 | xargs)" || ptssl='3128'
 					[[ -e "/etc/openvpn/server.conf" ]] && ptvpn="$(netstat -nplt | grep 'openvpn' | awk {'print $4'} | cut -d: -f2 | xargs)" || ptvpn='1194'
 					DEBIAN_FRONTEND=noninteractive apt-get -y install sslh
-					echo -e "#Modo autónomo\n\nRUN=yes\n\nDAEMON=/usr/sbin/sslh\n\nDAEMON_OPTS='--user sslh --listen 0.0.0.0:3128 --ssh  0.0.0.0:22 --ssl  0.0.0.0:$ptssl --http  0.0.0.0:80 --openvpn 127.0.0.1:$ptvpn --pidfile /var/run/sslh/sslh.pid'" >/etc/default/sslh
+					echo -e "#Modo autónomo\n\nRUN=yes\n\nDAEMON=/usr/sbin/sslh\n\nDAEMON_OPTS='--user sslh --listen 0.0.0.0:443 --ssh 127.0.0.1:22 --ssl 127.0.0.1:$ptssl --http 127.0.0.1:80 --openvpn 127.0.0.1:$ptvpn --pidfile /var/run/sslh/sslh.pid'" >/etc/default/sslh
 					/etc/init.d/sslh start && service sslh start
 				}
 				echo -e "\n\033[1;32mINSTALANDO O SSLH !\033[0m\n"
@@ -1707,6 +1704,11 @@ exit 0' >$RCLOCAL
 			clear
 			echo -e "\E[44;1;37m                MODO DE CONEXAO                 \E[0m\n"
 			echo -e "\033[1;32mSERVICO: \033[1;33mOPENSSH \033[1;32mPORTA: \033[1;37m$(grep 'Port' /etc/ssh/sshd_config | cut -d' ' -f2 | grep -v 'no' | xargs)" && sts6="\033[1;32m◉ "
+			[[ "$(ps x | grep 'slow_dns' | grep -v 'grep'|wc -l)" != '0' ]] && {
+				sts8="\033[1;32m◉ "
+			} || {
+				sts8="\033[1;31m○ "
+			}
 			[[ "$(netstat -tlpn | grep 'sslh' | wc -l)" != '0' ]] && {
 				echo -e "\033[1;32mSERVICO: \033[1;33mSSLH: \033[1;32mPORTA: \033[1;37m$(netstat -nplt | grep 'sslh' | awk {'print $4'} | cut -d: -f2 | xargs)"
 				sts7="\033[1;32m◉ "
@@ -1744,12 +1746,6 @@ exit 0' >$RCLOCAL
 				sts1="\033[1;32m◉ "
 			} || {
 				sts1="\033[1;31m○ "
-			}
-			[[ "$(ps x | grep 'slow_dns' | grep -v 'grep'|wc -l)" != '0' ]] && {
-			    echo -e "\033[1;32mSERVICO: \033[1;33mSLOWDNS \033[1;32mPORTA: \033[1;37m$(sed -n 1p /etc/SSHPlus/dns/autodns | awk '{print $6}' | cut -d':' -f2)"
-				sts8="\033[1;32m◉ "
-			} || {
-				sts8="\033[1;31m○ "
 			}
 			echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 			echo ""

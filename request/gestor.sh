@@ -180,7 +180,7 @@ return
 }
 
 aplica_root () {
-msg -ama " $(fun_trans "Deseja aplicar permissoes ao usuario root")"
+msg -ama " $(fun_trans "Aplica permissoes ao usuario root")"
 msg -ama " $(fun_trans "Sistemas Google Cloud e Amazon ")"
 msg -bar
 echo -e "$(fun_trans "Deseja Prosseguir?")"

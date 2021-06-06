@@ -27,11 +27,11 @@ fun_attlist () {
 }
 fun_attlist
 #====================================================
-link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Herramientas/proxy.py"
+link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/proxy.py"
 [[ ! -e /etc/SSHPlus/proxy.py ]] && wget -O /etc/SSHPlus/proxy.py ${link_bin} > /dev/null 2>&1 && chmod +x /etc/SSHPlus/proxy.py
-link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Herramientas/open.py"
+link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/open.py"
 [[ ! -e /etc/SSHPlus/open.py ]] && wget -O /etc/SSHPlus/open.py ${link_bin} > /dev/null 2>&1 && chmod +x /etc/SSHPlus/open.py
-link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Herramientas/slow_dns"
+link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/slow_dns"
 [[ ! -e /bin/slow_dns ]] && wget -O /bin/slow_dns ${link_bin} > /dev/null 2>&1 && chmod +x /bin/slow_dns
 #====================================================
 #	SCRIPT: CONEXAO SSHPLUS MANAGER

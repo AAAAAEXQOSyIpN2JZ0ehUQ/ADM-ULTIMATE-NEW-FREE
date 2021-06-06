@@ -152,14 +152,11 @@ rm -rf /bin/C-SSR.sh > /dev/null 2>&1
 rm -rf /bin/Shadowsocks-libev.sh > /dev/null 2>&1
 rm -rf /bin/Shadowsocks-R.sh > /dev/null 2>&1
 rm -rf /bin/shadowsocks.sh > /dev/null 2>&1
-rm -rf /bin/v2ray.sh > /dev/null 2>&1
-rm -rf /bin/vdoray.sh > /dev/null 2>&1
 rm -rf /bin/v2ray84.sh > /dev/null 2>&1
 rm -rf /bin/conexao.sh > /dev/null 2>&1
 rm -rf /bin/tcp.sh > /dev/null 2>&1
 rm -rf /bin/blockBT.sh > /dev/null 2>&1
 }
-limpiar
 
 # SISTEMA DE SELECAO
 selection_fun () {
@@ -174,6 +171,7 @@ done
 echo $selection
 }
 
+limpiar
 clear
 msg -bar
 msg -ama " $(fun_trans "TESTE SCRIPTS ALTERNOS")"
@@ -196,9 +194,10 @@ msg -bar
 echo -ne "\033[1;32m [11] > " && msg -azu "$(fun_trans "V2ray VPS-MX 8.4")"
 echo -ne "\033[1;32m [12] > " && msg -azu "$(fun_trans "Menu SSHPlus Conexao ")"
 echo -ne "\033[1;32m [13] > " && msg -azu "$(fun_trans "TCP ACELERACION") (BBR/PLUS)"
+echo -ne "\033[1;32m [14] > " && msg -azu "$(fun_trans "FIREWALL PARA VPS VPS")"
 msg -bar
 # FIM
-selection=$(selection_fun 13)
+selection=$(selection_fun 14)
 case ${selection} in
 1)act_hora;;
 2)newadm_color;;
@@ -219,6 +218,8 @@ exit;;
 12)wget -O /bin/conexao.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/conexao.sh > /dev/null 2>&1; chmod +x /bin/conexao.sh; conexao.sh
 exit;;
 13)wget -O /bin/tcp.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/tcp.sh > /dev/null 2>&1; chmod 777 /bin/tcp.sh; tcp.sh
+exit;;
+14)wget -O /bin/blockBT.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/blockBT.sh > /dev/null 2>&1; chmod 777 /bin/blockBT.sh; blockBT.sh
 exit;;
 0)exit;;
 esac

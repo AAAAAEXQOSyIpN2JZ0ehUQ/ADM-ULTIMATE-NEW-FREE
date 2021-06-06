@@ -39,6 +39,10 @@ echo -e " \033[1;33m[\033[1;31m####################\033[1;33m] - \033[1;32m100%\
 sleep 1s
 }
 
+fun_nettools () {
+[[ ! -e /bin/nettools.py ]] && wget -O /bin/nettools.py https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/nettools.py > /dev/null 2>&1; chmod +x /bin/nettools.py; /bin/nettools.py
+}
+
 act_hora () {
 echo -ne " \033[1;31m[ ! ] timedatectl"
 timedatectl > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
@@ -63,8 +67,31 @@ chmod +x /etc/new-adm-color
 return
 }
 
-fun_nettools () {
-[[ ! -e /bin/nettools.py ]] && wget -O /bin/nettools.py https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/nettools.py > /dev/null 2>&1; chmod +x /bin/nettools.py; /bin/nettools.py
+aplica_root () {
+echo -e "${cor[3]} $(fun_trans "Esta herramienta cambia a usuario root")"
+echo -e "${cor[3]} $(fun_trans "las VPS de GoogleCloud y Amazon")"
+msg -bar
+echo -e "$(fun_trans "Deseja Prosseguir?")"
+read -p " [S/N]: " -e -i n PROS
+[[ $PROS = @(s|S|y|Y) ]] || return 1
+msg -bar
+#Inicia Procedimentos
+fun_bar "service ssh restart"
+#Parametros Aplicados
+sed -i "s;PermitRootLogin prohibit-password;PermitRootLogin yes;g" /etc/ssh/sshd_config
+sed -i "s;PermitRootLogin without-password;PermitRootLogin yes;g" /etc/ssh/sshd_config
+sed -i "s;PasswordAuthentication no;PasswordAuthentication yes;g" /etc/ssh/sshd_config
+msg -bar
+echo -e "\033[1;37m $(fun_trans "Escriba su contraseña root actual o cambiela")"
+msg -bar
+read  -p " Nuevo passwd: " pass
+(echo $pass; echo $pass)|passwd 2>/dev/null
+sleep 1s
+service ssh restart &>/dev/null
+msg -bar
+echo -e "${cor[3]} $(fun_trans "Configuraciones aplicadas con exito!")"
+echo -e "${cor[2]} $(fun_trans "Su contraseña ahora es"): ${cor[4]}$pass"
+return
 }
 
 fun_statussistema () {
@@ -147,27 +174,13 @@ dpkg -l |grep -i ^rc | cut -d " " -f 3 | xargs dpkg --purge
 msg -ama "Limpieza Completa"
 }
 
-limpiar () {
-rm -rf /bin/C-SSR.sh > /dev/null 2>&1
-rm -rf /bin/Shadowsocks-libev.sh > /dev/null 2>&1
-rm -rf /bin/Shadowsocks-R.sh > /dev/null 2>&1
-rm -rf /bin/shadowsocks.sh > /dev/null 2>&1
-rm -rf /bin/v2ray.sh > /dev/null 2>&1
-rm -rf /bin/vdoray.sh > /dev/null 2>&1
-rm -rf /bin/v2ray84.sh > /dev/null 2>&1
-rm -rf /bin/conexao.sh > /dev/null 2>&1
-rm -rf /bin/tcp.sh > /dev/null 2>&1
-rm -rf /bin/blockBT.sh > /dev/null 2>&1
-}
-limpiar
-
 # SISTEMA DE SELECAO
 selection_fun () {
 local selection="null"
 local range
 for((i=0; i<=$1; i++)); do range[$i]="$i "; done
 while [[ ! $(echo ${range[*]}|grep -w "$selection") ]]; do
-echo -ne "[0-13]: " >&2
+echo -ne "[0-99]: " >&2
 read selection
 tput cuu1 >&2 && tput dl1 >&2
 done
@@ -183,45 +196,22 @@ msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "ATUALIZAR HORA AMERICA-SANTIAGO")"
 echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "MUDAR CORES SISTEMA A RED-TEME")"
-echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "DETALHES DO SISTEMA")"
-echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "NET TOOLS TARGET")"
-echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "REINICIAR IPTABLES")"
-echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "LIMPAR PACOTES OBSOLETOS")"
-msg -bar
-echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "ADMINISTRAR CUENTAS SS/SSRR")"
-echo -ne "\033[1;32m [8] > " && msg -azu "$(fun_trans "SHADOWSOCKS-LIBEV")"
-echo -ne "\033[1;32m [9] > " && msg -azu "$(fun_trans "SHADOWSOCKS-R")"
-echo -ne "\033[1;32m [10] > " && msg -azu "$(fun_trans "SHADOWSOCKS-NORMAL")"
-msg -bar
-echo -ne "\033[1;32m [11] > " && msg -azu "$(fun_trans "V2ray VPS-MX 8.4")"
-msg -bar
-echo -ne "\033[1;32m [12] > " && msg -azu "$(fun_trans "Menu SSHPlus Conexao ")"
-msg -bar
-echo -ne "\033[1;32m [13] > " && msg -azu "$(fun_trans "TCP ACELERACION") (BBR/PLUS)"
+echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "APLICAR ROOT A GOOGLECLOUD Y AMAZON")"
+echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "DETALHES DO SISTEMA")"
+echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "NET TOOLS TARGET")"
+echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "REINICIAR IPTABLES")"
+echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "LIMPAR PACOTES OBSOLETOS")"
 msg -bar
 # FIM
-selection=$(selection_fun 13)
+selection=$(selection_fun 7)
 case ${selection} in
 1)act_hora;;
 2)newadm_color;;
-3)fun_statussistema;;
-4)fun_nettools;;
-5)resetiptables;;
-6)packobs;;
-7)wget -O /bin/C-SSR.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/C-SSR.sh > /dev/null 2>&1; chmod +x /bin/C-SSR.sh; C-SSR.sh
-exit;;
-8)wget -O /bin/Shadowsocks-libev.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/Shadowsocks-libev.sh > /dev/null 2>&1; chmod +x /bin/Shadowsocks-libev.sh; Shadowsocks-libev.sh
-exit;;
-9)wget -O /bin/Shadowsocks-R.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/Shadowsocks-R.sh > /dev/null 2>&1; chmod +x /bin/Shadowsocks-R.sh; Shadowsocks-R.sh
-exit;;
-10)wget -O /bin/shadowsocks.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/shadowsocks.sh > /dev/null 2>&1; chmod +x /bin/shadowsocks.sh; shadowsocks.sh
-exit;;
-11)wget -O /etc/ger-inst/v2ray.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/v2ray84.sh > /dev/null 2>&1; chmod +x /etc/ger-inst/v2ray.sh; /etc/ger-inst/v2ray.sh
-exit;;
-12)wget -O /bin/conexao.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/conexao.sh > /dev/null 2>&1; chmod +x /bin/conexao.sh; conexao.sh
-exit;;
-13)wget -O /bin/tcp.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/tcp.sh > /dev/null 2>&1; chmod 777 /bin/tcp.sh; tcp.sh
-exit;;
+3)aplica_root;;
+4)fun_statussistema;;
+5)fun_nettools;;
+6)resetiptables;;
+7)packobs;;
 0)exit;;
 esac
 msg -bar

@@ -178,7 +178,7 @@ clear
 msg -bar
 msg -ama " $(fun_trans "TESTE SCRIPTS ALTERNOS")"
 msg -bar
-msg -azu " \033[1;31m[\033[1;33m!\033[1;31m]\033[1;33m$(fun_trans "FUNCAO BETA ULTILIZE POR SUA CONTA EM RISCO")"
+msg -azu " \033[1;31m[\033[1;33m!\033[1;31m]\033[1;33m $(fun_trans "FUNCAO BETABETA") \033[1;31m[\033[1;33m!\033[1;31m]
 msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "ATUALIZAR HORA AMERICA-SANTIAGO")"

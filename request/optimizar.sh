@@ -64,7 +64,7 @@ clear
 clear
 msg -bar
 [[ $(grep -wc mlocate /var/lib/dpkg/statoverride) != '0' ]] && sed -i '/mlocate/d' /var/lib/dpkg/statoverride
-msg -ama " $(fun_trans "LIMPAR MEMORIA E CACHE SISTEMA")"
+msg -ama " $(fun_trans "OTIMIZAR SISTEMA") \033[1;32m[NEW-ADM]"
 msg -bar
 echo -e "\033[1;36m Atualizando pacotes\033[0m"
 fun_bar 'apt-get update -y' 'apt-get upgrade -y'

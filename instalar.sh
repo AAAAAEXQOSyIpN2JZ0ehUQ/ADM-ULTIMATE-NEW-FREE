@@ -98,7 +98,6 @@ byinst="true"
 install_fim () {
 msg -ama "$(source trans -b pt:${id} "Instalacao Completa, Utilize os Comandos"|sed -e 's/[^a-z -]//ig')" && msg bar2
 echo -e " menu / adm"
-echo "pt" > /etc/newadm/idioma # Trampa API Translation
 msg -bar2
 }
 

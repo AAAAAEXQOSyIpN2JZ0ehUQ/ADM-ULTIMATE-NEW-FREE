@@ -156,6 +156,23 @@ msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
 msg -bar
 }
 
+fun_iniciastop () {
+if [[ ! -e /etc/apache2/apache_stop ]]; then
+fun_bar "sleep 3s"
+service apache2 stop > /dev/null 2>&1
+rm -rf /etc/apache2/apache_stop
+msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
+msg -bar
+exit 1
+fi
+fun_bar "sleep 3s"
+service apache2 start > /dev/null 2>&1
+service apache2 restart > /dev/null 2>&1
+echo "#STOP" > /etc/apache2/apache_stop
+msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
+msg -bar
+}
+
 fun_apache2 () {
 if [[ ! -e /etc/apache2/ports.conf ]]; then
 apache2_restart
@@ -163,14 +180,14 @@ exit 1
 fi
 unset OPENBAR
 [[ $(port|grep -w "apache2") ]] && OPENBAR="\033[1;32mOnline" || OPENBAR="\033[1;31mOffline"
-msg -ama "$(fun_trans "MENU") APACHE2"
+msg -ama "$(fun_trans "MENU APACHE2")"
 mine_port
 msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR ")"
-echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "REMOVER APACHE2")"
-echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "ALTERAR PORTA APACHE2")"
+echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "Remover APACHE2")"
+echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "Alterar Porta APACHE2")"
 echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "Editar Cliente APACHE2") \033[1;31m(comand nano)"
-echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "PARAR APACHE2") $OPENBAR"
+echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "Iniciar ou Parar  APACHE2") $OPENBAR"
 msg -bar
 while [[ ${arquivoonlineadm} != @(0|[1-4]) ]]; do
 read -p "[0-4]: " arquivoonlineadm
@@ -183,7 +200,7 @@ case $arquivoonlineadm in
 3)
    nano /etc/apache2/ports.conf
    return 0;;
-4)apache2_stop;;
+4)fun_iniciastop;;
 esac
 }
 fun_apache2

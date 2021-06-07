@@ -130,6 +130,15 @@ tput cuu1 && tput dl1
 clear
 clear
 msg -bar2
+msg -verm "$(fun_trans "Falha da API Translation") \033[1;31m [FAIL]"
+[[ -e /etc/texto-adm ]] && rm /etc/texto-adm
+msg -bar2
+}
+funcao_idioma_OFI () {
+tput cuu1 && tput dl1
+clear
+clear
+msg -bar2
 declare -A idioma=( [1]="en English" [2]="fr Franch" [3]="de German" [4]="it Italian" [5]="pl Polish" [6]="pt Portuguese" [7]="es Spanish" [8]="tr Turkish" )
 for ((i=1; i<=12; i++)); do
 valor1="$(echo ${idioma[$i]}|cut -d' ' -f2)"

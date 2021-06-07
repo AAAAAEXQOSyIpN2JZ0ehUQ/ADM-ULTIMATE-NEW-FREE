@@ -130,7 +130,7 @@ tput cuu1 && tput dl1
 clear
 clear
 msg -bar2
-msg -verm "$(fun_trans "Falha da API Translation") \033[1;31m [FAIL]"
+msg -verm "$(fun_trans "Falha da API Translation")                   \033[1;31m [FAIL]"
 [[ -e /etc/texto-adm ]] && rm /etc/texto-adm
 msg -bar2
 }

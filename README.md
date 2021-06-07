@@ -12,6 +12,7 @@
 * Recomendamos Debian 9 Server x86_64
 * Recomendamos Ubuntu 16.04 Server x86_64
 * Se recomienda usar una distro nueva o formatiada
+* Idioma principal del Scripts es el Portugues 
 * Si te da errores de taduccion ejecutar el siguiennte comando:  
   echo "pt" > /etc/newadm/idioma
 

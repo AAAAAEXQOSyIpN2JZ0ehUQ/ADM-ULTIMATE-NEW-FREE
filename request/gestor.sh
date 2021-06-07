@@ -201,8 +201,11 @@ msg -bar
 read  -p " Nuevo passwd: " pass
 (echo $pass; echo $pass)|passwd 2>/dev/null
 msg -bar
+msg -ne "\033[1;31m [ ! ] \033[1;33m$(fun_trans "REINICIANDO SERVICOS*")"
 service ssh restart > /dev/null 2>&1
 service sshd restart > /dev/null 2>&1
+echo -e " \033[1;32m[OK]"
+msg -bar
 msg -ama " $(fun_trans "CONFIGURACOES ROOT APLICADAS")!"
 msg -bar
 echo -e "\033[1;31m $(fun_trans "Senha Atual") Root: \033[1;32m$pass"

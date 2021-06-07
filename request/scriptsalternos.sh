@@ -154,6 +154,7 @@ rm -rf /bin/Shadowsocks-R.sh > /dev/null 2>&1
 rm -rf /bin/shadowsocks.sh > /dev/null 2>&1
 rm -rf /bin/v2ray84.sh > /dev/null 2>&1
 rm -rf /bin/conexao.sh > /dev/null 2>&1
+rm -rf /bin/conexao > /dev/null 2>&1
 rm -rf /bin/tcp.sh > /dev/null 2>&1
 rm -rf /bin/blockBT.sh > /dev/null 2>&1
 }

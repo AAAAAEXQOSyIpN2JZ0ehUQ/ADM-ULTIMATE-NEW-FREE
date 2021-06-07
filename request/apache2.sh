@@ -123,46 +123,34 @@ msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
 msg -bar
 }
 
-apache2_stop () {
-if [[ ! -e /etc/apache2/ports.conf ]]; then
-msg -ama " $(fun_trans "Apache2 Nao Encontrado")"
+fun_iniciastop () {
+# START APACHE
+if [[ ! -e /etc/apache2/apache_stop ]]; then
+fun_bar "sleep 3s"
+service apache2 start > /dev/null 2>&1
+service apache2 restart > /dev/null 2>&1
+echo "#STOP" > /etc/apache2/apache_stop
+msg -bar
+msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
 msg -bar
 exit 1
 fi
-msg -ama " $(fun_trans "PARANDO APACHE2")"
-msg -bar
-fun_bar "service apache2 stop"
-/etc/init.d/apache2 stop > /dev/null 2>&1
-#apt-get purge apache2 -y &>/dev/null
-sleep 0.5s
-msg -bar
-msg -ama " $(fun_trans "Parado Com Sucesso!")"
-msg -bar
-}
-
-apache2_restart () {
-msg -ama " $(fun_trans "Apache2 ira iniciar ou reiniciar")"
-msg -ama " $(fun_trans "E recuperando a porta 81 por padrao")"
-msg -bar
-fun_bar "apt-get install apache2 -y"
-sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf
-sleep 0.5s
-msg -ne "\033[1;31m [ ! ] \033[1;33m$(fun_trans "REINICIANDO SERVICOS")"
-service apache2 restart > /dev/null 2>&1 &
-echo -e " \033[1;32m[OK]"
-msg -bar
-sleep 0.5s
-msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
-msg -bar
-}
-
-fun_iniciastop () {
-if [[ ! -e /etc/apache2/apache_stop ]]; then
+# STOP APACHE
 fun_bar "sleep 3s"
 service apache2 stop > /dev/null 2>&1
 rm -rf /etc/apache2/apache_stop
 msg -bar
 msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
+msg -bar
+}
+
+fun_iniciastopBK () {
+if [[ ! -e /etc/apache2/apache_stop ]]; then
+fun_bar "sleep 3s"
+service apache2 stop > /dev/null 2>&1
+rm -rf /etc/apache2/apache_stop
+msg -bar
+msg -ama " $(fun_trans "Sucesso Procedimento Feito STOP")"
 msg -bar
 exit 1
 fi
@@ -171,7 +159,7 @@ service apache2 start > /dev/null 2>&1
 service apache2 restart > /dev/null 2>&1
 echo "#STOP" > /etc/apache2/apache_stop
 msg -bar
-msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
+msg -ama " $(fun_trans "Sucesso Procedimento Feito START")"
 msg -bar
 }
 

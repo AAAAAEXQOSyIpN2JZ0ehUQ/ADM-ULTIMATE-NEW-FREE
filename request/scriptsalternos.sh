@@ -194,7 +194,7 @@ msg -bar
 echo -ne "\033[1;32m [11] > " && msg -azu "$(fun_trans "V2ray VPS-MX 8.4")"
 echo -ne "\033[1;32m [12] > " && msg -azu "$(fun_trans "Menu SSHPlus Conexao ")"
 echo -ne "\033[1;32m [13] > " && msg -azu "$(fun_trans "TCP ACELERACION") (BBR/PLUS)"
-echo -ne "\033[1;32m [14] > " && msg -azu "$(fun_trans "FIREWALL PARA VPS VPS")"
+echo -ne "\033[1;32m [14] > " && msg -azu "$(fun_trans "FIREWALL PARA VPS")"
 msg -bar
 # FIM
 selection=$(selection_fun 14)

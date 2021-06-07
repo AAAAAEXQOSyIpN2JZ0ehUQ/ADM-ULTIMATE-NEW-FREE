@@ -1,5 +1,4 @@
 #!/bin/bash
-clear
 #19/12/19
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
@@ -467,6 +466,8 @@ if [[ ! -z $action ]]; then
 	[[ $action = "unbanspam" ]] && UnBan_SPAM && exit 0
 	[[ $action = "unbanall" ]] && UnBan_ALL && exit 0
 fi
+clear
+msg -bar2
 echo -e "  Panel de Firewall VPS•MX By @Kalix1 ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}"
 msg -bar2
 echo -e "  ${Green_font_prefix}0.${Font_color_suffix} Ver la lista actual de prohibidos

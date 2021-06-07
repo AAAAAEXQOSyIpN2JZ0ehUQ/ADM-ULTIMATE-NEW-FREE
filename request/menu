@@ -665,6 +665,7 @@ case $1 in
 "PPriv.py")return 1;;
 "PPub.py")return 1;;
 "speedtest.py")return 1;;
+"pwd.pwd")return 1;;
 "gestor.sh")return 1;;
 *)echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "${1^^} \033[1;33m($(fun_trans "Sem Descricao")!)";;
 esac

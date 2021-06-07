@@ -171,8 +171,8 @@ done
 echo $selection
 }
 
-limpiar
 clear
+limpiar
 msg -bar
 msg -ama " $(fun_trans "TESTE SCRIPTS ALTERNOS")"
 msg -bar

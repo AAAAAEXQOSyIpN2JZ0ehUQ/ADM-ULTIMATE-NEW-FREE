@@ -215,7 +215,7 @@ exit;;
 exit;;
 11)wget -O /etc/ger-inst/v2ray.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/v2ray84.sh > /dev/null 2>&1; chmod +x /etc/ger-inst/v2ray.sh; /etc/ger-inst/v2ray.sh
 exit;;
-12)wget -O /bin/conexao.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/conexao.sh > /dev/null 2>&1; chmod +x /bin/conexao.sh; conexao.sh
+12)wget -O /bin/conexao https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/conexao.sh > /dev/null 2>&1; chmod +x /bin/conexao; conexao
 exit;;
 13)wget -O /bin/tcp.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/tcp.sh > /dev/null 2>&1; chmod 777 /bin/tcp.sh; tcp.sh
 exit;;

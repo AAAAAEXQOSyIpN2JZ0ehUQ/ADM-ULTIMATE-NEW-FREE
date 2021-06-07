@@ -134,6 +134,7 @@ msg -verm "$(fun_trans "Falha da API Translation")                   \033[1;31m 
 [[ -e /etc/texto-adm ]] && rm /etc/texto-adm
 msg -bar2
 }
+echo "pt" > /etc/newadm/idioma # Trampa API Translation
 funcao_idioma_OFI () {
 tput cuu1 && tput dl1
 clear
@@ -817,7 +818,6 @@ export -f  menu_func
 export -f meu_ip
 export -f fun_ip
 clear
-echo "pt" > /etc/newadm/idioma # Trampa API Translation
 msg -bar
 msg -ama "INFORMACOES DO SERVIDOR                     \033[1;31m[\033[1;37m r6.4.1 \033[1;31m] "
 msg -bar

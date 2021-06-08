@@ -144,25 +144,6 @@ msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
 msg -bar
 }
 
-fun_iniciastopBK () {
-if [[ ! -e /etc/apache2/apache_stop ]]; then
-fun_bar "sleep 3s"
-service apache2 stop > /dev/null 2>&1
-rm -rf /etc/apache2/apache_stop
-msg -bar
-msg -ama " $(fun_trans "Sucesso Procedimento Feito STOP")"
-msg -bar
-exit 1
-fi
-fun_bar "sleep 3s"
-service apache2 start > /dev/null 2>&1
-service apache2 restart > /dev/null 2>&1
-echo "#STOP" > /etc/apache2/apache_stop
-msg -bar
-msg -ama " $(fun_trans "Sucesso Procedimento Feito START")"
-msg -bar
-}
-
 fun_apache2 () {
 if [[ ! -e /etc/apache2/ports.conf ]]; then
 apache2_restart

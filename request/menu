@@ -7,6 +7,7 @@ SCPusr="${SCPdir}/ger-user" && [[ ! -d ${SCPusr} ]] && mkdir ${SCPusr}
 SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && mkdir ${SCPfrm}
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPfrm} ]] && mkdir ${SCPfrm}
 SCPidioma="${SCPdir}/idioma"
+echo "pt" > /etc/newadm/idioma # API Translation
 if [[ -e /etc/bash.bashrc-bakup ]]; then AutoRun="\033[1;32m[on]"
 elif [[ -e /etc/bash.bashrc ]]; then AutoRun="\033[1;31m[off]"
 fi
@@ -132,9 +133,9 @@ clear
 msg -bar2
 msg -verm "$(fun_trans "Falha da API Translation")                   \033[1;31m [FAIL]"
 [[ -e /etc/texto-adm ]] && rm /etc/texto-adm
+echo "pt" > /etc/newadm/idioma # API Translation
 msg -bar2
 }
-echo "pt" > /etc/newadm/idioma # Trampa API Translation
 funcao_idioma_OFI () {
 tput cuu1 && tput dl1
 clear

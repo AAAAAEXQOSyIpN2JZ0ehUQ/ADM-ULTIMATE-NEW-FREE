@@ -9,8 +9,9 @@
 ## :heavy_exclamation_mark: Requerimientos
 
 * Un sistema operativo basado en Linux (Ubuntu o Debian)
-* Recomendamos Debian 9 Server x86_64
-* Recomendamos Ubuntu 16.04 Server x86_64
+* Ubuntu 14.04 Server x86_64 / Ubuntu 16.04 Server x86_64  / Ubuntu 18.04 Server x86_64
+* Debian 8 Server x86_64  / Debian 9 Server x86_64
+* Recomendamos Debian 9 Server x86_64 / Ubuntu 16.04 Server x86_64
 * Se recomienda usar una distro nueva o formatiada
 * Idioma principal del Scripts es el Portugues 
 * Si te da errores de taduccion ejecutar el siguiennte comando:  

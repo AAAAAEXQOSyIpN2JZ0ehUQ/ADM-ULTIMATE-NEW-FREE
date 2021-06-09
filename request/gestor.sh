@@ -160,8 +160,8 @@ pamcrack () {
 # wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/VPS-MX/main/VPS-MX_Oficial/ArchivosUtilitarios/common-password -O /etc/pam.d/common-password > /dev/null 2>&1 
 # chmod +x /etc/pam.d/common-password
 #-----------------------------------------------------------------------------------------------------------------
-msg -azu " $(fun_trans "Liberar Passwd para VURTL")"
-msg -ama " $(fun_trans "Desbloquea Vurtl Para Crear Usuarios")"
+msg -azu " $(fun_trans "Desativar Passwd Alphanumeric para VURTL")"
+msg -ama " $(fun_trans "Qualquer senha de 6 digitos pode ser usada ")"
 msg -bar
 echo -e "$(fun_trans "Deseja Prosseguir?")"
 read -p " [S/N]: " -e -i n PROS
@@ -226,7 +226,7 @@ echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "ALTERAR O NOME DO SISTEMA
 echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "ALTERAR SENHA ROOT")"
 echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "TRAFICO DE RED NLOAD")"
 echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "PROCESOS DE SISTEMA HTOP")"
-echo -ne "\033[1;32m [8] > " && msg -azu "$(fun_trans "LIBERAR PASSWD VURTL")"
+echo -ne "\033[1;32m [8] > " && msg -azu "$(fun_trans "DESATIVAR PASSWD ALPHANUMERIC PARA VURTL ")"
 echo -ne "\033[1;32m [9] > " && msg -azu "$(fun_trans "ROOT AO GOOGLE CLOUD E AMAZON")"
 msg -bar
 while [[ ${arquivoonlineadm} != @(0|[1-9]) ]]; do

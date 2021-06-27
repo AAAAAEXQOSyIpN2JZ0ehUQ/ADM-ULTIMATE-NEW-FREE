@@ -125,7 +125,19 @@ msg -bar2
 fi
 [[ -e $HOME/instalar.sh ]] && rm $HOME/instalar.sh*
 }
+# Falha da API Translation
+echo "pt" > /etc/newadm/idioma
 funcao_idioma () {
+tput cuu1 && tput dl1
+clear
+clear
+msg -bar2
+msg -verm "$(fun_trans "Falha da API Translation")                   \033[1;31m [FAIL]"
+[[ -e /etc/texto-adm ]] && rm /etc/texto-adm
+echo "pt" > /etc/newadm/idioma # API Translation
+msg -bar2
+}
+funcao_idioma_OFI () {
 tput cuu1 && tput dl1
 clear
 clear

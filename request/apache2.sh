@@ -79,7 +79,7 @@ msg -ne "\033[1;31m [ ! ] \033[1;33m$(fun_trans "REINICIANDO SERVICOS")"
 service apache2 restart > /dev/null 2>&1 &
 echo -e " \033[1;32m[OK]"
 msg -bar
-echo -e "033[1;33m$(fun_trans "APACHE2 PORTA 81 POR PADRAO ")"
+echo -e "\033[1;33m$(fun_trans "APACHE2 PORTA 81 POR PADRAO ")"
 msg -bar
 sleep 0.5s
 msg -ama " $(fun_trans "Sucesso Procedimento Feito")"

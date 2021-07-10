@@ -22,10 +22,10 @@
 
 apt-get update -y; apt-get upgrade -y; wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/instalar.sh; chmod 777 instalar.sh* && ./instalar.sh*
 
+```
 * Si te da errores de API Translation (taduccion) ejecutar el siguiennte comando:  
   echo "pt" > /etc/newadm/idioma
 
-```
 NEW-ULTIMATE (las dependencias faltantes se instalarán automáticamente)
 ```
 -------------------------------------------------------------------------------

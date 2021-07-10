@@ -94,7 +94,7 @@ fun_bar "sleep 3s"
 apt-get purge apache2 -y &>/dev/null
 msg -bar
 msg -ama " $(fun_trans "Apache2 removido Com Sucesso!")"
-[[ -d /etc/apache2 ]] && rm /etc/apache2
+[[ -d /etc/apache2 ]] && rm -rf /etc/apache2
 msg -bar
 }
 

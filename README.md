@@ -2,6 +2,7 @@
 # ESTE PROYECTO A SIDO DESCONTINUADO.--
 ```
 * UPDATE 21/06/2021 - PROYECTO FINALIZADO
+* ADM-Manager Final Version New-Ultimate
 ```
 ![logo](https://github.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/blob/master/Imagenes/ADM_ULTIMATE_NEW_FREE.png)
 
@@ -15,13 +16,14 @@
 * Debian 8 Server x86_64  / Debian 9 Server x86_64
 * Recomendamos Debian 9 Server x86_64 / Ubuntu 16.04 Server x86_64
 * Se recomienda usar una distro nueva o formatiada
-* Idioma principal del Scripts es el Portugues
-* Si te da errores de API Translation (taduccion) ejecutar el siguiennte comando:  
-  echo "pt" > /etc/newadm/idioma
+* Idioma principal del Scripts es el Portugues (Recomendado)
 
 ## :book: Installation
 
 apt-get update -y; apt-get upgrade -y; wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/instalar.sh; chmod 777 instalar.sh* && ./instalar.sh*
+
+* Si te da errores de API Translation (taduccion) ejecutar el siguiennte comando:  
+  echo "pt" > /etc/newadm/idioma
 
 ```
 NEW-ULTIMATE (las dependencias faltantes se instalarán automáticamente)

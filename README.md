@@ -23,7 +23,7 @@
 apt-get update -y; apt-get upgrade -y; wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/instalar.sh; chmod 777 instalar.sh* && ./instalar.sh*
 
 ```
-* Si te da errores de taduccion (API Translation) ejecutar el siguiente comando:  
+* Si te da errores de taduccion (API Translation) ejecute en consola el comando:  
   echo "pt" > /etc/newadm/idioma
 ```
 ```

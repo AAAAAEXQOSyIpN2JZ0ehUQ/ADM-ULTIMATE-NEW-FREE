@@ -31,13 +31,13 @@ NEW-ULTIMATE (las dependencias faltantes se instalarán automáticamente)
 ```
 -------------------------------------------------------------------------------
 
-## :scroll: Registro de cambios
+## :scroll: Changelog
 
 **VERSION: r6.4.1**
 
 https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/versao
 
-## :octocat: Contribute
+## :octocat: Credits
 
 1. @E8th4ver - Developer of New-Ultimate
 2. Team Illuminati - Contributor Update 

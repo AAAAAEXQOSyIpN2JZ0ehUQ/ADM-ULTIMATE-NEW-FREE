@@ -6,16 +6,16 @@ budp.sh
 dropbear.sh
 openssh.sh
 openvpn.sh
-PDirect.py
-PGet.py
-POpen.py
-PPriv.py
-PPub.py
 shadowsocks.sh
 sockspy.sh
+PPub.py
+PPriv.py
+PDirect.py
+POpen.py
+PGet.py
 squid.sh
-ssl.sh
 sslh.sh
+ssl.sh
 v2ray.sh
 vnc.sh
 webmin.sh
@@ -23,7 +23,6 @@ ADMbot.sh
 apacheon.sh
 criar_pay.sh
 fai2ban.sh
-gestor.sh
 optimizar.sh
 paysnd.sh
 ports.sh
@@ -32,3 +31,4 @@ speed.sh
 speedtest.py
 ultrahost
 utils.sh
+gestor.sh

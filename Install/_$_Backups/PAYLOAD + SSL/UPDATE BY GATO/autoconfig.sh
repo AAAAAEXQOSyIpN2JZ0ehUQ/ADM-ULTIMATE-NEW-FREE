@@ -1,23 +1,27 @@
 #!/bin/bash
-declare -A cor=( [0]="\033[1;37m" [1]="\033[1;34m" [2]="\033[1;32m" [3]="\033[1;36m" [4]="\033[1;31m" )
-SCPdir="/etc/newadm" && [[ ! -d ${SCPdir} ]] && exit 1
-SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
-SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
-SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
-
+barra="\033[0;34m—————————————————————————————————————————————————————— \033[0m"
+cor[0]="\033[0m" #SEN CORE
+cor[1]="\033[0;34m" #AZUL
+cor[2]="\033[1;32m" #VERDE
+cor[3]="\033[1;37m" #BRAN
+cor[4]="\033[1;36m" #MAG
+cor[5]="\033[1;33m" #AMAREL
+cor[6]="\033[1;35m" #MAGENTA
+cor[7]="\033[1;31m" #VERMELHO
 fun_bar () {
 comando[0]="$1"
 comando[1]="$2"
  (
 [[ -e $HOME/fim ]] && rm $HOME/fim
-${comando[0]} -y > /dev/null 2>&1
-${comando[1]} -y > /dev/null 2>&1
+${comando[0]} > /dev/null 2>&1
+${comando[1]} > /dev/null 2>&1
 touch $HOME/fim
  ) > /dev/null 2>&1 &
-echo -ne "\033[1;33m ["
+ tput civis
+echo -ne "  \033[1;33mAGUARDE \033[1;37m- \033[1;33m["
 while true; do
-   for((i=0; i<10; i++)); do
-   echo -ne "\033[1;31m##"
+   for((i=0; i<18; i++)); do
+   echo -ne "\033[1;31m#"
    sleep 0.1s
    done
    [[ -e $HOME/fim ]] && rm $HOME/fim && break
@@ -25,30 +29,11 @@ while true; do
    sleep 1s
    tput cuu1
    tput dl1
-   echo -ne "\033[1;33m ["
+   echo -ne "  \033[1;33mAGUARDE \033[1;37m- \033[1;33m["
 done
-echo -e "\033[1;33m]\033[1;31m -\033[1;32m 100%\033[1;37m"
+echo -e "\033[1;33m]\033[1;37m -\033[1;32m INSTALADO !\033[1;37m"
+tput cnorm
 }
-
-mportas () {
-unset portas
-portas_var=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
-while read port; do
-var1=$(echo $port | awk '{print $1}') && var2=$(echo $port | awk '{print $9}' | awk -F ":" '{print $2}')
-[[ "$(echo -e $portas|grep "$var1 $var2")" ]] || portas+="$var1 $var2\n"
-done <<< "$portas_var"
-i=1
-echo -e "$portas"
-}
-
-pid_kill () {
-[[ -z $1 ]] && refurn 1
-pids="$@"
-for pid in $(echo $pids); do
-kill -9 $pid &>/dev/null
-done
-}
-
 inst_ssl () {
 pkill -f stunnel4
 pkill -f stunnel
@@ -62,7 +47,7 @@ apt-get install stunnel -y
 pt=$(netstat -nplt |grep 'sshd' | awk -F ":" NR==1{'print $2'} | cut -d " " -f 1)
 echo -e "cert = /etc/stunnel/stunnel.pem\nclient = no\nsocket = a:SO_REUSEADDR=1\nsocket = l:TCP_NODELAY=1\nsocket = r:TCP_NODELAY=1\n\n[stunnel]\nconnect = 127.0.0.1:${pt}\naccept = 443" > /etc/stunnel/stunnel.conf
 openssl genrsa -out key.pem 2048 > /dev/null 2>&1
-(echo br; echo br; echo uss; echo speed; echo pnl; echo ultimate; echo @admultimate)|openssl req -new -x509 -key key.pem -out cert.pem -days 1095 > /dev/null 2>&1
+(echo br; echo br; echo uss; echo speed; echo pnl; echo killshito; echo @killshito.com)|openssl req -new -x509 -key key.pem -out cert.pem -days 1095 > /dev/null 2>&1
 cat key.pem cert.pem >> /etc/stunnel/stunnel.pem
 sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
 service stunnel4 restart
@@ -71,10 +56,12 @@ service stunnel4 start
 }
 
 inst_py () {
+
 pkill -f 80
 pkill python
 apt install python -y
 apt install screen -y
+
 pt=$(netstat -nplt |grep 'sshd' | awk -F ":" NR==1{'print $2'} | cut -d " " -f 1)
 
  cat <<EOF > proxy.py
@@ -351,54 +338,40 @@ screen -dmS pythonwe python proxy.py -p 80&
 
 }
 
-remove_fun () {
-msg -ama " $(fun_trans "Parando SSL") Python Payload"
-msg -bar
-fun_bar "apt-get purge stunnel4 -y"
-msg -bar
-rm -rf /etc/stunnel/stunnel.conf > /dev/null 2>&1
-rm -rf /etc/stunnel > /dev/null 2>&1
-pidproxy=$(ps x | grep "proxy.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy ]] && pid_kill $pidproxy
-msg -ama " $(fun_trans "PARADO COM SUCESSO")!"
-msg -bar
-return 0
-}
-
-fun_sslpython () {
-msg -azu " $(fun_trans "Instalador SSL") Python Payload"
-msg -bar
-msg -ama " $(fun_trans "Script de configuracao automatica")"
-msg -ama " $(fun_trans "Requer a porta livre"): 80 - 443"
-msg -bar
-echo -ne " $(fun_trans "Deseja Prosseguir?") [S/N]: "; read x
-[[ $x = @(n|N) ]] && msg -bar && return
-msg -bar
-echo -e "\033[1;36m $(fun_trans "Instalando SSL Stunnel")"
+clear
+clear
+echo -e "$barra"
+echo -e "\033[1;36mPAYLOAD + SSL \033[1;33m[BY KILLSHITO] "
+echo -e "$barra"
+echo -e "\033[1;32mSCRIPT AUTOCONFIGURACION "
+echo -e "$barra"
+echo -e "\033[1;37mRequiere tener el puerto libre ,80 y el 443"
+echo -e "$barra"
+echo -ne " \033[1;37mDeseja Prosseguir? [S/N]: "; read x
+[[ $x = @(n|N) ]] && echo -e "$barra" && exit 0
+echo -e "$barra"
+echo -e "\033[1;36m Instalando SSL.. "
+echo -e "$barra"
 fun_bar 'inst_ssl'
-echo -e "\033[1;36m $(fun_trans "Instalando Socks Python")"
+echo -e "$barra"
+echo -e "\033[1;36m Configurando PYTHON.. "
+echo -e "$barra"
 fun_bar 'inst_py'
 rm -rf proxy.py
-# Crea Arquivo /bin/CREARUSER
-# PARA CREAR UN USUARIO ESCRIBA :CREARUSER
+echo -e "$barra"
+echo -e " \033[1;37mAHORA HAGA LO SIGUENTE "
+echo -e " \033[1;37mPARA CREAR UN USUARIO ESCRIBA :CREARUSER "
+echo -e " \033[1;37mPARA REMOVE UN USUARIO ESCRIBA :REMOUSER "
+echo -e "$barra"
+echo
+echo
 echo '
 echo
 read -p "Usuario :" name
 read -p "Contraseña :" pass
 useradd -M -s /bin/false $name
-(echo $pass; echo $pass)|passwd $name 2>/dev/null' > /bin/CREARUSER && chmod +x /bin/CREARUSER
-# Crea Arquivo /bin/REMOUSER
-# PARA REMOVE UN USUARIO ESCRIBA :REMOUSER
+(echo $pass; echo $pass)|passwd $name 2>/dev/null' > /bin/CREARUSER &&chmod +x /bin/CREARUSER
 echo '
 echo
 read -p "Escriba su usuario que desa remover :" user
-kill $(ps -u $user |awk '{print $1}') >/dev/null 2>/dev/null ; userdel --force $us' >/bin/REMOUSER && chmod +x /bin/REMOUSER
-msg -bar
-msg -ama " \033[1;33mSSL Stunnel $(fun_trans "Porta"): \033[1;31m443"
-msg -ama " \033[1;33mSocks Python $(fun_trans "Porta"): \033[1;31m80"
-msg -bar
-sleep 0.5s
-msg -ama " $(fun_trans "INSTALADO COM SUCESSO")!"
-msg -bar
-return 0
-}
-fun_sslpython
+kill $(ps -u $user |awk '{print $1}') >/dev/null 2>/dev/null ; userdel --force $us' >/bin/REMOUSER &&chmod +x /bin/REMOUSER

@@ -27,7 +27,7 @@ apt-get update -y; apt-get upgrade -y; wget https://raw.githubusercontent.com/AA
   echo "pt" > /etc/newadm/idioma
 ```
 ```
-NEW-ULTIMATE (las dependencias faltantes se instalarán automáticamente)
+ADM-MANAGER (las dependencias faltantes se instalarán automáticamente)
 ```
 -------------------------------------------------------------------------------
 

@@ -39,7 +39,7 @@ https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/m
 ## :octocat: Credits
 
 1. @E8th4ver - Developer of New-Ultimate
-2. Team Illuminati - Contributor Update 
+2. illuminati Dev Team - Contributor Update 
 
 ```
 * SIN MINERIA! 

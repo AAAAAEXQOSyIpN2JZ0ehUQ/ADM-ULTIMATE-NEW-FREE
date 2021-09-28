@@ -16,15 +16,13 @@
 * Recomendamos Debian 9 Server x86_64 / Ubuntu 16.04 Server x86_64
 * Se recomienda usar una distro nueva o formatiada
 * Idioma principal del Scripts es el Portugues (Recomendado)
+* Si te da errores de taduccion (API Translation) ejecute en consola el comando:  
+  echo "pt" > /etc/newadm/idioma
 
 ## :book: Installation
 
 apt-get update -y; apt-get upgrade -y; wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/instalar.sh; chmod 777 instalar.sh* && ./instalar.sh*
 
-```
-* Si te da errores de taduccion (API Translation) ejecute en consola el comando:  
-  echo "pt" > /etc/newadm/idioma
-```
 ```
 ADM-MANAGER (las dependencias faltantes se instalarán automáticamente)
 ```
@@ -42,15 +40,5 @@ https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/m
 2. illuminati Dev Team - Contributor Update 
 
 ```
-* SIN MINERIA! 
-* SIN KEYS! 
-* VERSION GRATUITA 
-* SIN VIRUS TROJANO (BOTNET) 
-* ARCHIVOS LIBERADOS (DECENCRIPTADOS)
+☆ https://t.me/AAAAAEXQOSyIpN2JZ0ehUQ [  ⃘⃤꙰✰ ] ☆
 ```
-
-```
-☆ https://t.me/admmanagerfree ☆
-```
-
-**By: [  ⃘⃤꙰✰ ]**

@@ -52,11 +52,13 @@ return
 }
 
 newadm_color () {
+echo -e "\033[1;33m Removendo new-adm-color"
+rm -rf /etc/new-adm-color > /dev/null 2>&1
+msg -bar
 echo -e "$(fun_trans "Deseja Prosseguir?")"
 read -p " [S/N]: " -e -i n PROS
 [[ $PROS = @(s|S|y|Y) ]] || return 1
 msg -bar
-rm -rf /etc/new-adm-color > /dev/null 2>&1
 echo "4 1 7 3 2 5 4 " > /etc/new-adm-color
 echo -ne " \033[1;31m[ ! ] new-adm-color \033[1;32m[OK]\n"
 return

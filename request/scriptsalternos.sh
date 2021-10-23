@@ -189,8 +189,8 @@ echo -ne "\033[1;32m [8] > " && msg -azu "$(fun_trans "SHADOWSOCKS-LIBEV")"
 echo -ne "\033[1;32m [9] > " && msg -azu "$(fun_trans "SHADOWSOCKS-R")"
 echo -ne "\033[1;32m [10] > " && msg -azu "$(fun_trans "SHADOWSOCKS-NORMAL")"
 msg -bar
-echo -ne "\033[1;32m [12] > " && msg -azu "$(fun_trans "TCP ACELERACION") (BBR/PLUS)"
-echo -ne "\033[1;32m [13] > " && msg -azu "$(fun_trans "FIREWALL PARA VPS")"
+echo -ne "\033[1;32m [11] > " && msg -azu "$(fun_trans "TCP ACELERACION") (BBR/PLUS)"
+echo -ne "\033[1;32m [12] > " && msg -azu "$(fun_trans "FIREWALL PARA VPS")"
 msg -bar
 # FIM
 selection=$(selection_fun 14)

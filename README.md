@@ -10,7 +10,7 @@
 ## :heavy_exclamation_mark: Requerimientos
 
 * Un sistema operativo basado en Linux (Ubuntu o Debian)
-* Ubuntu 16.04 Server x86_64 / Ubuntu 18.04 Server x86_64 / Ubuntu 20.04 Server x86_64
+* Ubuntu 14.04 Server x86_64 / Ubuntu 16.04 Server x86_64 / Ubuntu 18.04 Server x86_64 / Ubuntu 20.04 Server x86_64
 * Debian 8 Server x86_64  / Debian 9 Server x86_64
 * Idioma principal del Scripts es el Portugues (Recomendado)
 * Si te da errores de taduccion (API Translation) ejecute en consola el comando:  

@@ -834,7 +834,7 @@ menu_info
 [[ -e /etc/newadm/ger-user/Limiter.log ]] && log=$(echo -e "\033[1;32mLOG ") || log=$(echo -e "\033[1;31mLOG ")
 _total=$(awk  -F : '$3 >= 500 {print  $1}'  /etc/passwd | grep -v "nobody" | sort | wc -l)
 msg -bar
-msg -ama "\033[1;31m[\033[1;32m NEW-ULTIMATE \033[1;31m] \033[1;31mIP \033[1;37m$(meu_ip) \033[1;31mUSER VPS: \033[1;37m$_total     $log"
+msg -ama "\033[1;31m[\033[1;32m NEW-ULTIMATE \033[1;31m] \033[1;31mIP \033[1;37m$(meu_ip) \033[1;31mUSER VPS: \033[1;37m$_total   [$log]"
 msg -bar
 echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$(fun_trans "SAIR DO SCRIPT*")"
 menu_func "GERENCIAR USUARIOS*" "GERENCIAR FERRAMENTAS*" "GERENCIAR SISTEMA*" "-vd ATUALIZAR SCRIPT*" "-vm DESINSTALAR NEW-ULTIMATE*" "MUDAR CORES SISTEMA*" "MUDAR IDIOMA DO SCRIPT*" "-fi $AutoRun EXECUCAO AUTOMATICA*" "MENU DE INSTALACOES*"

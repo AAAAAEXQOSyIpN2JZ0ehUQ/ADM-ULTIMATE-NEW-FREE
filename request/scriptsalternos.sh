@@ -212,8 +212,6 @@ exit;;
 exit;;
 12)wget -O /bin/blockBT.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/blockBT.sh > /dev/null 2>&1; chmod 777 /bin/blockBT.sh; blockBT.sh
 exit;;
-teste675)wget -O /etc/ger-inst/v2ray.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/v2ray84.sh > /dev/null 2>&1; chmod +x /etc/ger-inst/v2ray.sh; /etc/ger-inst/v2ray.sh
-exit;;
 teste844)wget -O /bin/conexao https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/conexao.sh > /dev/null 2>&1; chmod +x /bin/conexao; conexao
 exit;;
 0)exit;;

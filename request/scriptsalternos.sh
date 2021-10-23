@@ -163,15 +163,6 @@ echo $selection
 
 clear
 clear
-rm -rf /bin/C-SSR.sh > /dev/null 2>&1
-rm -rf /bin/Shadowsocks-libev.sh > /dev/null 2>&1
-rm -rf /bin/Shadowsocks-R.sh > /dev/null 2>&1
-rm -rf /bin/shadowsocks.sh > /dev/null 2>&1
-rm -rf /bin/v2ray84.sh > /dev/null 2>&1
-rm -rf /bin/conexao.sh > /dev/null 2>&1
-rm -rf /bin/conexao > /dev/null 2>&1
-rm -rf /bin/tcp.sh > /dev/null 2>&1
-rm -rf /bin/blockBT.sh > /dev/null 2>&1
 msg -bar
 msg -ama " $(fun_trans "TESTE SCRIPTS ALTERNOS")"
 msg -bar
@@ -213,8 +204,6 @@ exit;;
 11)wget -O /bin/tcp.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/tcp.sh > /dev/null 2>&1; chmod 777 /bin/tcp.sh; tcp.sh
 exit;;
 12)wget -O /bin/blockBT.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/blockBT.sh > /dev/null 2>&1; chmod 777 /bin/blockBT.sh; blockBT.sh
-exit;;
-teste844)wget -O /bin/conexao https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/conexao.sh > /dev/null 2>&1; chmod +x /bin/conexao; conexao
 exit;;
 0)exit;;
 esac

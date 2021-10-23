@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "pt" > /etc/newadm/idioma #FUNCAO IDIOMA PORTUGUES
 red=$(tput setaf 1)
 gren=$(tput setaf 2)
 yellow=$(tput setaf 3)
@@ -9,7 +10,6 @@ SCPinst="/etc/ger-inst" && [[ ! -d ${SCPfrm} ]] && mkdir ${SCPfrm}
 SCPidioma="${SCPdir}/idioma"
 if [[ -e /etc/bash.bashrc-bakup ]]; then AutoRun="\033[1;32m[on]"
 elif [[ -e /etc/bash.bashrc ]]; then AutoRun="\033[1;31m[off]"
-echo "pt" > /etc/newadm/idioma
 fi
 # Funcoes Globais
 msg () {

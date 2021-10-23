@@ -13,18 +13,18 @@
 * Ubuntu 14.04 Server x86_64 / Ubuntu 16.04 Server x86_64
 * Ubuntu 18.04 Server x86_64  / Ubuntu 20.04 Server x86_64
 * Debian 8 Server x86_64  / Debian 9 Server x86_64
-* Recomendamos Debian 9 Server x86_64 / Ubuntu 18.04 Server x86_64
-* Se recomienda usar una distro nueva o formatiada
 * Idioma principal del Scripts es el Portugues (Recomendado)
 * Si te da errores de taduccion (API Translation) ejecute en consola el comando:  
   echo "pt" > /etc/newadm/idioma
+* Se recomienda usar una distro nueva o formatiada
+* Recomendamos Debian 9 Server x86_64 / Ubuntu 18.04 Server x86_64
 
 ## :book: Installation
 
-1° apt-get update -y
-2° apt-get upgrade -y
-3° Si es Debian 9 apt-get install sudo -y
-4° Para evitar errores no omita los pasos anteriores 👆
+1. apt-get update -y
+2. apt-get upgrade -y
+3. Si es Debian 9 apt-get install sudo -y
+4. Para evitar errores no omita los pasos anteriores 👆
 
 wget --no-check-certificate https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/instalar.sh; chmod 777 instalar.sh* && ./instalar.sh*
 

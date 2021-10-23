@@ -9,6 +9,7 @@ SCPinst="/etc/ger-inst" && [[ ! -d ${SCPfrm} ]] && mkdir ${SCPfrm}
 SCPidioma="${SCPdir}/idioma"
 if [[ -e /etc/bash.bashrc-bakup ]]; then AutoRun="\033[1;32m[on]"
 elif [[ -e /etc/bash.bashrc ]]; then AutoRun="\033[1;31m[off]"
+echo "pt" > /etc/newadm/idioma
 fi
 # Funcoes Globais
 msg () {
@@ -126,6 +127,16 @@ fi
 [[ -e $HOME/instalar.sh ]] && rm $HOME/instalar.sh*
 }
 funcao_idioma () {
+tput cuu1 && tput dl1
+clear
+clear
+msg -bar2
+echo -e "\033[1;32m$(fun_trans "ATENCAO"): "
+echo -e "\033[1;31m$(fun_trans "FUNÇÃO INDISPONÍVEL.")"
+echo "pt" > /etc/newadm/idioma
+msg -bar2
+}
+funcao_idioma_1 () {
 tput cuu1 && tput dl1
 clear
 clear

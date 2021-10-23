@@ -56,10 +56,9 @@ echo -e "$(fun_trans "Deseja Prosseguir?")"
 read -p " [S/N]: " -e -i n PROS
 [[ $PROS = @(s|S|y|Y) ]] || return 1
 msg -bar
-echo -ne " \033[1;31m[ ! ] new-adm-color"
 rm -rf /etc/new-adm-color > /dev/null 2>&1
-echo "4 1 7 3 2 5 4 " > /etc/new-adm-color > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-chmod +x /etc/new-adm-color
+echo "4 1 7 3 2 5 4 " > /etc/new-adm-color
+echo -ne " \033[1;31m[ ! ] new-adm-color \033[1;32m [OK]"
 return
 }
 
@@ -153,7 +152,7 @@ local selection="null"
 local range
 for((i=0; i<=$1; i++)); do range[$i]="$i "; done
 while [[ ! $(echo ${range[*]}|grep -w "$selection") ]]; do
-echo -ne "[0-13]: " >&2
+echo -ne "[0-12]: " >&2
 read selection
 tput cuu1 >&2 && tput dl1 >&2
 done

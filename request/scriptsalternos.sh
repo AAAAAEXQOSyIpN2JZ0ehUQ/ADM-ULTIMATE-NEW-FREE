@@ -57,14 +57,10 @@ read -p " [S/N]: " -e -i n PROS
 [[ $PROS = @(s|S|y|Y) ]] || return 1
 msg -bar
 echo -ne " \033[1;31m[ ! ] new-adm-color"
-rm -rf /etc/new-adm-color > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-echo "4 1 7 3 2 5 4 " > /etc/new-adm-color
+rm -rf /etc/new-adm-color > /dev/null 2>&1
+echo "4 1 7 3 2 5 4 " > /etc/new-adm-color > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
 chmod +x /etc/new-adm-color
 return
-}
-
-fun_nettools () {
-[[ ! -e /bin/nettools.py ]] && wget -O /bin/nettools.py https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/nettools.py > /dev/null 2>&1; chmod +x /bin/nettools.py; /bin/nettools.py
 }
 
 fun_statussistema () {
@@ -133,6 +129,10 @@ for porta in `echo -e "$PT" | cut -d: -f2 | cut -d' ' -f1 | uniq`; do
 done
 }
 
+fun_nettools () {
+[[ ! -e /bin/nettools.py ]] && wget -O /bin/nettools.py https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/nettools.py > /dev/null 2>&1; chmod +x /bin/nettools.py; /bin/nettools.py
+}
+
 resetiptables () {
 echo -e "Reiniciando Ipetables espere"
 iptables -F && iptables -X && iptables -t nat -F && iptables -t nat -X && iptables -t mangle -F && iptables -t mangle -X && iptables -t raw -F && iptables -t raw -X && iptables -t security -F && iptables -t security -X && iptables -P INPUT ACCEPT && iptables -P FORWARD ACCEPT && iptables -P OUTPUT ACCEPT
@@ -145,18 +145,6 @@ dpkg -l | grep -i ^rc
 msg -ama "Limpiando Paquetes Obsoloteos"
 dpkg -l |grep -i ^rc | cut -d " " -f 3 | xargs dpkg --purge
 msg -ama "Limpieza Completa"
-}
-
-limpiar () {
-rm -rf /bin/C-SSR.sh > /dev/null 2>&1
-rm -rf /bin/Shadowsocks-libev.sh > /dev/null 2>&1
-rm -rf /bin/Shadowsocks-R.sh > /dev/null 2>&1
-rm -rf /bin/shadowsocks.sh > /dev/null 2>&1
-rm -rf /bin/v2ray84.sh > /dev/null 2>&1
-rm -rf /bin/conexao.sh > /dev/null 2>&1
-rm -rf /bin/conexao > /dev/null 2>&1
-rm -rf /bin/tcp.sh > /dev/null 2>&1
-rm -rf /bin/blockBT.sh > /dev/null 2>&1
 }
 
 # SISTEMA DE SELECAO
@@ -173,7 +161,16 @@ echo $selection
 }
 
 clear
-limpiar
+clear
+rm -rf /bin/C-SSR.sh > /dev/null 2>&1
+rm -rf /bin/Shadowsocks-libev.sh > /dev/null 2>&1
+rm -rf /bin/Shadowsocks-R.sh > /dev/null 2>&1
+rm -rf /bin/shadowsocks.sh > /dev/null 2>&1
+rm -rf /bin/v2ray84.sh > /dev/null 2>&1
+rm -rf /bin/conexao.sh > /dev/null 2>&1
+rm -rf /bin/conexao > /dev/null 2>&1
+rm -rf /bin/tcp.sh > /dev/null 2>&1
+rm -rf /bin/blockBT.sh > /dev/null 2>&1
 msg -bar
 msg -ama " $(fun_trans "TESTE SCRIPTS ALTERNOS")"
 msg -bar
@@ -192,10 +189,8 @@ echo -ne "\033[1;32m [8] > " && msg -azu "$(fun_trans "SHADOWSOCKS-LIBEV")"
 echo -ne "\033[1;32m [9] > " && msg -azu "$(fun_trans "SHADOWSOCKS-R")"
 echo -ne "\033[1;32m [10] > " && msg -azu "$(fun_trans "SHADOWSOCKS-NORMAL")"
 msg -bar
-echo -ne "\033[1;32m [11] > " && msg -azu "$(fun_trans "V2ray VPS-MX 8.4")"
-echo -ne "\033[1;32m [12] > " && msg -azu "$(fun_trans "Menu SSHPlus Conexao ")"
-echo -ne "\033[1;32m [13] > " && msg -azu "$(fun_trans "TCP ACELERACION") (BBR/PLUS)"
-echo -ne "\033[1;32m [14] > " && msg -azu "$(fun_trans "FIREWALL PARA VPS")"
+echo -ne "\033[1;32m [12] > " && msg -azu "$(fun_trans "TCP ACELERACION") (BBR/PLUS)"
+echo -ne "\033[1;32m [13] > " && msg -azu "$(fun_trans "FIREWALL PARA VPS")"
 msg -bar
 # FIM
 selection=$(selection_fun 14)
@@ -214,13 +209,13 @@ exit;;
 exit;;
 10)wget -O /bin/shadowsocks.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/shadowsocks.sh > /dev/null 2>&1; chmod +x /bin/shadowsocks.sh; shadowsocks.sh
 exit;;
-11)wget -O /etc/ger-inst/v2ray.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/v2ray84.sh > /dev/null 2>&1; chmod +x /etc/ger-inst/v2ray.sh; /etc/ger-inst/v2ray.sh
+11)wget -O /bin/tcp.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/tcp.sh > /dev/null 2>&1; chmod 777 /bin/tcp.sh; tcp.sh
 exit;;
-12)wget -O /bin/conexao https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/conexao.sh > /dev/null 2>&1; chmod +x /bin/conexao; conexao
+12)wget -O /bin/blockBT.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/blockBT.sh > /dev/null 2>&1; chmod 777 /bin/blockBT.sh; blockBT.sh
 exit;;
-13)wget -O /bin/tcp.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/tcp.sh > /dev/null 2>&1; chmod 777 /bin/tcp.sh; tcp.sh
+teste675)wget -O /etc/ger-inst/v2ray.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/v2ray84.sh > /dev/null 2>&1; chmod +x /etc/ger-inst/v2ray.sh; /etc/ger-inst/v2ray.sh
 exit;;
-14)wget -O /bin/blockBT.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/blockBT.sh > /dev/null 2>&1; chmod 777 /bin/blockBT.sh; blockBT.sh
+teste844)wget -O /bin/conexao https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/conexao.sh > /dev/null 2>&1; chmod +x /bin/conexao; conexao
 exit;;
 0)exit;;
 esac

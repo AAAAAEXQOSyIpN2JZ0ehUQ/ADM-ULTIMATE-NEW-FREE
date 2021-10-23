@@ -132,7 +132,7 @@ clear
 clear
 msg -bar2
 echo -e "\033[1;32m$(fun_trans "ATENCAO"): "
-echo -e "\033[1;31m$(fun_trans "FUNÇÃO INDISPONÍVEL.")"
+echo -e "\033[1;31m$(fun_trans "FUNCAO INDISPONIVEL.")"
 echo "pt" > /etc/newadm/idioma
 msg -bar2
 }

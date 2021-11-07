@@ -97,12 +97,15 @@ return
 host_name () {
 unset name
 while [[ ${name} = "" ]]; do
-echo -ne "\033[1;37m $(fun_trans "Novo nome em seu servidor"): " && read name
+echo -e "\033[1;33m $(fun_trans "O nome sera alterado internamente no servodor")"
+echo -ne "\033[1;37m $(fun_trans "Digite o novo nome do seu servidor"): " && read name
+tput cuu1 && tput dl1
 tput cuu1 && tput dl1
 done
 hostnamectl set-hostname $name 
 if [ $(hostnamectl status | head -1  | awk '{print $3}') = "${name}" ]; then 
-echo -e "\033[1;33m $(fun_trans "NOME ALTERADO COM SUCESSO")!"
+echo -e "\033[1;33m $(fun_trans "Nome Alterado Com Sucesso")!"
+echo -e "\033[1;31m $(fun_trans "Novo Nome"): \033[1;32m$name"
 else
 echo -e "\033[1;31m $(fun_trans "Falhou")!"
 fi
@@ -160,18 +163,20 @@ pamcrack () {
 # wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/VPS-MX/main/VPS-MX_Oficial/ArchivosUtilitarios/common-password -O /etc/pam.d/common-password > /dev/null 2>&1 
 # chmod +x /etc/pam.d/common-password
 #-----------------------------------------------------------------------------------------------------------------
-msg -azu " $(fun_trans "Desativar senhas alfanumericas em VULTR")"
-msg -ama " $(fun_trans "Qualquer senha de 6 digitos pode ser usada ")"
+msg -ama " $(fun_trans "Desativar senhas alfanumericas em VULTR")"
+msg -azu " $(fun_trans "Qualquer senha de 6 digitos pode ser usada ")"
 msg -bar
 echo -e "$(fun_trans "Deseja Prosseguir?")"
 read -p " [S/N]: " -e -i n PROS
 [[ $PROS = @(s|S|y|Y) ]] || return 1
 msg -bar
-fun_bar "sleep 2s"
-service ssh restart > /dev/null 2>&1
-service sshd restart > /dev/null 2>&1
+#Inicia Procedimentos
+fun_cracklib () {
 sed -i 's/.*pam_cracklib.so.*/password sufficient pam_unix.so sha512 shadow nullok try_first_pass #use_authtok/' /etc/pam.d/common-password
-service ssh restart > /dev/null 2>&1
+service ssh restart
+service sshd restart
+}
+fun_bar "fun_cracklib"
 msg -bar
 msg -ama " \033[1;32m[ ! ]\033[1;33m $(fun_trans "Configuracoes VURLT aplicadas")"
 msg -bar
@@ -181,7 +186,7 @@ return
 
 aplica_root () {
 msg -ama " $(fun_trans "Aplica permissoes ao usuario root")"
-msg -ama " $(fun_trans "Sistemas Google Cloud e Amazon ")"
+msg -azu " $(fun_trans "Sistemas Google Cloud e Amazon ")"
 msg -bar
 echo -e "$(fun_trans "Deseja Prosseguir?")"
 read -p " [S/N]: " -e -i n PROS
@@ -190,11 +195,14 @@ msg -bar
 #Inicia Procedimentos
 msg -ama " $(fun_trans "Aplicando o Root ao Google Cloud e Amazon ")"
 msg -bar
-fun_bar "apt-get update -y" "apt-get upgrade -y"
-service ssh restart > /dev/null 2>&1
+fun_aplicaroot () {
+apt-get update -y
+apt-get upgrade -y
 sed -i "s;PermitRootLogin prohibit-password;PermitRootLogin yes;g" /etc/ssh/sshd_config
 sed -i "s;PermitRootLogin without-password;PermitRootLogin yes;g" /etc/ssh/sshd_config
 sed -i "s;PasswordAuthentication no;PasswordAuthentication yes;g" /etc/ssh/sshd_config
+}
+fun_bar "fun_aplicaroot"
 msg -bar
 echo -e "\033[1;37m $(fun_trans "Digite Sua Senha aAtual ou Uma Nova Senha")"
 msg -bar
@@ -209,7 +217,7 @@ msg -bar
 msg -ama " $(fun_trans "CONFIGURACOES ROOT APLICADAS")!"
 msg -bar
 echo -e "\033[1;31m $(fun_trans "Senha Atual") Root: \033[1;32m$pass"
-echo -e " \033[1;31mRUTA > \033[1;31m[ \033[1;32m/etc/ssh/sshd_config \033[1;31m]"
+echo -e " \033[1;31mRuta sshd > \033[1;31m[ \033[1;32m/etc/ssh/sshd_config \033[1;31m]"
 return
 }
 
@@ -219,10 +227,10 @@ msg -bar
 msg -ama "$(fun_trans " GERENCIAR SISTEMA")"
 msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
-echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "ATUALIZAR PACOTES")"
+echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "ATUALIZAR SISTEMA")"
 echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "REINICIAR SERVICOS")"
 echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "REINICIAR SISTEMA")"
-echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "ALTERAR O NOME DO SISTEMA")"
+echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "MUDAR O NOME DO SISTEMA")"
 echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "ALTERAR SENHA ROOT")"
 echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "TRAFICO DE RED NLOAD")"
 echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "PROCESOS DE SISTEMA HTOP")"

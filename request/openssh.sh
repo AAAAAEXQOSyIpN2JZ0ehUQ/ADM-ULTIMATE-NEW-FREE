@@ -36,25 +36,6 @@ echo "$MEU_IP2" > /etc/MEUIPADM
 fi
 }
 
-mine_port () {
-local portasVAR=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
-local NOREPEAT
-local reQ
-local Port
-while read port; do
-reQ=$(echo ${port}|awk '{print $1}')
-Port=$(echo {$port} | awk '{print $9}' | awk -F ":" '{print $2}')
-[[ $(echo -e $NOREPEAT|grep -w "$Port") ]] && continue
-NOREPEAT+="$Port\n"
-case ${reQ} in
-ssh|sshd)
-[[ -z $SSH ]] && msg -bar && local SSH="\033[1;32m$(fun_trans "PORTA ")\033[1;37m"
-SSH+="$Port ";;
-esac
-done <<< "${portasVAR}"
-[[ ! -z $SSH ]] && echo -e $SSH
-}
-
 fun_ssh () {
 sshvar=$(cat /etc/ssh/sshd_config | grep -v "Port $1")
 echo "$sshvar" > /etc/ssh/sshd_config
@@ -73,26 +54,36 @@ msg -ne " $(fun_trans "Confirme seu ip")"; read -p ": " -e -i $IP ip
 msg -bar
 msg -ama " $(fun_trans "AUTO CONFIGURAÇAO")"
 msg -bar
-#Inicia Update and Upgrade
-fun_bar "apt-get update -y" "apt-get upgrade -y"
 #Inicia Procedimentos
-service ssh restart > /dev/null 2>&1
+fun_aplicaroot () {
+apt-get update -y
+apt-get upgrade -y
+service ssh restart
 cp /etc/ssh/sshd_config /etc/ssh/sshd_back
 sed -i "s;PermitRootLogin prohibit-password;PermitRootLogin yes;g" /etc/ssh/sshd_config
 sed -i "s;PermitRootLogin without-password;PermitRootLogin yes;g" /etc/ssh/sshd_config
 sed -i "s;PasswordAuthentication no;PasswordAuthentication yes;g" /etc/ssh/sshd_config
 # grep -v "^PermitTunnel yes" /etc/ssh/sshd_config >/tmp/ssh && mv /tmp/ssh /etc/ssh/sshd_config
 # echo "PermitTunnel yes" >>/etc/ssh/sshd_config
+}
+fun_bar "fun_aplicaroot"
 msg -bar
-msg -ama " $(fun_trans "CONFIGURACOES APLICADAS")!"
+echo -e "\033[1;37m $(fun_trans "Digite Sua Senha Atual ou Uma Nova Senha")"
+msg -bar
+read  -p " Nuevo passwd: " pass
+(echo $pass; echo $pass)|passwd 2>/dev/null
 msg -bar
 msg -ne "\033[1;31m [ ! ] \033[1;33m$(fun_trans "REINICIANDO SERVICOS*")"
 service ssh restart > /dev/null 2>&1
 service sshd restart > /dev/null 2>&1
 echo -e " \033[1;32m[OK]"
 msg -bar
+msg -ama " $(fun_trans "Root ao Google Cloud") \033[1;32m[OK]"
+msg -ama " $(fun_trans "Root ao Amazon Aplicando") \033[1;32m[OK]"
+msg -bar
 msg -ama " $(fun_trans "Seu Openssh foi configurado com sucesso")"
-echo -e " \033[1;31mRUTA > \033[1;31m[ \033[1;32m/etc/ssh/sshd_config \033[1;31m]"
+echo -e "\033[1;31m $(fun_trans "Senha Atual") Root: \033[1;32m$pass"
+echo -e "\033[1;31m $(fun_trans "Ruta sshd") > \033[1;31m[ \033[1;32m/etc/ssh/sshd_config \033[1;31m]"
 msg -bar
 return 0
 }
@@ -105,23 +96,24 @@ msg -ne " $(fun_trans "Confirme seu ip")"; read -p ": " -e -i $IP ip
 msg -bar
 msg -ama " $(fun_trans "DOWNLOAD CONFIGURAÇAO PORTA 22 ")"
 msg -bar
-#Inicia Update and Upgrade
-fun_bar "apt-get update -y" "apt-get upgrade -y"
 #Inicia Procedimentos
-service ssh restart > /dev/null 2>&1
+fun_aplicaroot () {
+apt-get update -y
+apt-get upgrade -y
+service ssh restart
 cp /etc/ssh/sshd_config /etc/ssh/sshd_back
 wget -O /etc/ssh/sshd_config https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/sshd_config > /dev/null 2>&1
 chmod +x /etc/ssh/sshd_config
-msg -bar
-msg -ama " $(fun_trans "CONFIGURACOES APLICADAS")!"
+}
+fun_bar "fun_aplicaroot"
 msg -bar
 msg -ne "\033[1;31m [ ! ] \033[1;33m$(fun_trans "REINICIANDO SERVICOS*")"
 service ssh restart > /dev/null 2>&1
 service sshd restart > /dev/null 2>&1
 echo -e " \033[1;32m[OK]"
 msg -bar
-msg -ama " $(fun_trans "Seu Openssh foi configurado com sucesso Porta 22")"
-echo -e " \033[1;31mRUTA > \033[1;31m[ \033[1;32m/etc/ssh/sshd_config \033[1;31m]"
+msg -ama " $(fun_trans "Seu Openssh foi configurado com sucesso")"
+echo -e "\033[1;31m $(fun_trans "Ruta sshd") > \033[1;31m[ \033[1;32m/etc/ssh/sshd_config \033[1;31m]"
 msg -bar
 return 0
 }
@@ -168,12 +160,31 @@ msg -bar
 return 0
 }
 
+mine_port () {
+local portasVAR=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
+local NOREPEAT
+local reQ
+local Port
+while read port; do
+reQ=$(echo ${port}|awk '{print $1}')
+Port=$(echo {$port} | awk '{print $9}' | awk -F ":" '{print $2}')
+[[ $(echo -e $NOREPEAT|grep -w "$Port") ]] && continue
+NOREPEAT+="$Port\n"
+case ${reQ} in
+ssh|sshd)
+[[ -z $SSH ]] && msg -bar && local SSH="\033[1;32m$(fun_trans "PORTA ")\033[1;37m"
+SSH+="$Port ";;
+esac
+done <<< "${portasVAR}"
+[[ ! -z $SSH ]] && echo -e $SSH
+}
+
 openssh () {
 msg -ama "$(fun_trans "CONFIGURAÇÃO DO OPENSSH")"
 mine_port
 msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
-echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "AUTO CONFIGURAÇAO")"
+echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "AUTO CONFIGURAÇAO") ROOT"
 echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "DOWNLOAD CONFIGURAÇAO")"
 echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "REDEFINIR PORTA")"
 echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "Editar Cliente OPENSSH") \033[1;31m(comand nano)"

@@ -50,32 +50,15 @@ local PORTENTRY="$2"
 [[ ! $(echo -e $(port|grep -v ${SERVICE})|grep -w "$PORTENTRY") ]] && return 0 || return 1
 }
 
-mine_port () {
-local portasVAR=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
-local NOREPEAT
-local reQ
-local Port
-while read port; do
-reQ=$(echo ${port}|awk '{print $1}')
-Port=$(echo {$port} | awk '{print $9}' | awk -F ":" '{print $2}')
-[[ $(echo -e $NOREPEAT|grep -w "$Port") ]] && continue
-NOREPEAT+="$Port\n"
-case ${reQ} in
-apache|apache2)
-[[ -z $APC ]] && msg -bar && local APC="\033[1;32m $(fun_trans "PORTA") \033[1;37m"
-APC+="$Port ";;
-esac
-done <<< "${portasVAR}"
-[[ ! -z $APC ]] && echo -e $APC
-}
-
 apache2_restart () {
-msg -ama " $(fun_trans "INSTALADOR APACHE2")"
+msg -ama " $(fun_trans "INSTALANDO APACHE")"
 msg -bar
 fun_bar "apt-get install apache2 -y"
 sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf
-sleep 0.5s
+msg -bar
+sleep 2s
 msg -ne "\033[1;31m [ ! ] \033[1;33m$(fun_trans "REINICIANDO SERVICOS")"
+service apache2 start > /dev/null 2>&1
 service apache2 restart > /dev/null 2>&1 &
 echo -e " \033[1;32m[OK]"
 msg -bar
@@ -87,25 +70,20 @@ msg -bar
 }
 
 remover_apache2 () {
-msg -ama " $(fun_trans "REMOVENDO APACHE2")"
+msg -ama " $(fun_trans "DESINTALANDO APACHE")"
 msg -bar
 /etc/init.d/apache2 stop > /dev/null 2>&1
 fun_bar "sleep 3s"
 apt-get purge apache2 -y &>/dev/null
 msg -bar
-msg -ama " $(fun_trans "Apache2 removido Com Sucesso!")"
+msg -ama " $(fun_trans "Apache removido Com Sucesso!")"
 [[ -d /etc/apache2 ]] && rm -rf /etc/apache2
 msg -bar
 }
 
 edit_apache () {
-msg -ama "$(fun_trans "REDEFINIR PORTAS APACHE2")"
+msg -azu "$(fun_trans "REDEFINIR PORTAS APACHE")"
 msg -bar
-if [[ ! -e /etc/apache2/ports.conf ]]; then
-msg -ama " $(fun_trans "Apache2 Nao Encontrado")"
-msg -bar
-exit 1
-fi
 local CONF="/etc/apache2/ports.conf"
 local NEWCONF="$(cat ${CONF})"
 msg -ne "$(fun_trans "Novas Porta"): "
@@ -136,29 +114,47 @@ sleep 1s
 msg -bar
 msg -azu "$(fun_trans "PORTAS REDEFINIDAS")"
 msg -bar
-msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
-msg -bar
 }
 
 fun_iniciastop () {
-# START APACHE
 if [[ ! -e /etc/apache2/apache_stop ]]; then
-fun_bar "sleep 3s"
-service apache2 start > /dev/null 2>&1
-service apache2 restart > /dev/null 2>&1
+echo -e "\033[1;36mPARANDO APACHE"
+msg -bar
+fun_bar "service apache2 stop"
+service apache2 stop > /dev/null 2>&1
 echo "#STOP" > /etc/apache2/apache_stop
 msg -bar
-msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
+echo -e "\033[1;33mAPACHE PARADO COM SUCESSO"
 msg -bar
 exit 1
 fi
-# STOP APACHE
-fun_bar "sleep 3s"
-service apache2 stop > /dev/null 2>&1
+echo -e "\033[1;36mINICIANDO APACHE"
+msg -bar
+fun_bar "service apache2 start"
+service apache2 restart > /dev/null 2>&1
 rm -rf /etc/apache2/apache_stop
 msg -bar
-msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
+echo -e "\033[1;33mAPACHE ACTIVADO COM SUCESSO"
 msg -bar
+}
+
+mine_port () {
+local portasVAR=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
+local NOREPEAT
+local reQ
+local Port
+while read port; do
+reQ=$(echo ${port}|awk '{print $1}')
+Port=$(echo {$port} | awk '{print $9}' | awk -F ":" '{print $2}')
+[[ $(echo -e $NOREPEAT|grep -w "$Port") ]] && continue
+NOREPEAT+="$Port\n"
+case ${reQ} in
+apache|apache2)
+[[ -z $APC ]] && msg -bar && local APC="\033[1;32m $(fun_trans "PORTA") \033[1;37m"
+APC+="$Port ";;
+esac
+done <<< "${portasVAR}"
+[[ ! -z $APC ]] && echo -e $APC
 }
 
 fun_apache2 () {
@@ -168,13 +164,13 @@ exit 1
 fi
 unset OPENBAR
 [[ $(port|grep -w "apache2") ]] && OPENBAR="\033[1;32mOnline" || OPENBAR="\033[1;31mOffline"
-msg -ama "$(fun_trans "MENU APACHE2")"
+msg -ama "$(fun_trans "MENU APACHE")"
 mine_port
 msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR ")"
-echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "Remover APACHE2")"
-echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "Alterar Porta APACHE2")"
-echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "Editar Cliente APACHE2") \033[1;31m(comand nano)"
+echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "DESINTALAR APACHE")"
+echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "Alterar Porta APACHE")"
+echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "Editar Cliente APACHE") \033[1;31m(comand nano)"
 echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "Iniciar ou Parar  APACHE2") $OPENBAR"
 msg -bar
 while [[ ${arquivoonlineadm} != @(0|[1-4]) ]]; do

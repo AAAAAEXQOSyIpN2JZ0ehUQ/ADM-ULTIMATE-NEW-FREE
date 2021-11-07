@@ -1,9 +1,11 @@
 #!/bin/bash
 declare -A cor=( [0]="\033[1;37m" [1]="\033[1;34m" [2]="\033[1;31m" [3]="\033[1;33m" [4]="\033[1;32m" )
 barra="\033[0m\e[34m======================================================\033[1;37m"
-SCPdir="/etc/newadm" && [[ ! -d ${SCPdir} ]] && exit
-SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
-SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
+SCPdir="/etc/newadm" && [[ ! -d ${SCPdir} ]] && exit 1
+SCPusr="${SCPdir}/ger-user" && [[ ! -d ${SCPusr} ]] && mkdir ${SCPusr}
+SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && mkdir ${SCPfrm}
+SCPinst="/etc/ger-inst" && [[ ! -d ${SCPfrm} ]] && mkdir ${SCPfrm}
+SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 esquelet="/tmp/payload"
 fun_trans () { 
 local texto
@@ -38,7 +40,7 @@ echo -ne $retorno_
 if [[ $retorno_ = "" ]]; then {
 	echo -e "\n$barra"
 	echo -e "\033[1;31m $(fun_trans ${id} "ERROR")!  $(fun_trans ${id} "Nenhuma resposta foi recebida do servidor, verifique seu proxy")!"
-	echo -e "$barra"
+	msg -bar
 	exit 0
 	}
 fi	
@@ -46,7 +48,7 @@ fi
 
 fun_error () {
 echo -e "\033[1;31m $(fun_trans ${id} "Host nÃ£o estÃ£o corretos")!"
-echo -e "$barra"
+msg -bar
 exit 0
 }
 #Proxy
@@ -103,7 +105,7 @@ else
 is_status="OK"
 echo -e " \033[1;37mProxy: is \033[1;32m$is_status \033[1;37m| \033[1;37m$(fun_trans ${id} "Tipo de proxy"): \033[1;32m$is_http$is_https$is_socks4$is_socks4a$is_socks5"
 fi
-echo -e "$barra"
+msg -bar
 sleep 2s
 }
 #Metodo
@@ -298,11 +300,11 @@ done
 [[ -z "$valor1" ]] && err_fun
 unset valor3
 echo -e "\033[1;32m  $(fun_trans ${id} "Metodos de Requisicao")\033[1;37m "
-echo -e "$barra"
+msg -bar
 echo -e " 1-GET      2-CONNECT      3-PUT"
 echo -e " 4-OPTIONS  5-DELETE       6-HEAD"
 echo -e " 7-TRACE    8-PATCH"
-echo -e "$barra"
+msg -bar
 while [[ ${valor3} != [1-7] ]]; do
 echo -ne "\033[1;37m $(fun_trans ${id} "Digite a Opcao"): " && read valor3
 tput cuu1 && tput dl1
@@ -326,9 +328,9 @@ case $valor3 in
 esac
 unset valor4
 echo -e "\033[1;32m  $(fun_trans ${id} "Metodos de Conexao")\033[1;37m "
-echo -e "$barra"
+msg -bar
 echo -e " 1-REALDATA   2-NETDATA   3-RAW            "
-echo -e "$barra"
+msg -bar
 while [[ ${valor4} != [1-3] ]]; do
 echo -ne "\033[1;37m $(fun_trans ${id} "Digite a Opcao"): " && read valor4
 tput cuu1 && tput dl1
@@ -369,15 +371,15 @@ proxy_fun
 paysnd_fun () {
 clear
 clear
-echo -e "$barra"
+msg -bar
 echo -e "\033[1;33m PAYLOAD $(fun_trans ${id} "FORCA BRUTA") \033[1;32m[NEW-ADM]"
-echo -e "$barra"
+msg -bar
 while true; do
 echo -e "${cor[4]} [1] > \033[1;37m$(fun_trans ${id} "Tente um PAYLOAD")"
 echo -e "${cor[4]} [2] > \033[1;37m$(fun_trans ${id} "Tente com PAYLOAD Geradas")"
-echo -e "${cor[4]} [0] > \033[1;37m$(fun_trans ${id} "VOLTAR")\n${barra}"
+echo -e "${cor[4]} [0] > \033[1;37m$(fun_trans ${id} "VOLTAR")" && msg -bar
 while [[ ${opx} != @(0|[1-2]) ]]; do
-echo -ne "${cor[0]}$(fun_trans ${id} "Digite a Opcao"): \033[1;37m" && read opx
+msg -ne " $(fun_trans ${id} "Digite a Opcao"): \033[1;37m" && read opx
 tput cuu1 && tput dl1
 done
 tput cuu1 && tput dl1
@@ -417,7 +419,7 @@ echo -ne " \033[1;31m$(fun_trans ${id} "Resposta"): \033[1;32m"
 fun_res $hostprox $portx "$(cat $esquelet|head -${a}|tail -1)"
 echo -e "\033[0m\n"
 done
-echo -e "$barra"
+msg -bar
 [[ -e $esquelet ]] && rm $esquelet
 }
 paysnd_fun

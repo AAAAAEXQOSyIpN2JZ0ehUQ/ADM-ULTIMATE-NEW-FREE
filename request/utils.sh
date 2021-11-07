@@ -268,8 +268,8 @@ done
 case $arquivoonlineadm in
 1)TCPspeed;;
 2)block_torrent;;
-3)BadVPN;;
-4)SquidCACHE;;
+# 3)BadVPN;;
+# 4)SquidCACHE;;
 0)exit;;
 esac
 msg -bar

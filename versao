@@ -16,9 +16,7 @@
 # 
 ####################################################
 
-VERSION: r6.4.2
+VERSION: r6.4.3
 
-MENU OPENSSH
-MENU APACHE2
 MEJORAS SPEEDTEST
 PAYLOAD FORCA BRUTA BASH

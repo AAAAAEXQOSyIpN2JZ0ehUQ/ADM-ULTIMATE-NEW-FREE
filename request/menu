@@ -667,7 +667,6 @@ case $1 in
 "optimizar.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "OTIMIZAR SISTEMA*") $dev";;
 "fai2ban.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "FAIL2BAN PROTECAO*") $dev";;
 "paysnd.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "PAYLOAD $(fun_trans "FORCA BRUTA*") $dev";;
-"scriptsalternos.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "TESTE SCRIPTS ALTERNOS*") $beta";;
 # Menu Instalação Ger-Inst
 "apache2.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "APACHE2 $(pid_inst apache2)";;
 "openssh.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "OPENSSH $(pid_inst sshd)";;
@@ -690,6 +689,7 @@ case $1 in
 "speedtest.py")return 1;;
 "pwd.pwd")return 1;;
 "gestor.sh")return 1;;
+"scriptsalternos.sh")return 1;;
 *)echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "${1^^} \033[1;33m($(fun_trans "Sem Descricao")!)";;
 esac
 }
@@ -841,7 +841,7 @@ export -f meu_ip
 export -f fun_ip
 clear
 msg -bar
-msg -ama "INFORMACOES DO SERVIDOR                     \033[1;31m[\033[1;37m r6.4.2 \033[1;31m] "
+msg -ama "INFORMACOES DO SERVIDOR                     \033[1;31m[\033[1;37m r6.4.3 \033[1;31m] "
 msg -bar
 menu_info
 # msg -bar
@@ -858,10 +858,10 @@ msg -bar
 msg -ama "\033[1;31m[\033[1;32m NEW-ULTIMATE \033[1;31m] \033[1;31mIP \033[1;37m$(meu_ip) \033[1;31mUSER VPS: \033[1;37m$_total   $log"
 msg -bar
 echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$(fun_trans "SAIR DO SCRIPT*")"
-menu_func "GERENCIAR USUARIOS*" "GERENCIAR FERRAMENTAS*" "GERENCIAR SISTEMA*" "-vd ATUALIZAR SCRIPT*" "-vm DESINSTALAR NEW-ULTIMATE*" "MUDAR CORES SISTEMA*" "MUDAR IDIOMA DO SCRIPT*" "-fi $AutoRun EXECUCAO AUTOMATICA*" "MENU DE INSTALACOES*"
+menu_func "GERENCIAR USUARIOS*" "GERENCIAR FERRAMENTAS*" "GERENCIAR SISTEMA*" "-vd ATUALIZAR SCRIPT*" "-vm DESINSTALAR NEW-ULTIMATE*" "MUDAR CORES SISTEMA*" "MUDAR IDIOMA DO SCRIPT*" "-fi $AutoRun EXECUCAO AUTOMATICA*" "MENU DE INSTALACOES*" "TESTE SCRIPTS EXTERNO beta*"
 msg -bar
 # FIM
-selection=$(selection_fun 9)
+selection=$(selection_fun 10)
 case ${selection} in
 0)cd $HOME && exit 0;;
 1)${SCPusr}/usercodes "${idioma}";;
@@ -873,6 +873,7 @@ case ${selection} in
 7)funcao_idioma;;
 8)fun_autorun;;
 9)menu_inst;;
+10)${SCPfrm}/scriptsalternos.sh "${idioma}";;
 esac
 msg -ne "$(fun_trans "Enter Para Continuar")" && read enter
 ${SCPdir}/menu

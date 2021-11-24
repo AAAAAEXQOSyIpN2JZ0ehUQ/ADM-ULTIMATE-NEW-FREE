@@ -651,7 +651,7 @@ return 0
 float_data () {
 ofc="\033[0m${gren}(#OFC)"
 dev="\033[0m${gren}(#DEV)"
-beta="\033[0m${red}(#BETA)"
+bet="\033[0m${gren}(#BET)"
 case $1 in
 # Menu Instalação Ger-Frm OFC
 "MasterBin.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "CONSULTAR UN BIN*") $ofc";;
@@ -860,7 +860,7 @@ msg -bar
 echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$(fun_trans "SAIR DO SCRIPT*")"
 menu_func "GERENCIAR USUARIOS*" "GERENCIAR FERRAMENTAS*" "GERENCIAR SISTEMA*" "-vd ATUALIZAR SCRIPT*" "-vm DESINSTALAR NEW-ULTIMATE*" "MUDAR CORES SISTEMA*" "MUDAR IDIOMA DO SCRIPT*" "-fi $AutoRun EXECUCAO AUTOMATICA*" "MENU DE INSTALACOES*"
 msg -bar
-bet2="\033[0m${red}(#BETA)"
+bet2="\033[0m${gren}(#BET)"
 echo -ne "$(msg -verd "[10]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "TESTE SCRIPTS EXTERNO") $bet2"
 msg -bar
 # FIM

@@ -227,7 +227,7 @@ local selection="null"
 local range
 for((i=0; i<=$1; i++)); do range[$i]="$i "; done
 while [[ ! $(echo ${range[*]}|grep -w "$selection") ]]; do
-echo -ne "[0-10]: " >&2
+echo -ne "\033[1;37m$(fun_trans "Selecione a Opcao"): " >&2
 read selection
 tput cuu1 >&2 && tput dl1 >&2
 done
@@ -239,16 +239,16 @@ clear
 msg -bar
 msg -ama "$(fun_trans " GERENCIAR SISTEMA")"
 msg -bar
-echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
-echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "ATUALIZAR SISTEMA")"
-echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "REINICIAR SERVICOS")"
-echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "REINICIAR SISTEMA")"
-echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "MUDAR O NOME DO SISTEMA")"
-echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "ALTERAR SENHA ROOT")"
-echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "TRAFICO DE RED NLOAD")"
-echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "PROCESOS DE SISTEMA HTOP")"
-echo -ne "\033[1;32m [8] > " && msg -azu "$(fun_trans "DESATIVAR SENHAS ALPANUMERICAS EN VURTL ")"
-echo -ne "\033[1;32m [9] > " && msg -azu "$(fun_trans "ROOT AO GOOGLE CLOUD E AMAZON")"
+echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$(fun_trans "VOLTAR")"
+echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ATUALIZAR SISTEMA")"
+echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "REINICIAR SERVICOS")"
+echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "REINICIAR SISTEMA")"
+echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "MUDAR O NOME DO SISTEMA")"
+echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ALTERAR SENHA ROOT")"
+echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "TRAFICO DE RED NLOAD")"
+echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "PROCESOS DE SISTEMA HTOP")"
+echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "DESATIVAR SENHAS ALPANUMERICAS EN VURTL ")"
+echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ROOT AO GOOGLE CLOUD E AMAZON")"
 msg -bar
 echo -ne "\033[1;32m [10] > " && msg -azu "$(fun_trans "TESTE SCRIPTS EXTERNO") \033[0;32m(#BET)"
 msg -bar

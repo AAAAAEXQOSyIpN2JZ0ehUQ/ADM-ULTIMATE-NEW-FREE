@@ -221,6 +221,19 @@ echo -e " \033[1;31mRuta sshd > \033[1;31m[ \033[1;32m/etc/ssh/sshd_config \033[
 return
 }
 
+# SISTEMA DE SELECAO
+selection_fun () {
+local selection="null"
+local range
+for((i=0; i<=$1; i++)); do range[$i]="$i "; done
+while [[ ! $(echo ${range[*]}|grep -w "$selection") ]]; do
+echo -ne "[0-10]: " >&2
+read selection
+tput cuu1 >&2 && tput dl1 >&2
+done
+echo $selection
+}
+
 clear
 clear
 msg -bar
@@ -237,14 +250,12 @@ echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "PROCESOS DE SISTEMA HTOP"
 echo -ne "\033[1;32m [8] > " && msg -azu "$(fun_trans "DESATIVAR SENHAS ALPANUMERICAS EN VURTL ")"
 echo -ne "\033[1;32m [9] > " && msg -azu "$(fun_trans "ROOT AO GOOGLE CLOUD E AMAZON")"
 msg -bar
-bet="\033[0m${gren}(#BET)"
-echo -ne "\033[1;32m [10] > " && msg -azu "$(fun_trans "TESTE SCRIPTS EXTERNO") $bet"
+bet2="\033[0m${gren}(#BET)"
+echo -ne "\033[1;32m [10] > " && msg -azu "$(fun_trans "TESTE SCRIPTS EXTERNO") $bet2"
 msg -bar
-while [[ ${arquivoonlineadm} != @(0|[1-10]) ]]; do
-read -p "[0-10]: " arquivoonlineadm
-tput cuu1 && tput dl1
-done
-case $arquivoonlineadm in
+# FIM
+selection=$(selection_fun 14)
+case ${selection} in
 1)update_pak;;
 2)reiniciar_ser;;
 3)reiniciar_vps;;

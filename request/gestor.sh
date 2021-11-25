@@ -250,9 +250,7 @@ echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "PROCESOS DE SISTEMA HTOP"
 echo -ne "\033[1;32m [8] > " && msg -azu "$(fun_trans "DESATIVAR SENHAS ALPANUMERICAS EN VURTL ")"
 echo -ne "\033[1;32m [9] > " && msg -azu "$(fun_trans "ROOT AO GOOGLE CLOUD E AMAZON")"
 msg -bar
-gren=$(tput setaf 2)
-bet="\033[0m${gren}(#BET)"
-echo -ne "\033[1;32m [10] > " && msg -azu "$(fun_trans "TESTE SCRIPTS EXTERNO") $bet"
+echo -ne "\033[1;32m [10] > " && msg -azu "$(fun_trans "TESTE SCRIPTS EXTERNO") \033[0;32m(#BET)"
 msg -bar
 # FIM
 selection=$(selection_fun 10)

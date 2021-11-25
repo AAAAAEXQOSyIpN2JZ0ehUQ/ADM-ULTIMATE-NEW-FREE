@@ -185,7 +185,7 @@ echo -ne "\033[1;32m [11] > " && msg -azu "$(fun_trans "TCP ACELERACION") (BBR/P
 echo -ne "\033[1;32m [12] > " && msg -azu "$(fun_trans "FIREWALL PARA VPS")"
 msg -bar
 # FIM
-selection=$(selection_fun 14)
+selection=$(selection_fun 12)
 case ${selection} in
 1)act_hora;;
 2)newadm_color;;

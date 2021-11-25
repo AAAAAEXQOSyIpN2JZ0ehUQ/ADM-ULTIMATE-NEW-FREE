@@ -254,7 +254,7 @@ bet2="\033[0m${gren}(#BET)"
 echo -ne "\033[1;32m [10] > " && msg -azu "$(fun_trans "TESTE SCRIPTS EXTERNO") $bet2"
 msg -bar
 # FIM
-selection=$(selection_fun 14)
+selection=$(selection_fun 10)
 case ${selection} in
 1)update_pak;;
 2)reiniciar_ser;;

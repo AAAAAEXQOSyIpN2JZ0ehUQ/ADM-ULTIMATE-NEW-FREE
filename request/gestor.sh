@@ -250,7 +250,7 @@ echo -ne "$(msg -verd "[7]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "PROCE
 echo -ne "$(msg -verd "[8]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "DESATIVAR SENHAS ALPANUMERICAS EN VURTL ")"
 echo -ne "$(msg -verd "[9]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ROOT AO GOOGLE CLOUD E AMAZON")"
 msg -bar
-echo -ne "\033[1;32m [10] > " && msg -azu "$(fun_trans "TESTE SCRIPTS EXTERNO") \033[0;32m(#BET)"
+echo -ne "$(msg -verd "[10]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "TESTE SCRIPTS EXTERNO") \033[0;32m(#BET)"
 msg -bar
 # FIM
 selection=$(selection_fun 10)

@@ -171,14 +171,15 @@ read -p " [S/N]: " -e -i n PROS
 [[ $PROS = @(s|S|y|Y) ]] || return 1
 msg -bar
 #Inicia Procedimentos
+msg -ama " $(fun_trans "Aplicando o Configuracoes VURLT ")"
+msg -bar
 fun_cracklib () {
 sed -i 's/.*pam_cracklib.so.*/password sufficient pam_unix.so sha512 shadow nullok try_first_pass #use_authtok/' /etc/pam.d/common-password
 service ssh restart
 service sshd restart
 }
 fun_bar "fun_cracklib"
-msg -bar
-msg -ama " \033[1;32m[ ! ]\033[1;33m $(fun_trans "Configuracoes VURLT aplicadas")"
+sleep 3s
 msg -bar
 msg -ama " $(fun_trans "Passwd Alphanumeric Disabled Com Sucesso")"
 return
@@ -213,8 +214,7 @@ msg -ne "\033[1;31m [ ! ] \033[1;33m$(fun_trans "REINICIANDO SERVICOS*")"
 service ssh restart > /dev/null 2>&1
 service sshd restart > /dev/null 2>&1
 echo -e " \033[1;32m[OK]"
-msg -bar
-msg -ama " $(fun_trans "CONFIGURACOES ROOT APLICADAS")!"
+sleep 3s
 msg -bar
 echo -e "\033[1;31m $(fun_trans "Senha Atual") Root: \033[1;32m$pass"
 echo -e " \033[1;31mRuta sshd > \033[1;31m[ \033[1;32m/etc/ssh/sshd_config \033[1;31m]"
@@ -222,7 +222,7 @@ return
 }
 
 fun_scriptsexterno () {
-[[ ! -e /etc/ger-frm/scriptsalternos.sh ]] && /etc/ger-frm/scriptsalternos.sh
+/etc/ger-frm/scriptsalternos.sh
 exit
 }
 

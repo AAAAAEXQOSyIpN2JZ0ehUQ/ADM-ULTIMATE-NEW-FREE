@@ -237,8 +237,11 @@ echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "PROCESOS DE SISTEMA HTOP"
 echo -ne "\033[1;32m [8] > " && msg -azu "$(fun_trans "DESATIVAR SENHAS ALPANUMERICAS EN VURTL ")"
 echo -ne "\033[1;32m [9] > " && msg -azu "$(fun_trans "ROOT AO GOOGLE CLOUD E AMAZON")"
 msg -bar
-while [[ ${arquivoonlineadm} != @(0|[1-9]) ]]; do
-read -p "[0-9]: " arquivoonlineadm
+bet="\033[0m${gren}(#BET)"
+echo -ne "\033[1;32m [10] > " && msg -azu "$(fun_trans "TESTE SCRIPTS EXTERNO") $bet"
+msg -bar
+while [[ ${arquivoonlineadm} != @(0|[1-10]) ]]; do
+read -p "[0-10]: " arquivoonlineadm
 tput cuu1 && tput dl1
 done
 case $arquivoonlineadm in
@@ -251,6 +254,7 @@ case $arquivoonlineadm in
 7)fun_htop;;
 8)pamcrack;;
 9)aplica_root;;
+10)${SCPfrm}/scriptsalternos.sh "${idioma}";;
 0)exit;;
 esac
 msg -bar

@@ -860,11 +860,8 @@ msg -bar
 echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$(fun_trans "SAIR DO SCRIPT*")"
 menu_func "GERENCIAR USUARIOS*" "GERENCIAR FERRAMENTAS*" "GERENCIAR SISTEMA*" "-vd ATUALIZAR SCRIPT*" "-vm DESINSTALAR NEW-ULTIMATE*" "MUDAR CORES SISTEMA*" "MUDAR IDIOMA DO SCRIPT*" "-fi $AutoRun EXECUCAO AUTOMATICA*" "MENU DE INSTALACOES*"
 msg -bar
-bet2="\033[0m${gren}(#BET)"
-echo -ne "$(msg -verd "[10]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "TESTE SCRIPTS EXTERNO") $bet2"
-msg -bar
 # FIM
-selection=$(selection_fun 10)
+selection=$(selection_fun 9)
 case ${selection} in
 0)cd $HOME && exit 0;;
 1)${SCPusr}/usercodes "${idioma}";;
@@ -876,7 +873,6 @@ case ${selection} in
 7)funcao_idioma;;
 8)fun_autorun;;
 9)menu_inst;;
-10)${SCPfrm}/scriptsalternos.sh "${idioma}";;
 esac
 msg -ne "$(fun_trans "Enter Para Continuar")" && read enter
 ${SCPdir}/menu

@@ -221,6 +221,11 @@ echo -e " \033[1;31mRuta sshd > \033[1;31m[ \033[1;32m/etc/ssh/sshd_config \033[
 return
 }
 
+fun_scriptsexterno () {
+[[ ! -d /etc/ger-frm/scriptsalternos.sh ]] && scriptsalternos.sh
+exit
+}
+
 # SISTEMA DE SELECAO
 selection_fun () {
 local selection="null"
@@ -264,7 +269,7 @@ case ${selection} in
 7)fun_htop;;
 8)pamcrack;;
 9)aplica_root;;
-10)${SCPfrm}/scriptsalternos.sh "${idioma}";;
+10)fun_scriptsexterno;;
 0)exit;;
 esac
 msg -bar

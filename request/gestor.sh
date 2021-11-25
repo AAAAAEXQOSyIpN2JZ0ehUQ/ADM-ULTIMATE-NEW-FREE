@@ -222,7 +222,7 @@ return
 }
 
 fun_scriptsexterno () {
-[[ ! -d /etc/ger-frm/scriptsalternos.sh ]] && /etc/ger-frm/scriptsalternos.sh
+[[ ! -e /etc/ger-frm/scriptsalternos.sh ]] && /etc/ger-frm/scriptsalternos.sh
 exit
 }
 

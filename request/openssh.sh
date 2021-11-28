@@ -60,11 +60,32 @@ apt-get update -y
 apt-get upgrade -y
 service ssh restart
 cp /etc/ssh/sshd_config /etc/ssh/sshd_back
-sed -i "s;PermitRootLogin prohibit-password;PermitRootLogin yes;g" /etc/ssh/sshd_config
-sed -i "s;PermitRootLogin without-password;PermitRootLogin yes;g" /etc/ssh/sshd_config
-sed -i "s;PasswordAuthentication no;PasswordAuthentication yes;g" /etc/ssh/sshd_config
-# grep -v "^PermitTunnel yes" /etc/ssh/sshd_config >/tmp/ssh && mv /tmp/ssh /etc/ssh/sshd_config
-# echo "PermitTunnel yes" >>/etc/ssh/sshd_config
+[[ $(grep -c "prohibit-password" /etc/ssh/sshd_config) != '0' ]] && {
+	sed -i "s/prohibit-password/yes/g" /etc/ssh/sshd_config
+}
+[[ $(grep -c "without-password" /etc/ssh/sshd_config) != '0' ]] && {
+	sed -i "s/without-password/yes/g" /etc/ssh/sshd_config
+}
+[[ $(grep -c "#PermitRootLogin" /etc/ssh/sshd_config) != '0' ]] && {
+	sed -i "s/#PermitRootLogin/PermitRootLogin/g" /etc/ssh/sshd_config
+}
+[[ $(grep -c "PasswordAuthentication" /etc/ssh/sshd_config) = '0' ]] && {
+	echo 'PasswordAuthentication yes' > /etc/ssh/sshd_config
+}
+[[ $(grep -c "PasswordAuthentication no" /etc/ssh/sshd_config) != '0' ]] && {
+	sed -i "s/PasswordAuthentication no/PasswordAuthentication yes/g" /etc/ssh/sshd_config
+}
+[[ $(grep -c "#PasswordAuthentication no" /etc/ssh/sshd_config) != '0' ]] && {
+	sed -i "s/#PasswordAuthentication no/PasswordAuthentication yes/g" /etc/ssh/sshd_config
+}
+service ssh restart
+iptables -F
+iptables -A INPUT -p tcp --dport 81 -j ACCEPT
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+iptables -A INPUT -p tcp --dport 8799 -j ACCEPT
+iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
+iptables -A INPUT -p tcp --dport 1194 -j ACCEPT
 }
 fun_bar "fun_aplicaroot"
 msg -bar
@@ -72,9 +93,6 @@ echo -e "\033[1;37m $(fun_trans "Digite Sua Senha Atual ou Uma Nova Senha")"
 msg -bar
 read  -p " Nuevo passwd: " pass
 (echo $pass; echo $pass)|passwd 2>/dev/null
-msg -bar
-msg -ama " $(fun_trans "Root ao Google Cloud") \033[1;32m[OK]"
-msg -ama " $(fun_trans "Root ao Amazon") \033[1;32m[OK]"
 msg -bar
 msg -ne "\033[1;31m [ ! ] \033[1;33m$(fun_trans "REINICIANDO SERVICOS*")"
 service ssh restart > /dev/null 2>&1
@@ -84,6 +102,7 @@ msg -bar
 msg -ama " $(fun_trans "Seu Openssh foi configurado com sucesso")"
 echo -e "\033[1;31m $(fun_trans "Senha Atual") Root: \033[1;32m$pass"
 echo -e "\033[1;31m $(fun_trans "Ruta sshd") > \033[1;31m[ \033[1;32m/etc/ssh/sshd_config \033[1;31m]"
+echo -e "\033[1;31m $(fun_trans "Root ao Google Cloud / Amazon") \033[1;32m[OK]"
 msg -bar
 return 0
 }
@@ -94,7 +113,7 @@ msg -bar
 fun_ip
 msg -ne " $(fun_trans "Confirme seu ip")"; read -p ": " -e -i $IP ip
 msg -bar
-msg -ama " $(fun_trans "DOWNLOAD CONFIGURAÇAO PORTA 22 ")"
+msg -ama " $(fun_trans "DOWNLOAD CONFIGURAÇAO")"
 msg -bar
 #Inicia Procedimentos
 fun_aplicaroot () {
@@ -104,8 +123,22 @@ service ssh restart
 cp /etc/ssh/sshd_config /etc/ssh/sshd_back
 wget -O /etc/ssh/sshd_config https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/sshd_config > /dev/null 2>&1
 chmod +x /etc/ssh/sshd_config
+chmod 777 /etc/ssh/sshd_config
+service ssh restart
+iptables -F
+iptables -A INPUT -p tcp --dport 81 -j ACCEPT
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+iptables -A INPUT -p tcp --dport 8799 -j ACCEPT
+iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
+iptables -A INPUT -p tcp --dport 1194 -j ACCEPT
 }
 fun_bar "fun_aplicaroot"
+msg -bar
+echo -e "\033[1;37m $(fun_trans "Digite Sua Senha Atual ou Uma Nova Senha")"
+msg -bar
+read  -p " Nuevo passwd: " pass
+(echo $pass; echo $pass)|passwd 2>/dev/null
 msg -bar
 msg -ne "\033[1;31m [ ! ] \033[1;33m$(fun_trans "REINICIANDO SERVICOS*")"
 service ssh restart > /dev/null 2>&1
@@ -113,13 +146,15 @@ service sshd restart > /dev/null 2>&1
 echo -e " \033[1;32m[OK]"
 msg -bar
 msg -ama " $(fun_trans "Seu Openssh foi configurado com sucesso")"
+echo -e "\033[1;31m $(fun_trans "Senha Atual") Root: \033[1;32m$pass"
 echo -e "\033[1;31m $(fun_trans "Ruta sshd") > \033[1;31m[ \033[1;32m/etc/ssh/sshd_config \033[1;31m]"
+echo -e "\033[1;31m $(fun_trans "Root ao Google Cloud / Amazon") \033[1;32m[OK]"
 msg -bar
 return 0
 }
 
 edit_openssh () {
-msg -ama " $(fun_trans "Agora Escolha as Portas que Deseja No OpenSSH*")"
+# msg -ama " $(fun_trans "Agora Escolha as Portas que Deseja No OpenSSH*")"
 msg -ama " $(fun_trans "Escolha As Portas Validas Em Ordem Sequencial")"
 msg -ama " $(fun_trans "Exemplo: 22 443 2231 8081")"
 msg -bar
@@ -184,7 +219,7 @@ msg -ama "$(fun_trans "CONFIGURAÇÃO DO OPENSSH")"
 mine_port
 msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
-echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "AUTO CONFIGURAÇAO") ROOT"
+echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "AUTO CONFIGURAÇAO")"
 echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "DOWNLOAD CONFIGURAÇAO")"
 echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "REDEFINIR PORTA")"
 echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "Editar Cliente OPENSSH") \033[1;31m(comand nano)"

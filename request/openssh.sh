@@ -147,7 +147,6 @@ return 0
 }
 
 edit_openssh () {
-# msg -ama " $(fun_trans "Agora Escolha as Portas que Deseja No OpenSSH*")"
 echo -e "\033[1;31m $(fun_trans "Selecione Portas Validas em Ordem Sequencial")"
 echo -e "\033[1;31m $(fun_trans "Exemplo"):\033[1;32m 22 80 81 82 85 90\033[1;37m"
 msg -bar

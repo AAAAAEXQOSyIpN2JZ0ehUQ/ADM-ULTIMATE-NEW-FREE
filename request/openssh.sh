@@ -151,7 +151,7 @@ msg -ama " $(fun_trans "Exemplo: 22 443 2231 8081")"
 msg -bar
 local CONF="/etc/ssh/sshd_config"
 local NEWCONF="$(cat ${CONF}|grep -v [Pp]ort)"
-read -p "$(echo -e "\033[1;32m$(fun_trans "Digite as Portas") \033[1;37m")" -e -i 22 newports
+read -p "$(echo -e "\033[1;32m$(fun_trans "Novas Porta") \033[1;37m")" -e -i 22 newports
 [[ -z "$newports" ]] && {
 echo -e "\n\033[1;31m$(fun_trans "Nenhuma Porta Valida Foi Escolhida")"
 sleep 2
@@ -159,8 +159,8 @@ instalar
 exit
 }
 for PTS in `echo ${newports}`; do
-verify_port sshd "${PTS}" && echo -e "\033[1;33mPorta Escolhida $PTS \033[1;32mOK" || {
-echo -e "\033[1;33m$(fun_trans "Porta") $PTS \033[1;31m$(fun_trans "FALHA")"
+verify_port sshd "${PTS}" && echo -e "\033[1;33mPort $PTS \033[1;32mOK" || {
+echo -e "\033[1;33m$(fun_trans "Port") $PTS \033[1;31m$(fun_trans "FAIL")"
 sleep 2
 msg -bar
 return 0

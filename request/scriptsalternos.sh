@@ -52,15 +52,14 @@ return
 }
 
 newadm_color () {
-echo -e "\033[1;33m Removendo new-adm-color"
-rm -rf /etc/new-adm-color > /dev/null 2>&1
-msg -bar
 echo -e "$(fun_trans "Deseja Prosseguir?")"
 read -p " [S/N]: " -e -i n PROS
 [[ $PROS = @(s|S|y|Y) ]] || return 1
 msg -bar
 echo "4 1 7 3 2 5 4 " > /etc/new-adm-color
 echo -ne " \033[1;31m[ ! ] new-adm-color \033[1;32m[OK]\n"
+msg -bar
+echo -e " \033[1;33m Para Remover new-adm-color > \033[1;31m[ \033[1;32mrm -rf /etc/new-adm-color \033[1;31m]"
 return
 }
 
@@ -138,25 +137,23 @@ fun_nettools () {
 }
 
 resetiptables () {
-msg -ama "Reiniciando Ipetables espere"
-msg -bar
 iptables -F && iptables -X && iptables -t nat -F && iptables -t nat -X && iptables -t mangle -F && iptables -t mangle -X && iptables -t raw -F && iptables -t raw -X && iptables -t security -F && iptables -t security -X && iptables -P INPUT ACCEPT && iptables -P FORWARD ACCEPT && iptables -P OUTPUT ACCEPT
 fun_bar "service ssh restart" "service sshd restart"
 msg -bar
-msg -ama "iptables reiniciadas con exito"
+msg -ama "PROCESSO CONCLUIDO"
 }
 
 packobs () {
-msg -ama "Buscando Paquetes Obsoletos"
+msg -ama "Buscando Pacotes Obsoletos"
 msg -bar
 fun_bar "service ssh restart" "service sshd restart"
 dpkg -l | grep -i ^rc
 msg -bar
-msg -ama "Limpiando Paquetes Obsoloteos"
+msg -ama "Pacotes obsoletos limpos"
 msg -bar
 dpkg -l |grep -i ^rc | cut -d " " -f 3 | xargs dpkg --purge
 msg -bar
-msg -ama "Limpieza Completa"
+msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
 }
 
 fun_cssr () {

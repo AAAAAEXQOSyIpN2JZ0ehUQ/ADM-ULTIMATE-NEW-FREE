@@ -36,16 +36,6 @@ echo "$MEU_IP2" > /etc/MEUIPADM
 fi
 }
 
-fun_ssh () {
-sshvar=$(cat /etc/ssh/sshd_config | grep -v "Port $1")
-echo "$sshvar" > /etc/ssh/sshd_config
-sed -i "s;Port 22;Port 22\nPort $1;g" /etc/ssh/sshd_config
-sed -i "s;PermitRootLogin prohibit-password;PermitRootLogin yes;g" /etc/ssh/sshd_config
-sed -i "s;PermitRootLogin without-password;PermitRootLogin yes;g" /etc/ssh/sshd_config
-sed -i "s;PasswordAuthentication no;PasswordAuthentication yes;g" /etc/ssh/sshd_config
-service ssh restart > /dev/null 2>&1 &
-}
-
 opssh_fun () {
 msg -verd " $(fun_trans "OPENSSH AUTO-CONFIGURAÇAO")"
 msg -bar
@@ -98,11 +88,12 @@ msg -ne "\033[1;31m [ ! ] \033[1;33m$(fun_trans "REINICIANDO SERVICOS*")"
 service ssh restart > /dev/null 2>&1
 service sshd restart > /dev/null 2>&1
 echo -e " \033[1;32m[OK]"
+sleep 3s
 msg -bar
 msg -ama " $(fun_trans "Seu Openssh foi configurado com sucesso")"
-echo -e "\033[1;31m $(fun_trans "Senha Atual") Root: \033[1;32m$pass"
-echo -e "\033[1;31m $(fun_trans "Ruta sshd") > \033[1;31m[ \033[1;32m/etc/ssh/sshd_config \033[1;31m]"
+echo -e "\033[1;31m $(fun_trans "Senha Atual Root") : \033[1;32m$pass"
 echo -e "\033[1;31m $(fun_trans "Root ao Google Cloud / Amazon") \033[1;32m[OK]"
+echo -e "\033[1;31m $(fun_trans "Ruta sshd") > \033[1;31m[ \033[1;32m/etc/ssh/sshd_config \033[1;31m]"
 msg -bar
 return 0
 }
@@ -182,17 +173,13 @@ done
 while read varline; do
 echo -e "${varline}" >> ${CONF}
 done <<< "${NEWCONF}"
+msg -azu "$(fun_trans "AGUARDE")"
+service ssh restart &>/dev/null
+service sshd restart &>/dev/null
+sleep 1s
 msg -bar
-fun_bar 'sleep 2'
+msg -azu "$(fun_trans "PORTAS REDEFINIDAS")"
 msg -bar
-msg -ne "\033[1;31m [ ! ] \033[1;33m$(fun_trans "REINICIANDO SERVICOS*")"
-service ssh restart > /dev/null 2>&1
-service sshd restart > /dev/null 2>&1
-echo -e " \033[1;32m[OK]"
-msg -bar
-msg -ama " $(fun_trans "Porta Openssh foi configurada com sucesso")"
-msg -bar
-return 0
 }
 
 mine_port () {

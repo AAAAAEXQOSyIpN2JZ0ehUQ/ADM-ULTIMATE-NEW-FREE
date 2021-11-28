@@ -199,9 +199,34 @@ msg -bar
 fun_aplicaroot () {
 apt-get update -y
 apt-get upgrade -y
-sed -i "s;PermitRootLogin prohibit-password;PermitRootLogin yes;g" /etc/ssh/sshd_config
-sed -i "s;PermitRootLogin without-password;PermitRootLogin yes;g" /etc/ssh/sshd_config
-sed -i "s;PasswordAuthentication no;PasswordAuthentication yes;g" /etc/ssh/sshd_config
+service ssh restart
+cp /etc/ssh/sshd_config /etc/ssh/sshd_back
+[[ $(grep -c "prohibit-password" /etc/ssh/sshd_config) != '0' ]] && {
+	sed -i "s/prohibit-password/yes/g" /etc/ssh/sshd_config
+}
+[[ $(grep -c "without-password" /etc/ssh/sshd_config) != '0' ]] && {
+	sed -i "s/without-password/yes/g" /etc/ssh/sshd_config
+}
+[[ $(grep -c "#PermitRootLogin" /etc/ssh/sshd_config) != '0' ]] && {
+	sed -i "s/#PermitRootLogin/PermitRootLogin/g" /etc/ssh/sshd_config
+}
+[[ $(grep -c "PasswordAuthentication" /etc/ssh/sshd_config) = '0' ]] && {
+	echo 'PasswordAuthentication yes' > /etc/ssh/sshd_config
+}
+[[ $(grep -c "PasswordAuthentication no" /etc/ssh/sshd_config) != '0' ]] && {
+	sed -i "s/PasswordAuthentication no/PasswordAuthentication yes/g" /etc/ssh/sshd_config
+}
+[[ $(grep -c "#PasswordAuthentication no" /etc/ssh/sshd_config) != '0' ]] && {
+	sed -i "s/#PasswordAuthentication no/PasswordAuthentication yes/g" /etc/ssh/sshd_config
+}
+service ssh restart
+iptables -F
+iptables -A INPUT -p tcp --dport 81 -j ACCEPT
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+iptables -A INPUT -p tcp --dport 8799 -j ACCEPT
+iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
+iptables -A INPUT -p tcp --dport 1194 -j ACCEPT}
 }
 fun_bar "fun_aplicaroot"
 msg -bar
@@ -217,6 +242,7 @@ echo -e " \033[1;32m[OK]"
 sleep 3s
 msg -bar
 echo -e "\033[1;31m $(fun_trans "Senha Atual") Root: \033[1;32m$pass"
+echo -e "\033[1;31m $(fun_trans "Root ao Google Cloud / Amazon") \033[1;32m[OK]"
 echo -e " \033[1;31mRuta sshd > \033[1;31m[ \033[1;32m/etc/ssh/sshd_config \033[1;31m]"
 return
 }

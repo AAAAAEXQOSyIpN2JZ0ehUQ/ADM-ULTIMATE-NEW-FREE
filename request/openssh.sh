@@ -153,7 +153,7 @@ msg -ama " $(fun_trans "Exemplo: 22 443 2231 8081")"
 msg -bar
 local CONF="/etc/ssh/sshd_config"
 local NEWCONF="$(cat ${CONF}|grep -v [Pp]ort)"
-read -p "$(echo -e "\033[1;33m$(fun_trans "Novas Porta"): \033[1;37m")" -e -i 22 newports
+read -p "$(echo -e "\033[1;31m$(fun_trans "Novas Porta"): \033[1;37m")" -e -i 22 newports
 [[ -z "$newports" ]] && {
 echo -e "\n\033[1;31m$(fun_trans "Nenhuma Porta Valida Foi Escolhida")"
 sleep 2

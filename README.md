@@ -1,6 +1,6 @@
 ﻿# NEW-ULTIMATE MANAGER
 ```
-* UPDATE 21/06/2021 - Proyecto Descontinuado
+* UPDATE 28/11/2021 - Proyecto Descontinuado
 * ADM-Manager Ultimate (Final Version New-Ultimate)
 ```
 ![logo](https://github.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/blob/master/Imagenes/ADM_ULTIMATE_NEW_FREE.png)
@@ -30,7 +30,7 @@ ADM-MANAGER (las dependencias faltantes se instalarán automáticamente)
 
 ## :scroll: Changelog
 
-**VERSION: r6.4.3**
+**VERSION: r6.4.4**
 
 https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/versao
 

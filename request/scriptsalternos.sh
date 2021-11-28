@@ -6,13 +6,13 @@ SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 
-meu_ip () {
+fun_ip () {
 if [[ -e /etc/MEUIPADM ]]; then
-echo "$(cat /etc/MEUIPADM)"
+IP="$(cat /etc/MEUIPADM)"
 else
 MEU_IP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
 MEU_IP2=$(wget -qO- ipv4.icanhazip.com)
-[[ "$MEU_IP" != "$MEU_IP2" ]] && echo "$MEU_IP2" || echo "$MEU_IP"
+[[ "$MEU_IP" != "$MEU_IP2" ]] && IP="$MEU_IP2" || IP="$MEU_IP"
 echo "$MEU_IP2" > /etc/MEUIPADM
 fi
 }
@@ -65,6 +65,9 @@ return
 }
 
 fun_statussistema () {
+clear
+clear
+msg -bar
 echo -e "\033[1;33m DETALHES DO SISTEMA"
 msg -bar
 # SISTEMA OPERACIONAL
@@ -135,17 +138,61 @@ fun_nettools () {
 }
 
 resetiptables () {
-echo -e "Reiniciando Ipetables espere"
+msg -ama "Reiniciando Ipetables espere"
+msg -bar
 iptables -F && iptables -X && iptables -t nat -F && iptables -t nat -X && iptables -t mangle -F && iptables -t mangle -X && iptables -t raw -F && iptables -t raw -X && iptables -t security -F && iptables -t security -X && iptables -P INPUT ACCEPT && iptables -P FORWARD ACCEPT && iptables -P OUTPUT ACCEPT
-echo -e "iptables reiniciadas con exito"
+fun_bar "service ssh restart" "service sshd restart"
+msg -bar
+msg -ama "iptables reiniciadas con exito"
 }
 
 packobs () {
 msg -ama "Buscando Paquetes Obsoletos"
+msg -bar
+fun_bar "service ssh restart" "service sshd restart"
 dpkg -l | grep -i ^rc
+msg -bar
 msg -ama "Limpiando Paquetes Obsoloteos"
+msg -bar
 dpkg -l |grep -i ^rc | cut -d " " -f 3 | xargs dpkg --purge
+msg -bar
 msg -ama "Limpieza Completa"
+}
+
+fun_cssr () {
+wget -O /bin/C-SSR.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/C-SSR.sh
+chmod +x /bin/C-SSR.sh; C-SSR.sh
+exit
+}
+
+fun_shadowsockslibev () {
+wget -O /bin/Shadowsocks-libev.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/Shadowsocks-libev.sh
+chmod +x /bin/Shadowsocks-libev.sh; Shadowsocks-libev.sh
+exit
+}
+
+fun_shadowsocksr () {
+wget -O /bin/Shadowsocks-R.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/Shadowsocks-R.sh
+chmod +x /bin/Shadowsocks-R.sh; Shadowsocks-R.sh
+exit
+}
+
+fun_shadowsocks () {
+wget -O /bin/shadowsocks.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/shadowsocks.sh
+chmod +x /bin/shadowsocks.sh; shadowsocks.sh
+exit
+}
+
+fun_tcp () {
+wget -O /bin/tcp.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/tcp.sh
+chmod 777 /bin/tcp.sh; tcp.sh
+exit
+}
+
+fun_blockbt () {
+wget -O /bin/blockBT.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/blockBT.sh
+chmod 777 /bin/blockBT.sh; blockBT.sh
+exit
 }
 
 # SISTEMA DE SELECAO
@@ -154,7 +201,7 @@ local selection="null"
 local range
 for((i=0; i<=$1; i++)); do range[$i]="$i "; done
 while [[ ! $(echo ${range[*]}|grep -w "$selection") ]]; do
-echo -ne "[0-12]: " >&2
+echo -ne "\033[1;37m$(fun_trans "Selecione a Opcao"): " >&2
 read selection
 tput cuu1 >&2 && tput dl1 >&2
 done
@@ -164,25 +211,25 @@ echo $selection
 clear
 clear
 msg -bar
-msg -ama " $(fun_trans "TESTE SCRIPTS ALTERNOS")"
+msg -ama "$(fun_trans "TESTE SCRIPTS ALTERNOS")"
 msg -bar
 msg -azu " \033[1;31m[\033[1;33m!\033[1;31m]\033[1;33m $(fun_trans "FUNCAO BETA ULTILIZE POR SUA CONTA EM RISCO") \033[1;31m[\033[1;33m!\033[1;31m]"
 msg -bar
-echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
-echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "ATUALIZAR HORA AMERICA-SANTIAGO")"
-echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "MUDAR CORES SISTEMA A RED-TEME")"
-echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "DETALHES DO SISTEMA")"
-echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "NET TOOLS TARGET")"
-echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "REINICIAR IPTABLES")"
-echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "LIMPAR PACOTES OBSOLETOS")"
+echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$(fun_trans "VOLTAR")"
+echo -ne "$(msg -verd "[1]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ATUALIZAR HORA AMERICA-SANTIAGO")"
+echo -ne "$(msg -verd "[2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "MUDAR CORES SISTEMA A RED-TEME")"
+echo -ne "$(msg -verd "[3]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "DETALHES DO SISTEMA")"
+echo -ne "$(msg -verd "[4]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "NET TOOLS TARGET")"
+echo -ne "$(msg -verd "[5]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "REINICIAR IPTABLES")"
+echo -ne "$(msg -verd "[6]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "LIMPAR PACOTES OBSOLETOS")"
 msg -bar
-echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "ADMINISTRAR CUENTAS SS/SSRR")"
-echo -ne "\033[1;32m [8] > " && msg -azu "$(fun_trans "SHADOWSOCKS-LIBEV")"
-echo -ne "\033[1;32m [9] > " && msg -azu "$(fun_trans "SHADOWSOCKS-R")"
-echo -ne "\033[1;32m [10] > " && msg -azu "$(fun_trans "SHADOWSOCKS-NORMAL")"
+echo -ne "$(msg -verd "[7]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ADMINISTRAR CUENTAS SS/SSRR")"
+echo -ne "$(msg -verd "[8]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "SHADOWSOCKS-LIBEV")"
+echo -ne "$(msg -verd "[9]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "SHADOWSOCKS-R")"
+echo -ne "$(msg -verd "[10]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "SHADOWSOCKS-NORMAL")"
 msg -bar
-echo -ne "\033[1;32m [11] > " && msg -azu "$(fun_trans "TCP ACELERACION") (BBR/PLUS)"
-echo -ne "\033[1;32m [12] > " && msg -azu "$(fun_trans "FIREWALL PARA VPS")"
+echo -ne "$(msg -verd "[11]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "TCP ACELERACION") (BBR/PLUS)"
+echo -ne "$(msg -verd "[12]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "FIREWALL PARA VPS")"
 msg -bar
 # FIM
 selection=$(selection_fun 12)
@@ -193,18 +240,12 @@ case ${selection} in
 4)fun_nettools;;
 5)resetiptables;;
 6)packobs;;
-7)wget -O /bin/C-SSR.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/C-SSR.sh > /dev/null 2>&1; chmod +x /bin/C-SSR.sh; C-SSR.sh
-exit;;
-8)wget -O /bin/Shadowsocks-libev.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/Shadowsocks-libev.sh > /dev/null 2>&1; chmod +x /bin/Shadowsocks-libev.sh; Shadowsocks-libev.sh
-exit;;
-9)wget -O /bin/Shadowsocks-R.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/Shadowsocks-R.sh > /dev/null 2>&1; chmod +x /bin/Shadowsocks-R.sh; Shadowsocks-R.sh
-exit;;
-10)wget -O /bin/shadowsocks.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/shadowsocks.sh > /dev/null 2>&1; chmod +x /bin/shadowsocks.sh; shadowsocks.sh
-exit;;
-11)wget -O /bin/tcp.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/tcp.sh > /dev/null 2>&1; chmod 777 /bin/tcp.sh; tcp.sh
-exit;;
-12)wget -O /bin/blockBT.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Herramientas/blockBT.sh > /dev/null 2>&1; chmod 777 /bin/blockBT.sh; blockBT.sh
-exit;;
+7)fun_cssr;;
+8)fun_shadowsockslibev;;
+9)fun_shadowsocksr;;
+10)fun_shadowsocks;;
+11)fun_tcp;;
+12)fun_blockbt;;
 0)exit;;
 esac
 msg -bar

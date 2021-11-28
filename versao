@@ -16,7 +16,8 @@
 # 
 ####################################################
 
-VERSION: r6.4.3
+VERSION: r6.4.4
 
 MEJORAS SPEEDTEST
-PAYLOAD FORCA BRUTA BASH
+MEJORAS OPENSSH
+MEJORAS PAYLOAD FORCA BRUTA BASH

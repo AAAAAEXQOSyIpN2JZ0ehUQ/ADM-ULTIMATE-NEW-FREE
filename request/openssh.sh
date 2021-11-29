@@ -136,6 +136,7 @@ msg -ne "\033[1;31m [ ! ] \033[1;33m$(fun_trans "REINICIANDO SERVICOS*")"
 service ssh restart > /dev/null 2>&1
 service sshd restart > /dev/null 2>&1
 echo -e " \033[1;32m[OK]"
+sleep 3s
 msg -bar
 echo -e "\033[1;31m $(fun_trans "Senha Atual") Root: \033[1;32m$pass"
 echo -e "\033[1;31m $(fun_trans "Root ao Google Cloud / Amazon") \033[1;32m[OK]"

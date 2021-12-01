@@ -115,7 +115,6 @@ service ssh restart
 cp /etc/ssh/sshd_config /etc/ssh/sshd_back
 wget -O /etc/ssh/sshd_config https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/sshd_config > /dev/null 2>&1
 chmod +x /etc/ssh/sshd_config
-chmod 777 /etc/ssh/sshd_config
 service ssh restart
 iptables -F
 iptables -A INPUT -p tcp --dport 81 -j ACCEPT
@@ -159,7 +158,7 @@ read -p "$(echo -e "\033[1;31m$(fun_trans "Novas Portas"): \033[1;37m")" -e -i 2
 [[ -z "$newports" ]] && {
 echo -e "\n\033[1;31m$(fun_trans "Nenhuma Porta Valida Foi Escolhida")"
 sleep 2
-instalar
+##instalar
 exit
 }
 for PTS in `echo ${newports}`; do

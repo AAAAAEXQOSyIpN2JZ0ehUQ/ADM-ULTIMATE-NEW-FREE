@@ -291,8 +291,8 @@ echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "Editar Cliente DROPBEAR")
 echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "REDEFINIR PORTAS DROPBEAR")"
 echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "Desinstalar o dropbear")"
 msg -bar
-while [[ ${arquivoonlineadm} != @(0|[1-5]) ]]; do
-read -p "[0-5]: " arquivoonlineadm
+while [[ ${arquivoonlineadm} != @(0|[1-3]) ]]; do
+read -p "[0-3]: " arquivoonlineadm
 tput cuu1 && tput dl1
 done
 case $arquivoonlineadm in

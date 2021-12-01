@@ -481,11 +481,30 @@ msg -bar
 msg -azu "$(fun_trans "PORTAS REDEFINIDAS")"
 msg -bar
 }
+mine_port () {
+local portasVAR=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
+local NOREPEAT
+local reQ
+local Port
+while read port; do
+reQ=$(echo ${port}|awk '{print $1}')
+Port=$(echo {$port} | awk '{print $9}' | awk -F ":" '{print $2}')
+[[ $(echo -e $NOREPEAT|grep -w "$Port") ]] && continue
+NOREPEAT+="$Port\n"
+case ${reQ} in
+openvpn)
+[[ -z $OVPN ]] && msg -bar && local OVPN="\033[1;32m $(fun_trans "PORTA") \033[1;37m"
+OVPN+="$Port ";;
+esac
+done <<< "${portasVAR}"
+[[ ! -z $OVPN ]] && echo -e $OVPN
+}
 fun_openvpn () {
 [[ -e /etc/openvpn/server.conf ]] && {
 unset OPENBAR
 [[ $(mportas|grep -w "openvpn") ]] && OPENBAR="\033[1;32mOnline" || OPENBAR="\033[1;31mOffline"
 msg -ama " $(fun_trans "OPENVPN JA ESTA INSTALADO*")"
+mine_port
 msg -bar
 echo -e "\033[1;32m [0] >\033[1;37m $(fun_trans "Voltar")"
 echo -e "\033[1;32m [1] >\033[1;36m $(fun_trans "Remover OPEN_VPN")"

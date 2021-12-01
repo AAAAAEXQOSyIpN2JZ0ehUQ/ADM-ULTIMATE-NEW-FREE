@@ -15,6 +15,24 @@ done <<< "$portas_var"
 i=1
 echo -e "$portas"
 }
+port () {
+local portas
+local portas_var=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
+i=0
+while read port; do
+var1=$(echo $port | awk '{print $1}') && var2=$(echo $port | awk '{print $9}' | awk -F ":" '{print $2}')
+[[ "$(echo -e ${portas}|grep -w "$var1 $var2")" ]] || {
+    portas+="$var1 $var2 $portas"
+    echo "$var1 $var2"
+    let i++
+    }
+done <<< "$portas_var"
+}
+verify_port () {
+local SERVICE="$1"
+local PORTENTRY="$2"
+[[ ! $(echo -e $(port|grep -v ${SERVICE})|grep -w "$PORTENTRY") ]] && return 0 || return 1
+}
 fun_ip () {
 if [[ -e /etc/MEUIPADM ]]; then
 IP="$(cat /etc/MEUIPADM)"
@@ -208,4 +226,86 @@ for ufww in $(mportas|awk '{print $2}'); do
 ufw allow $ufww > /dev/null 2>&1
 done
 }
+
+edit_dropbear () {
+echo -e "\033[1;31m $(fun_trans "Selecione Portas Validas em Ordem Sequencial")"
+echo -e "\033[1;31m $(fun_trans "Exemplo"):\033[1;32m 22 80 81 82 85 90\033[1;37m"
+msg -bar
+msg -azu "$(fun_trans "REDEFINIR PORTAS DROPBEAR")"
+msg -bar
+local CONF="/etc/default/dropbear"
+local NEWCONF="$(cat ${CONF}|grep -v "DROPBEAR_EXTRA_ARGS")"
+msg -ne "$(fun_trans "Novas Portas"): "
+read -p "" newports
+for PTS in `echo ${newports}`; do
+verify_port dropbear "${PTS}" && echo -e "\033[1;33mPort $PTS \033[1;32mOK" || {
+echo -e "\033[1;33mPort $PTS \033[1;31mFAIL"
+msg -bar
+exit 1
+}
+done
+rm ${CONF}
+while read varline; do
+echo -e "${varline}" >> ${CONF}
+ if [[ ${varline} = "NO_START=0" ]]; then
+ echo -e 'DROPBEAR_EXTRA_ARGS="VAR"' >> ${CONF}
+ for NPT in $(echo ${newports}); do
+ sed -i "s/VAR/-p ${NPT} VAR/g" ${CONF}
+ done
+ sed -i "s/VAR//g" ${CONF}
+ fi
+done <<< "${NEWCONF}"
+msg -azu "$(fun_trans "AGUARDE")"
+service dropbear restart &>/dev/null
+sleep 1s
+msg -bar
+msg -azu "$(fun_trans "PORTAS REDEFINIDAS")"
+msg -bar
+}
+
+mine_port () {
+local portasVAR=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
+local NOREPEAT
+local reQ
+local Port
+while read port; do
+reQ=$(echo ${port}|awk '{print $1}')
+Port=$(echo {$port} | awk '{print $9}' | awk -F ":" '{print $2}')
+[[ $(echo -e $NOREPEAT|grep -w "$Port") ]] && continue
+NOREPEAT+="$Port\n"
+case ${reQ} in
+dropbear)
+[[ -z $DPB ]] && msg -bar && local DPB="\033[1;32m $(fun_trans "PORTA") \033[1;37m"
+DPB+="$Port ";;
+esac
+done <<< "${portasVAR}"
+[[ ! -z $DPB ]] && echo -e $DPB
+}
+
+online_dropbear () {
+msg -azu " $(fun_trans "CONFIGURAÇÃO DE DROPBEAR*")"
+mine_port
+msg -bar
+echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "Voltar")"
+echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "Editar Cliente DROPBEAR") \033[1;31m(comand nano)"
+echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "REDEFINIR PORTAS DROPBEAR")"
+echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "Desinstalar o dropbear")"
+msg -bar
+while [[ ${arquivoonlineadm} != @(0|[1-5]) ]]; do
+read -p "[0-5]: " arquivoonlineadm
+tput cuu1 && tput dl1
+done
+case $arquivoonlineadm in
+0)exit;;
+1)
+   nano /etc/default/dropbear
+   return 0;;
+2)edit_dropbear;;
+3)fun_dropbear;;
+esac
+}
+if [[ -e /etc/default/dropbear ]]; then
+online_dropbear
+else
 fun_dropbear
+fi

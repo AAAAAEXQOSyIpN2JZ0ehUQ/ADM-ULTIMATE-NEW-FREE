@@ -367,6 +367,9 @@ msg -bar
 return 0
 }
 edit_squid () {
+msg -ama " $(fun_trans "Escolha As Portas Em Ordem Sequencial")"
+msg -ama " $(fun_trans "Exemplo: 80 8080 8799 3128")"
+msg -bar
 msg -azu "$(fun_trans "REDEFINIR PORTAS SQUID")"
 msg -bar
 if [[ -e /etc/squid/squid.conf ]]; then
@@ -401,6 +404,24 @@ msg -bar
 msg -azu "$(fun_trans "PORTAS REDEFINIDAS")"
 msg -bar
 }
+mine_port () {
+local portasVAR=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
+local NOREPEAT
+local reQ
+local Port
+while read port; do
+reQ=$(echo ${port}|awk '{print $1}')
+Port=$(echo {$port} | awk '{print $9}' | awk -F ":" '{print $2}')
+[[ $(echo -e $NOREPEAT|grep -w "$Port") ]] && continue
+NOREPEAT+="$Port\n"
+case ${reQ} in
+squid|squid3)
+[[ -z $SQD ]] && msg -bar && local SQD="\033[1;32m $(fun_trans "PORTA") \033[1;37m"
+SQD+="$Port ";;
+esac
+done <<< "${portasVAR}"
+[[ ! -z $SQD ]] && echo -e $SQD
+}
 online_squid () {
 payload="/etc/payloads"
 on="\033[1;32mOnline" && off="\033[1;31mOffline"
@@ -410,6 +431,7 @@ elif [ -e /etc/squid3/squid.conf ]; then
 [[ `grep -c "^#CACHE DO SQUID" /etc/squid3/squid.conf` -gt 0 ]] && squid=$on || squid=$off
 fi
 msg -azu " $(fun_trans "CONFIGURAÇÃO DE SQUID*")"
+mine_port
 msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "Voltar")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "Lugar um Host no Squid")"

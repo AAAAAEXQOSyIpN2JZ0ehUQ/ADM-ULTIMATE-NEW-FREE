@@ -414,12 +414,13 @@ msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "Voltar")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "Lugar um Host no Squid")"
 echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "Remover Host do Squid")"
-echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "Cache do Squid") $squid"
-echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "Editar Cliente SQUID") \033[1;31m(comand nano)"
-echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "Redefinir Portas Squid")"
-echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "Desinstalar o Squid")"
+echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "Editar Cliente Host do SQUID") \033[1;31m(comand nano)"
+echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "Cache do Squid") $squid"
+echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "Editar Cliente SQUID") \033[1;31m(comand nano)"
+echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "Redefinir Portas Squid")"
+echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "Desinstalar o Squid")"
 msg -bar
-while [[ ${arquivoonlineadm} != @(0|[1-6]) ]]; do
+while [[ ${arquivoonlineadm} != @(0|[1-7]) ]]; do
 read -p "[0-5]: " arquivoonlineadm
 tput cuu1 && tput dl1
 done
@@ -427,16 +428,19 @@ case $arquivoonlineadm in
 0)exit;;
 1)addhost;;
 2)removehost;;
-3)SquidCACHE;;
-4)
+3)
+   nano /etc/payloads
+   return 0;;
+4)SquidCACHE;;
+5)
    if [[ -e /etc/squid/squid.conf ]]; then
    nano /etc/squid/squid.conf
    elif [[ -e /etc/squid3/squid.conf ]]; then
    nano /etc/squid3/squid.conf
    fi
    return 0;;
-5)edit_squid;;
-6)fun_squid;;
+6)edit_squid;;
+7)fun_squid;;
 esac
 }
 if [[ -e /etc/squid/squid.conf ]]; then

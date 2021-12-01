@@ -15,6 +15,58 @@ done <<< "$portas_var"
 i=1
 echo -e "$portas"
 }
+port () {
+local portas
+local portas_var=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
+i=0
+while read port; do
+var1=$(echo $port | awk '{print $1}') && var2=$(echo $port | awk '{print $9}' | awk -F ":" '{print $2}')
+[[ "$(echo -e ${portas}|grep -w "$var1 $var2")" ]] || {
+    portas+="$var1 $var2 $portas"
+    echo "$var1 $var2"
+    let i++
+    }
+done <<< "$portas_var"
+}
+verify_port () {
+local SERVICE="$1"
+local PORTENTRY="$2"
+[[ ! $(echo -e $(port|grep -v ${SERVICE})|grep -w "$PORTENTRY") ]] && return 0 || return 1
+}
+fun_ip () {
+if [[ -e /etc/MEUIPADM ]]; then
+IP="$(cat /etc/MEUIPADM)"
+else
+MEU_IP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
+MEU_IP2=$(wget -qO- ipv4.icanhazip.com)
+[[ "$MEU_IP" != "$MEU_IP2" ]] && IP="$MEU_IP2" || IP="$MEU_IP"
+echo "$MEU_IP2" > /etc/MEUIPADM
+fi
+}
+fun_bar () {
+comando[0]="$1"
+comando[1]="$2"
+ (
+[[ -e $HOME/fim ]] && rm $HOME/fim
+${comando[0]} -y > /dev/null 2>&1
+${comando[1]} -y > /dev/null 2>&1
+touch $HOME/fim
+ ) > /dev/null 2>&1 &
+echo -ne "\033[1;33m ["
+while true; do
+   for((i=0; i<10; i++)); do
+   echo -ne "\033[1;31m##"
+   sleep 0.1s
+   done
+   [[ -e $HOME/fim ]] && rm $HOME/fim && break
+   echo -e "\033[1;33m]"
+   sleep 1s
+   tput cuu1
+   tput dl1
+   echo -ne "\033[1;33m ["
+done
+echo -e "\033[1;33m]\033[1;31m -\033[1;32m 100%\033[1;37m"
+}
 fun_squid  () {
   if [[ -e /etc/squid/squid.conf ]]; then
   var_squid="/etc/squid/squid.conf"
@@ -38,7 +90,7 @@ msg -bar
 fun_ip
 msg -ne " $(fun_trans "Confirme seu ip")"; read -p ": " -e -i $IP ip
 msg -bar
-msg -ama " $(fun_trans "Agora Escolha as Portas que Deseja No Squid*")"
+## msg -ama " $(fun_trans "Agora Escolha as Portas que Deseja No Squid*")"
 msg -ama " $(fun_trans "Escolha As Portas Em Ordem Sequencial")"
 msg -ama " $(fun_trans "Exemplo: 80 8080 8799 3128")"
 msg -bar
@@ -69,7 +121,7 @@ msg -bar
 echo -e ".bookclaro.com.br/\n.claro.com.ar/\n.claro.com.br/\n.claro.com.co/\n.claro.com.ec/\n.claro.com.gt/\n.cloudfront.net/\n.claro.com.ni/\n.claro.com.pe/\n.claro.com.sv/\n.claro.cr/\n.clarocurtas.com.br/\n.claroideas.com/\n.claroideias.com.br/\n.claromusica.com/\n.clarosomdechamada.com.br/\n.clarovideo.com/\n.facebook.net/\n.facebook.com/\n.netclaro.com.br/\n.oi.com.br/\n.oimusica.com.br/\n.speedtest.net/\n.tim.com.br/\n.timanamaria.com.br/\n.vivo.com.br/\n.rdio.com/\n.compute-1.amazonaws.com/\n.portalrecarga.vivo.com.br/\n.vivo.ddivulga.com/" > /etc/payloads
 msg -ama " $(fun_trans "Agora Escolha Uma Conf Para Seu Proxy")"
 msg -bar
-msg -ama  "|1| $(fun_trans "Comum")"
+msg -ama  "|1| $(fun_trans "Comum")  -\033[1;32m $(fun_trans "Recomendado")\033[1;37m"
 msg -ama  "|2| $(fun_trans "Customizado") -\033[1;31m $(fun_trans "Usuario Deve Ajustar")\033[1;37m"
 msg -bar
 read -p "[1/2]: " -e -i 1 proxy_opt
@@ -313,6 +365,41 @@ msg -ama "$(fun_trans "Cache Aplicado Com Sucesso")!"
 msg -bar	
 return 0
 }
+edit_squid () {
+msg -azu "$(fun_trans "REDEFINIR PORTAS SQUID")"
+msg -bar
+if [[ -e /etc/squid/squid.conf ]]; then
+local CONF="/etc/squid/squid.conf"
+elif [[ -e /etc/squid3/squid.conf ]]; then
+local CONF="/etc/squid3/squid.conf"
+fi
+NEWCONF="$(cat ${CONF}|grep -v "http_port")"
+msg -ne "$(fun_trans "Novas Portas"): "
+read -p "" newports
+for PTS in `echo ${newports}`; do
+verify_port squid "${PTS}" && echo -e "\033[1;33mPort $PTS \033[1;32mOK" || {
+echo -e "\033[1;33mPort $PTS \033[1;31mFAIL"
+msg -bar
+exit 1
+}
+done
+rm ${CONF}
+while read varline; do
+echo -e "${varline}" >> ${CONF}
+ if [[ "${varline}" = "#portas" ]]; then
+  for NPT in $(echo ${newports}); do
+  echo -e "http_port ${NPT}" >> ${CONF}
+  done
+ fi
+done <<< "${NEWCONF}"
+msg -azu "$(fun_trans "AGUARDE")"
+service squid restart &>/dev/null
+service squid3 restart &>/dev/null
+sleep 1s
+msg -bar
+msg -azu "$(fun_trans "PORTAS REDEFINIDAS")"
+msg -bar
+}
 online_squid () {
 payload="/etc/payloads"
 on="\033[1;32mOnline" && off="\033[1;31mOffline"
@@ -328,9 +415,10 @@ echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "Lugar um Host no Squid")"
 echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "Remover Host do Squid")"
 echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "Cache do Squid") $squid"
 echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "Editar Cliente SQUID") \033[1;31m(comand nano)"
-echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "Desinstalar o Squid")"
+echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "Redefinir Portas Squid")"
+echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "Desinstalar o Squid")"
 msg -bar
-while [[ ${arquivoonlineadm} != @(0|[1-5]) ]]; do
+while [[ ${arquivoonlineadm} != @(0|[1-6]) ]]; do
 read -p "[0-5]: " arquivoonlineadm
 tput cuu1 && tput dl1
 done
@@ -346,6 +434,7 @@ case $arquivoonlineadm in
    nano /etc/squid3/squid.conf
    fi
    return 0;;
+3)edit_squid;;
 5)fun_squid;;
 esac
 }

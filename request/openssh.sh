@@ -151,9 +151,11 @@ edit_openssh () {
 echo -e "\033[1;31m $(fun_trans "Selecione Portas Validas em Ordem Sequencial")"
 echo -e "\033[1;31m $(fun_trans "Exemplo"):\033[1;32m 22 80 81 82 85 90\033[1;37m"
 msg -bar
+msg -azu "$(fun_trans "REDEFINIR PORTAS OPENSSH")"
+msg -bar
 local CONF="/etc/ssh/sshd_config"
 local NEWCONF="$(cat ${CONF}|grep -v [Pp]ort)"
-read -p "$(echo -e "\033[1;31m$(fun_trans "Digite a Porta"): \033[1;37m")" -e -i 22 newports
+read -p "$(echo -e "\033[1;31m$(fun_trans "Novas Portas"): \033[1;37m")" -e -i 22 newports
 [[ -z "$newports" ]] && {
 echo -e "\n\033[1;31m$(fun_trans "Nenhuma Porta Valida Foi Escolhida")"
 sleep 2
@@ -161,8 +163,8 @@ instalar
 exit
 }
 for PTS in `echo ${newports}`; do
-verify_port sshd "${PTS}" && echo -e "\033[1;33mPorta Escolhida $PTS \033[1;32mOK" || {
-echo -e "\033[1;33m$(fun_trans "Porta Escolhida"): $PTS \033[1;31m$(fun_trans "FAIL")"
+verify_port sshd "${PTS}" && echo -e "\033[1;33mPort $PTS \033[1;32mOK" || {
+echo -e "\033[1;33m$(fun_trans "Port") $PTS \033[1;31m$(fun_trans "FAIL")"
 sleep 2
 msg -bar
 return 0

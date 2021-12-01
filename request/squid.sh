@@ -421,7 +421,7 @@ echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "Redefinir Portas Squid")"
 echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "Desinstalar o Squid")"
 msg -bar
 while [[ ${arquivoonlineadm} != @(0|[1-7]) ]]; do
-read -p "[0-5]: " arquivoonlineadm
+read -p "[0-7]: " arquivoonlineadm
 tput cuu1 && tput dl1
 done
 case $arquivoonlineadm in

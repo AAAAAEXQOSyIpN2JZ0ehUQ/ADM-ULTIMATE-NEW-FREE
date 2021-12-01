@@ -169,7 +169,7 @@ mine_port
 msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR ")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "DESINTALAR APACHE")"
-echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "Alterar Porta APACHE")"
+echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "REDEFINIR PORTA APACHE")"
 echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "Editar Cliente APACHE") \033[1;31m(comand nano)"
 echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "Iniciar ou Parar  APACHE2") $OPENBAR"
 msg -bar

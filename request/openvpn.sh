@@ -27,6 +27,24 @@ done <<< "$portas_var"
 i=1
 echo -e "$portas"
 }
+port () {
+local portas
+local portas_var=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
+i=0
+while read port; do
+var1=$(echo $port | awk '{print $1}') && var2=$(echo $port | awk '{print $9}' | awk -F ":" '{print $2}')
+[[ "$(echo -e ${portas}|grep -w "$var1 $var2")" ]] || {
+    portas+="$var1 $var2 $portas"
+    echo "$var1 $var2"
+    let i++
+    }
+done <<< "$portas_var"
+}
+verify_port () {
+local SERVICE="$1"
+local PORTENTRY="$2"
+[[ ! $(echo -e $(port|grep -v ${SERVICE})|grep -w "$PORTENTRY") ]] && return 0 || return 1
+}
 dns_fun () {
 case $1 in
 3)dns[$2]='push "dhcp-option DNS 1.0.0.1"';;
@@ -424,6 +442,45 @@ msg -ama " $(fun_trans "E Necessesario o Reboot do Servidor Para")"
 msg -ama " $(fun_trans "Essas Configuracoes serem efetivas")"
 msg -bar
 }
+edit_openvpn () {
+msg -azu "$(fun_trans "REDEFINIR PORTAS OPENVPN")"
+msg -bar
+local CONF="/etc/openvpn/server.conf"
+local CONF2="/etc/openvpn/client-common.txt"
+local NEWCONF="$(cat ${CONF}|grep -v [Pp]ort)"
+local NEWCONF2="$(cat ${CONF2})"
+msg -ne "$(fun_trans "Nova Porta"): "
+read -p "" newports
+for PTS in `echo ${newports}`; do
+verify_port openvpn "${PTS}" && echo -e "\033[1;33mPort $PTS \033[1;32mOK" || {
+echo -e "\033[1;33mPort $PTS \033[1;31mFAIL"
+msg -bar
+exit 1
+}
+done
+rm ${CONF}
+while read varline; do
+echo -e "${varline}" >> ${CONF}
+if [[ ${varline} = "proto tcp" ]]; then
+echo -e "port ${newports}" >> ${CONF}
+fi
+done <<< "${NEWCONF}"
+rm ${CONF2}
+while read varline; do
+if [[ $(echo ${varline}|grep -v "remote-random"|grep "remote") ]]; then
+echo -e "$(echo ${varline}|cut -d' ' -f1,2) ${newports} $(echo ${varline}|cut -d' ' -f4)" >> ${CONF2}
+else
+echo -e "${varline}" >> ${CONF2}
+fi
+done <<< "${NEWCONF2}"
+msg -azu "$(fun_trans "AGUARDE")"
+service openvpn restart &>/dev/null
+/etc/init.d/openvpn restart &>/dev/null
+sleep 1s
+msg -bar
+msg -azu "$(fun_trans "PORTAS REDEFINIDAS")"
+msg -bar
+}
 fun_openvpn () {
 [[ -e /etc/openvpn/server.conf ]] && {
 unset OPENBAR
@@ -434,7 +491,8 @@ echo -e "\033[1;32m [0] >\033[1;37m $(fun_trans "Voltar")"
 echo -e "\033[1;32m [1] >\033[1;36m $(fun_trans "Remover OPEN_VPN")"
 echo -e "\033[1;32m [2] >\033[1;36m $(fun_trans "Editar Cliente OPEN_VPN") \033[1;31m(comand nano)"
 echo -e "\033[1;32m [3] >\033[1;36m $(fun_trans "Trocar Hosts do OPEN_VPN")"
-echo -e "\033[1;32m [4] >\033[1;36m $(fun_trans "Iniciar ou Parar OPEN_VPN") $OPENBAR"
+echo -e "\033[1;32m [4] >\033[1;36m $(fun_trans "REDEFINIR PORTA OPENVPN")"
+echo -e "\033[1;32m [5] >\033[1;36m $(fun_trans "Iniciar ou Parar OPEN_VPN") $OPENBAR"
 msg -bar
 while [[ $xption != @([0|1|2|3|4]) ]]; do
 echo -ne "\033[1;33m $(fun_trans "Opcao"): " && read xption
@@ -464,7 +522,8 @@ msg -bar
    nano /etc/openvpn/client-common.txt
    return 0;;
  3)edit_ovpn_host;;
- 4)
+ 4)edit_openvpn;;
+ 5)
    [[ $(mportas|grep -w openvpn) ]] && {
    /etc/init.d/openvpn stop > /dev/null 2>&1
    killall openvpn &>/dev/null

@@ -75,6 +75,7 @@ fun_squid  () {
   fi
   [[ -e $var_squid ]] && {
   msg -ama " $(fun_trans "REMOVENDO SQUID*")"
+  msg -azu " $(fun_trans "AGUARDE")"
   msg -bar
   service squid stop > /dev/null 2>&1
   service squid3 stop > /dev/null 2>&1

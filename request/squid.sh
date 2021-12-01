@@ -434,8 +434,8 @@ case $arquivoonlineadm in
    nano /etc/squid3/squid.conf
    fi
    return 0;;
-3)edit_squid;;
-5)fun_squid;;
+5)edit_squid;;
+6)fun_squid;;
 esac
 }
 if [[ -e /etc/squid/squid.conf ]]; then

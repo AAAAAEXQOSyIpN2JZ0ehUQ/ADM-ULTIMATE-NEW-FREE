@@ -1,4 +1,7 @@
 ﻿# NEWFREEINSTAL
+# NEW-ULTIMATE MANAGER
+
+# VERSAO LIBERADA POR EL DEV @E8th4ver
 
 * Sistema de tradução não vai funcionar devido a problema na api
 

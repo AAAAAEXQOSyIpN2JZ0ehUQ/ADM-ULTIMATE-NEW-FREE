@@ -1,5 +1,4 @@
 #!/bin/bash
-echo "pt" > /etc/newadm/idioma #FUNCAO IDIOMA PORTUGUES
 red=$(tput setaf 1)
 gren=$(tput setaf 2)
 yellow=$(tput setaf 3)
@@ -8,9 +7,19 @@ SCPusr="${SCPdir}/ger-user" && [[ ! -d ${SCPusr} ]] && mkdir ${SCPusr}
 SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && mkdir ${SCPfrm}
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPfrm} ]] && mkdir ${SCPfrm}
 SCPidioma="${SCPdir}/idioma"
+echo "pt" > /etc/newadm/idioma #FUNCAO IDIOMA PORTUGUES
+_total=$(awk  -F : '$3 >= 500 {print  $1}'  /etc/passwd | grep -v "nobody" | sort | wc -l)
+[[ -e /etc/newadm/ger-user/Limiter.log ]] && log=$(echo -e "\033[1;32m[LOG] ") || log=$(echo -e "\033[1;31m[LOG] ")
 if [[ -e /etc/bash.bashrc-bakup ]]; then AutoRun="\033[1;32m[on]"
 elif [[ -e /etc/bash.bashrc ]]; then AutoRun="\033[1;31m[off]"
 fi
+# Funcoes Update
+P_SERVER="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/"
+v1=$(curl -sSL "${P_SERVER}/versaoatt")
+v2=$(cat /bin/versao_script)
+txt01="PARABENS SUA VERSAO ESTA ATUALIZADA!"
+txt02="NEW-ULTIMATE POSSUI ATUALIZACOES!"
+[[ $v1 = $v2 ]] && vesaoSCT="\033[1;32m${txt01}" || vesaoSCT="\033[1;31m${txt02}"
 # Funcoes Globais
 msg () {
 local colors="/etc/new-adm-color"
@@ -841,7 +850,9 @@ export -f meu_ip
 export -f fun_ip
 clear
 msg -bar
-msg -ama "INFORMACOES DO SERVIDOR                     \033[1;31m[\033[1;37m r6.5.0 \033[1;31m] "
+msg -ama "INFORMACOES DO SERVIDOR                     \033[1;31m[\033[1;37m $v2 \033[1;31m] "
+msg -bar
+echo -e "${vesaoSCT}"
 msg -bar
 menu_info
 # msg -bar
@@ -852,8 +863,6 @@ menu_info
 # [[ -e ${SCPdir}/message.txt ]] && msg -bar && msg -bra "MESSAGE: $(cat ${SCPdir}/message.txt)"
 # [[ -e ${SCPdir}/key.txt ]] && msg -bar && msg -bra "USER-KEY: $(cat ${SCPdir}/key.txt)"
 # NOVO SISTEMA DE MENUS
-[[ -e /etc/newadm/ger-user/Limiter.log ]] && log=$(echo -e "\033[1;32m[LOG] ") || log=$(echo -e "\033[1;31m[LOG] ")
-_total=$(awk  -F : '$3 >= 500 {print  $1}'  /etc/passwd | grep -v "nobody" | sort | wc -l)
 msg -bar
 msg -ama "\033[1;31m[\033[1;32m NEW-ULTIMATE \033[1;31m] \033[1;31mIP \033[1;37m$(meu_ip) \033[1;31mUSER VPS: \033[1;37m$_total   $log"
 msg -bar

@@ -163,11 +163,10 @@ pamcrack () {
 # wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/VPS-MX/main/VPS-MX_Oficial/ArchivosUtilitarios/common-password -O /etc/pam.d/common-password > /dev/null 2>&1 
 # chmod +x /etc/pam.d/common-password
 #-----------------------------------------------------------------------------------------------------------------
-msg -ama " $(fun_trans "Desativar senhas alfanumericas em VULTR")"
-msg -azu " $(fun_trans "Qualquer senha de 6 digitos pode ser usada ")"
+msg -ama "\033[1;31m $(fun_trans "Desativar senhas alfanumericas em VULTR")"
+msg -ama "\033[1;31m $(fun_trans "Qualquer senha de 6 digitos pode ser usada ")"
 msg -bar
-echo -e "$(fun_trans "Deseja Prosseguir?")"
-read -p " [S/N]: " -e -i n PROS
+echo -e "$(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " -e -i n PROS
 [[ $PROS = @(s|S|y|Y) ]] || return 1
 msg -bar
 #Inicia Procedimentos
@@ -186,11 +185,10 @@ return
 }
 
 aplica_root () {
-msg -ama " $(fun_trans "Aplica permissoes ao usuario root")"
-msg -azu " $(fun_trans "Sistemas Google Cloud e Amazon ")"
+msg -ama "\033[1;31m $(fun_trans "Aplica permissoes ao usuario root")"
+msg -ama "\033[1;31m $(fun_trans "Sistemas Google Cloud e Amazon ")"
 msg -bar
-echo -e "$(fun_trans "Deseja Prosseguir?")"
-read -p " [S/N]: " -e -i n PROS
+echo -e "$(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " -e -i n PROS
 [[ $PROS = @(s|S|y|Y) ]] || return 1
 msg -bar
 #Inicia Procedimentos

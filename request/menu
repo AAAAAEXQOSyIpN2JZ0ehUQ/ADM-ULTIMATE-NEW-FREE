@@ -841,7 +841,7 @@ export -f meu_ip
 export -f fun_ip
 clear
 msg -bar
-msg -ama "INFORMACOES DO SERVIDOR                     \033[1;31m[\033[1;37m r6.4.4 \033[1;31m] "
+msg -ama "INFORMACOES DO SERVIDOR                     \033[1;31m[\033[1;37m r6.5.0 \033[1;31m] "
 msg -bar
 menu_info
 # msg -bar

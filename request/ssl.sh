@@ -98,17 +98,15 @@ msg -bar
     unset SSLPORT1
     done
 msg -bar
-msg -ama " $(fun_trans "Atribua um nome para o redirecionador ") Ej: stunnel "
-msg -bar
-read -p " Nome: " namer
-msg -bar
+fun_bar "sleep 3s"
 echo "" >> /etc/stunnel/stunnel.conf
-echo "[${namer}]" >> /etc/stunnel/stunnel.conf
+echo "[stunnel]" >> /etc/stunnel/stunnel.conf
 echo "connect = 127.0.0.1:${portx}" >> /etc/stunnel/stunnel.conf
 echo "accept = ${SSLPORTr}" >> /etc/stunnel/stunnel.conf
 sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
 service stunnel4 restart > /dev/null 2>&1
 /etc/init.d/stunnel4 restart > /dev/null 2>&1
+msg -bar
 msg -ama " $(fun_trans "PORTA AGREGADA COM SUCESSO")"
 msg -bar
 }

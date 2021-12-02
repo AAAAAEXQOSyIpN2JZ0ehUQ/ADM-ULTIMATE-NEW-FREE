@@ -155,13 +155,8 @@ msg -ama " $(fun_trans "Procedimento concluido")"
 }
 
 pamcrack () {
-#-----------------------------------------------------------------------------------------------------------------
-# sudo apt-get install libpam-cracklib -y > /dev/null 2>&1
-# wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/VPS-MX/main/VPS-MX_Oficial/ArchivosUtilitarios/common-password -O /etc/pam.d/common-password > /dev/null 2>&1 
-# chmod +x /etc/pam.d/common-password
-#-----------------------------------------------------------------------------------------------------------------
-msg -ama "\033[1;31m $(fun_trans "Desativar senhas alfanumericas em VULTR")"
-msg -ama "\033[1;31m $(fun_trans "Qualquer senha de 6 digitos pode ser usada ")"
+msg -ama " $(fun_trans "Desativar senhas alfanumericas em VULTR")"
+msg -ama " $(fun_trans "Qualquer senha de 6 digitos pode ser usada ")"
 msg -bar
 echo -e "$(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " -e -i n PROS
 [[ $PROS = @(s|S|y|Y) ]] || return 1
@@ -169,6 +164,11 @@ msg -bar
 #Inicia Procedimentos
 msg -ama " $(fun_trans "Aplicando o Configuracoes VURLT ")"
 msg -bar
+#-----------------------------------------------------------------------------------------------------------------
+# sudo apt-get install libpam-cracklib -y > /dev/null 2>&1
+# wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/VPS-MX/main/VPS-MX_Oficial/ArchivosUtilitarios/common-password -O /etc/pam.d/common-password > /dev/null 2>&1 
+# chmod +x /etc/pam.d/common-password
+#-----------------------------------------------------------------------------------------------------------------
 fun_cracklib () {
 sed -i 's/.*pam_cracklib.so.*/password sufficient pam_unix.so sha512 shadow nullok try_first_pass #use_authtok/' /etc/pam.d/common-password
 service ssh restart
@@ -227,6 +227,7 @@ msg -bar
 echo -e "\033[1;37m $(fun_trans "Digite Sua Senha aAtual ou Uma Nova Senha")"
 read  -p " Nuevo passwd: " pass
 (echo $pass; echo $pass)|passwd 2>/dev/null
+msg -bar
 service ssh restart > /dev/null 2>&1
 service sshd restart > /dev/null 2>&1
 echo -e "\033[1;31m $(fun_trans "Root ao Google Cloud / Amazon") \033[1;32m[OK]"

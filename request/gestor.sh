@@ -102,7 +102,7 @@ done
 hostnamectl set-hostname $name 
 if [ $(hostnamectl status | head -1  | awk '{print $3}') = "${name}" ]; then 
 echo -e "\033[1;33m $(fun_trans "Novo Nome"): \033[1;32m$name"
-echo -e "\033[1;33m $(fun_trans "Nome Alterado Com Sucesso")! \033[1;32m$(fun_trans "Reboot Sistema")"
+echo -e "\033[1;33m $(fun_trans "Nome Alterado Com Sucesso")!"
 else
 echo -e "\033[1;31m $(fun_trans "Falhou")!"
 fi
@@ -116,14 +116,13 @@ echo -e "$(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " -e -i n PROS
 [[ $PROS = @(s|S|y|Y) ]] || return 1
 #Inicia Procedimentos
 msg -bar
-echo -e "\033[1;37m $(fun_trans "DIGITE A NOVA SENHA")"
-msg -bar
+echo -e "\033[1;37m $(fun_trans "Digite a nova senha")"
 read  -p " Nuevo passwd: " pass
 (echo $pass; echo $pass)|passwd 2>/dev/null
 sleep 1s
 msg -bar
-msg -ama " $(fun_trans "SENHA ALTERADA COM SUCESSO")!"
 echo -e "\033[1;31m $(fun_trans "NOVA SENHA"): \033[1;32m$pass"
+msg -ama " $(fun_trans "SENHA ALTERADA COM SUCESSO")!"
 return
 }
 

@@ -7,6 +7,7 @@ SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 API_TRANS="aHR0cDovL2dpdC5pby90cmFucw=="
 SUB_DOM='base64 -d'
 wget -O /usr/bin/trans $(echo $API_TRANS|$SUB_DOM) &> /dev/null
+
 mportas () {
 unset portas
 portas_var=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
@@ -17,51 +18,7 @@ done <<< "$portas_var"
 i=1
 echo -e "$portas"
 }
-ssl_redir () {
-if [[ ! -e /etc/stunnel/stunnel.conf ]]; then
-msg -ama " $(fun_trans "SSL Stunnel Nao Encontrado")"
-msg -bar
-exit 1
-fi
-msg -azu " $(fun_trans "SSL Stunnel")"
-msg -bar
-msg -ama " $(fun_trans "Selecione Uma Porta De Redirecionamento Interna")"
-msg -ama " $(fun_trans "Ou seja, uma Porta no Seu Servidor Para o SSL")"
-# msg -ama " $(fun_trans "Ej: Dropbear, OpenSSH, ShadowSocks, OpenVPN, Etc")"
-msg -bar
-         while true; do
-         read -p " Local-Port: " portx
-         if [[ ! -z $portx ]]; then
-            [[ $(mportas|grep -w "$portx") ]] && break || echo -e "\033[1;31m $(fun_trans "Porta Invalida")\033[0m"
-         fi
-         done
-msg -bar
-msg -ama " $(fun_trans "Agora Presizamos Saber Qual Porta o SSL, Vai Escutar")"
-msg -bar
-    while true; do
-    read -p " Puerto SSL: " SSLPORTr
-    [[ $(mportas|grep -w "$SSLPORTr") ]] || break
-    msg -bar
-    echo -e "$(fun_trans "esta Porta Ja esta em Uso")"
-    msg -bar
-    unset SSLPORT1
-    done
-msg -bar
-msg -ama " $(fun_trans "Atribua um nome para o redirecionador ") Ej: openvpn "
-msg -bar
-read -p " Nome: " namer
-msg -bar
-echo "" >> /etc/stunnel/stunnel.conf
-echo "[${namer}]" >> /etc/stunnel/stunnel.conf
-echo "connect = 127.0.0.1:${portx}" >> /etc/stunnel/stunnel.conf
-echo "accept = ${SSLPORTr}" >> /etc/stunnel/stunnel.conf
-sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
-service stunnel4 restart > /dev/null 2>&1
-/etc/init.d/stunnel4 restart > /dev/null 2>&1
-# msg -bar
-msg -ama " $(fun_trans "PORTA AGREGADA COM SUCESSO")"
-msg -bar
-}
+
 ssl_stunel () {
 [[ $(mportas|grep stunnel4|head -1) ]] && {
 msg -ama " $(fun_trans "Parando Stunnel")"
@@ -111,6 +68,51 @@ msg -ama " $(fun_trans "INSTALADO COM SUCESSO")"
 msg -bar
 return 0
 }
+
+ssl_greport () {
+if [[ ! -e /etc/stunnel/stunnel.conf ]]; then
+msg -ama " $(fun_trans "SSL Stunnel Nao Encontrado")"
+msg -bar
+exit 1
+fi
+msg -azu " $(fun_trans "SSL Stunnel")"
+msg -bar
+msg -ama " $(fun_trans "Selecione Uma Porta De Redirecionamento Interna")"
+msg -ama " $(fun_trans "Ou seja, uma Porta no Seu Servidor Para o SSL")"
+msg -bar
+         while true; do
+         read -p " Local-Port: " portx
+         if [[ ! -z $portx ]]; then
+            [[ $(mportas|grep -w "$portx") ]] && break || echo -e "\033[1;31m $(fun_trans "Porta Invalida")\033[0m"
+         fi
+         done
+msg -bar
+msg -ama " $(fun_trans "Agora Presizamos Saber Qual Porta o SSL, Vai Escutar")"
+msg -bar
+    while true; do
+    read -p " Puerto SSL: " SSLPORTr
+    [[ $(mportas|grep -w "$SSLPORTr") ]] || break
+    msg -bar
+    echo -e "$(fun_trans "esta Porta Ja esta em Uso")"
+    msg -bar
+    unset SSLPORT1
+    done
+msg -bar
+msg -ama " $(fun_trans "Atribua um nome para o redirecionador ") Ej: stunnel "
+msg -bar
+read -p " Nome: " namer
+msg -bar
+echo "" >> /etc/stunnel/stunnel.conf
+echo "[${namer}]" >> /etc/stunnel/stunnel.conf
+echo "connect = 127.0.0.1:${portx}" >> /etc/stunnel/stunnel.conf
+echo "accept = ${SSLPORTr}" >> /etc/stunnel/stunnel.conf
+sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
+service stunnel4 restart > /dev/null 2>&1
+/etc/init.d/stunnel4 restart > /dev/null 2>&1
+msg -ama " $(fun_trans "PORTA AGREGADA COM SUCESSO")"
+msg -bar
+}
+
 fun_ssl () {
 msg -ama " $(fun_trans "CONFIGURACAO DE SSL STUNNEL*")"
 msg -bar
@@ -125,7 +127,7 @@ tput cuu1 && tput dl1
 done
 case $arquivoonlineadm in
 0)exit;;
-1)ssl_redir;;
+1)ssl_greport;;
 2)
    nano /etc/stunnel/stunnel.conf
    return 0;;

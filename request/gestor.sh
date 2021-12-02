@@ -88,21 +88,23 @@ echo -ne " \033[1;31m[ ! ] Reboot"
 sleep 3s
 echo -e " \033[1;31mREINICIANDO...\033[1;32m [OK] \033[0m"
 shutdown -r now
-return #exit
+return 
+# exit
 }
 
 host_name () {
 msg -ama " $(fun_trans "O nome sera alterado internamente no servodor")"
-msg -bar
 unset name
 while [[ ${name} = "" ]]; do
 echo -ne "\033[1;37m $(fun_trans "Digite o novo nome"): " && read name
 tput cuu1 && tput dl1
+tput cuu1 && tput dl1
 done
 hostnamectl set-hostname $name 
 if [ $(hostnamectl status | head -1  | awk '{print $3}') = "${name}" ]; then 
-echo -e "\033[1;33m $(fun_trans "Novo Nome"): \033[1;32m$name"
-echo -e "\033[1;33m $(fun_trans "Nome Alterado Com Sucesso")!"
+echo -e "\033[1;31m $(fun_trans "NOVO NOME"): \033[1;32m$name"
+msg -bar
+msg -ama " $(fun_trans "NOME ALTERADO COM SUCESSO")!"
 else
 echo -e "\033[1;31m $(fun_trans "Falhou")!"
 fi
@@ -119,9 +121,9 @@ msg -bar
 echo -e "\033[1;37m $(fun_trans "Digite a nova senha")"
 read  -p " Nuevo passwd: " pass
 (echo $pass; echo $pass)|passwd 2>/dev/null
-sleep 1s
 msg -bar
 echo -e "\033[1;31m $(fun_trans "NOVA SENHA"): \033[1;32m$pass"
+msg -bar
 msg -ama " $(fun_trans "SENHA ALTERADA COM SUCESSO")!"
 return
 }

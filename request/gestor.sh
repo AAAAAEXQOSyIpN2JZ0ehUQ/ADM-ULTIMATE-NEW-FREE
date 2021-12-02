@@ -182,8 +182,8 @@ return
 }
 
 aplica_root () {
-msg -ama "\033[1;31m $(fun_trans "Aplica permissoes ao usuario root")"
-msg -ama "\033[1;31m $(fun_trans "Sistemas Google Cloud e Amazon ")"
+msg -ama " $(fun_trans "Aplica permissoes ao usuario root")"
+msg -ama " $(fun_trans "Sistemas Google Cloud e Amazon ")"
 msg -bar
 echo -e "$(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " -e -i n PROS
 [[ $PROS = @(s|S|y|Y) ]] || return 1

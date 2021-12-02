@@ -252,7 +252,8 @@ echo $selection
 clear
 clear
 msg -bar
-msg -ama "$(fun_trans "GERENCIAMENTO DE SISTEMA")"
+msg -ama "$(fun_trans "GERENCIAMENTO DE SISTEMA") $(msg -verd "Opcao [10] Teste") "
+## echo -ne "$(msg -verd "[10]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "TESTE SCRIPTS EXTERNO") \033[0;32m(#BET)"
 msg -bar
 echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$(fun_trans "VOLTAR")"
 echo -ne "$(msg -verd "[1]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ATUALIZAR SISTEMA")"
@@ -264,8 +265,6 @@ echo -ne "$(msg -verd "[6]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "TRAFI
 echo -ne "$(msg -verd "[7]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "PROCESOS DE SISTEMA HTOP")"
 echo -ne "$(msg -verd "[8]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "DESATIVAR SENHAS ALPANUMERICAS EN VURTL ")"
 echo -ne "$(msg -verd "[9]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ROOT AO GOOGLE CLOUD E AMAZON")"
-msg -bar
-echo -ne "$(msg -verd "[10]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "TESTE SCRIPTS EXTERNO") \033[0;32m(#BET)"
 msg -bar
 # FIM
 selection=$(selection_fun 10)

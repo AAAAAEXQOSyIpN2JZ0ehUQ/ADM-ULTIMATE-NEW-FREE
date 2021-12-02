@@ -86,12 +86,9 @@ return
 reiniciar_vps () {
 echo -ne " \033[1;31m[ ! ] Reboot"
 sleep 3s
-echo -e "\033[1;32m [OK]"
-# shutdown -r now
-(
-reboot
-) > /dev/null 2>&1
-return
+echo -e " \033[1;31mREINICIANDO...\033[1;32m [OK] \033[0m"
+shutdown -r now
+return #exit
 }
 
 host_name () {
@@ -100,6 +97,7 @@ msg -bar
 unset name
 while [[ ${name} = "" ]]; do
 echo -ne "\033[1;37m $(fun_trans "Digite o novo nome"): " && read name
+tput cuu1 && tput dl1
 done
 hostnamectl set-hostname $name 
 if [ $(hostnamectl status | head -1  | awk '{print $3}') = "${name}" ]; then 

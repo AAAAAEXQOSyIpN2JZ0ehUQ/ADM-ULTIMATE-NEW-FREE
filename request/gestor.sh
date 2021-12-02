@@ -98,15 +98,14 @@ host_name () {
 unset name
 while [[ ${name} = "" ]]; do
 msg -ama " $(fun_trans "O nome sera alterado internamente no servodor")"
-msg -ama " $(fun_trans "Digite o novo nome do seu servidor")"
 msg -bar
-read -p " [S/N]: " -e -i n name
+echo -ne "\033[1;37m $(fun_trans "Digite o novo nome do seu servidor"): " && read name
 done
 hostnamectl set-hostname $name 
 if [ $(hostnamectl status | head -1  | awk '{print $3}') = "${name}" ]; then 
 msg -bar
-echo -e "\033[1;33m $(fun_trans "Nome Alterado Com Sucesso")!"
 echo -e "\033[1;31m $(fun_trans "Novo Nome"): \033[1;32m$name"
+echo -e "\033[1;33m $(fun_trans "Nome Alterado Com Sucesso")! $(fun_trans "Reboot Sistema")"
 else
 echo -e "\033[1;31m $(fun_trans "Falhou")!"
 fi

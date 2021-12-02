@@ -195,57 +195,6 @@ fun_aplicaroot () {
 apt-get update -y
 apt-get upgrade -y
 service ssh restart
-cp /etc/ssh/sshd_config /etc/ssh/sshd_back
-[[ $(grep -c "prohibit-password" /etc/ssh/sshd_config) != '0' ]] && {
-	sed -i "s/prohibit-password/yes/g" /etc/ssh/sshd_config
-}
-[[ $(grep -c "without-password" /etc/ssh/sshd_config) != '0' ]] && {
-	sed -i "s/without-password/yes/g" /etc/ssh/sshd_config
-}
-[[ $(grep -c "#PermitRootLogin" /etc/ssh/sshd_config) != '0' ]] && {
-	sed -i "s/#PermitRootLogin/PermitRootLogin/g" /etc/ssh/sshd_config
-}
-[[ $(grep -c "PasswordAuthentication" /etc/ssh/sshd_config) = '0' ]] && {
-	echo 'PasswordAuthentication yes' > /etc/ssh/sshd_config
-}
-[[ $(grep -c "PasswordAuthentication no" /etc/ssh/sshd_config) != '0' ]] && {
-	sed -i "s/PasswordAuthentication no/PasswordAuthentication yes/g" /etc/ssh/sshd_config
-}
-[[ $(grep -c "#PasswordAuthentication no" /etc/ssh/sshd_config) != '0' ]] && {
-	sed -i "s/#PasswordAuthentication no/PasswordAuthentication yes/g" /etc/ssh/sshd_config
-}
-service ssh restart
-iptables -F
-iptables -A INPUT -p tcp --dport 81 -j ACCEPT
-iptables -A INPUT -p tcp --dport 80 -j ACCEPT
-iptables -A INPUT -p tcp --dport 443 -j ACCEPT
-iptables -A INPUT -p tcp --dport 8799 -j ACCEPT
-iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
-iptables -A INPUT -p tcp --dport 1194 -j ACCEPT}
-}
-fun_bar "fun_aplicaroot"
-msg -bar
-service ssh restart > /dev/null 2>&1
-service sshd restart > /dev/null 2>&1
-echo -e "\033[1;31m $(fun_trans "Root ao Google Cloud / Amazon") \033[1;32m[OK]"
-return
-}
-
-aplica_root1 () {
-msg -ama "\033[1;31m $(fun_trans "Aplica permissoes ao usuario root")"
-msg -ama "\033[1;31m $(fun_trans "Sistemas Google Cloud e Amazon ")"
-msg -bar
-echo -e "$(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " -e -i n PROS
-[[ $PROS = @(s|S|y|Y) ]] || return 1
-msg -bar
-#Inicia Procedimentos
-msg -ama " $(fun_trans "Aplicando o Root ao Google Cloud e Amazon ")"
-msg -bar
-fun_aplicaroot () {
-apt-get update -y
-apt-get upgrade -y
-service ssh restart
-cp /etc/ssh/sshd_config /etc/ssh/sshd_back
 [[ $(grep -c "prohibit-password" /etc/ssh/sshd_config) != '0' ]] && {
 	sed -i "s/prohibit-password/yes/g" /etc/ssh/sshd_config
 }
@@ -276,22 +225,11 @@ iptables -A INPUT -p tcp --dport 1194 -j ACCEPT}
 fun_bar "fun_aplicaroot"
 msg -bar
 echo -e "\033[1;37m $(fun_trans "Digite Sua Senha aAtual ou Uma Nova Senha")"
-msg -bar
 read  -p " Nuevo passwd: " pass
 (echo $pass; echo $pass)|passwd 2>/dev/null
-msg -bar
-msg -ne "\033[1;31m [ ! ] \033[1;33m$(fun_trans "REINICIANDO SERVICOS*")"
 service ssh restart > /dev/null 2>&1
 service sshd restart > /dev/null 2>&1
-echo -e " \033[1;32m[OK]"
-sleep 3s
-msg -bar
-echo -e "\033[1;31m $(fun_trans "Senha Atual") Root: \033[1;32m$pass"
 echo -e "\033[1;31m $(fun_trans "Root ao Google Cloud / Amazon") \033[1;32m[OK]"
-echo -e " \033[1;31mRuta sshd > \033[1;31m[ \033[1;32m/etc/ssh/sshd_config \033[1;31m]"
-msg -bar
-msg -ama " $(fun_trans "Seu Openssh foi configurado com sucesso")"
-msg -bar
 return
 }
 

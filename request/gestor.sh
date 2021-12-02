@@ -252,8 +252,7 @@ echo $selection
 clear
 clear
 msg -bar
-msg -ama "$(fun_trans "GERENCIAMENTO DE SISTEMA") $(msg -verd "Opcao [10] Teste") "
-## echo -ne "$(msg -verd "[10]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "TESTE SCRIPTS EXTERNO") \033[0;32m(#BET)"
+msg -ama "$(fun_trans "GERENCIAMENTO DE SISTEMA")           $(msg -verd "OPCAO [10] TESTE SCRIPTS EXTERNO")"
 msg -bar
 echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$(fun_trans "VOLTAR")"
 echo -ne "$(msg -verd "[1]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ATUALIZAR SISTEMA")"

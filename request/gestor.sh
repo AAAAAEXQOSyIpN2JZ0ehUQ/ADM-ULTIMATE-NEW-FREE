@@ -84,10 +84,12 @@ return
 }
 
 reiniciar_vps () {
-echo -ne " \033[1;31m[ ! ] Reboot"
+echo -ne " \033[1;31m[ ! ] Sudo Reboot..."
 sleep 3s
-echo -e " \033[1;31mREINICIANDO...\033[1;32m [OK] \033[0m"
-shutdown -r now
+echo -e "\033[1;32m [OK]"
+(
+sudo reboot
+) > /dev/null 2>&1
 return
 }
 
@@ -113,7 +115,7 @@ return
 senharoot () {
 msg -ama " $(fun_trans "Essa senha sera usada para entrar no seu servidor")"
 msg -bar
-echo -e "$(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " -e -i n PROS
+echo -ne "$(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " -e -i n PROS
 [[ $PROS = @(s|S|y|Y) ]] || return 1
 #Inicia Procedimentos
 msg -bar

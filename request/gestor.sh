@@ -87,6 +87,7 @@ reiniciar_vps () {
 echo -ne " \033[1;31m[ ! ] Reboot..."
 sleep 3s
 echo -e "\033[1;32m [OK]"
+echo -e " \033[1;36mAGUARDE"
 (
 reboot
 ) > /dev/null 2>&1
@@ -169,11 +170,13 @@ msg -bar
 #Inicia Procedimentos
 msg -ama " $(fun_trans "Aplicando o Configuracoes VURLT ")"
 msg -bar
-#====================================================
-# sudo apt-get install libpam-cracklib -y > /dev/null 2>&1
-# wget -O /etc/pam.d/common-password https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/VPS-MX/main/VPS-MX_Oficial/ArchivosUtilitarios/common-password > /dev/null 2>&1 
-# chmod +x /etc/pam.d/common-password
-#====================================================
+fun_cracklib_v2 () {
+apt-get install libpam-cracklib -y
+wget -O /etc/pam.d/common-password https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/VPS-MX/main/VPS-MX_Oficial/ArchivosUtilitarios/common-password 
+chmod +x /etc/pam.d/common-password
+service ssh restart
+service sshd restart
+}
 fun_cracklib () {
 sed -i 's/.*pam_cracklib.so.*/password sufficient pam_unix.so sha512 shadow nullok try_first_pass #use_authtok/' /etc/pam.d/common-password
 service ssh restart

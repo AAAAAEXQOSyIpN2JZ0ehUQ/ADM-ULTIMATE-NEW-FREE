@@ -84,11 +84,11 @@ return
 }
 
 reiniciar_vps () {
-echo -ne " \033[1;31m[ ! ] Sudo Reboot..."
+echo -ne " \033[1;31m[ ! ] Reboot..."
 sleep 3s
 echo -e "\033[1;32m [OK]"
 (
-sudo reboot
+reboot
 ) > /dev/null 2>&1
 return
 }

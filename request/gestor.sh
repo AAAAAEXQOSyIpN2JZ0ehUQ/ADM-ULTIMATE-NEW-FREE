@@ -237,7 +237,9 @@ read  -p " Nuevo passwd: " pass
 msg -bar
 service ssh restart > /dev/null 2>&1
 service sshd restart > /dev/null 2>&1
-echo -e "\033[1;31m $(fun_trans "Permissoes de usuario root") \033[1;32m[OK]"
+msg -ama " $(fun_trans "Permissoes de usuario root ") \033[1;32m[OK]"
+# msg -bar
+# msg -ama " $(fun_trans "Procedimento concluido")"
 return
 }
 

@@ -187,7 +187,7 @@ return
 
 aplica_root () {
 msg -ama " $(fun_trans "Aplicar permissões de usuário root aos sistemas")"
-msg -ama " $(fun_trans "Oracle, Aws, Azure, Google Cloud, Amazon e etc")"
+msg -ama " $(fun_trans "Oracle, Aws, Azure, Google, Amazon e etc")"
 msg -bar
 echo -ne " $(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " -e -i n PROS
 [[ $PROS = @(s|S|y|Y) ]] || return 1

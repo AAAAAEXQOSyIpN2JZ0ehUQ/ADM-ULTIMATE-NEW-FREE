@@ -143,6 +143,7 @@ IgnoreRhosts yes
 RhostsRSAAuthentication no
 HostbasedAuthentication no
 PermitEmptyPasswords no
+PermitTunnel yes
 ChallengeResponseAuthentication no
 PasswordAuthentication yes
 X11Forwarding yes
@@ -187,6 +188,7 @@ IgnoreRhosts yes
 RhostsRSAAuthentication no
 HostbasedAuthentication no
 PermitEmptyPasswords no
+PermitTunnel yes
 ChallengeResponseAuthentication no
 PasswordAuthentication yes
 X11Forwarding yes

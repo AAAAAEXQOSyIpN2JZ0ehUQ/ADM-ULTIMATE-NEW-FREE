@@ -125,7 +125,8 @@ echo -ne " $(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " -e -i n PROS
 [[ $PROS = @(s|S|y|Y) ]] || return 1
 #Inicia Procedimentos
 msg -bar
-echo -e "\033[1;37m $(fun_trans "Digite a nova senha")"
+#DEFINIR SENHA ROOT
+echo -e "\033[1;37m $(fun_trans "Digite Uma Nova Senha")"
 read  -p " Nuevo passwd: " pass
 (echo $pass; echo $pass)|passwd 2>/dev/null
 msg -bar
@@ -186,7 +187,7 @@ return
 }
 
 aplica_root () {
-msg -ama " $(fun_trans "Aplicar permissões de usuário root aos sistemas")"
+msg -ama " $(fun_trans "Aplicar permissoes de usuario root aos sistemas")"
 msg -ama " $(fun_trans "Oracle, Aws, Azure, Google, Amazon e etc")"
 msg -bar
 echo -ne " $(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " -e -i n PROS
@@ -194,7 +195,7 @@ echo -ne " $(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " -e -i n PROS
 #Inicia Procedimentos
 msg -bar
 #Inicia Procedimentos
-msg -ama " $(fun_trans "Aplicando permissões de usuário root")"
+msg -ama " $(fun_trans "Aplicando permissoes de usuario root")"
 msg -bar
 fun_aplicaroot () {
 apt-get update -y

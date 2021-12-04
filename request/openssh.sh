@@ -79,6 +79,7 @@ iptables -A INPUT -p tcp --dport 1194 -j ACCEPT
 }
 fun_bar "fun_aplicaroot"
 msg -bar
+#DEFINIR SENHA ROOT
 echo -e "\033[1;37m $(fun_trans "Digite Sua Senha Atual ou Uma Nova Senha")"
 read  -p " Nuevo passwd: " pass
 (echo $pass; echo $pass)|passwd 2>/dev/null
@@ -125,6 +126,7 @@ iptables -A INPUT -p tcp --dport 1194 -j ACCEPT
 }
 fun_bar "fun_aplicaroot"
 msg -bar
+#DEFINIR SENHA ROOT
 echo -e "\033[1;37m $(fun_trans "Digite Sua Senha Atual ou Uma Nova Senha")"
 read  -p " Nuevo passwd: " pass
 (echo $pass; echo $pass)|passwd 2>/dev/null

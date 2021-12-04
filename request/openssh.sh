@@ -90,7 +90,7 @@ echo -e " \033[1;32m[OK]"
 sleep 3s
 msg -bar
 echo -e "\033[1;31m $(fun_trans "Senha Atual Root") : \033[1;32m$pass"
-echo -e "\033[1;31m $(fun_trans "Root ao Google Cloud / Amazon") \033[1;32m[OK]"
+echo -e "\033[1;31m $(fun_trans "Permissoes de usuario root") \033[1;32m[OK]"
 echo -e "\033[1;31m $(fun_trans "Ruta sshd") > \033[1;31m[ \033[1;32m/etc/ssh/sshd_config \033[1;31m]"
 msg -bar
 msg -ama " $(fun_trans "Seu Openssh foi configurado com sucesso")"
@@ -136,7 +136,7 @@ echo -e " \033[1;32m[OK]"
 sleep 3s
 msg -bar
 echo -e "\033[1;31m $(fun_trans "Senha Atual") Root: \033[1;32m$pass"
-echo -e "\033[1;31m $(fun_trans "Root ao Google Cloud / Amazon") \033[1;32m[OK]"
+echo -e "\033[1;31m $(fun_trans "Permissoes de usuario root") \033[1;32m[OK]"
 echo -e "\033[1;31m $(fun_trans "Ruta sshd") > \033[1;31m[ \033[1;32m/etc/ssh/sshd_config \033[1;31m]"
 msg -bar
 msg -ama " $(fun_trans "Seu Openssh foi configurado com sucesso")"

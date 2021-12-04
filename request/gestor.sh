@@ -170,14 +170,10 @@ msg -bar
 #Inicia Procedimentos
 msg -ama " $(fun_trans "Aplicando o Configuracoes VURLT ")"
 msg -bar
-fun_cracklib_v2 () {
-apt-get install libpam-cracklib -y
-wget -O /etc/pam.d/common-password https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/VPS-MX/main/VPS-MX_Oficial/ArchivosUtilitarios/common-password 
-chmod +x /etc/pam.d/common-password
-service ssh restart
-service sshd restart
-}
 fun_cracklib () {
+# apt-get install libpam-cracklib -y
+# wget -O /etc/pam.d/common-password https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/VPS-MX/main/VPS-MX_Oficial/ArchivosUtilitarios/common-password 
+# chmod +x /etc/pam.d/common-password
 sed -i 's/.*pam_cracklib.so.*/password sufficient pam_unix.so sha512 shadow nullok try_first_pass #use_authtok/' /etc/pam.d/common-password
 service ssh restart
 service sshd restart
@@ -190,15 +186,15 @@ return
 }
 
 aplica_root () {
-msg -ama " $(fun_trans "Aplica permissoes ao usuario root")"
-msg -ama " $(fun_trans "Sistemas Google Cloud e Amazon ")"
+msg -ama " $(fun_trans "Aplicar permissões de usuário root aos sistemas")"
+msg -ama " $(fun_trans "Oracle, Aws, Azure, Google Cloud, Amazon e etc")"
 msg -bar
 echo -ne " $(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " -e -i n PROS
 [[ $PROS = @(s|S|y|Y) ]] || return 1
 #Inicia Procedimentos
 msg -bar
 #Inicia Procedimentos
-msg -ama " $(fun_trans "Aplicando o Root ao Google Cloud e Amazon ")"
+msg -ama " $(fun_trans "Aplicando permissões de usuário root")"
 msg -bar
 fun_aplicaroot () {
 apt-get update -y
@@ -233,13 +229,14 @@ iptables -A INPUT -p tcp --dport 1194 -j ACCEPT}
 }
 fun_bar "fun_aplicaroot"
 msg -bar
+#DEFINIR SENHA ROOT
 echo -e "\033[1;37m $(fun_trans "Digite Sua Senha Atual ou Uma Nova Senha")"
 read  -p " Nuevo passwd: " pass
 (echo $pass; echo $pass)|passwd 2>/dev/null
 msg -bar
 service ssh restart > /dev/null 2>&1
 service sshd restart > /dev/null 2>&1
-echo -e "\033[1;31m $(fun_trans "Root ao Google Cloud / Amazon") \033[1;32m[OK]"
+echo -e "\033[1;31m $(fun_trans "Permissoes de usuario root") \033[1;32m[OK]"
 return
 }
 
@@ -275,7 +272,8 @@ echo -ne "$(msg -verd "[5]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ALTER
 echo -ne "$(msg -verd "[6]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "TRAFICO DE RED NLOAD")"
 echo -ne "$(msg -verd "[7]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "PROCESOS DE SISTEMA HTOP")"
 echo -ne "$(msg -verd "[8]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "DESATIVAR SENHAS ALPANUMERICAS EN VURTL")"
-echo -ne "$(msg -verd "[9]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ROOT AO GOOGLE CLOUD E AMAZON")"
+echo -ne "$(msg -verd "[9]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ROOT ORACLE, AWS, AZURE E ETC")"
+#echo -ne "$(msg -verd "[9]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ROOT AO GOOGLE CLOUD E AMAZON")"
 msg -bar
 # FIM
 selection=$(selection_fun 10)

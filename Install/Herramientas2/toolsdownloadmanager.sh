@@ -6,6 +6,17 @@ SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 
+fun_ip () {
+if [[ -e /etc/MEUIPADM ]]; then
+IP="$(cat /etc/MEUIPADM)"
+else
+MEU_IP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
+MEU_IP2=$(wget -qO- ipv4.icanhazip.com)
+[[ "$MEU_IP" != "$MEU_IP2" ]] && IP="$MEU_IP2" || IP="$MEU_IP"
+echo "$MEU_IP2" > /etc/MEUIPADM
+fi
+}
+
 fun_bar () {
 comando="$1"
  _=$(
@@ -165,62 +176,49 @@ msg -ama "DESCARGADO CON SUCCESO EN: ${cor[2]}Menu de herramientas"
 return
 }
 
-msg -ama "$(fun_trans "TOOLS DOWNLOAD MANAGER 2") ${cor[4]}[NEW-ADM]"
-msg -bar
-echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
-echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "FAIL2BAN PROTECAO")"
-echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "PANEL DE VENTAS SSHPLUS")"
-echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "PAYLOAD FORCA BRUTA BASH")"
-echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "PAYLOAD FORCA BRUTA PYTHON")"
-echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "ANTI DDOS")"
-echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "TESTE DE VELOCIDADE*")"
-echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "FIREWALL BLOQUEIO TORRENT")"
-msg -bar
-while [[ ${arquivoonlineadm} != @(0|[1-7]) ]]; do
-read -p "[0-7]: " arquivoonlineadm
-tput cuu1 && tput dl1
+# SISTEMA DE SELECAO
+selection_fun () {
+local selection="null"
+local range
+for((i=0; i<=$1; i++)); do range[$i]="$i "; done
+while [[ ! $(echo ${range[*]}|grep -w "$selection") ]]; do
+echo -ne "\033[1;37m$(fun_trans "Selecione a Opcao"): " >&2
+read selection
+tput cuu1 >&2 && tput dl1 >&2
 done
-case $arquivoonlineadm in
-0)exit;;
-1)fai2ban;;
-2)panelsshplus;;
-3)paysnd;;
-4)payySND;;
-5)ddos;;
-6)speed_v2;;
-7)torrent;;
-8)exit;;
-9)exit;;
-esac
+echo $selection
 }
 
-msg -ama "$(fun_trans "TOOLS DOWNLOAD MANAGER") ${cor[4]}[NEW-ADM]"
+clear
+clear
 msg -bar
-echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
-echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "GERADOR DE BIN")"
-echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "CONSULTAR UN BIN")"
-echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "HOST EXTRACTOR")"
-echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "MONITOR DE CONSUMO")"
-echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "USUARIO TEMPORAL")"
-echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "PROTECAO SQUID PASS")"
-echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "PAINEL DE UPLOAD DE EHI")"
-echo -ne "\033[1;32m [8] > " && msg -azu "$(fun_trans "VNC SERVER")"
-echo -ne "\033[1;32m [9] > " && msg -azu "$(fun_trans "MAS HERRAMIENTAS")"
+msg -ama "$(fun_trans "TOOLS DOWNLOAD MANAGER")"
 msg -bar
-while [[ ${arquivoonlineadm} != @(0|[1-9]) ]]; do
-read -p "[0-9]: " arquivoonlineadm
-tput cuu1 && tput dl1
-done
-case $arquivoonlineadm in
+echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$(fun_trans "VOLTAR")"
+echo -ne "$(msg -verd "[1]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "AINEL DE UPLOAD DE EHI")"
+echo -ne "$(msg -verd "[2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "PAYLOAD FORCA BRUTA PYTHON")"
+echo -ne "$(msg -verd "[3]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ANTI DDOS")"
+echo -ne "$(msg -verd "[4]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "FIREWALL BLOQUEIO TORRENT")"
+echo -ne "$(msg -verd "[5]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "GERADOR DE BIN")"
+echo -ne "$(msg -verd "[6]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "CONSULTAR UN BIN")"
+echo -ne "$(msg -verd "[7]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "HOST EXTRACTOR")"
+echo -ne "$(msg -verd "[8]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "MONITOR DE CONSUMO")"
+echo -ne "$(msg -verd "[9]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "USUARIO TEMPORAL")"
+echo -ne "$(msg -verd "[10]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "PROTECAO SQUID PASS")"
+msg -bar
+# FIM
+selection=$(selection_fun 10)
+case ${selection} in
+1)insta_painel;;
+2)payySND;;
+3)ddos;;
+4)torrent;;
+5)GENERADOR_BIN;;
+6)MasterBin;;
+7)real-host;;
+8)dados;;
+9)Crear-Demo;;
+10)squidpass;;
 0)exit;;
-1)GENERADOR_BIN;;
-2)MasterBin;;
-3)real-host;;
-4)dados;;
-5)Crear-Demo;;
-6)squidpass;;
-7)insta_painel;;
-8)vnc;;
-9)mas_tools;;
 esac
 msg -bar

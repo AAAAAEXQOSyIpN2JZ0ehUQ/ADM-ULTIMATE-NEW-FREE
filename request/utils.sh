@@ -154,11 +154,24 @@ block_torrent () {
  echo -e "\033[1;32m $(fun_trans "Reinicie o Sistema Pra Concluir") (reboot)"
  msg -bar
  echo -e "\033[1;33m $(fun_trans "Seu Torrent foi Removido com sucesso")!"
- # msg -bar
  [[ -e /etc/torrent-adm ]] && rm /etc/torrent-adm
+ if [[ -e /etc/openvpn/openvpn-status.log ]]; then
+ msg -bar
+ read -p "$(echo -e " Reiniciar Agora [S/N]: ")" -e -i s respost
+ if [[ "$respost" = 's' ]]; then
+ msg -bar
+ echo -e "\033[1;36m Preparando para reiniciando VPS"
+ echo -e "\033[1;36m AGUARDE"
+ sleep 3s
+ msg -bar
+ echo -e "\033[1;31m[ ! ] Reboot... \033[1;32m[OK]"
+ sleep 1s
+ ## sudo reboot
+ reboot
+ fi
+ fi
  return 0
  }
-arq="/etc/torrent-adm"
 mportas () {
 unset portas
 portas_var=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
@@ -184,12 +197,11 @@ NIC=$(ip -4 route ls | grep default | grep -Po '(?<=dev )(\S+)' | head -1)
 msg -ama "$(fun_trans "Essas configuracoes so Devem ser adicionadas")"
 msg -ama "$(fun_trans "apos a vps estar totalmente configurada!")"
 msg -bar
-echo -e "$(fun_trans "Deseja Prosseguir?")"
-read -p " [S/N]: " -e -i n PROS
+echo -e "$(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " -e -i n PROS
 [[ $PROS = @(s|S|y|Y) ]] || return 1
 fun_ip #Pega IP e armazena em uma variavel
 msg -bar
-fun_bar "service ssh restart"
+msg -azu "$(fun_trans "AGUARDE")"
 #Inicia Procedimentos
 #Parametros iniciais
 echo 'iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT

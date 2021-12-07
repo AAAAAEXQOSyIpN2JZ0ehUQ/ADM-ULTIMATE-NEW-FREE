@@ -85,11 +85,12 @@ return
 
 reiniciar_vps () {
 ## REINICIAR VPS (REBOOT)
-echo -e "${cor[3]} "¿Realmente desea Reiniciar la VPS?""
+echo -e "\033[1;33m ¿Realmente desea Reiniciar la VPS?"
 read -p " [S/N]: " -e -i n sshsn
 [[ "$sshsn" = @(s|S|y|Y) ]] && {
 msg -bar
-echo -e "\033[1;36m Preparando para reiniciando VPS... AGUARDE"
+echo -e "\033[1;36m Preparando para reiniciando VPS"
+echo -e "\033[1;36m AGUARDE"
 sleep 3s
 msg -bar
 echo -e "\033[1;31m[ ! ] Reboot... \033[1;32m[OK]"

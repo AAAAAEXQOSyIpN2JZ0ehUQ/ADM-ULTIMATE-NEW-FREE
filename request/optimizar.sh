@@ -31,6 +31,29 @@ done
 echo -e "\033[1;33m]\033[1;31m -\033[1;32m 100%\033[1;37m"
 }
 
+limpar_caches () {
+(
+VE="\033[1;33m" && MA="\033[1;31m" && DE="\033[1;32m"
+while [[ ! -e /tmp/abc ]]; do
+A+="#"
+echo -e " ${VE}[${MA}${A}${VE}]" >&2
+sleep 0.3s
+tput cuu1 && tput dl1
+done
+echo -e " ${VE}[${MA}${A}${VE}] - ${DE}[100%]" >&2
+rm /tmp/abc
+) &
+echo 3 > /proc/sys/vm/drop_caches &>/dev/null
+sleep 1s
+sysctl -w vm.drop_caches=3 &>/dev/null
+apt-get autoclean -y &>/dev/null
+sleep 1s
+apt-get clean -y &>/dev/null
+rm /tmp/* &>/dev/null
+touch /tmp/abc
+sleep 0.5s
+}
+
 fun_limpram() {
 	sync
 	echo 3 >/proc/sys/vm/drop_caches
@@ -87,6 +110,7 @@ echo -e " \033[1;37mMemória \033[1;32mRAM \033[1;37mAntes da Otimizacao:\033[1;
 msg -bar
 sleep 1
 aguarde
+limpar_caches
 sleep 1
 msg -bar
 MEM2=$(free | awk '/Mem:/ {print int(100*$3/$2)}')

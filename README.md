@@ -1,6 +1,6 @@
 ﻿# NEW-ULTIMATE MANAGER
 ```
-* UPDATE 14/12/2021 - Update Proyecto
+* UPDATE 14/12/2021 - Proyecto Descontinuado
 * ADM-Manager Ultimate (Version New-Ultimate)
 ```
 ![logo](https://github.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/blob/master/Imagenes/ADM_ULTIMATE_NEW_FREE.png)
@@ -15,10 +15,11 @@
 * Si es Debian 9 apt-get install sudo -y (Para evitar errores)
 * Recomendamos Debian 9 Server x86_64 / Ubuntu 18.04 Server x86_64
 * Se recomienda usar una distro nueva o formatiada
-```
 * Idioma principal del Scripts es el Portugues (Recomendado)
+```
 * Si te da errores de taduccion (API Translation) ejecute en consola el comando:  
   echo "pt" > /etc/newadm/idioma
+  pondra el scripts en idioma Portugues por defecto
 ```
 ## :book: Installation
 

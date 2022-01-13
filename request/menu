@@ -7,9 +7,13 @@ SCPusr="${SCPdir}/ger-user" && [[ ! -d ${SCPusr} ]] && mkdir ${SCPusr}
 SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && mkdir ${SCPfrm}
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPfrm} ]] && mkdir ${SCPfrm}
 SCPidioma="${SCPdir}/idioma"
-echo "pt" > /etc/newadm/idioma #FUNCAO IDIOMA PORTUGUES
+#FUNCAO IDIOMA PORTUGUES PADRAO
+echo "pt" > /etc/newadm/idioma #FUNCAO IDIOMA PORTUGUES PADRAO
+#FUNCAO USUARIOS TOTALES
 _total=$(awk  -F : '$3 >= 500 {print  $1}'  /etc/passwd | grep -v "nobody" | sort | wc -l)
-[[ -e /etc/newadm/ger-user/Limiter.log ]] && log=$(echo -e "\033[1;32m[LOG] ") || log=$(echo -e "\033[1;31m[NO LOG] ")
+#FUNCAO LOG LIMITER AVISOSR
+[[ -e /etc/newadm/ger-user/Limiter.log ]] && log=$(echo -e "\033[1;32m[LOG] ") || log=$(echo -e " ")
+#FUNCAO AutoRun
 if [[ -e /etc/bash.bashrc-bakup ]]; then AutoRun="\033[1;32m[on]"
 elif [[ -e /etc/bash.bashrc ]]; then AutoRun="\033[1;31m[off]"
 fi

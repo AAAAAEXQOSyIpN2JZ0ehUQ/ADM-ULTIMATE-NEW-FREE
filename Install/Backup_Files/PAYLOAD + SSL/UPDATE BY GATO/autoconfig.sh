@@ -1,5 +1,6 @@
 #!/bin/bash
 barra="\033[0;34m—————————————————————————————————————————————————————— \033[0m"
+
 cor[0]="\033[0m" #SEN CORE
 cor[1]="\033[0;34m" #AZUL
 cor[2]="\033[1;32m" #VERDE
@@ -8,6 +9,7 @@ cor[4]="\033[1;36m" #MAG
 cor[5]="\033[1;33m" #AMAREL
 cor[6]="\033[1;35m" #MAGENTA
 cor[7]="\033[1;31m" #VERMELHO
+
 fun_bar () {
 comando[0]="$1"
 comando[1]="$2"
@@ -34,6 +36,7 @@ done
 echo -e "\033[1;33m]\033[1;37m -\033[1;32m INSTALADO !\033[1;37m"
 tput cnorm
 }
+
 inst_ssl () {
 pkill -f stunnel4
 pkill -f stunnel
@@ -360,18 +363,18 @@ fun_bar 'inst_py'
 rm -rf proxy.py
 echo -e "$barra"
 echo -e " \033[1;37mAHORA HAGA LO SIGUENTE "
-echo -e " \033[1;37mPARA CREAR UN USUARIO ESCRIBA :CREARUSER "
-echo -e " \033[1;37mPARA REMOVE UN USUARIO ESCRIBA :REMOUSER "
-echo -e "$barra"
-echo
-echo
 echo '
 echo
 read -p "Usuario :" name
 read -p "Contraseña :" pass
 useradd -M -s /bin/false $name
 (echo $pass; echo $pass)|passwd $name 2>/dev/null' > /bin/CREARUSER &&chmod +x /bin/CREARUSER
+echo -e " \033[1;37mPARA CREAR UN USUARIO ESCRIBA :CREARUSER "
 echo '
 echo
 read -p "Escriba su usuario que desa remover :" user
 kill $(ps -u $user |awk '{print $1}') >/dev/null 2>/dev/null ; userdel --force $us' >/bin/REMOUSER &&chmod +x /bin/REMOUSER
+echo -e " \033[1;37mPARA REMOVE UN USUARIO ESCRIBA :REMOUSER "
+echo -e "$barra"
+echo
+echo

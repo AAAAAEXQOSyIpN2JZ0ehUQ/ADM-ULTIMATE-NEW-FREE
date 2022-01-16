@@ -179,7 +179,7 @@ msg -ama " $(fun_trans "Aplicando o Configuracoes VURLT ")"
 msg -bar
 fun_cracklib () {
 # apt-get install libpam-cracklib -y
-# wget -O /etc/pam.d/common-password https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/VPS-MX/main/VPS-MX_Oficial/ArchivosUtilitarios/common-password 
+# wget -O /etc/pam.d/common-password https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/common-password 
 # chmod +x /etc/pam.d/common-password
 sed -i 's/.*pam_cracklib.so.*/password sufficient pam_unix.so sha512 shadow nullok try_first_pass #use_authtok/' /etc/pam.d/common-password
 service ssh restart
@@ -255,6 +255,16 @@ squid_password () {
 [[ -e $_tmp2 ]] && rm $_tmp2
 [[ -e $_tmp3 ]] && rm $_tmp3
 [[ -e $_tmp4 ]] && rm $_tmp4
+#IDIOMA AND TEXTO
+txt[323]="AUTENTICACIÃ“N DE PROXY SQUID"
+txt[324]="Erro ao gerar senha, a autenticacao do squid nao foi iniciada!"
+txt[325]="AUTENTICACAO DO LIQUIDO DE PROXY INICIADO."
+txt[326]="Proxy squid nao instalado, nao pode continuar."
+txt[327]="AUTENTICACAO DO LÍQUIDO DE PROXY DESACTIVADO."
+txt[328]="O usuário nao pode ser nulo."
+txt[329]="Voco quer habilitar a autenticacao de proxy do squid?"
+txt[330]="Deseja desativar a autenticacao do proxy do squid?"
+txt[331]="SU IP:"
 #FUNCAO AGUARDE
 fun_bar () {
 comando[0]="$1"
@@ -280,17 +290,7 @@ while true; do
 done
 echo -e "\033[1;33m]\033[1;31m -\033[1;32m 100%\033[1;37m"
 }
-#IDIOMA AND TEXTO
-txt[323]="AUTENTICACIÃ“N DE PROXY SQUID"
-txt[324]="Erro ao gerar senha, a autenticacao do squid nao foi iniciada!"
-txt[325]="AUTENTICACAO DO LIQUIDO DE PROXY INICIADO."
-txt[326]="Proxy squid nao instalado, nao pode continuar."
-txt[327]="AUTENTICACAO DO LÍQUIDO DE PROXY DESACTIVADO."
-txt[328]="O usuário nao pode ser nulo."
-txt[329]="Voco quer habilitar a autenticacao de proxy do squid?"
-txt[330]="Deseja desativar a autenticacao do proxy do squid?"
-txt[331]="SU IP:"
-####_FIN_####
+####_SQUIDPROXY_####
 tmp_arq="/tmp/arq-tmp"
 if [ -d "/etc/squid" ]; then
 pwd="/etc/squid/passwd"

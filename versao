@@ -10,8 +10,9 @@
 #
 #====================================================
 
-VERSAO: r6.6.7
+VERSAO: r7.0.0
 AJUSTES DROPBEAR
+AJUSTES OPENSSH
 MELHORIAS SQUID
 MELHORIAS GESTOR
 CORRECÃ•ES E MELHORIAS

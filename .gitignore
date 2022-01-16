@@ -3,5 +3,5 @@
 
 # Ignore crypted test files so it doesn't get commited into repo
 # storage/*.tls
-_$_Papelera de reciclaje/*
-_$_Version/*
+_$_Papelera de reciclaje
+_$_Version

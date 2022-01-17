@@ -1,0 +1,327 @@
+ADM-MANAGER-ULTIMATIV
+ONLINE:
+ABGELAUFEN:
+IHR SYSTEM:
+Willkommen im Menü!
+BENUTZER VERWALTEN
+Werkzeuge
+AKTUALISIEREN
+Entferner ADM-ULTIMATE
+OPTION:
+[EIN]
+[DEAKTIVIERT]
+ÄNDERN SCRIPT FARBEN
+[ZURÜCK / BEENDEN]
+Benutzermenü
+BENUTZER ERSTELLEN
+BENUTZER ENTFERNEN
+BENUTZER ÄNDERN
+DETAILS DER BENUTZER
+BENUTZER ONLINE PRÜFEN
+Kontrolle der Benutzer
+Ihre derzeit verwendeten Farben
+Wählen Sie in Reihenfolge, 1 2 3 4 5 6
+Was ist die Reihenfolge der Farben ?:
+Sechs Farben wurden nicht ausgewählt!
+Anwenden der ausgewählten Farbe! ...
+ÄNDERN SIE DIE SCRIPT-SPRACHE
+ADM-ULTIMATE USER CREATOR
+Name des neuen Benutzers:
+Nullname
+Bereits bestehender Benutzer!
+Passwort für den Benutzer
+Dauer für den Benutzer
+Verbindungslimit für den Benutzer
+Benutzer:
+Passwort:
+Limit:
+Gültigkeit:
+Liste der registrierten Benutzer
+BENUTZER ENTFERNEN
+Löschen Sie 1 Benutzer
+Löschen Sie alle Benutzer
+Wählen Sie den Benutzer oder geben Sie den Namen ein
+Kein Benutzer wurde ausgewählt
+Nicht existierender Benutzer!
+beseitigt
+beseitigen
+Geben Sie ein, um zurückzukehren!
+USER EDITOR
+Kein Benutzer hat ausgewählt
+Welche Option bearbeiten Sie von:
+Anzahl der Logins von:
+Ablaufdatum von:
+Passwort ändern von:
+Was ist die neue Grenze der Anmeldung:
+Limit nicht geändert!
+Limit geändert
+Wie viele Tage sollte es dauern?
+Unverändertes Datum
+Geändert!
+Wie lautet das neue Passwort für:
+Passwort nicht geändert!
+Neues Passwort angewendet
+Keine Option wurde ausgewählt!
+Benutzer
+Passwort
+Begrenzen
+Zeit
+??
+Unbegrenzt
+Abgelaufen
+Du hast:
+Benutzer auf Ihrem Server
+Tage
+BENUTZER
+Verbindung
+ZEIT
+Dieses Tool wird übersetzt
+Der ganze Inhalt von ADM-ULTIMATE
+Wählen Sie die Sprachnummer oder verwenden Sie die Initialen der Sprache.
+
+Das System übersetzen ...
+Geben Sie eine Sprache ein:
+Stunden
+handeln
+verwenden
+Es ist kein Benutzer online
+LÖSCHE VERWEIGTE BENUTZER LÖSCHEN
+Keine abgelaufenen Benutzer!
+Werkzeugmenü
+BACKUP ERSTELLEN
+RESTORE BACKUP
+CACHE säubern
+SCHLECHTES UDP
+TCP-Geschwindigkeit
+FAILBAN
+SQUID-CACHE
+FOLGE ONLINE TEILEN
+Geben Sie nur numerische Werte ein
+BACKUP STARTEN
+Benutzersicherung
+Benutzer nicht in ADM-ULTIMATE registriert
+Geben Sie die Benutzerinformationen ein.
+Aktuelles Passwort:
+Tage der Dauer:
+Verbindungslimit:
+Vollständige Sicherung
+Zurück UDP im Ordner verfügbar
+Geben Sie das Verzeichnis der Sicherung ein
+oder, Geben Sie einen Link von einem Backup ein
+Datei oder Link
+Datei oder Link nicht gültig!
+Sicherung inkompatibel mit ADM
+Restaurierung ...
+Benutzer wurde nicht wiederhergestellt
+Dieses Tool wird Caches bereinigen
+und lösche temporäre Dateien
+Abgeschlossenes Verfahren
+BADVPN wird installiert
+Das ist nichts anderes als ein Programm
+Das gibt UDP-Ports auf dem Server frei
+und damit den VOIP-Service ermöglichen!
+Zuhause
+BADVPN erfolgreich gestartet
+BADVPN-Dienst wird beendet ...
+BADVPN hat erfolgreich gestoppt
+Dieses Skript wurde projiziert
+Um die Latenz zu verbessern
+und Servergeschwindigkeit!
+analysieren
+Dies ist ein experimentelles Skript
+Verwenden Sie auf eigene Gefahr!
+Dieses Skript wird einige ändern
+Netzwerkkonfigurationen
+des Systems zu reduzieren
+die Latenz und verbessern die Geschwindigkeit
+Weiter mit der Installation?
+Netzwerkkonfiguration
+wurden erfolgreich hinzugefügt
+Sie wurden dem System bereits hinzugefügt!
+Sie möchten die Konfiguration entfernen
+Netzwerkkonfiguration
+wurden erfolgreich entfernt
+Warum nicht?
+deinstallieren
+Siehe Datensatz
+Dies ist der FAILBANSCHUTZ
+Ausschließlich zum Schutz der Sicherheit der
+System, sein Ziel ist es zu analysieren
+ACCESS LOGS und blockieren Sie alle
+verdächtige Aktion
+Erhöhen Sie Ihre Sicherheit um 70%.
+Möchten Sie Fail2Ban installieren?
+Fail2ban wird installiert
+Nächste Dienste
+Bestätigst du die Wahl?
+Installation beendet
+Der Cache von Squid ist nicht mehr als
+Eine Geschichte der Navigation in Squid
+Das spart Daten beim Öffnen von Websites
+In Ihrem Cache gehostet
+Das Skript wird eine kurze Überprüfung durchführen!
+Tintenfisch wurde nicht identifiziert!
+Tintenfisch ist aktiv in Ihrem System!
+Es gibt keinen Cache-Service im Squid!
+Dienste neu starten Warten!
+Aktivieren des SquidCache-Dienstes!
+SquidCache deaktivieren !!
+warte!
+Ort Datei online
+OPTION ZU PLATZIEREN
+JEDE ONLINE-DATEI
+DASS DIESE DATEI
+IM VERZEICHNIS
+Datei online entfernen
+SEHE MEINE DATEIEN ONLINE
+Ungültige Option
+Wählen Sie eine Datei aus
+Es wurde keine Datei ausgewählt
+Erfolgreiches Verfahren
+ZUGANG ZUR DATEI DURCH DEN LINK
+Ihre Dateien im Ordner
+TESTE DEINE GESCHWINDIGKEIT
+VPS-Informationen
+Beginn der Tests, warte ...
+Reaktionszeit Ping
+Ladegeschwindigkeit
+Download Geschwindigkeit
+Fehler bei der Verarbeitung von Informationen
+Ihr System
+basiert
+Physischer Prozessor
+Betriebsfrequenz
+Verwendung des Prozessors
+Total virtueller Speicher
+Virtueller Speicher In Verwendung
+Freier virtueller Speicher
+Austausch virtueller Speicher
+Onlinezeit
+Name der Maschine
+Maschinenrichtung
+Kernel-Versionen
+Architektur
+analysieren
+aufnehmen
+aktualisiert
+Aktualisierte Dateien
+Bestätigen! Aktualisierung ...
+Abgelaufen oder ungültig Beenden!
+Bist du dir sicher?
+Die Deinstallation wurde vom Benutzer abgebrochen
+Erstellt von @Teamadmmanager
+HOST-SQUID HINZUFÜGEN / ENTFERNEN
+nicht gefunden
+O Tintenfisch nicht installiert
+Füge Host zu Squid hinzu
+Entferne den Squid-Host
+Ungültige Option
+Aktuelle Domänen in der Datei
+Geben Sie die Domäne ein, die Sie hinzufügen möchten
+Beginnend mit a.
+Diese Leere, er hat nichts geschrieben!
+Die Domäne existiert bereits in der Datei
+Erfolg, aktualisierte Datei!
+Geben Sie die Domäne ein, die Sie entfernen möchten
+Domain nicht gefunden
+Geben Sie den Text für die BANNER ein
+grün
+rot
+blau
+gelb
+lila
+Geben Sie die Hauptnachricht ein
+Möchten Sie weitere Texte hinzufügen
+BUNTE BANNER
+Abhängigkeiten Nicht installiert, möchten Sie installieren?
+Abhängigkeiten für Proxy-Socks installieren ...
+Stoppen Proxy-Socke ...
+Proxy-Socke gestoppt!
+Wählen Sie den zu drehenden Anschluss aus
+Ihre Proxy-Sockets:
+Opa, Es wird verwendet von:
+Deaktivieren Sie diesen Dienst, um ihn zu verwenden
+Der Hafen:
+Für die Socken
+Geben Sie ein, um einen anderen Port auszuwählen!
+Schreibe einen Text für den Status 200OK
+Wählen Sie den Typ der zu verwendenden Socke
+PROXY BUCHSE IN PYTHON
+PROXY BUCHSE IN PYTHON3
+Irgendetwas ist schief gelaufen, Socks Not Started!
+perfekt
+BRUTE FORCE PAYLOAD
+ACTIVATE PROXY SOCKET
+SIMULTANER VERBINDUNGSBEGRENZER
+SIEHE PROXY PYTHON
+INSTALLATIONSMENÜ
+KEINE PROXY SOCKS IST AKTIV
+DIGEST EIN HOST ZUM ERSTELLEN
+PAYLOADS GENERICAS!
+SCHÖPFER VON PAYLOADS
+DIGIT DER GASTGEBER
+Füge nichts hinzu.
+PAYLOAD-GENERATOR
+WÄHLEN SIE DIE ANFORDERUNGSMETHODE
+UND LETZTE
+EINSPRITZVERFAHREN!
+ETWAS IST
+SCHLECHT!
+ERFOLG!, GENERIERTE PAYLOADS
+VERZEICHNIS:
+AKTIVIEREN PROXY GETTUNEL
+Welchen Port möchten Sie für GetTUNNEL?
+Port verwendet von:
+Schlüssel zum GETTUNEL:
+GETTUNEL ERÖFFNET ERFOLGREICH!
+GETTUNEL NICHT ANFANGEN!
+Wählen Sie den Dienst zum Verwalten von Ports aus
+Kein Dienst ausgewählt oder der ausgewählte Dienst wird nicht unterstützt
+Möchten Sie den aktuellen Port schließen?
+O Öffnen Sie einen neuen Port im Dienst?
+Ablauf, Fertig!
+TÜRMANAGEMENT
+Service und Hafen gewählt:
+Architektur wird nicht unterstützt!
+Ungenügende Verwendung
+GESAMTVERBRAUCH
+BENUTZER
+Verbrauchermonitor
+Die Überprüfung ist nicht aktiviert oder es liegen keine Informationen vor
+BOT TELEGRAMM
+SHADOWSOCKS / SSL-Stunnel
+SHADOWSOCKS UND SSL
+Wählen Sie einen Umleitungsport
+Wählen Sie einen Port
+Hafen von Invalida!
+Es gibt keine offenen internen Ports!
+Port Ihres externen SSL! Geben Sie den Port in der Injektor-Anwendung ein
+Hafen in Gebrauch!
+Beantworte die Fragen richtig!
+Verschlüsselungsmedien
+Wählen Sie Verschlüsselung
+Verschlüsselung nicht ausgewählt!
+Passwort:
+TCP ÜBER
+ULTRA HOST (SCANNER VON SUBDOMINIOS)
+Gastgeber
+FANGGRENZE
+Geben Sie ein Passwort ein und bestätigen Sie es
+VNC verbindet sich mit der IP des vps im Port
+Um auf die grafische Oberfläche zuzugreifen
+Download vom PlayStore:
+VNC ist nicht aktiv Möchten Sie aktivieren?
+VNC ist aktiv Möchten Sie deaktivieren?
+VNC-SERVER
+Ihre Version ist aktualisiert!
+ADM-ULTIMATE BRAUCHT UPDATE!
+TORRENTEN BLOCK ANBRINGEN
+Erstellen Sie eine neue OpenVPN-Datei?
+Datei mit Authentifizierung erstellen (Benutzername und Passwort)?
+Datei generiert in:
+Um es online zu lassen:
+Automatische Ausführung
+IHRE IP:
+NEUSTART DIENSTLEISTUNGEN (VPS)
+möchten Sie die Dienste wirklich neu starten?
+Vorbereiten des Neustarts von Services.

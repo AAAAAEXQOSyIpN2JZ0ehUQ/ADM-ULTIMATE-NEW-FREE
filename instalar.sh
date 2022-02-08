@@ -48,6 +48,9 @@ inst_components () {
  sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf
  service apache2 restart > /dev/null 2>&1 &
  }
+apt-get install python-pip build-essential python-dev &>/dev/null
+pip install Glances &>/dev/null
+pip install PySensors &>/dev/null
 }
 
 funcao_idioma () {
@@ -168,7 +171,7 @@ chmod +x ${ARQ}/$1
 
 # Instalação NEW-ULTIMATE
 fun_ip
-wget -O /usr/bin/trans https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/trans &> /dev/null
+wget -O /usr/bin/trans http://git.io/trans &> /dev/null
 clear
 msg -bar2
 msg -ama "[ NEW - ULTIMATE - SCRIPT ]    \033[1;37m@AAAAAEXQOSyIpN2JZ0ehUQ"

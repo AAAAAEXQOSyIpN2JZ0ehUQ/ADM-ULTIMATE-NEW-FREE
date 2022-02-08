@@ -18,25 +18,28 @@ fi
 }
 
 fun_bar () {
-comando="$1"
- _=$(
-$comando > /dev/null 2>&1
-) & > /dev/null
-pid=$!
-while [[ -d /proc/$pid ]]; do
-echo -ne " \033[1;33m["
+comando[0]="$1"
+comando[1]="$2"
+ (
+[[ -e $HOME/fim ]] && rm $HOME/fim
+${comando[0]} -y > /dev/null 2>&1
+${comando[1]} -y > /dev/null 2>&1
+touch $HOME/fim
+ ) > /dev/null 2>&1 &
+echo -ne "\033[1;33m ["
+while true; do
    for((i=0; i<10; i++)); do
    echo -ne "\033[1;31m##"
-   sleep 0.2
+   sleep 0.1s
    done
-echo -ne "\033[1;33m]"
-sleep 1s
-echo
-tput cuu1
-tput dl1
+   [[ -e $HOME/fim ]] && rm $HOME/fim && break
+   echo -e "\033[1;33m]"
+   sleep 1s
+   tput cuu1
+   tput dl1
+   echo -ne "\033[1;33m ["
 done
-echo -e " \033[1;33m[\033[1;31m####################\033[1;33m] - \033[1;32m100%\033[0m"
-sleep 1s
+echo -e "\033[1;33m]\033[1;31m -\033[1;32m 100%\033[1;37m"
 }
 
 update_pak () {
@@ -163,6 +166,17 @@ echo -ne " $(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " -e -i n PROS
 msg -bar
 [[ $(dpkg --get-selections|grep -w "htop"|head -1) ]] || apt-get install htop -y &>/dev/null
 htop
+msg -ama " $(fun_trans "Procedimento concluido")"
+}
+
+fun_glances () {
+msg -azu " $(fun_trans "PARA SALIR DEL PANEL PRESIONE LA LETRA") \033[1;33mq"
+msg -bar
+echo -ne " $(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " -e -i n PROS
+[[ $PROS = @(s|S|y|Y) ]] || return 1
+#Inicia Procedimentos
+msg -bar
+glances
 msg -ama " $(fun_trans "Procedimento concluido")"
 }
 
@@ -408,7 +422,7 @@ echo $selection
 clear
 clear
 msg -bar
-msg -ama "$(fun_trans "GERENCIAMENTO DE SISTEMA")              $(msg -verd "OPCAO [11] TESTE")"
+msg -ama "$(fun_trans "GERENCIAMENTO DE SISTEMA")              $(msg -verd "OPCAO [12] TESTE")"
 msg -bar
 echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$(fun_trans "VOLTAR")"
 echo -ne "$(msg -verd "[1]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ATUALIZAR SISTEMA")"
@@ -418,9 +432,10 @@ echo -ne "$(msg -verd "[4]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ALTER
 echo -ne "$(msg -verd "[5]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ALTERAR SENHA ROOT")"
 echo -ne "$(msg -verd "[6]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "TRAFICO DE RED NLOAD")"
 echo -ne "$(msg -verd "[7]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "PROCESOS DE SISTEMA HTOP")"
-echo -ne "$(msg -verd "[8]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "DESATIVAR SENHAS ALPANUMERICAS EN VURTL")"
-echo -ne "$(msg -verd "[9]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ROOT ORACLE, AWS, AZURE, GOOGLE, AMAZON E ETC")"
-echo -ne "$(msg -verd "[10]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "AUTENTICACAO DO SQUID PROXY")"
+echo -ne "$(msg -verd "[8]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "MONITOR DO SISTEMA GLANCES")"
+echo -ne "$(msg -verd "[9]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "DESATIVAR SENHAS ALPANUMERICAS EN VURTL")"
+echo -ne "$(msg -verd "[10]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ROOT ORACLE, AWS, AZURE, GOOGLE, AMAZON E ETC")"
+echo -ne "$(msg -verd "[11]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "AUTENTICACAO DO SQUID PROXY")"
 msg -bar
 # FIM
 selection=$(selection_fun 11)
@@ -432,10 +447,11 @@ case ${selection} in
 5)senharoot;;
 6)fun_nload;;
 7)fun_htop;;
-8)pamcrack;;
-9)aplica_root;;
-10)squid_password;;
-11)fun_scriptsexterno;;
+8)fun_glances;;
+9)pamcrack;;
+10)aplica_root;;
+11)squid_password;;
+12)fun_scriptsexterno;;
 0)exit;;
 esac
 msg -bar

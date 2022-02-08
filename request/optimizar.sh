@@ -40,7 +40,7 @@ echo -e " ${VE}[${MA}${A}${VE}]" >&2
 sleep 0.3s
 tput cuu1 && tput dl1
 done
-echo -e " ${VE}[${MA}${A}${VE}] - ${DE}[100%]" >&2
+echo -e " ${VE}[${MA}${A}${VE}] ${MA}- ${DE}100%" >&2
 rm /tmp/abc
 ) &
 echo 3 > /proc/sys/vm/drop_caches &>/dev/null
@@ -77,7 +77,7 @@ function aguarde() {
 		done
 		tput cnorm
 	}
-	echo -ne "\033[1;33m LIMPANDO MEMORIA \033[1;32mRAM \033[1;33me \033[1;32mSWAP\033[1;31m... \033[1;33m"
+	echo -ne "\033[1;36m Limpando memoria \033[1;32mRAM \033[1;36me \033[1;32mSWAP\033[1;31m... \033[1;33m"
 	helice
 	echo -e "\e[1DOk"
 }
@@ -121,7 +121,6 @@ swap1=$(free -h | grep -i swap | awk {'print $2'})
 swap2=$(free -h | grep -i swap | awk {'print $4'})
 swap3=$(free -h | grep -i swap | awk {'print $3'})
 echo -e " \033[1;37mMemória \033[1;32mRAM \033[1;37mapós a Otimizacao:\033[1;36m" $MEM2%
-echo ""
 msg -bra " $(fun_trans "Economia de"):\033[1;31m $(expr $MEM1 - $MEM2)%\033[0m"
 msg -bar
 msg -ama " $(fun_trans "Sucesso Procedimento Feito")"

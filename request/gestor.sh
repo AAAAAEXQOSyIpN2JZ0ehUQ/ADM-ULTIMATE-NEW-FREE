@@ -265,6 +265,9 @@ return
 echo "root:$senha" | chpasswd
 service ssh restart > /dev/null 2>&1
 service sshd restart > /dev/null 2>&1
+msg -bar
+echo -e "\033[1;31m $(fun_trans "NOVA SENHA"): \033[1;32m$senha"
+msg -bar
 msg -ama " $(fun_trans "Procedimento concluido")"
 return
 }

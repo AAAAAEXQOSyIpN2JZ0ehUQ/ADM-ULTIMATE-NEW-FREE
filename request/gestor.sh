@@ -113,6 +113,10 @@ unset name
 while [[ ${name} = "" ]]; do
 msg -ama " $(fun_trans "Digite o Novo Nome ")"
 echo -ne " \033[1;32mNuevo nome\033[1;37m: "; read name
+[[ -z "$name" ]] && {
+echo -e "\n\033[1;31mNOME INVALIDA !\033[0m"
+return
+}
 done
 hostnamectl set-hostname $name 
 if [ $(hostnamectl status | head -1  | awk '{print $3}') = "${name}" ]; then 
@@ -461,7 +465,6 @@ case ${selection} in
 9)pamcrack;;
 10)aplica_root;;
 11)squid_password;;
-12)fun_scriptsexterno;;
 0)exit;;
 esac
 msg -bar

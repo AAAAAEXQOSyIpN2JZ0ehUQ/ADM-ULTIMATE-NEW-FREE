@@ -9,7 +9,8 @@ SCPinst="${SCPdir}/protocolos"&& [[ ! -d ${SCPinst} ]] && mkdir ${SCPinst}
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 [[ ! -d /etc/VPS-MX/v2ray ]] && mkdir /etc/VPS-MX/v2ray
 [[ ! -e /bin/inst_v2ray ]] && echo "/etc/ger-inst/v2ray.sh" > /bin/inst_v2ray && chmod +x /bin/inst_v2ray #ACCESO RAPIDO
-[[ ! -e /usr/bin/trans ]] && wget -O /usr/bin/trans http://git.io/trans > /dev/null 2>&1 && chmod +x /usr/bin/trans
+link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/trans"
+[[ ! -e /usr/bin/trans ]] && wget -O /usr/bin/trans ${link_bin} > /dev/null 2>&1 && chmod +x /usr/bin/trans
 #dirapache="/usr/local/lib/ubuntn/apache/ver" && [[ ! -d ${dirapache} ]] && exit
 #msg -tit
 #msg -bar3
@@ -97,7 +98,7 @@ err_fun () {
 }
 intallv2ray () {
 apt install python3-pip -y 
-source <(curl -sL https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/install-v2ray.sh)
+source <(curl -sL https://multi.netlify.app/v2ray.sh)
 msg -ama "$(fun_trans "Intalado con Exito")!"
 USRdatabase="/etc/VPS-MX/RegV2ray"
 [[ ! -e ${USRdatabase} ]] && touch ${USRdatabase}
@@ -141,7 +142,7 @@ msg -ne "Enter Para Continuar" && read enter
 inst_v2ray
 }
 unistallv2 () {
-source <(curl -sL https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/install-v2ray.sh) --remove > /dev/null 2>&1
+source <(curl -sL https://multi.netlify.app/v2ray.sh) --remove > /dev/null 2>&1
 rm -rf /etc/VPS-MX/RegV2ray > /dev/null 2>&1
 echo -e "\033[1;92m                  V2RAY REMOVIDO OK "
 msg -bar

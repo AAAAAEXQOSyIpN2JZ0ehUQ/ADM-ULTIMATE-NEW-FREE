@@ -135,11 +135,17 @@ echo -ne " $(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " -e -i n PROS
 #Inicia Procedimentos
 msg -bar
 #DEFINIR SENHA ROOT
-echo -e "\033[1;37m $(fun_trans "Digite Uma Nova Senha")"
-read  -p " Nuevo passwd: " pass
-(echo $pass; echo $pass)|passwd 2>/dev/null
+msg -ama " $(fun_trans "Digite Uma Nova Senha ")"
+echo -ne " \033[1;32mNuevo passwd\033[1;37m: "; read senha
+[[ -z "$senha" ]] && {
+echo -e "\n\033[1;31mSENHA INVALIDA !\033[0m"
+return
+}
+echo "root:$senha" | chpasswd
+service ssh restart > /dev/null 2>&1
+service sshd restart > /dev/null 2>&1
 msg -bar
-echo -e "\033[1;31m $(fun_trans "NOVA SENHA"): \033[1;32m$pass"
+echo -e "\033[1;31m $(fun_trans "NOVA SENHA"): \033[1;32m$senha"
 msg -bar
 msg -ama " $(fun_trans "SENHA ALTERADA COM SUCESSO")!"
 return
@@ -251,7 +257,7 @@ iptables -A INPUT -p tcp --dport 1194 -j ACCEPT}
 fun_bar "fun_aplicaroot"
 msg -bar
 msg -ama " $(fun_trans "Digite Sua Senha Atual ou Uma Nova Senha ")"
-echo -ne "\033[1;32mNuevo passwd\033[1;37m: "; read senha
+echo -ne " \033[1;32mNuevo passwd\033[1;37m: "; read senha
 [[ -z "$senha" ]] && {
 echo -e "\n\033[1;31mSENHA INVALIDA !\033[0m"
 return
@@ -259,8 +265,7 @@ return
 echo "root:$senha" | chpasswd
 service ssh restart > /dev/null 2>&1
 service sshd restart > /dev/null 2>&1
-# msg -bar
-# msg -ama " $(fun_trans "Procedimento concluido")"
+msg -ama " $(fun_trans "Procedimento concluido")"
 return
 }
 

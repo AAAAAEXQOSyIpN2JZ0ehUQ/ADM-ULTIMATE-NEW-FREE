@@ -9,8 +9,7 @@ SCPinst="${SCPdir}/protocolos"&& [[ ! -d ${SCPinst} ]] && mkdir ${SCPinst}
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 [[ ! -d /etc/VPS-MX/v2ray ]] && mkdir /etc/VPS-MX/v2ray
 [[ ! -e /bin/inst_v2ray ]] && echo "/etc/ger-inst/v2ray.sh" > /bin/inst_v2ray && chmod +x /bin/inst_v2ray #ACCESO RAPIDO
-link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/trans"
-[[ ! -e /usr/bin/trans ]] && wget -O /usr/bin/trans ${link_bin} > /dev/null 2>&1 && chmod +x /usr/bin/trans
+[[ ! -e /usr/bin/trans ]] && wget -O /usr/bin/trans http://git.io/trans > /dev/null 2>&1 && chmod +x /usr/bin/trans
 #dirapache="/usr/local/lib/ubuntn/apache/ver" && [[ ! -d ${dirapache} ]] && exit
 #msg -tit
 #msg -bar3

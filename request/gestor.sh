@@ -422,7 +422,7 @@ echo $selection
 clear
 clear
 msg -bar
-msg -ama "$(fun_trans "GERENCIAMENTO DE SISTEMA")              $(msg -verd "OPCAO [12] TESTE")"
+msg -ama "$(fun_trans "GERENCIAMENTO DE SISTEMA") "
 msg -bar
 echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$(fun_trans "VOLTAR")"
 echo -ne "$(msg -verd "[1]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ATUALIZAR SISTEMA")"

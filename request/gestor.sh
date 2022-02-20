@@ -250,14 +250,15 @@ iptables -A INPUT -p tcp --dport 1194 -j ACCEPT}
 }
 fun_bar "fun_aplicaroot"
 msg -bar
-#DEFINIR SENHA ROOT
-echo -e "\033[1;37m $(fun_trans "Digite Sua Senha Atual ou Uma Nova Senha")"
-read  -p " Nuevo passwd: " pass
-(echo $pass; echo $pass)|passwd 2>/dev/null
-msg -bar
+msg -ama " $(fun_trans "Digite Sua Senha Atual ou Uma Nova Senha ")"
+echo -ne "\033[1;32mNuevo passwd\033[1;37m: "; read senha
+[[ -z "$senha" ]] && {
+echo -e "\n\033[1;31mSENHA INVALIDA !\033[0m"
+return
+}
+echo "root:$senha" | chpasswd
 service ssh restart > /dev/null 2>&1
 service sshd restart > /dev/null 2>&1
-msg -ama " $(fun_trans "Permissoes de usuario root ") \033[1;32m[OK]"
 # msg -bar
 # msg -ama " $(fun_trans "Procedimento concluido")"
 return

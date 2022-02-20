@@ -7,12 +7,12 @@ Mediante el uso de 'Administrador de ADM-MANAGER ULTIMATE' está de acuerdo con l
 1. Tu puedes:
 
  a. Instalar y utilizar el 'ADM-MANAGER ULTIMATE' en el servidor .
- b. Crear, administrar y eliminar un número ilimitado de usuarios a través de este conjunto de scripts.
+ b. Editar, modificar, reutilizar, compartir o redistribuir
+ c. Crear, administrar y eliminar un número ilimitado de usuarios a través de este conjunto de scripts.
 
-2. Tu puedes:
+2. Tu no puedes:
 
- a. Editar, modificar, reutilizar, vender, compartir o redistribuir
-    este conjunto de secuencias de comandos sin autorización desarrollador.
+ a. Vender este conjunto de secuencias de comandos sin autorización desarrollador.
  b. Modificar O editar el conjunto de script para hacer que se mira el programador de scripts.
 
 3. El usuario acepta que:

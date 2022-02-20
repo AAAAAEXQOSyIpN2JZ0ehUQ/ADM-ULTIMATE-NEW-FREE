@@ -116,10 +116,11 @@ echo -ne " \033[1;32mNuevo nome\033[1;37m: "; read name
 done
 hostnamectl set-hostname $name 
 if [ $(hostnamectl status | head -1  | awk '{print $3}') = "${name}" ]; then 
-echo -e "\033[1;31m $(fun_trans "NOVO NOME"): \033[1;32m$name"
-msg -bar
 service ssh restart > /dev/null 2>&1
 service sshd restart > /dev/null 2>&1
+msg -bar
+echo -e "\033[1;31m $(fun_trans "NOVO NOME"): \033[1;32m$name"
+msg -bar
 msg -ama " $(fun_trans "NOME ALTERADO COM SUCESSO")!"
 else
 echo -e "\033[1;31m $(fun_trans "NOME INVALIDO")!"

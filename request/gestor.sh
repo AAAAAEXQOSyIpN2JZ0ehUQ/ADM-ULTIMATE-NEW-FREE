@@ -123,7 +123,7 @@ echo -e "\033[1;31m $(fun_trans "NOVO NOME"): \033[1;32m$name"
 msg -bar
 msg -ama " $(fun_trans "NOME ALTERADO COM SUCESSO")!"
 else
-echo -e "\033[1;31m $(fun_trans "NOME INVALIDO")!"
+echo -e "\n\033[1;31mNOME INVALIDA !\033[0m"
 fi
 return
 }

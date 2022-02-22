@@ -698,6 +698,7 @@ case $1 in
 "POpen.py")return 1;;
 "PPriv.py")return 1;;
 "PPub.py")return 1;;
+"wsproxy.py")return 1;;
 "speedtest.py")return 1;;
 "pwd.pwd")return 1;;
 "gestor.sh")return 1;;

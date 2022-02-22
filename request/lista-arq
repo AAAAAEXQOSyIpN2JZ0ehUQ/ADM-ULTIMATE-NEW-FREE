@@ -13,6 +13,7 @@ PPriv.py
 PDirect.py
 POpen.py
 PGet.py
+wsproxy.py
 squid.sh
 sslh.sh
 ssl.sh
@@ -26,7 +27,6 @@ fai2ban.sh
 optimizar.sh
 paysnd.sh
 ports.sh
-scriptsalternos.sh
 speed.sh
 speedtest.py
 ultrahost

@@ -70,8 +70,7 @@ pidproxy3=$(ps x | grep "PDirect.py" | grep -v "grep" | awk -F "pts" '{print $1}
 pidproxy4=$(ps x | grep "POpen.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy4 ]] && pid_kill $pidproxy4
 pidproxy5=$(ps x | grep "PGet.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy5 ]] && pid_kill $pidproxy5
 pidproxy6=$(ps x | grep "scktcheck" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy6 ]] && pid_kill $pidproxy6
-pidproxy7=$(ps x | grep "wsproxy.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy7 ]] && pid_kill $pidproxy7
-pidproxy8=$(ps x | grep "proxy.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy8 ]] && pid_kill $pidproxy8
+pidproxy7=$(ps x | grep "proxy.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy7 ]] && pid_kill $pidproxy7
 echo -e " Socks $(fun_trans "parado")!"
 msg -bar
 }
@@ -82,24 +81,22 @@ pidproxy3=$(ps x | grep -w  "PDirect.py" | grep -v "grep" | awk -F "pts" '{print
 pidproxy4=$(ps x | grep -w  "POpen.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy4 ]] && P4="\033[1;32mon" || P4="\033[1;31moff"
 pidproxy5=$(ps x | grep "PGet.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy5 ]] && P5="\033[1;32mon" || P5="\033[1;31moff"
 pidproxy6=$(ps x | grep "scktcheck" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy6 ]] && P6="\033[1;32mon" || P6="\033[1;31moff"
-pidproxy7=$(ps x | grep "wsproxy.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy7 ]] && P7="\033[1;32mon" || P7="\033[1;31moff"
-pidproxy8=$(ps x | grep "proxy.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy8 ]] && P3="\033[1;32mon" || P3="\033[1;31moff"
+pidproxy7=$(ps x | grep "proxy.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy7 ]] && P3="\033[1;32mon" || P6="\033[1;31moff"
 echo -ne "\033[1;32m [1] > " && msg -azu "Socks Python SIMPLES $P1"
 echo -ne "\033[1;32m [2] > " && msg -azu "Socks Python SEGURO $P2"
 echo -ne "\033[1;32m [3] > " && msg -azu "Socks Python DIRECT $P3"
 echo -ne "\033[1;32m [4] > " && msg -azu "Socks Python OPENVPN $P4"
 echo -ne "\033[1;32m [5] > " && msg -azu "Socks Python GETTUNEL $P5"
 echo -ne "\033[1;32m [6] > " && msg -azu "Socks Python TCP BYPASS $P6"
-echo -ne "\033[1;32m [7] > " && msg -azu "Socks Python WEBSOCKET $P7"
-echo -ne "\033[1;32m [8] > " && msg -azu "$(fun_trans "PARAR TODOS SOCKETS PYTHON")"
+echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "PARAR TODOS SOCKETS PYTHON")"
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")" && msg -bar
 IP=(meu_ip)
-while [[ -z $portproxy || $portproxy != @(0|[1-8]) ]]; do
+while [[ -z $portproxy || $portproxy != @(0|[1-7]) ]]; do
 msg -ne " $(fun_trans "Digite a Opcao"): " && read portproxy
 tput cuu1 && tput dl1
 done
  case $portproxy in
-    8)remove_fun && return;;
+    7)remove_fun && return;;
     0)return;;
  esac
 msg -ama " $(fun_trans "Escolha qual Porta o Soc_k Vai Escutar")"
@@ -119,7 +116,6 @@ msg -ne " $(fun_trans "Digite o Texto de Status"): " && read texto_soket
     4)screen -dmS screen python ${SCPinst}/POpen.py "$porta_socket" "$texto_soket";;
     5)gettunel_fun "$porta_socket";;
     6)tcpbypass_fun "$porta_socket" "$texto_soket";;
-    7)screen -dmS screen python ${SCPinst}/wsproxy.py "$porta_socket" "$texto_soket";;
     esac
 msg -bar
 msg -ama " $(fun_trans "Procedimento Concluido")"

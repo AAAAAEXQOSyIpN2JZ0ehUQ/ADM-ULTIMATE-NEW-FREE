@@ -95,7 +95,7 @@ case $1 in
 "vnc.sh")ARQ="${SCPinst}/";; #Instalacao
 "webmin.sh")ARQ="${SCPinst}/";; #Instalacao
 "v2ray.sh")ARQ="${SCPinst}/";; #Instalacao
-"sockspy.sh"|"PDirect.py"|"PPub.py"|"PPriv.py"|"POpen.py"|"PGet.py")ARQ="${SCPinst}/";; #Instalacao
+"sockspy.sh"|"PDirect.py"|"PPub.py"|"PPriv.py"|"POpen.py"|"PGet.py"|"wsproxy.py")ARQ="${SCPinst}/";; #Instalacao
 *)ARQ="${SCPfrm}/";; #Ferramentas
 esac
 mv -f ${SCPinstal}/$1 ${ARQ}/$1

@@ -43,14 +43,14 @@ inst_components () {
 [[ $(dpkg --get-selections|grep -w "unzip"|head -1) ]] || apt-get install unzip -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "zip"|head -1) ]] || apt-get install zip -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "lsof"|head -1) ]] || apt-get install lsof -y &>/dev/null
- apt-get install python-pip build-essential python-dev &>/dev/null
- pip install Glances &>/dev/null
- pip install PySensors &>/dev/null
 [[ $(dpkg --get-selections|grep -w "apache2"|head -1) ]] || {
  apt-get install apache2 -y &>/dev/null
  sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf
  service apache2 restart > /dev/null 2>&1 &
  }
+ apt-get install python-pip build-essential python-dev &>/dev/null
+ pip install Glances &>/dev/null
+ pip install PySensors &>/dev/null
 }
 
 install_hosts () {

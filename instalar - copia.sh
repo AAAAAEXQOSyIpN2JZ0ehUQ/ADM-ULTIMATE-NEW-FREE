@@ -48,9 +48,6 @@ inst_components () {
  sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf
  service apache2 restart > /dev/null 2>&1 &
  }
-apt-get install python-pip build-essential python-dev -y &>/dev/null
-pip install Glances -y &>/dev/null
-pip install PySensors -y &>/dev/null
 }
 
 funcao_idioma () {

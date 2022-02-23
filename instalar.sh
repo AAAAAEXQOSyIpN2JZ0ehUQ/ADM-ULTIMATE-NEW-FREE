@@ -48,9 +48,6 @@ inst_components () {
  sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf
  service apache2 restart > /dev/null 2>&1 &
  }
-apt-get install python-pip build-essential python-dev &>/dev/null
-pip install Glances &>/dev/null
-pip install PySensors &>/dev/null
 }
 
 install_hosts () {
@@ -100,6 +97,12 @@ case $1 in
 esac
 mv -f ${SCPinstal}/$1 ${ARQ}/$1
 chmod +x ${ARQ}/$1
+}
+
+inst_glances () {
+apt-get install python-pip build-essential python-dev &>/dev/null
+pip install Glances &>/dev/null
+pip install PySensors &>/dev/null
 }
 
 ofus () {
@@ -226,6 +229,7 @@ if [[ -e $HOME/lista-arq ]] && [[ ! $(cat $HOME/lista-arq|grep "KEY INVALIDA!") 
    wget -O /bin/versao_script https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/versaoatt &> /dev/null
    inst_components
    install_hosts
+   inst_glances
    echo "$Key" > ${SCPdir}/key.txt
    [[ -d ${SCPinstal} ]] && rm -rf ${SCPinstal}   
    [[ ${#id} -gt 2 ]] && echo "pt" > ${SCPidioma} || echo "${id}" > ${SCPidioma}

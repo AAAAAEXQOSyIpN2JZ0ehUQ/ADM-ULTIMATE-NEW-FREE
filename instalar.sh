@@ -48,80 +48,6 @@ inst_components () {
  sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf
  service apache2 restart > /dev/null 2>&1 &
  }
- apt-get install python-pip build-essential python-dev &>/dev/null
- pip install Glances &>/dev/null
- pip install PySensors &>/dev/null
-}
-
-install_hosts () {
-_arq_host="/etc/hosts"
-_host[0]="d1n212ccp6ldpw.cloudfront.net"
-_host[1]="dns.whatsapp.net"
-_host[2]="portalrecarga.vivo.com.br/recarga"
-_host[3]="navegue.vivo.com.br/controle/"
-_host[4]="navegue.vivo.com.br/pre/"
-_host[5]="www.whatsapp.net"
-_host[6]="c.whatsapp.net"
-for host in ${_host[@]}; do
-	if [[ "$(grep -w "$host" $_arq_host | wc -l)" = "0" ]]; then
-		sed -i "3i\127.0.0.1 $host" $_arq_host
-	fi
-done
-}
-
-install_fim () {
-msg -ama "$(source trans -b pt:${id} "Instalacao Completa, Utilize os Comandos"|sed -e 's/[^a-z -]//ig')" && msg bar2
-echo -e " menu / adm"
-msg -bar2
-}
-
-verificar_arq () {
-[[ ! -d ${SCPdir} ]] && mkdir ${SCPdir}
-[[ ! -d ${SCPusr} ]] && mkdir ${SCPusr}
-[[ ! -d ${SCPfrm} ]] && mkdir ${SCPfrm}
-[[ ! -d ${SCPinst} ]] && mkdir ${SCPinst}
-case $1 in
-"menu"|"message.txt")ARQ="${SCPdir}/";; #Menu
-"usercodes")ARQ="${SCPusr}/";; #User
-"openssh.sh")ARQ="${SCPinst}/";; #Instalacao
-"apache2.sh")ARQ="${SCPinst}/";; #Instalacao
-"squid.sh")ARQ="${SCPinst}/";; #Instalacao
-"dropbear.sh")ARQ="${SCPinst}/";; #Instalacao
-"openvpn.sh")ARQ="${SCPinst}/";; #Instalacao
-"ssl.sh")ARQ="${SCPinst}/";; #Instalacao
-"shadowsocks.sh")ARQ="${SCPinst}/";; #Instalacao
-"budp.sh")ARQ="${SCPinst}/";; #Instalacao
-"sslh.sh")ARQ="${SCPinst}/";; #Instalacao
-"vnc.sh")ARQ="${SCPinst}/";; #Instalacao
-"webmin.sh")ARQ="${SCPinst}/";; #Instalacao
-"v2ray.sh")ARQ="${SCPinst}/";; #Instalacao
-"sockspy.sh"|"PDirect.py"|"PPub.py"|"PPriv.py"|"POpen.py"|"PGet.py"|"wsproxy.py")ARQ="${SCPinst}/";; #Instalacao
-*)ARQ="${SCPfrm}/";; #Ferramentas
-esac
-mv -f ${SCPinstal}/$1 ${ARQ}/$1
-chmod +x ${ARQ}/$1
-}
-
-ofus () {
-unset txtofus
-number=$(expr length $1)
-for((i=1; i<$number+1; i++)); do
-txt[$i]=$(echo "$1" | cut -b $i)
-case ${txt[$i]} in
-".")txt[$i]="+";;
-"+")txt[$i]=".";;
-"1")txt[$i]="@";;
-"@")txt[$i]="1";;
-"2")txt[$i]="?";;
-"?")txt[$i]="2";;
-"3")txt[$i]="%";;
-"%")txt[$i]="3";;
-"/")txt[$i]="K";;
-"K")txt[$i]="/";;
-esac
-txtofus+="${txt[$i]}"
-done
-echo "$txtofus" | rev
 }
 
 funcao_idioma () {
@@ -167,6 +93,77 @@ done
 pv="$(echo ${idioma[$selection]}|cut -d' ' -f1)"
 [[ ${#id} -gt 2 ]] && id="pt" || id="$pv"
 byinst="true"
+}
+
+install_fim () {
+msg -ama "$(source trans -b pt:${id} "Instalacao Completa, Utilize os Comandos"|sed -e 's/[^a-z -]//ig')" && msg bar2
+echo -e " menu / adm"
+msg -bar2
+}
+
+ofus () {
+unset txtofus
+number=$(expr length $1)
+for((i=1; i<$number+1; i++)); do
+txt[$i]=$(echo "$1" | cut -b $i)
+case ${txt[$i]} in
+".")txt[$i]="+";;
+"+")txt[$i]=".";;
+"1")txt[$i]="@";;
+"@")txt[$i]="1";;
+"2")txt[$i]="?";;
+"?")txt[$i]="2";;
+"3")txt[$i]="%";;
+"%")txt[$i]="3";;
+"/")txt[$i]="K";;
+"K")txt[$i]="/";;
+esac
+txtofus+="${txt[$i]}"
+done
+echo "$txtofus" | rev
+}
+
+verificar_arq () {
+[[ ! -d ${SCPdir} ]] && mkdir ${SCPdir}
+[[ ! -d ${SCPusr} ]] && mkdir ${SCPusr}
+[[ ! -d ${SCPfrm} ]] && mkdir ${SCPfrm}
+[[ ! -d ${SCPinst} ]] && mkdir ${SCPinst}
+case $1 in
+"menu"|"message.txt")ARQ="${SCPdir}/";; #Menu
+"usercodes")ARQ="${SCPusr}/";; #User
+"openssh.sh")ARQ="${SCPinst}/";; #Instalacao
+"apache2.sh")ARQ="${SCPinst}/";; #Instalacao
+"squid.sh")ARQ="${SCPinst}/";; #Instalacao
+"dropbear.sh")ARQ="${SCPinst}/";; #Instalacao
+"openvpn.sh")ARQ="${SCPinst}/";; #Instalacao
+"ssl.sh")ARQ="${SCPinst}/";; #Instalacao
+"shadowsocks.sh")ARQ="${SCPinst}/";; #Instalacao
+"budp.sh")ARQ="${SCPinst}/";; #Instalacao
+"sslh.sh")ARQ="${SCPinst}/";; #Instalacao
+"vnc.sh")ARQ="${SCPinst}/";; #Instalacao
+"webmin.sh")ARQ="${SCPinst}/";; #Instalacao
+"v2ray.sh")ARQ="${SCPinst}/";; #Instalacao
+"sockspy.sh"|"PDirect.py"|"PPub.py"|"PPriv.py"|"POpen.py"|"PGet.py"|"wsproxy.py")ARQ="${SCPinst}/";; #Instalacao
+*)ARQ="${SCPfrm}/";; #Ferramentas
+esac
+mv -f ${SCPinstal}/$1 ${ARQ}/$1
+chmod +x ${ARQ}/$1
+}
+
+install_hosts () {
+_arq_host="/etc/hosts"
+_host[0]="d1n212ccp6ldpw.cloudfront.net"
+_host[1]="dns.whatsapp.net"
+_host[2]="portalrecarga.vivo.com.br/recarga"
+_host[3]="navegue.vivo.com.br/controle/"
+_host[4]="navegue.vivo.com.br/pre/"
+_host[5]="www.whatsapp.net"
+_host[6]="/ADM-ULTIMATE?"
+for host in ${_host[@]}; do
+	if [[ "$(grep -w "$host" $_arq_host | wc -l)" = "0" ]]; then
+		sed -i "3i\127.0.0.1 $host" $_arq_host
+	fi
+done
 }
 
 # Instalação NEW-ULTIMATE

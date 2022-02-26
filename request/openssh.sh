@@ -84,13 +84,12 @@ echo -e "\033[1;37m $(fun_trans "Digite Sua Senha Atual ou Uma Nova Senha")"
 read  -p " Nuevo passwd: " pass
 (echo $pass; echo $pass)|passwd 2>/dev/null
 msg -bar
-msg -ne "\033[1;31m [ ! ] \033[1;33m$(fun_trans "REINICIANDO SERVICOS*")"
+# SERVICE SSH
+echo -ne " \033[1;31m[ ! ] Services ssh restart"
 service ssh restart > /dev/null 2>&1
-service sshd restart > /dev/null 2>&1
-echo -e " \033[1;32m[OK]"
-sleep 3s
+[[ -e /etc/init.d/ssh ]] && /etc/init.d/ssh restart > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
 msg -bar
-echo -e "\033[1;31m $(fun_trans "Senha Atual Root") : \033[1;32m$pass"
+## echo -e "\033[1;31m $(fun_trans "Senha Atual Root") : \033[1;32m$pass"
 echo -e "\033[1;31m $(fun_trans "Permissoes de usuario root") \033[1;32m[OK]"
 echo -e "\033[1;31m $(fun_trans "Ruta sshd") > \033[1;31m[ \033[1;32m/etc/ssh/sshd_config \033[1;31m]"
 msg -bar
@@ -113,7 +112,7 @@ apt-get update -y
 apt-get upgrade -y
 service ssh restart
 cp /etc/ssh/sshd_config /etc/ssh/sshd_back
-wget -O /etc/ssh/sshd_config https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/sshd_config > /dev/null 2>&1
+wget -O /etc/ssh/sshd_config https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/sshd_config
 chmod +x /etc/ssh/sshd_config
 service ssh restart
 iptables -F
@@ -126,18 +125,12 @@ iptables -A INPUT -p tcp --dport 1194 -j ACCEPT
 }
 fun_bar "fun_aplicaroot"
 msg -bar
-#DEFINIR SENHA ROOT
-echo -e "\033[1;37m $(fun_trans "Digite Sua Senha Atual ou Uma Nova Senha")"
-read  -p " Nuevo passwd: " pass
-(echo $pass; echo $pass)|passwd 2>/dev/null
-msg -bar
-msg -ne "\033[1;31m [ ! ] \033[1;33m$(fun_trans "REINICIANDO SERVICOS*")"
+# SERVICE SSH
+echo -ne " \033[1;31m[ ! ] Services ssh restart"
 service ssh restart > /dev/null 2>&1
-service sshd restart > /dev/null 2>&1
-echo -e " \033[1;32m[OK]"
-sleep 3s
+[[ -e /etc/init.d/ssh ]] && /etc/init.d/ssh restart > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
 msg -bar
-echo -e "\033[1;31m $(fun_trans "Senha Atual") Root: \033[1;32m$pass"
+## echo -e "\033[1;31m $(fun_trans "Senha Atual") Root: \033[1;32m$pass"
 echo -e "\033[1;31m $(fun_trans "Permissoes de usuario root") \033[1;32m[OK]"
 echo -e "\033[1;31m $(fun_trans "Ruta sshd") > \033[1;31m[ \033[1;32m/etc/ssh/sshd_config \033[1;31m]"
 msg -bar

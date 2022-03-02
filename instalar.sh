@@ -49,6 +49,7 @@ inst_components () {
  service apache2 restart > /dev/null 2>&1 &
  }
 apt-get install python-pip build-essential python-dev -y &>/dev/null
+apt install glances -y &>/dev/null
 pip install Glances &>/dev/null
 pip install PySensors &>/dev/null
 }

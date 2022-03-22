@@ -1,6 +1,7 @@
 #!/bin/bash
 IVAR="/etc/http-instas"
 IVAR2="/etc/key-gerador"
+IVAR3="/etc/gerar-sh-log"
 SCPT_DIR="/etc/SCRIPT"
 SCPresq="aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0FBQUFBRVhRT1N5SXBOMkpaMGVoVVEvQURNLVVMVElNQVRFLU5FVy1GUkVFL21hc3Rlci9JbnN0YWxsL0dlbmVyYWRvci9nZXJhZG9yCg=="
 SUB_DOM='base64 -d'
@@ -53,6 +54,7 @@ rm $HOME/lista-arq
 echo -e "\033[1;36m--------------------------------------------------------------------\033[0m"
 echo "/usr/bin/gerar.sh" > /usr/bin/gerar && chmod +x /usr/bin/gerar
 echo "$IP" > $IVAR2
+echo "0" > $IVAR3
 echo -e "\033[1;33m Perfeito, Use o Comando \033[1;31mgerar.sh o gerar \033[1;33mpara Gerenciar as Suas Keys e
  Atualizar a Base do servidor"
 echo -e "\033[1;36m--------------------------------------------------------------------\033[0m"

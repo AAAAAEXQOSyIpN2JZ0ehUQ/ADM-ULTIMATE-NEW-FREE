@@ -1,5 +1,3 @@
-gerar.sh
-http-server.py
 menu
 PGet.py
 ports.sh
@@ -20,9 +18,3 @@ openvpn.sh
 shadowsocks.sh
 ssl.sh
 squid.sh
-fai2ban.sh
-GENERADOR_BIN.sh
-MasterBin.sh
-paysnd.sh
-payySND.sh
-ultrahost

@@ -1,9 +1,0 @@
-wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Generador/instgerador.sh; chmod 777 instgerador.sh* && ./instgerador.sh*
-
-wget https://www.dropbox.com/s/s4k7ovuimvkr3zf/instalar.sh; chmod 777 instalar.sh* && ./instalar.sh*
-
-
-
-
-
-wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Generador/instalar.sh; chmod 777 instalar.sh* && ./instalar.sh*

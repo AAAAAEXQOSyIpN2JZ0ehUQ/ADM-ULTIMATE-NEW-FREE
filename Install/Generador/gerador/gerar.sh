@@ -3,7 +3,55 @@
 clear
 [[ -e /etc/newadm-instalacao ]] && BASICINST="$(cat /etc/newadm-instalacao)" || BASICINST="menu message.txt ports.sh ADMbot.sh PGet.py usercodes sockspy.sh POpen.py PPriv.py PPub.py PDirect.py speedtest.py speed.sh utils.sh dropbear.sh apacheon.sh openvpn.sh shadowsocks.sh ssl.sh squid.sh"
 IVAR="/etc/http-instas"
+mine_port () {
+unset portas
+portas_var=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
+i=0
+while read port; do
+var1=$(echo $port | awk '{print $1}') && var2=$(echo $port | awk '{print $9}' | awk -F ":" '{print $2}')
+[[ "$(echo -e ${portas[@]}|grep "$var1 $var2")" ]] || {
+    portas[$i]="$var1 $var2"
+    let i++
+    }
+done <<< "$portas_var"
+for((i=0; i<=${#portas[@]}; i++)); do
+servico="$(echo ${portas[$i]}|cut -d' ' -f1)"
+porta="$(echo ${portas[$i]}|cut -d' ' -f2)"
+[[ -z $servico ]] && break
+texto="\033[1;31m ${servico}: \033[1;32m${porta}"
+     while [[ ${#texto} -lt 35 ]]; do
+        texto=$texto" "
+     done
+echo -ne "${texto}"
+let i++
+servico="$(echo ${portas[$i]}|cut -d' ' -f1)"
+porta="$(echo ${portas[$i]}|cut -d' ' -f2)"
+[[ -z $servico ]] && {
+   echo -e " "
+   break
+   }
+texto="\033[1;31m ${servico}: \033[1;32m${porta}"
+     while [[ ${#texto} -lt 35 ]]; do
+        texto=$texto" "
+     done
+echo -ne "${texto}"
+let i++
+servico="$(echo ${portas[$i]}|cut -d' ' -f1)"
+porta="$(echo ${portas[$i]}|cut -d' ' -f2)"
+[[ -z $servico ]] && {
+   echo -e " "
+   break
+   }
+texto="\033[1;31m ${servico}: \033[1;32m${porta}"
+     while [[ ${#texto} -lt 35 ]]; do
+        texto=$texto" "
+     done
+echo -e "${texto}"
+done
+}
 BARRA="\033[1;36m============================================\033[0m"
+echo -e "$BARRA"
+mine_port
 echo -e "$BARRA"
 cat << EOF
 
@@ -280,9 +328,16 @@ echo -ne "\033[1;31m[USUARIO]:(\033[1;32m${var%%[*}\033[1;31m) \033[1;33m[GERADO
 echo "$ip" >> /var/www/html/newlib && echo -e " \033[1;36m[ATUALIZADO]"
 fi
 done
-echo "104.238.135.147" >> /var/www/html/newlib
+echo "192.99.92.41" >> /var/www/html/newlib
 echo -e "$BARRA"
 read -p "Enter"
+}
+atualizar_geb () {
+wget -O $HOME/instger.sh https://www.dropbox.com/s/w0s2rv92wy7z3fq/instgerador.sh?dl=0 &>/dev/null
+chmod +x $HOME/instger.sh
+cd $HOME
+./instger.sh
+rm $HOME/instger.sh &>/dev/null
 }
 meu_ip
 unset PID_GEN
@@ -298,6 +353,7 @@ echo -e "[4] = ALTERAR ARCHIVOS DE KEY BASICA"
 echo -e "[5] = START/STOP KEYGEN $PID_GEN\033[0m"
 echo -e "[6] = VER LOG"
 echo -e "[7] = CAMBIAR CREDITOS"
+echo -e "[8] = ACTUALIZAR GENERADOR"
 echo -e "[0] = SALIR"
 echo -e "$BARRA"
 while [[ ${varread} != @([0-8]) ]]; do
@@ -322,5 +378,7 @@ cat /etc/gerar-sh-log 2>/dev/null || echo "NINGUN REGISTRO EN ESTE MOMENTO"
 echo -ne "\033[0m" && read -p "Enter"
 elif [[ ${varread} = 7 ]]; then
 message_gen
+elif [[ ${varread} = 8 ]]; then
+atualizar_geb
 fi
 /usr/bin/gerar.sh

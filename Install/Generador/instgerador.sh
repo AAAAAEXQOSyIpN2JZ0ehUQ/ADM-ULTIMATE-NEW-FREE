@@ -59,7 +59,6 @@ rm $HOME/lista-arq
 echo -e "\033[1;36m--------------------------------------------------------------------\033[0m"
 echo "/usr/bin/gerar.sh" > /usr/bin/gerar && chmod +x /usr/bin/gerar
 echo "U0VSVklET1IgS0VZIExPQ0FMIE1BU1RFUgo=" > $IVAR2
-echo "0" > $IVAR3
 echo -e "\033[1;33m Perfeito, Use o Comando \033[1;31mgerar.sh o gerar \033[1;33mpara Gerenciar as Suas Keys e
  Atualizar a Base do servidor"
 echo -e "\033[1;36m--------------------------------------------------------------------\033[0m"

@@ -1,57 +1,9 @@
 #!/bin/bash
 # INSTALACAO BASICA
 clear
-[[ -e /etc/newadm-instalacao ]] && BASICINST="$(cat /etc/newadm-instalacao)" || BASICINST="menu message.txt ports.sh ADMbot.sh PGet.py usercodes sockspy.sh POpen.py PPriv.py PPub.py PDirect.py speedtest.py speed.sh utils.sh dropbear.sh apacheon.sh openvpn.sh shadowsocks.sh ssl.sh squid.sh"
+[[ -e /etc/newadm-instalacao ]] && BASICINST="$(cat /etc/newadm-instalacao)" || BASICINST="menu PGet.py ports.sh ADMbot.sh message.txt usercodes sockspy.sh POpen.py PPriv.py PPub.py PDirect.py speedtest.py speed.sh utils.sh dropbear.sh apacheon.sh openvpn.sh shadowsocks.sh ssl.sh squid.sh"
 IVAR="/etc/http-instas"
-mine_port () {
-unset portas
-portas_var=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
-i=0
-while read port; do
-var1=$(echo $port | awk '{print $1}') && var2=$(echo $port | awk '{print $9}' | awk -F ":" '{print $2}')
-[[ "$(echo -e ${portas[@]}|grep "$var1 $var2")" ]] || {
-    portas[$i]="$var1 $var2"
-    let i++
-    }
-done <<< "$portas_var"
-for((i=0; i<=${#portas[@]}; i++)); do
-servico="$(echo ${portas[$i]}|cut -d' ' -f1)"
-porta="$(echo ${portas[$i]}|cut -d' ' -f2)"
-[[ -z $servico ]] && break
-texto="\033[1;31m ${servico}: \033[1;32m${porta}"
-     while [[ ${#texto} -lt 35 ]]; do
-        texto=$texto" "
-     done
-echo -ne "${texto}"
-let i++
-servico="$(echo ${portas[$i]}|cut -d' ' -f1)"
-porta="$(echo ${portas[$i]}|cut -d' ' -f2)"
-[[ -z $servico ]] && {
-   echo -e " "
-   break
-   }
-texto="\033[1;31m ${servico}: \033[1;32m${porta}"
-     while [[ ${#texto} -lt 35 ]]; do
-        texto=$texto" "
-     done
-echo -ne "${texto}"
-let i++
-servico="$(echo ${portas[$i]}|cut -d' ' -f1)"
-porta="$(echo ${portas[$i]}|cut -d' ' -f2)"
-[[ -z $servico ]] && {
-   echo -e " "
-   break
-   }
-texto="\033[1;31m ${servico}: \033[1;32m${porta}"
-     while [[ ${#texto} -lt 35 ]]; do
-        texto=$texto" "
-     done
-echo -e "${texto}"
-done
-}
-BARRA="\033[1;36m============================================\033[0m"
-echo -e "$BARRA"
-mine_port
+BARRA="\033[1;36m--------------------------------------------------------------------\033[0m"
 echo -e "$BARRA"
 cat << EOF
 
@@ -71,12 +23,12 @@ MIP2=$(wget -qO- ipv4.icanhazip.com)
 }
 mudar_instacao () {
 while [[ ${var[$value]} != 0 ]]; do
-[[ -e /etc/newadm-instalacao ]] && BASICINST="$(cat /etc/newadm-instalacao)" || BASICINST="menu message.txt ports.sh ADMbot.sh PGet.py usercodes sockspy.sh POpen.py PPriv.py PPub.py PDirect.py speedtest.py speed.sh utils.sh dropbear.sh apacheon.sh openvpn.sh shadowsocks.sh ssl.sh squid.sh"
+[[ -e /etc/newadm-instalacao ]] && BASICINST="$(cat /etc/newadm-instalacao)" || BASICINST="menu PGet.py ports.sh ADMbot.sh message.txt usercodes sockspy.sh POpen.py PPriv.py PPub.py PDirect.py speedtest.py speed.sh utils.sh dropbear.sh apacheon.sh openvpn.sh shadowsocks.sh ssl.sh squid.sh"
 clear
 echo -e $BARRA
-echo -e "MENÚ SELECCIÓN DE INSTALACIÓN"
+echo -e "MENU SELECAO DE INSTALACAO"
 echo -e $BARRA
-echo "[0] - FINALIZAR PROCEDIMIENTO"
+echo "[0] - FINALIZAR PROCEDIMENTO"
 i=1
 for arqx in `ls ${SCPT_DIR}`; do
 [[ $arqx = @(gerar.sh|http-server.py) ]] && continue
@@ -84,7 +36,7 @@ for arqx in `ls ${SCPT_DIR}`; do
 var[$i]="$arqx"
 let i++
 done
-echo -ne "Seleccione el archivo [Agregar / Eliminar]: "
+echo -ne "Selecione o Arquivo [Adicionar/Eliminar]: "
 read value
 [[ -z ${var[$value]} ]] && return
 if [[ $(echo $BASICINST|grep -w "${var[$value]}") ]]; then
@@ -115,15 +67,14 @@ echo -e "[$i] -> ${arqx}"
 arq_list[$i]="${arqx}"
 let i++
 done
-echo -e "[x] -> \033[0;31mGENERADOR DE KEYS\033[0m"
-echo -e "[b] -> \033[0;33mINSTALACIÓN NEW-ADM\033[0m"
-read -p "Seleccione los archivos a ser repasados: " readvalue
+echo -e "[b] -> INSTALACAO ADM"
+read -p "Escolha os Arquivos a Serem Repassados: " readvalue
 #CRIA KEY
 [[ ! -e ${DIR}/${KEY} ]] && mkdir ${DIR}/${KEY}
 #PASSA ARQS
 [[ -z $readvalue ]] && readvalue="b"
-read -p "Nombre de usuario ( comprador de la key ): " nombrevalue
-[[ -z $nombrevalue ]] && nombrevalue="SIN NOMBRE"
+read -p "Nome do Usuario ( dono da Key ): " nombrevalue
+[[ -z $nombrevalue ]] && nombrevalue="unnamed"
 if [[ $readvalue = @(b|B) ]]; then
 #ADM BASIC
  arqslist="$BASICINST"
@@ -132,20 +83,6 @@ if [[ $readvalue = @(b|B) ]]; then
  cp ${SCPT_DIR}/$arqx ${DIR}/${KEY}/
  echo "$arqx" >> ${DIR}/${KEY}/${LIST}
  done
-elif [[ $readvalue = @(x|X) ]]; then
-# GERADOR KEYS
-read -p "KEY DE ACTUALIZACIÓN?: [Y/N]: " -e -i n attGEN
-[[ $(echo $nombrevalue|grep -w "FIXA") ]] && nombrevalue+=[GERADOR]
- for arqx in `ls $SCPT_DIR`; do
-  [[ -e ${DIR}/${KEY}/$arqx ]] && continue #ANULA ARQUIVO CASO EXISTA
-  cp ${SCPT_DIR}/$arqx ${DIR}/${KEY}/
- echo "$arqx" >> ${DIR}/${KEY}/${LIST}
- echo "Gerador" >> ${DIR}/${KEY}/GERADOR
- done
-if [[ $attGEN = @(Y|y|S|s) ]]; then
-[[ -e ${DIR}/${KEY}/gerar.sh ]] && rm ${DIR}/${KEY}/gerar.sh
-[[ -e ${DIR}/${KEY}/http-server.py ]] && rm ${DIR}/${KEY}/http-server.py
-fi
 else
  for arqx in `echo "${readvalue}"`; do
  #UNE ARQ
@@ -160,10 +97,9 @@ rm ${SCPT_DIR}/*.x.c &> /dev/null
 echo "$nombrevalue" > ${DIR}/${KEY}.name
 [[ ! -z $IPFIX ]] && echo "$IPFIX" > ${DIR}/${KEY}/keyfixa
 echo -e "$BARRA"
-echo -e "Key Activa, y Esperando Instalacion!"
+echo -e "Key Ativa, e Aguardando Instalacao!"
 echo -e "$BARRA"
 }
-
 ofus () {
 unset txtofus
 number=$(expr length $1)
@@ -185,15 +121,14 @@ txtofus+="${txt[$i]}"
 done
 echo "$txtofus" | rev
 }
-
 gerar_key () {
 valuekey="$(date | md5sum | head -c10)"
 valuekey+="$(echo $(($RANDOM*10))|head -c 5)"
 fun_list "$valuekey"
 keyfinal=$(ofus "$IP:8888/$valuekey/$LIST")
-echo -e "KEY: $keyfinal\nGenerada Con Exito!"
+echo -e "KEY: $keyfinal\nGerada!"
 echo -e "$BARRA"
-read -p "Enter para Finalizar"
+read -p "Enter to Finalize"
 }
 att_gen_key () {
 i=0
@@ -213,7 +148,7 @@ done
 keys=($keys)
 echo -e "$BARRA"
 while [[ -z ${keys[$value]} || -z $value ]]; do
-read -p "Seleccione qué Actualizar[t=todos]: " -e -i 0 value
+read -p "Escolha qual Atualizar[t=todos]: " -e -i 0 value
 done
 [[ $value = 0 ]] && return
 if [[ $value = @(t|T) ]]; then
@@ -231,7 +166,7 @@ rm $KEYDIR/*.x.c &> /dev/null
     rm $KEYDIR/*.x.c &> /dev/null
    done
  arqsx=$(ofus "$IP:8888/$arqs/$LIST")
- echo -e "\033[1;33m[KEY]: $arqsx \033[1;32m(ACTUALIZADA!)\033[0m"
+ echo -e "\033[1;33m[KEY]: $arqsx \033[1;32m(ATUALIZADA!)\033[0m"
  fi
 let i++
 done
@@ -251,7 +186,7 @@ rm ${KEYDIR}/${LIST}
   rm $KEYDIR/*.x.c &> /dev/null
   done
  arqsx=$(ofus "$IP:8888/${keys[$value]}/$LIST")
- echo -e "\033[1;33m[KEY]: $arqsx \033[1;32m(ACTUALIZADA!)\033[0m"
+ echo -e "\033[1;33m[KEY]: $arqsx \033[1;32m(ATUALIZADA!)\033[0m"
  read -p "Enter"
  rm ${SCPT_DIR}/*.x.c &> /dev/null
  }
@@ -275,7 +210,7 @@ done
 keys=($keys)
 echo -e "$BARRA"
 while [[ -z ${keys[$value]} || -z $value ]]; do
-read -p "Elija cual eliminar: " -e -i 0 value
+read -p "Escolha qual remover: " -e -i 0 value
 done
 [[ -d "$DIR/${keys[$value]}" ]] && rm -rf $DIR/${keys[$value]}* || return
 }
@@ -287,12 +222,12 @@ arqsx=$(ofus "$IP:8888/$arqs/$LIST")
  if [[ -e ${DIR}/${arqs}/used.date ]]; then #KEY USADA
   if [[ $(ls -l -c ${DIR}/${arqs}/used.date|cut -d' ' -f7) != $(date|cut -d' ' -f3) ]]; then
   rm -rf ${DIR}/${arqs}*
-  echo -e "\033[1;31m[KEY]: $arqsx \033[1;32m(ELIMINADA!)\033[0m" 
+  echo -e "\033[1;31m[KEY]: $arqsx \033[1;32m(REMOVIDA!)\033[0m" 
   else
-  echo -e "\033[1;32m[KEY]: $arqsx \033[1;32m(AÚN VÁLIDA!)\033[0m"
+  echo -e "\033[1;32m[KEY]: $arqsx \033[1;32m(DENTRO DA VALIDADE!)\033[0m"
   fi
  else
- echo -e "\033[1;32m[KEY]: $arqsx \033[1;32m(AÚN VÁLIDA!)\033[0m"
+ echo -e "\033[1;32m[KEY]: $arqsx \033[1;32m(DENTRO DA VALIDADE!)\033[0m"
  fi
 let i++
 done
@@ -300,8 +235,7 @@ echo -e "$BARRA"
 echo -ne "\033[0m" && read -p "Enter"
 }
 start_gen () {
-unset PIDGEN
-PIDGEN=$(ps aux|grep -v grep|grep "http-server.sh")
+PIDGEN=$(ps x|grep -v grep|grep "http-server.sh")
 if [[ ! $PIDGEN ]]; then
 screen -dmS generador /bin/http-server.sh -start
 # screen -dmS generador /bin/http-server-pass.sh -start
@@ -311,12 +245,12 @@ killall http-server.sh
 fi
 }
 message_gen () {
-read -p "NUEVO MENSAJE: " MSGNEW
+read -p "NEW MESSAGE: " MSGNEW
 echo "$MSGNEW" > ${SCPT_DIR}/message.txt
 echo -e "$BARRA"
 }
 rmv_iplib () {
-echo -e "SERVIDORES DE KEY ACTIVOS!"
+echo -e "SERVIDORES DE KEY ATIVOS!"
 rm /var/www/html/newlib && touch /var/www/html/newlib
 rm ${SCPT_DIR}/*.x.c &> /dev/null
 [[ -z $(ls $DIR|grep -v "ERROR-KEY") ]] && return
@@ -328,36 +262,28 @@ echo -ne "\033[1;31m[USUARIO]:(\033[1;32m${var%%[*}\033[1;31m) \033[1;33m[GERADO
 echo "$ip" >> /var/www/html/newlib && echo -e " \033[1;36m[ATUALIZADO]"
 fi
 done
-echo "192.99.92.41" >> /var/www/html/newlib
+echo "104.238.135.147" >> /var/www/html/newlib
 echo -e "$BARRA"
 read -p "Enter"
-}
-atualizar_geb () {
-wget -O $HOME/instger.sh https://www.dropbox.com/s/w0s2rv92wy7z3fq/instgerador.sh?dl=0 &>/dev/null
-chmod +x $HOME/instger.sh
-cd $HOME
-./instger.sh
-rm $HOME/instger.sh &>/dev/null
 }
 meu_ip
 unset PID_GEN
 PID_GEN=$(ps x|grep -v grep|grep "http-server.sh")
 [[ ! $PID_GEN ]] && PID_GEN="\033[1;31moff" || PID_GEN="\033[1;32monline"
 echo -e "$BARRA"
-echo -e "Directorio de los archivos repasados \033[1;31m${SCPT_DIR}\033[0m"
+echo -e "Diretorio Dos Arquivos Repassados \033[1;31m${SCPT_DIR}\033[0m"
 echo -e "$BARRA"
-echo -e "[1] = GENERAR 1 KEY ALEATORIA"
-echo -e "[2] = ELIMINAR/MIRAR KEYS"
-echo -e "[3] = LIMPIAR REGISTRO DE KEYS USADAS"
-echo -e "[4] = ALTERAR ARCHIVOS DE KEY BASICA"
+echo -e "[1] = GERAR 1 KEY ALEATORIA"
+echo -e "[2] = APAGAR/OLHAR KEYS"
+echo -e "[3] = LIMPAR KEYS USADAS"
+echo -e "[4] = ALTERAR ARQUIVOS KEY BASICA"
 echo -e "[5] = START/STOP KEYGEN $PID_GEN\033[0m"
 echo -e "[6] = VER LOG"
-echo -e "[7] = CAMBIAR CREDITOS"
-echo -e "[8] = ACTUALIZAR GENERADOR"
-echo -e "[0] = SALIR"
+echo -e "[7] = MUDAR MENSAGEM"
+echo -e "[0] = SAIR"
 echo -e "$BARRA"
 while [[ ${varread} != @([0-8]) ]]; do
-read -p "Opcion: " varread
+read -p "Opcao: " varread
 done
 echo -e "$BARRA"
 if [[ ${varread} = 0 ]]; then
@@ -374,11 +300,9 @@ elif [[ ${varread} = 5 ]]; then
 start_gen
 elif [[ ${varread} = 6 ]]; then
 echo -ne "\033[1;36m"
-cat /etc/gerar-sh-log 2>/dev/null || echo "NINGUN REGISTRO EN ESTE MOMENTO"
+cat /etc/gerar-sh-log 2>/dev/null || echo "NENHUM LOG NO MOMENTO"
 echo -ne "\033[0m" && read -p "Enter"
 elif [[ ${varread} = 7 ]]; then
 message_gen
-elif [[ ${varread} = 8 ]]; then
-atualizar_geb
 fi
 /usr/bin/gerar.sh

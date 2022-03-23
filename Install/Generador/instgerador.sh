@@ -1,5 +1,6 @@
 #!/bin/bash
 IVAR="/etc/http-instas"
+IVAR2="/etc/key-gerador"
 SCPT_DIR="/etc/SCRIPT"
 rm $(pwd)/$0
 ofus () {
@@ -73,7 +74,6 @@ apt-get install netcat -y &>/dev/null
 apt-get install apache2 -y &>/dev/null
 sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf
 service apache2 restart > /dev/null 2>&1 &
-IVAR2="/etc/key-gerador"
 echo "$Key" > $IVAR2
 rm $HOME/lista-arq
 } || {

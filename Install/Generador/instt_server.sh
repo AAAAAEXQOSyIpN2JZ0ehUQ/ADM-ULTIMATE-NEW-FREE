@@ -1,7 +1,6 @@
 #!/bin/bash
 IVAR="/etc/http-instas"
 IVAR2="/etc/key-gerador"
-IVAR3="/etc/gerar-sh-log"
 SCPT_DIR="/etc/SCRIPT"
 SCPresq="aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0FBQUFBRVhRT1N5SXBOMkpaMGVoVVEvQURNLVVMVElNQVRFLU5FVy1GUkVFL21hc3Rlci9JbnN0YWxsL0dlbmVyYWRvci9nZXJhZG9yCg=="
 SUB_DOM='base64 -d'

@@ -42,6 +42,9 @@ ADM-MANAGER (las dependencias faltantes se instalarán automáticamente)
 * Se recomienda usar una distro nueva o formatiada
 * Idioma principal del Scripts es el Portugues (Recomendado)
 
+## :book: Opcional
+1. Descargar Codigo Fuente [Donwload](h)
+
 ## :octocat: Credits
 1. @E8th4ver - Developer of New-Ultimate
 2. illuminati Dev Team - Contributor Update 

@@ -216,7 +216,7 @@ start_gen
 read -p "Enter"
 elif [[ ${varread} = 4 ]]; then
 echo -ne "\033[1;36m"
-cat /etc/gerar-sh-log
+cat /etc/gerar-sh-log 2>/dev/null || echo "NENHUM LOG NO MOMENTO"
 echo -ne "\033[0m" && read -p "Enter"
 elif [[ ${varread} = 5 ]]; then
 message_gen

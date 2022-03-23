@@ -6,6 +6,7 @@ SCPT_DIR="/etc/SCRIPT"
 SCPresq="aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0FBQUFBRVhRT1N5SXBOMkpaMGVoVVEvQURNLVVMVElNQVRFLU5FVy1GUkVFL21hc3Rlci9JbnN0YWxsL0dlbmVyYWRvci9nZXJhZG9yCg=="
 SUB_DOM='base64 -d'
 rm $(pwd)/$0
+
 veryfy_fun () {
 [[ ! -d ${IVAR} ]] && touch ${IVAR}
 [[ ! -d ${SCPT_DIR} ]] && mkdir ${SCPT_DIR}
@@ -18,19 +19,21 @@ esac
 mv -f $HOME/$1 ${ARQ}/$1
 chmod +x ${ARQ}/$1
 }
-echo -e "\033[1;36m--------------------------------------------------------------------\033[0m"
+
 meu_ip () {
 MIP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
 MIP2=$(wget -qO- ipv4.icanhazip.com)
 [[ "$MIP" != "$MIP2" ]] && IP="$MIP2" || IP="$MIP"
 echo "$IP" > /usr/bin/vendor_code
 }
+
+echo -e "\033[1;36m--------------------------------------------------------------------\033[0m"
 meu_ip
 echo -e "\033[1;33mInstalando Arquivos... "
 echo -e "\033[1;36m--------------------------------------------------------------------\033[0m"
 cd $HOME
 REQUEST=$(echo $SCPresq|$SUB_DOM)
-wget -O "$HOME/lista-arq" ${REQUEST}/GERADOR > /dev/null 2>&1
+wget -O "$HOME/lista-arq" ${REQUEST}/lista-arq > /dev/null 2>&1
 sleep 1s
 [[ -e $HOME/lista-arq ]] && {
 for arqx in `cat $HOME/lista-arq`; do
@@ -53,7 +56,7 @@ service apache2 restart > /dev/null 2>&1 &
 rm $HOME/lista-arq
 echo -e "\033[1;36m--------------------------------------------------------------------\033[0m"
 echo "/usr/bin/gerar.sh" > /usr/bin/gerar && chmod +x /usr/bin/gerar
-echo "$IP" > $IVAR2
+echo "U0VSVklET1IgS0VZIExPQ0FMIE1BU1RFUgo=" > $IVAR2
 echo "0" > $IVAR3
 echo -e "\033[1;33m Perfeito, Use o Comando \033[1;31mgerar.sh o gerar \033[1;33mpara Gerenciar as Suas Keys e
  Atualizar a Base do servidor"

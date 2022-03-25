@@ -1,6 +1,5 @@
 #!/bin/bash
 IVAR="/etc/http-instas"
-IVAR2="/etc/key-gerador"
 SCPT_DIR="/etc/SCRIPT"
 rm $(pwd)/$0
 ofus () {
@@ -64,7 +63,7 @@ echo -ne "\033[1;33mBaixando Arquivo \033[1;31m[$arqx] "
 wget -O $HOME/$arqx ${IP}:81/${REQUEST}/${arqx} > /dev/null 2>&1 && echo -e "\033[1;31m- \033[1;32mRecebido Com Sucesso!" || echo -e "\033[1;31m- \033[1;31mFalha (nao recebido!)"
 [[ -e $HOME/$arqx ]] && veryfy_fun $arqx
 done
-[[ ! -e /usr/bin/trans ]] && wget -O /usr/bin/trans http://git.io/trans &> /dev/null
+[[ ! -e /usr/bin/trans ]] && wget -O /usr/bin/trans https://www.dropbox.com/s/l6iqf5xjtjmpdx5/trans?dl=0 &> /dev/null
 mv -f /bin/http-server.py /bin/http-server.sh && chmod +x /bin/http-server.sh
 apt-get install bc -y &>/dev/null
 apt-get install screen -y &>/dev/null
@@ -74,6 +73,7 @@ apt-get install netcat -y &>/dev/null
 apt-get install apache2 -y &>/dev/null
 sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf
 service apache2 restart > /dev/null 2>&1 &
+IVAR2="/etc/key-gerador"
 echo "$Key" > $IVAR2
 rm $HOME/lista-arq
 } || {

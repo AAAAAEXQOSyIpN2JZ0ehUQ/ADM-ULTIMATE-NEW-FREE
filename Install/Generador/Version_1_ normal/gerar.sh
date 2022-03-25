@@ -65,7 +65,7 @@ i=0
 VALUE+="gerar.sh instgerador.sh http-server.py $BASICINST"
 for arqx in `ls ${SCPT_DIR}`; do
 [[ $(echo $VALUE|grep -w "${arqx}") ]] && continue 
-echo -e "[$i] -> FERRAMENTA \033[1;31m${arqx}\033[0m"
+echo -e "[$i] -> FERRAMENTA \033[1;31m[${arqx}]\033[0m"
 arq_list[$i]="${arqx}"
 let i++
 done

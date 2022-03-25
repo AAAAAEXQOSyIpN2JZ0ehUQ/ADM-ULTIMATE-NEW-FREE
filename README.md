@@ -43,7 +43,10 @@ ADM-MANAGER (las dependencias faltantes se instalarán automáticamente)
 * Idioma principal del Scripts es el Portugues (Recomendado)
 
 ## :book: Opcional
-1. Descargar Codigo Fuente [Donwload](https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Source-Code-ADM-Manager_Ultimate-manager.zip)
+1. Descargar Codigo Fuente [Donwload](https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Source-Code-ADM-Manager_Ultimate.zip.zip)
+
+## :book: Installation Utilitarios
+1. [GENERADOR DE KEY ORIGINAL SOURCE CODE NEW-ULTIMATE MANAGER](https://github.com/AAAAAEXQOSyIpN2JZ0ehUQ/SSHPLUS-MANAGER-FREE/tree/master/Install/Generador)
 
 ## :octocat: Credits
 1. @E8th4ver - Developer of New-Ultimate

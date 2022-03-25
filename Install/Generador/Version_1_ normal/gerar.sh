@@ -3,6 +3,7 @@
 clear
 [[ -e /etc/newadm-instalacao ]] && BASICINST="$(cat /etc/newadm-instalacao)" || BASICINST="menu PGet.py ports.sh ADMbot.sh message.txt usercodes sockspy.sh POpen.py PPriv.py PPub.py PDirect.py speedtest.py speed.sh utils.sh dropbear.sh apacheon.sh openvpn.sh shadowsocks.sh ssl.sh squid.sh"
 IVAR="/etc/http-instas"
+IVAR2="/etc/key-gerador"
 BARRA="\033[1;36m--------------------------------------------------------------------\033[0m"
 echo -e "$BARRA"
 cat << EOF
@@ -11,6 +12,7 @@ cat << EOF
            INSTALACOES: $(cat $IVAR)
            
 EOF
+[[ -e $IVAR2 ]] && echo -e "\033[1;32mFIXKEY: $(cat $IVAR2)\033[0m"
 SCPT_DIR="/etc/SCRIPT"
 [[ ! -e ${SCPT_DIR} ]] && mkdir ${SCPT_DIR}
 INSTA_ARQUIVOS="ADMVPS.zip"
@@ -63,11 +65,11 @@ i=0
 VALUE+="gerar.sh instgerador.sh http-server.py $BASICINST"
 for arqx in `ls ${SCPT_DIR}`; do
 [[ $(echo $VALUE|grep -w "${arqx}") ]] && continue 
-echo -e "[$i] -> ${arqx}"
+echo -e "[$i] -> FERRAMENTA \033[1;31m${arqx}\033[0m"
 arq_list[$i]="${arqx}"
 let i++
 done
-echo -e "[b] -> \033[0;33mINSTALACAO ADM\033[0m"
+echo -e "[b] -> \033[1;33mINSTALACAO NEW-ADM\033[0m"
 read -p "Escolha os Arquivos a Serem Repassados: " readvalue
 #CRIA KEY
 [[ ! -e ${DIR}/${KEY} ]] && mkdir ${DIR}/${KEY}

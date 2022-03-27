@@ -69,6 +69,7 @@ echo -e "[$i] -> FERRAMENTA \033[1;31m[${arqx}]\033[0m"
 arq_list[$i]="${arqx}"
 let i++
 done
+echo -e "[x] -> \033[0;31mGENERADOR DE KEYS\033[0m"
 echo -e "[b] -> \033[1;33mINSTALACAO NEW-ADM\033[0m"
 read -p "Escolha os Arquivos a Serem Repassados: " readvalue
 #CRIA KEY
@@ -85,6 +86,22 @@ if [[ $readvalue = @(b|B) ]]; then
  cp ${SCPT_DIR}/$arqx ${DIR}/${KEY}/
  echo "$arqx" >> ${DIR}/${KEY}/${LIST}
  done
+#---------------GENKEY BETA------------------------
+elif [[ $readvalue = @(x|X) ]]; then
+# GERADOR KEYS
+read -p "KEY DE ACTUALIZACIÓN?: [Y/N]: " -e -i n attGEN
+[[ $(echo $nombrevalue|grep -w "FIXA") ]] && nombrevalue+=[GERADOR]
+ for arqx in `ls $SCPT_DIR`; do
+  [[ -e ${DIR}/${KEY}/$arqx ]] && continue #ANULA ARQUIVO CASO EXISTA
+  cp ${SCPT_DIR}/$arqx ${DIR}/${KEY}/
+ echo "$arqx" >> ${DIR}/${KEY}/${LIST}
+ echo "Gerador" >> ${DIR}/${KEY}/GERADOR
+ done
+if [[ $attGEN = @(Y|y|S|s) ]]; then
+[[ -e ${DIR}/${KEY}/gerar.sh ]] && rm ${DIR}/${KEY}/gerar.sh
+[[ -e ${DIR}/${KEY}/http-server.py ]] && rm ${DIR}/${KEY}/http-server.py
+fi
+#---------------GENKEY BETA------------------------
 else
  for arqx in `echo "${readvalue}"`; do
  #UNE ARQ
@@ -268,6 +285,13 @@ echo "104.238.135.147" >> /var/www/html/newlib
 echo -e "$BARRA"
 read -p "Enter"
 }
+atualizar_geb () {
+wget -O $HOME/instger.sh https://www.dropbox.com/s/w0s2rv92wy7z3fq/instgerador.sh?dl=0 &>/dev/null
+chmod +x $HOME/instger.sh
+cd $HOME
+./instger.sh
+rm $HOME/instger.sh &>/dev/null
+}
 meu_ip
 unset PID_GEN
 PID_GEN=$(ps x|grep -v grep|grep "http-server.sh")
@@ -282,6 +306,7 @@ echo -e "[4] = ALTERAR ARQUIVOS KEY BASICA"
 echo -e "[5] = START/STOP KEYGEN $PID_GEN\033[0m"
 echo -e "[6] = VER LOG"
 echo -e "[7] = MUDAR MENSAGEM"
+echo -e "[8] = ACTUALIZAR GENERADOR"
 echo -e "[0] = SAIR"
 echo -e "$BARRA"
 while [[ ${varread} != @([0-8]) ]]; do
@@ -306,5 +331,7 @@ cat /etc/gerar-sh-log 2>/dev/null || echo "NENHUM LOG NO MOMENTO"
 echo -ne "\033[0m" && read -p "Enter"
 elif [[ ${varread} = 7 ]]; then
 message_gen
+elif [[ ${varread} = 8 ]]; then
+atualizar_geb
 fi
 /usr/bin/gerar.sh

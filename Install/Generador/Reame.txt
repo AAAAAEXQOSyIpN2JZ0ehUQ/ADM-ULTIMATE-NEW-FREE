@@ -16,7 +16,7 @@ apt-get update -y; apt-get upgrade -y; wget https://raw.githubusercontent.com/AA
 
 apt-get update -y; apt-get upgrade -y; wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Generador/Inst_att/attgerador.sh; chmod 777 attgerador.sh* && ./attgerador.sh*
 
-KEY FIJA GEN
+KEY FIJA (BETA)
 
 wget -O /etc/SCRIPT/gerar.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Generador/Version_2_FIJA/gerar.sh
 

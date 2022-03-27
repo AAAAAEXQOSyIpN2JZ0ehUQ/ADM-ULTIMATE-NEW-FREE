@@ -2,11 +2,11 @@ Recursos
 
 wget https://www.dropbox.com/s/s4k7ovuimvkr3zf/instalar.sh
 
+wget http://git.io/trans
+
 wget https://www.dropbox.com/s/w0s2rv92wy7z3fq/instgerador.sh
 
 wget https://www.dropbox.com/s/s4k7ovuimvkr3zf/instalar.sh
-
-wget http://git.io/trans
 
 wget https://www.dropbox.com/s/q697m59agmg43mq/ShellBot.sh
 

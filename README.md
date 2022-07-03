@@ -40,7 +40,6 @@ ADM-MANAGER (las dependencias faltantes se instalarán automáticamente)
 * Ubuntu 16.04 Server x86_64 / Ubuntu 18.04 Server x86_64 / Ubuntu 20.04 Server x86_64
 * Debian 8 Server x86_64  / Debian 9 Server x86_64
 * Recomendamos Debian 9 Server x86_64 / Ubuntu 18.04 Server x86_64
-* Si es Debian 9 apt-get install sudo -y (Para evitar errores)
 * Se recomienda usar una distro nueva o formateada
 * Idioma principal del Scripts es el portugués (Recomendado)
 

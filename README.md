@@ -6,32 +6,34 @@
 
 # NEW-ULTIMATE MANAGER
 Es un script con un conjunto de características y herramientas adecuadas para 
-   ofrecer extrema facilidad de manejo en servidores Linux con un enfoque en el uso de 
-   VPN, tiene una interfaz agradable aportando información detallada sobre la máquina
-   y los usuarios ...
+ofrecer extrema facilidad de manejo en servidores Linux con un enfoque en el uso de 
+VPN, tiene una interfaz agradable aportando información detallada sobre la máquina
+y los usuarios...
 
 ## :book: Installation
-
-apt-get update -y; apt-get upgrade -y; wget --no-check-certificate https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/instalar.sh; chmod 777 instalar.sh* && ./instalar.sh*
+```
+apt-get update -y; 
+apt-get upgrade -y; 
+wget --no-check-certificate https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/instalar.sh; 
+chmod 777 instalar.sh* && ./instalar.sh*
 ```
 ADM-MANAGER (las dependencias faltantes se instalarán automáticamente)
-```
+
 ## :scroll: Changelog
 **VERSION: r7.0.8**
-
-* MELHORIAS OPENSSH
-* MELHORIAS WEBSOCKET
-* MELHORIAS MONITOR GLANCES
-* CORRECÃ•ES E MELHORIAS
+* Mejoras de opensh
+* Mejoras en el conector web
+* Mejoras en las miradas del monitor
+* Correcciones y mejoras
 
 ## :book: How it works
-* SSH coneccion.
-* Conecciones Dropbear, SSLTunnel4, OpenVPN, etc.
+* SSH conexión.
+* Conexiones Dropbear, SSLTunnel4, OpenVPN, etc.
 * Elimina y crea usuarios.
-* Monitor de coneccion online.
+* Monitor de conexión online.
 * Detalles de tu sistema y usuarios.
-* Herramientas de escaneo y busqueda.
-* Optimiza y limpia el sistema y mas.
+* Herramientas de escaneo y búsqueda.
+* Optimiza y limpia el sistema y más.
 
 ## :heavy_exclamation_mark: Requerimientos
 * Un sistema operativo basado en Linux (Ubuntu o Debian)
@@ -39,8 +41,8 @@ ADM-MANAGER (las dependencias faltantes se instalarán automáticamente)
 * Debian 8 Server x86_64  / Debian 9 Server x86_64
 * Si es Debian 9 apt-get install sudo -y (Para evitar errores)
 * Recomendamos Debian 9 Server x86_64 / Ubuntu 18.04 Server x86_64
-* Se recomienda usar una distro nueva o formatiada
-* Idioma principal del Scripts es el Portugues (Recomendado)
+* Se recomienda usar una distro nueva o formateada
+* Idioma principal del Scripts es el portugués (Recomendado)
 
 ## :book: Opcional
 1. Descargar Codigo Fuente [Donwload](https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Source-Code-ADM-Manager_Ultimate.zip.zip)

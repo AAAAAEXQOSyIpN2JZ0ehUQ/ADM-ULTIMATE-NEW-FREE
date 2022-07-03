@@ -39,16 +39,16 @@ ADM-MANAGER (las dependencias faltantes se instalarán automáticamente)
 * Un sistema operativo basado en Linux (Ubuntu o Debian)
 * Ubuntu 16.04 Server x86_64 / Ubuntu 18.04 Server x86_64 / Ubuntu 20.04 Server x86_64
 * Debian 8 Server x86_64  / Debian 9 Server x86_64
-* Si es Debian 9 apt-get install sudo -y (Para evitar errores)
 * Recomendamos Debian 9 Server x86_64 / Ubuntu 18.04 Server x86_64
+* Si es Debian 9 apt-get install sudo -y (Para evitar errores)
 * Se recomienda usar una distro nueva o formateada
 * Idioma principal del Scripts es el portugués (Recomendado)
 
-## :book: Opcional
-1. Descargar Codigo Fuente [Donwload](https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Source-Code-ADM-Manager_Ultimate.zip.zip)
+## :book: Optional Utilities
+1. Descargar Código Fuente [Donwload](https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Source-Code-ADM-Manager_Ultimate.zip.zip)
 
-## :book: Installation Utilitarios
-1. [GENERADOR DE KEY ORIGINAL SOURCE CODE NEW-ULTIMATE MANAGER](https://github.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/tree/master/Install/Generador)
+## :book: Installation Utilities
+1. [GENERADOR NEW-ULTIMATE MANAGER](https://github.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/tree/master/Install/Generador)
 
 ## :octocat: Credits
 1. @E8th4ver - Developer of New-Ultimate

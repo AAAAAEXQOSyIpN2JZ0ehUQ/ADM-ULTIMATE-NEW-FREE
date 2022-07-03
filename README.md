@@ -22,8 +22,8 @@ ADM-MANAGER (las dependencias faltantes se instalarán automáticamente)
 ## :scroll: Changelog
 **VERSION: r7.0.8**
 * Mejoras de opensh
-* Mejoras en el conector web
-* Mejoras en las miradas del monitor
+* Mejoras de websocket
+* Mejoras de monitor glances
 * Correcciones y mejoras
 
 ## :book: How it works

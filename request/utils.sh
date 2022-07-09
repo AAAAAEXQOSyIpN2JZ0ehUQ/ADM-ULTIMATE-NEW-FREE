@@ -271,11 +271,11 @@ squid_password () {
 #IDIOMA AND TEXTO
 txt[323]="AUTENTICACIÃ“N DE PROXY SQUID"
 txt[324]="Erro ao gerar senha, a autenticacao do squid nao foi iniciada!"
-txt[325]="AUTENTICACAO DO LIQUIDO DE PROXY INICIADO."
+txt[325]="AUTENTICACAO DO PROXY SQUID INICIADO."
 txt[326]="Proxy squid nao instalado, nao pode continuar."
-txt[327]="AUTENTICACAO DO LÍQUIDO DE PROXY DESACTIVADO."
+txt[327]="AUTENTICACAO DO PROXY SQUID DESACTIVADO."
 txt[328]="O usuário nao pode ser nulo."
-txt[329]="Voco quer habilitar a autenticacao de proxy do squid?"
+txt[329]="Voce quer habilitar a autenticacao de proxy do squid?"
 txt[330]="Deseja desativar a autenticacao do proxy do squid?"
 txt[331]="SU IP:"
 #FUNCAO AGUARDE
@@ -345,9 +345,8 @@ echo -e "
 http_access allow all" >> "$config_"
 rm -f $pwd
 service $service_ restart  > /dev/null 2>&1 &
-echo -e " \033[1;31m${txt[327]}"
+echo -e " \033[1;33m${txt[327]}"
 [[ -e /etc/prosquidAU-adm  ]] && rm /etc/prosquidAU-adm
-msg -bar
 } 
 else
 echo -e "${cor[3]} "${txt[329]}""
@@ -394,9 +393,8 @@ service squid3 restart > /dev/null 2>&1 &
 update-rc.d squid3 defaults > /dev/null 2>&1 &
 fi
 msg -bar
-[[ -e /etc/prosquidAU-adm  ]] && touch /etc/prosquidAU-adm
-echo -e " \033[1;32m${txt[325]}"
-## msg -bar
+touch /etc/prosquidAU-adm
+echo -e " \033[1;33m${txt[325]}"
 fi
 }
 fi

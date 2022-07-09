@@ -418,11 +418,9 @@ echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "TCPSPEED") $tcp"
 echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "TORRENT") $torrent"
 echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "AUTENPROXY SQUID") $prosquidAU"
-# echo -ne "\033[1;32m [x] > " && msg -azu "$(fun_trans "BADVPN") $badvpn"
-# echo -ne "\033[1;32m [x] > " && msg -azu "$(fun_trans "CACHE DO SQUID") $squid"
 msg -bar
 while [[ ${arquivoonlineadm} != @(0|[1-3]) ]]; do
-read -p "[0-2]: " arquivoonlineadm
+read -p "[0-3]: " arquivoonlineadm
 tput cuu1 && tput dl1
 done
 case $arquivoonlineadm in

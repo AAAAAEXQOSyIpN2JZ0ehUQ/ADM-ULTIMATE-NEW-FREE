@@ -20,7 +20,7 @@ chmod 777 instalar.sh* && ./instalar.sh*
 ADM-MANAGER (las dependencias faltantes se instalarán automáticamente)
 
 ## :scroll: Changelog
-**VERSION: r7.0.8**
+**VERSION: r7.1.0**
 * Mejoras de opensh
 * Mejoras de websocket
 * Mejoras de monitor glances

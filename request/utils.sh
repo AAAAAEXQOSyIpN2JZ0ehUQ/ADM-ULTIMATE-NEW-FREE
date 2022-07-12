@@ -96,42 +96,6 @@ msg -ama "$(fun_trans "TCP Parado Com Sucesso")!"
 fi
 }
 
-SquidCACHE () {
-msg -ama "$(fun_trans "Squid Cache, Aplica cache no squid")"
-msg -ama "$(fun_trans "melhora a velocidade do squid")"
-msg -bar
-if [ -e /etc/squid/squid.conf ]; then
-squid_var="/etc/squid/squid.conf"
-elif [ -e /etc/squid3/squid.conf ]; then
-squid_var="/etc/squid3/squid.conf"
-else
-msg -ama "$(fun_trans "Seu sistema nao possui um squid")!" && return 1
-fi
-teste_cache="#CACHE DO SQUID"
-if [[ `grep -c "^$teste_cache" $squid_var` -gt 0 ]]; then
-  [[ -e ${squid_var}.bakk ]] && {
-  msg -ama "$(fun_trans "Cache squid identificado, removendo")!"
-  mv -f ${squid_var}.bakk $squid_var
-  msg -ama "$(fun_trans "cache squid removido")!"
-  service squid restart > /dev/null 2>&1 &
-  service squid3 restart > /dev/null 2>&1 &
-  return 0
-  }
-fi
-msg -ama "$(fun_trans "Aplicando Cache Squid")!"
-msg -bar
-_tmp="#CACHE DO SQUID\ncache_mem 200 MB\nmaximum_object_size_in_memory 32 KB\nmaximum_object_size 1024 MB\nminimum_object_size 0 KB\ncache_swap_low 90\ncache_swap_high 95"
-[[ "$squid_var" = "/etc/squid/squid.conf" ]] && _tmp+="\ncache_dir ufs /var/spool/squid 100 16 256\naccess_log /var/log/squid/access.log squid" || _tmp+="\ncache_dir ufs /var/spool/squid3 100 16 256\naccess_log /var/log/squid3/access.log squid"
-while read s_squid; do
-[[ "$s_squid" != "cache deny all" ]] && _tmp+="\n${s_squid}"
-done < $squid_var
-cp ${squid_var} ${squid_var}.bakk
-echo -e "${_tmp}" > $squid_var
-msg -ama "$(fun_trans "Cache Aplicado Com Sucesso")!"
-service squid restart > /dev/null 2>&1 &
-service squid3 restart > /dev/null 2>&1 &
-}
-
 block_torrent () {
  arq="/etc/torrent-adm"
  fun_fireoff () {
@@ -262,149 +226,46 @@ msg -bar
 msg -ama " $(fun_trans "Seu Torrent foi Aplicado com sucesso")"
 }
 
-squid_password () {
-####_Eliminar_Tmps_####
-[[ -e $_tmp ]] && rm $_tmp
-[[ -e $_tmp2 ]] && rm $_tmp2
-[[ -e $_tmp3 ]] && rm $_tmp3
-[[ -e $_tmp4 ]] && rm $_tmp4
-#IDIOMA AND TEXTO
-txt[323]="AUTENTICACIÃ“N DE PROXY SQUID"
-txt[324]="Erro ao gerar senha, a autenticacao do squid nao foi iniciada!"
-txt[325]="AUTENTICACAO DO PROXY SQUID INICIADO."
-txt[326]="Proxy squid nao instalado, nao pode continuar."
-txt[327]="AUTENTICACAO DO PROXY SQUID DESACTIVADO."
-txt[328]="O usuário nao pode ser nulo."
-txt[329]="Voce quer habilitar a autenticacao de proxy do squid?"
-txt[330]="Deseja desativar a autenticacao do proxy do squid?"
-txt[331]="SU IP:"
-#FUNCAO AGUARDE
-fun_bar () {
-comando[0]="$1"
-comando[1]="$2"
- (
-[[ -e $HOME/fim ]] && rm $HOME/fim
-${comando[0]} -y > /dev/null 2>&1
-${comando[1]} -y > /dev/null 2>&1
-touch $HOME/fim
- ) > /dev/null 2>&1 &
-echo -ne "\033[1;33m ["
-while true; do
-   for((i=0; i<18; i++)); do
-   echo -ne "\033[1;31m##"
-   sleep 0.1s
-   done
-   [[ -e $HOME/fim ]] && rm $HOME/fim && break
-   echo -e "\033[1;33m]"
-   sleep 1s
-   tput cuu1
-   tput dl1
-   echo -ne "\033[1;33m ["
-done
-echo -e "\033[1;33m]\033[1;31m -\033[1;32m 100%\033[1;37m"
-}
-####_SQUIDPROXY_####
-tmp_arq="/tmp/arq-tmp"
-if [ -d "/etc/squid" ]; then
-pwd="/etc/squid/passwd"
-config_="/etc/squid/squid.conf"
-service_="squid"
-squid_="0"
-elif [ -d "/etc/squid3" ]; then
-pwd="/etc/squid3/passwd"
-config_="/etc/squid3/squid.conf"
-service_="squid3"
-squid_="1"
-fi
-[[ ! -e $config_ ]] && 
-## msg -bar && 
-echo -e " \033[1;36m${txt[326]}" && 
-## msg -bar && 
-return 0
-if [ -e $pwd ]; then 
-echo -e "${cor[3]} "${txt[330]}""
-read -p " [S/N]: " -e -i n sshsn
-[[ "$sshsn" = @(s|S|y|Y) ]] && {
+SquidCACHE () {
+msg -ama "$(fun_trans "Squid Cache, Aplica cache no squid")"
+msg -ama "$(fun_trans "melhora a velocidade do squid")"
 msg -bar
-echo -e " \033[1;36mUninstalling DEPENDENCE:"
-fun_bar 'apt-get remove apache2-utils'
-msg -bar
-cat $config_ | grep -v '#Password' > $tmp_arq
-mv -f $tmp_arq $config_ 
-cat $config_ | grep -v '^auth_param.*passwd*$' > $tmp_arq
-mv -f $tmp_arq $config_ 
-cat $config_ | grep -v '^auth_param.*proxy*$' > $tmp_arq
-mv -f $tmp_arq $config_ 
-cat $config_ | grep -v '^acl.*REQUIRED*$' > $tmp_arq
-mv -f $tmp_arq $config_ 
-cat $config_ | grep -v '^http_access.*authenticated*$' > $tmp_arq
-mv -f $tmp_arq $config_ 
-cat $config_ | grep -v '^http_access.*all*$' > $tmp_arq
-mv -f $tmp_arq $config_ 
-echo -e "
-http_access allow all" >> "$config_"
-rm -f $pwd
-service $service_ restart  > /dev/null 2>&1 &
-echo -e " \033[1;33m${txt[327]}"
-[[ -e /etc/prosquidAU-adm  ]] && rm /etc/prosquidAU-adm
-} 
+if [ -e /etc/squid/squid.conf ]; then
+squid_var="/etc/squid/squid.conf"
+elif [ -e /etc/squid3/squid.conf ]; then
+squid_var="/etc/squid3/squid.conf"
 else
-echo -e "${cor[3]} "${txt[329]}""
-read -p " [S/N]: " -e -i n sshsn
-[[ "$sshsn" = @(s|S|y|Y) ]] && {
+msg -ama "$(fun_trans "Seu sistema nao possui um squid")!" && return 1
+fi
+teste_cache="#CACHE DO SQUID"
+if [[ `grep -c "^$teste_cache" $squid_var` -gt 0 ]]; then
+  [[ -e ${squid_var}.bakk ]] && {
+  msg -ama "$(fun_trans "Cache squid identificado, removendo")!"
+  mv -f ${squid_var}.bakk $squid_var
+  msg -ama "$(fun_trans "cache squid removido")!"
+  service squid restart > /dev/null 2>&1 &
+  service squid3 restart > /dev/null 2>&1 &
+  return 0
+  }
+fi
+msg -ama "$(fun_trans "Aplicando Cache Squid")!"
 msg -bar
-echo -e " \033[1;36mInstalling DEPENDENCE:"
-fun_bar 'apt-get install apache2-utils'
-msg -bar
-read -e -p " Your desired username: " usrn
-[[ $usrn = "" ]] && 
-msg -bar && 
-echo -e " \033[1;31m${txt[328]}" && 
-msg -bar && 
-return 0
-htpasswd -c $pwd $usrn
-succes_=$(grep -c "$usrn" $pwd)
-if [ "$succes_" = "0" ]; then
-rm -f $pwd
-msg -bar
-echo -e " \033[1;31m${txt[324]}"
-## msg -bar
-return 0
-elif [[ "$succes_" = "1" ]]; then
-cat $config_ | grep -v '^http_access.*all*$' > $tmp_arq
-mv -f $tmp_arq $config_ 
-if [ "$squid_" = "0" ]; then
-echo -e "#Password
-auth_param basic program /usr/lib/squid/basic_ncsa_auth /etc/squid/passwd
-auth_param basic realm proxy
-acl authenticated proxy_auth REQUIRED
-http_access allow authenticated
-http_access deny all" >> "$config_"
-service squid restart  > /dev/null 2>&1 &
-update-rc.d squid defaults > /dev/null 2>&1 &
-elif [ "$squid_" = "1" ]; then
-echo -e "#Password
-auth_param basic program /usr/lib/squid3/basic_ncsa_auth /etc/squid3/passwd
-auth_param basic realm proxy
-acl authenticated proxy_auth REQUIRED
-http_access allow authenticated
-http_access deny all" >> "$config_"
+_tmp="#CACHE DO SQUID\ncache_mem 200 MB\nmaximum_object_size_in_memory 32 KB\nmaximum_object_size 1024 MB\nminimum_object_size 0 KB\ncache_swap_low 90\ncache_swap_high 95"
+[[ "$squid_var" = "/etc/squid/squid.conf" ]] && _tmp+="\ncache_dir ufs /var/spool/squid 100 16 256\naccess_log /var/log/squid/access.log squid" || _tmp+="\ncache_dir ufs /var/spool/squid3 100 16 256\naccess_log /var/log/squid3/access.log squid"
+while read s_squid; do
+[[ "$s_squid" != "cache deny all" ]] && _tmp+="\n${s_squid}"
+done < $squid_var
+cp ${squid_var} ${squid_var}.bakk
+echo -e "${_tmp}" > $squid_var
+msg -ama "$(fun_trans "Cache Aplicado Com Sucesso")!"
+service squid restart > /dev/null 2>&1 &
 service squid3 restart > /dev/null 2>&1 &
-update-rc.d squid3 defaults > /dev/null 2>&1 &
-fi
-msg -bar
-touch /etc/prosquidAU-adm
-echo -e " \033[1;33m${txt[325]}"
-fi
-}
-fi
 }
 
 on="\033[1;32mon" && off="\033[1;31moff"
 [[ $(ps x | grep badvpn | grep -v grep | awk '{print $1}') ]] && badvpn=$on || badvpn=$off
 [[ `grep -c "^#ADM" /etc/sysctl.conf` -eq 0 ]] && tcp=$off || tcp=$on
 [[ -e /etc/torrent-adm ]] && torrent=$(echo -e "\033[1;32mon ") || torrent=$(echo -e "\033[1;31moff ")
-[[ -e /etc/prosquidAU-adm ]] && prosquidAU=$(echo -e "\033[1;32mon ") || prosquidAU=$(echo -e "\033[1;31moff ")
 if [ -e /etc/squid/squid.conf ]; then
 [[ `grep -c "^#CACHE DO SQUID" /etc/squid/squid.conf` -gt 0 ]] && squid=$on || squid=$off
 elif [ -e /etc/squid3/squid.conf ]; then
@@ -415,16 +276,14 @@ msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "TCPSPEED") $tcp"
 echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "TORRENT") $torrent"
-echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "AUTENPROXY SQUID") $prosquidAU"
 msg -bar
-while [[ ${arquivoonlineadm} != @(0|[1-3]) ]]; do
-read -p "[0-3]: " arquivoonlineadm
+while [[ ${arquivoonlineadm} != @(0|[1-2]) ]]; do
+read -p "[0-2]: " arquivoonlineadm
 tput cuu1 && tput dl1
 done
 case $arquivoonlineadm in
 1)TCPspeed;;
 2)block_torrent;;
-3)squid_password;;
 0)exit;;
 esac
 msg -bar

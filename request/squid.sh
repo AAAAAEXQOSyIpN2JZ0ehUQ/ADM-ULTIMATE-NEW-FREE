@@ -4,6 +4,7 @@ SCPdir="/etc/newadm" && [[ ! -d ${SCPdir} ]] && exit 1
 SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
+
 #LISTA PORTAS
 mportas () {
 unset portas
@@ -15,6 +16,7 @@ done <<< "$portas_var"
 i=1
 echo -e "$portas"
 }
+
 port () {
 local portas
 local portas_var=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
@@ -28,11 +30,13 @@ var1=$(echo $port | awk '{print $1}') && var2=$(echo $port | awk '{print $9}' | 
     }
 done <<< "$portas_var"
 }
+
 verify_port () {
 local SERVICE="$1"
 local PORTENTRY="$2"
 [[ ! $(echo -e $(port|grep -v ${SERVICE})|grep -w "$PORTENTRY") ]] && return 0 || return 1
 }
+
 fun_ip () {
 if [[ -e /etc/MEUIPADM ]]; then
 IP="$(cat /etc/MEUIPADM)"
@@ -43,6 +47,7 @@ MEU_IP2=$(wget -qO- ipv4.icanhazip.com)
 echo "$MEU_IP2" > /etc/MEUIPADM
 fi
 }
+
 fun_bar () {
 comando[0]="$1"
 comando[1]="$2"
@@ -263,6 +268,7 @@ for ufww in $(mportas|awk '{print $2}'); do
 ufw allow $ufww > /dev/null 2>&1
 done
 }
+
 addhost () {
 msg -ama " $(fun_trans "Hos_ts Atuais Dentro do Squid")"
 msg -bar
@@ -293,6 +299,7 @@ service squid restart > /dev/null 2>&1
 fi	
 return 0
 }
+
 removehost () {
 echo -e "${cor[4]} $(fun_trans "Hos_ts Atuais Dentro do Squ_id")"
 msg -bar 
@@ -323,6 +330,7 @@ service squid restart > /dev/null 2>&1
 fi	
 return 0
 }
+
 SquidCACHE () {
 if [ -e /etc/squid/squid.conf ]; then
 squid_var="/etc/squid/squid.conf"
@@ -366,6 +374,7 @@ msg -ama "$(fun_trans "Cache Aplicado Com Sucesso")!"
 msg -bar	
 return 0
 }
+
 edit_squid () {
 msg -ama " $(fun_trans "Escolha As Portas Em Ordem Sequencial")"
 msg -ama " $(fun_trans "Exemplo: 80 8080 8799 3128")"
@@ -404,6 +413,7 @@ msg -bar
 msg -azu "$(fun_trans "PORTAS REDEFINIDAS")"
 msg -bar
 }
+
 mine_port () {
 local portasVAR=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
 local NOREPEAT
@@ -422,6 +432,146 @@ esac
 done <<< "${portasVAR}"
 [[ ! -z $SQD ]] && echo -e $SQD
 }
+
+squid_password () {
+#FUNCAO AGUARDE
+fun_bar () {
+comando[0]="$1"
+comando[1]="$2"
+ (
+[[ -e $HOME/fim ]] && rm $HOME/fim
+${comando[0]} -y > /dev/null 2>&1
+${comando[1]} -y > /dev/null 2>&1
+touch $HOME/fim
+ ) > /dev/null 2>&1 &
+echo -ne "\033[1;33m ["
+while true; do
+   for((i=0; i<18; i++)); do
+   echo -ne "\033[1;31m##"
+   sleep 0.1s
+   done
+   [[ -e $HOME/fim ]] && rm $HOME/fim && break
+   echo -e "\033[1;33m]"
+   sleep 1s
+   tput cuu1
+   tput dl1
+   echo -ne "\033[1;33m ["
+done
+echo -e "\033[1;33m]\033[1;31m -\033[1;32m 100%\033[1;37m"
+}
+#IDIOMA AND TEXTO
+txt[323]="AUTENTICACIÓN DE PROXY SQUID"
+txt[324]="Erro ao gerar senha, a autenticacao do squid nao foi iniciada!"
+txt[325]="AUTENTICACAO DO PROXY SQUID INICIADO."
+txt[326]="Proxy squid nao instalado, nao pode continuar."
+txt[327]="AUTENTICACAO DO PROXY SQUID DESACTIVADO."
+txt[328]="O usu�rio nao pode ser nulo."
+txt[329]="Voce quer habilitar a autenticacao de proxy do squid?"
+txt[330]="Deseja desativar a autenticacao do proxy do squid?"
+txt[331]="SU IP:"
+####_Eliminar_Tmps_####
+[[ -e $_tmp ]] && rm $_tmp
+[[ -e $_tmp2 ]] && rm $_tmp2
+[[ -e $_tmp3 ]] && rm $_tmp3
+[[ -e $_tmp4 ]] && rm $_tmp4
+####_SQUIDPROXY_####
+tmp_arq="/tmp/arq-tmp"
+if [ -d "/etc/squid" ]; then
+pwd="/etc/squid/passwd"
+config_="/etc/squid/squid.conf"
+service_="squid"
+squid_="0"
+elif [ -d "/etc/squid3" ]; then
+pwd="/etc/squid3/passwd"
+config_="/etc/squid3/squid.conf"
+service_="squid3"
+squid_="1"
+fi
+[[ ! -e $config_ ]] && 
+## msg -bar && 
+echo -e " \033[1;36m${txt[326]}" && 
+## msg -bar && 
+return 0
+if [ -e $pwd ]; then 
+echo -e "${cor[3]} "${txt[330]}""
+read -p " [S/N]: " -e -i n sshsn
+[[ "$sshsn" = @(s|S|y|Y) ]] && {
+msg -bar
+echo -e " \033[1;36mUninstalling DEPENDENCE:"
+fun_bar 'apt-get remove apache2-utils'
+msg -bar
+cat $config_ | grep -v '#Password' > $tmp_arq
+mv -f $tmp_arq $config_ 
+cat $config_ | grep -v '^auth_param.*passwd*$' > $tmp_arq
+mv -f $tmp_arq $config_ 
+cat $config_ | grep -v '^auth_param.*proxy*$' > $tmp_arq
+mv -f $tmp_arq $config_ 
+cat $config_ | grep -v '^acl.*REQUIRED*$' > $tmp_arq
+mv -f $tmp_arq $config_ 
+cat $config_ | grep -v '^http_access.*authenticated*$' > $tmp_arq
+mv -f $tmp_arq $config_ 
+cat $config_ | grep -v '^http_access.*all*$' > $tmp_arq
+mv -f $tmp_arq $config_ 
+echo -e "
+http_access allow all" >> "$config_"
+rm -f $pwd
+service $service_ restart  > /dev/null 2>&1 &
+echo -e " \033[1;33m${txt[327]}"
+[[ -e /etc/prosquidAU-adm  ]] && rm /etc/prosquidAU-adm
+} 
+else
+echo -e "${cor[3]} "${txt[329]}""
+read -p " [S/N]: " -e -i n sshsn
+[[ "$sshsn" = @(s|S|y|Y) ]] && {
+msg -bar
+echo -e " \033[1;36mInstalling DEPENDENCE:"
+fun_bar 'apt-get install apache2-utils'
+msg -bar
+read -e -p " Your desired username: " usrn
+[[ $usrn = "" ]] && 
+msg -bar && 
+echo -e " \033[1;31m${txt[328]}" && 
+msg -bar && 
+return 0
+htpasswd -c $pwd $usrn
+succes_=$(grep -c "$usrn" $pwd)
+if [ "$succes_" = "0" ]; then
+rm -f $pwd
+msg -bar
+echo -e " \033[1;31m${txt[324]}"
+## msg -bar
+return 0
+elif [[ "$succes_" = "1" ]]; then
+cat $config_ | grep -v '^http_access.*all*$' > $tmp_arq
+mv -f $tmp_arq $config_ 
+if [ "$squid_" = "0" ]; then
+echo -e "#Password
+auth_param basic program /usr/lib/squid/basic_ncsa_auth /etc/squid/passwd
+auth_param basic realm proxy
+acl authenticated proxy_auth REQUIRED
+http_access allow authenticated
+http_access deny all" >> "$config_"
+service squid restart  > /dev/null 2>&1 &
+update-rc.d squid defaults > /dev/null 2>&1 &
+elif [ "$squid_" = "1" ]; then
+echo -e "#Password
+auth_param basic program /usr/lib/squid3/basic_ncsa_auth /etc/squid3/passwd
+auth_param basic realm proxy
+acl authenticated proxy_auth REQUIRED
+http_access allow authenticated
+http_access deny all" >> "$config_"
+service squid3 restart > /dev/null 2>&1 &
+update-rc.d squid3 defaults > /dev/null 2>&1 &
+fi
+msg -bar
+touch /etc/prosquidAU-adm
+echo -e " \033[1;33m${txt[325]}"
+fi
+}
+fi
+msg -bar
+}
+
 online_squid () {
 payload="/etc/payloads"
 on="\033[1;32mOnline" && off="\033[1;31mOffline"
@@ -430,6 +580,7 @@ if [ -e /etc/squid/squid.conf ]; then
 elif [ -e /etc/squid3/squid.conf ]; then
 [[ `grep -c "^#CACHE DO SQUID" /etc/squid3/squid.conf` -gt 0 ]] && squid=$on || squid=$off
 fi
+[[ -e /etc/prosquidAU-adm ]] && prosquidAU=$(echo -e "\033[1;32mon ") || prosquidAU=$(echo -e "\033[1;31moff ")
 msg -azu " $(fun_trans "CONFIGURAÇÃO DE SQUID*")"
 mine_port
 msg -bar
@@ -440,10 +591,11 @@ echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "Editar Cliente Host do SQ
 echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "Cache do Squid") $squid"
 echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "Editar Cliente SQUID") \033[1;31m(comand nano)"
 echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "Redefinir Portas Squid")"
-echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "Desinstalar o Squid")"
+echo -ne "\033[1;32m [7] > " && msg -azu "$(fun_trans "Autenticacao de Proxy do Squid") $prosquidAU"
+echo -ne "\033[1;32m [8] > " && msg -azu "$(fun_trans "Desinstalar o Squid")"
 msg -bar
-while [[ ${arquivoonlineadm} != @(0|[1-7]) ]]; do
-read -p "[0-7]: " arquivoonlineadm
+while [[ ${arquivoonlineadm} != @(0|[1-8]) ]]; do
+read -p "[0-8]: " arquivoonlineadm
 tput cuu1 && tput dl1
 done
 case $arquivoonlineadm in
@@ -462,7 +614,8 @@ case $arquivoonlineadm in
    fi
    return 0;;
 6)edit_squid;;
-7)fun_squid;;
+7)squid_password;;
+8)fun_squid;;
 esac
 }
 if [[ -e /etc/squid/squid.conf ]]; then

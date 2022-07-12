@@ -5,6 +5,31 @@ SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 
+fun_bar () {
+comando[0]="$1"
+comando[1]="$2"
+ (
+[[ -e $HOME/fim ]] && rm $HOME/fim
+${comando[0]} -y > /dev/null 2>&1
+${comando[1]} -y > /dev/null 2>&1
+touch $HOME/fim
+ ) > /dev/null 2>&1 &
+echo -ne "\033[1;33m ["
+while true; do
+   for((i=0; i<10; i++)); do
+   echo -ne "\033[1;31m##"
+   sleep 0.1s
+   done
+   [[ -e $HOME/fim ]] && rm $HOME/fim && break
+   echo -e "\033[1;33m]"
+   sleep 1s
+   tput cuu1
+   tput dl1
+   echo -ne "\033[1;33m ["
+done
+echo -e "\033[1;33m]\033[1;31m -\033[1;32m 100%\033[1;37m"
+}
+
 port () {
 local portas
 local portas_var=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
@@ -36,7 +61,49 @@ echo "$MEU_IP2" > /etc/MEUIPADM
 fi
 }
 
+permissao_root () {
+# Pequeno script para permissao de autenticacao root
+[[ "$(whoami)" != "root" ]] && {
+	clear
+	echo -e "\033[1;31mEXECULTE COMO USUARIO ROOT, \033[1;32m(\033[1;33msudo -i\033[1;32m)\033[0m"
+	sleep 3s
+	return 0
+}
+[[ $(grep -c "prohibit-password" /etc/ssh/sshd_config) != '0' ]] && {
+	sed -i "s/prohibit-password/yes/g" /etc/ssh/sshd_config
+} > /dev/null
+[[ $(grep -c "without-password" /etc/ssh/sshd_config) != '0' ]] && {
+	sed -i "s/without-password/yes/g" /etc/ssh/sshd_config
+} > /dev/null
+[[ $(grep -c "#PermitRootLogin" /etc/ssh/sshd_config) != '0' ]] && {
+	sed -i "s/#PermitRootLogin/PermitRootLogin/g" /etc/ssh/sshd_config
+} > /dev/null
+[[ $(grep -c "PasswordAuthentication" /etc/ssh/sshd_config) = '0' ]] && {
+	echo 'PasswordAuthentication yes' > /etc/ssh/sshd_config
+} > /dev/null
+[[ $(grep -c "PasswordAuthentication no" /etc/ssh/sshd_config) != '0' ]] && {
+	sed -i "s/PasswordAuthentication no/PasswordAuthentication yes/g" /etc/ssh/sshd_config
+} > /dev/null
+[[ $(grep -c "#PasswordAuthentication no" /etc/ssh/sshd_config) != '0' ]] && {
+	sed -i "s/#PasswordAuthentication no/PasswordAuthentication yes/g" /etc/ssh/sshd_config
+} > /dev/null
+service ssh restart > /dev/null
+iptables -F
+iptables -A INPUT -p tcp --dport 81 -j ACCEPT
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+iptables -A INPUT -p tcp --dport 8799 -j ACCEPT
+iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
+iptables -A INPUT -p tcp --dport 1194 -j ACCEPT
+}
+
 opssh_fun () {
+[[ "$(whoami)" != "root" ]] && {
+	clear
+	echo -e "\033[1;31mEXECULTE COMO USUARIO ROOT, \033[1;32m(\033[1;33msudo -i\033[1;32m)\033[0m"
+	sleep 3s
+	return 0
+}
 msg -verd " $(fun_trans "OPENSSH AUTO-CONFIGURAÇAO")"
 msg -bar
 fun_ip
@@ -45,48 +112,16 @@ msg -bar
 msg -ama " $(fun_trans "AUTO CONFIGURAÇAO")"
 msg -bar
 #Inicia Procedimentos
-fun_aplicaroot () {
-apt-get update -y
-apt-get upgrade -y
-service ssh restart
+echo -ne " \033[1;31m[ ! ] apt-get update"
+apt-get update -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+echo -ne " \033[1;31m[ ! ] apt-get upgrade"
+apt-get upgrade -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+msg -bar
 cp /etc/ssh/sshd_config /etc/ssh/sshd_back
-[[ $(grep -c "prohibit-password" /etc/ssh/sshd_config) != '0' ]] && {
-	sed -i "s/prohibit-password/yes/g" /etc/ssh/sshd_config
-}
-[[ $(grep -c "without-password" /etc/ssh/sshd_config) != '0' ]] && {
-	sed -i "s/without-password/yes/g" /etc/ssh/sshd_config
-}
-[[ $(grep -c "#PermitRootLogin" /etc/ssh/sshd_config) != '0' ]] && {
-	sed -i "s/#PermitRootLogin/PermitRootLogin/g" /etc/ssh/sshd_config
-}
-[[ $(grep -c "PasswordAuthentication" /etc/ssh/sshd_config) = '0' ]] && {
-	echo 'PasswordAuthentication yes' > /etc/ssh/sshd_config
-}
-[[ $(grep -c "PasswordAuthentication no" /etc/ssh/sshd_config) != '0' ]] && {
-	sed -i "s/PasswordAuthentication no/PasswordAuthentication yes/g" /etc/ssh/sshd_config
-}
-[[ $(grep -c "#PasswordAuthentication no" /etc/ssh/sshd_config) != '0' ]] && {
-	sed -i "s/#PasswordAuthentication no/PasswordAuthentication yes/g" /etc/ssh/sshd_config
-}
-service ssh restart
-iptables -F
-iptables -A INPUT -p tcp --dport 81 -j ACCEPT
-iptables -A INPUT -p tcp --dport 80 -j ACCEPT
-iptables -A INPUT -p tcp --dport 443 -j ACCEPT
-iptables -A INPUT -p tcp --dport 8799 -j ACCEPT
-iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
-iptables -A INPUT -p tcp --dport 1194 -j ACCEPT
-}
-fun_bar "fun_aplicaroot"
-msg -bar
+fun_bar "permissao_root"
 # SERVICE SSH
-echo -ne " \033[1;31m[ ! ] Services ssh restart"
 service ssh restart > /dev/null 2>&1
-[[ -e /etc/init.d/ssh ]] && /etc/init.d/ssh restart > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-msg -bar
-## echo -e "\033[1;31m $(fun_trans "Senha Atual Root") : \033[1;32m$pass"
-echo -e "\033[1;31m $(fun_trans "Permissoes de usuario root") \033[1;32m[OK]"
-echo -e "\033[1;31m $(fun_trans "Ruta sshd") > \033[1;31m[ \033[1;32m/etc/ssh/sshd_config \033[1;31m]"
+/etc/init.d/ssh restart > /dev/null 2>&1
 msg -bar
 msg -ama " $(fun_trans "Seu Openssh foi configurado com sucesso")"
 msg -bar
@@ -94,22 +129,30 @@ return 0
 }
 
 download_ssh () {
+[[ "$(whoami)" != "root" ]] && {
+	clear
+	echo -e "\033[1;31mEXECULTE COMO USUARIO ROOT, \033[1;32m(\033[1;33msudo -i\033[1;32m)\033[0m"
+	sleep 3s
+	return 0
+}
 msg -verd " $(fun_trans "OPENSSH DOWNLOAD-CONFIGURAÇAO")"
 msg -bar
 fun_ip
 msg -ne " $(fun_trans "Confirme seu ip")"; read -p ": " -e -i $IP ip
 msg -bar
-msg -ama " $(fun_trans "DOWNLOAD CONFIGURAÇAO")"
+msg -ama " $(fun_trans "DOWNLOAD CONFIGURAÇAO - PORTA 22 PADRAO")"
 msg -bar
 #Inicia Procedimentos
-fun_aplicaroot () {
-apt-get update -y
-apt-get upgrade -y
-service ssh restart
+echo -ne " \033[1;31m[ ! ] apt-get update"
+apt-get update -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+echo -ne " \033[1;31m[ ! ] apt-get upgrade"
+apt-get upgrade -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
 cp /etc/ssh/sshd_config /etc/ssh/sshd_back
+msg -bar
+fun_aplicadownload () {
 wget -O /etc/ssh/sshd_config https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/sshd_config
 chmod +x /etc/ssh/sshd_config
-service ssh restart
+service ssh restart > /dev/null
 iptables -F
 iptables -A INPUT -p tcp --dport 81 -j ACCEPT
 iptables -A INPUT -p tcp --dport 80 -j ACCEPT
@@ -118,17 +161,11 @@ iptables -A INPUT -p tcp --dport 8799 -j ACCEPT
 iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
 iptables -A INPUT -p tcp --dport 1194 -j ACCEPT
 }
-fun_bar "fun_aplicaroot"
+fun_bar "fun_aplicadownload"
 msg -bar
 # SERVICE SSH
-echo -ne " \033[1;31m[ ! ] Services ssh restart"
 service ssh restart > /dev/null 2>&1
-[[ -e /etc/init.d/ssh ]] && /etc/init.d/ssh restart > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-msg -bar
-## echo -e "\033[1;31m $(fun_trans "Senha Atual") Root: \033[1;32m$pass"
-echo -e "\033[1;31m $(fun_trans "Permissoes de usuario root") \033[1;32m[OK]"
-echo -e "\033[1;31m $(fun_trans "Ruta sshd") > \033[1;31m[ \033[1;32m/etc/ssh/sshd_config \033[1;31m]"
-msg -bar
+/etc/init.d/ssh restart > /dev/null 2>&1
 msg -ama " $(fun_trans "Seu Openssh foi configurado com sucesso")"
 msg -bar
 return 0
@@ -173,6 +210,47 @@ msg -azu "$(fun_trans "PORTAS REDEFINIDAS")"
 msg -bar
 }
 
+pamcrack () {
+msg -ama " $(fun_trans "Desativar senhas alfanumericas em VULTR")"
+msg -ama " $(fun_trans "Qualquer senha de 6 digitos pode ser usada ")"
+msg -bar
+fun_ip
+msg -ne " $(fun_trans "Confirme seu ip")"; read -p ": " -e -i $IP ip
+#Inicia Procedimentos
+msg -bar
+fun_cracklib () {
+# apt-get install libpam-cracklib -y
+# wget -O /etc/pam.d/common-password https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/common-password 
+# chmod +x /etc/pam.d/common-password
+sed -i 's/.*pam_cracklib.so.*/password sufficient pam_unix.so sha512 shadow nullok try_first_pass #use_authtok/' /etc/pam.d/common-password
+service ssh restart
+service sshd restart
+}
+fun_bar "fun_cracklib"
+msg -bar
+msg -ama " $(fun_trans "Passwd Alphanumeric Disabled Com Sucesso")"
+msg -bar
+return
+}
+
+permiso_root () {
+msg -ama " $(fun_trans "Aplicar permissoes de usuario root aos sistemas")"
+msg -ama " $(fun_trans "Oracle, Aws, Azure, Google, Amazon e etc")"
+msg -bar
+fun_ip
+msg -ne " $(fun_trans "Confirme seu ip")"; read -p ": " -e -i $IP ip
+msg -bar
+#Inicia Procedimentos
+cp /etc/ssh/sshd_config /etc/ssh/sshd_back
+fun_bar "permissao_root"
+# SERVICE SSH
+service ssh restart > /dev/null 2>&1
+/etc/init.d/ssh restart > /dev/null 2>&1
+msg -bar
+msg -ama " $(fun_trans "Procedimento concluido")"
+msg -bar
+}
+
 mine_port () {
 local portasVAR=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
 local NOREPEAT
@@ -200,10 +278,12 @@ echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "AUTO CONFIGURAÇAO")"
 echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "DOWNLOAD CONFIGURAÇAO")"
 echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "REDEFINIR PORTAS SSH")"
-echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "Editar Cliente OPENSSH") \033[1;31m(comand nano)"
+echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "DESATIVAR SENHAS ALPANUMERICAS EN VURTL")"
+echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "ROOT ORACLE, AWS, AZURE, GOOGLE, AMAZON E ETC")"
+echo -ne "\033[1;32m [6] > " && msg -azu "$(fun_trans "Editar Cliente OPENSSH") \033[1;31m(comand nano)"
 msg -bar
-while [[ ${arquivoonlineadm} != @(0|[1-4]) ]]; do
-read -p "[0-4]: " arquivoonlineadm
+while [[ ${arquivoonlineadm} != @(0|[1-6]) ]]; do
+read -p "[0-6]: " arquivoonlineadm
 tput cuu1 && tput dl1
 done
 case $arquivoonlineadm in
@@ -211,7 +291,9 @@ case $arquivoonlineadm in
 1)opssh_fun;;
 2)download_ssh;;
 3)edit_openssh;;
-4)
+4)pamcrack;;
+5)permiso_root;;
+6)
    nano /etc/ssh/sshd_config
    return 0;;
 esac

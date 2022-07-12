@@ -181,6 +181,7 @@ msg -ama " $(fun_trans "Procedimento concluido")"
 }
 
 fun_glances () {
+msg -azu " $(fun_trans "PARA SALIR DEL PANEL PRESIONE") \033[1;33mCTLR + C"
 msg -azu " $(fun_trans "PARA SALIR DEL PANEL PRESIONE LA LETRA") \033[1;33mq"
 msg -bar
 echo -ne " $(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " -e -i n PROS
@@ -189,92 +190,6 @@ echo -ne " $(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " -e -i n PROS
 msg -bar
 glances
 msg -ama " $(fun_trans "Procedimento concluido")"
-}
-
-pamcrack () {
-msg -ama " $(fun_trans "Desativar senhas alfanumericas em VULTR")"
-msg -ama " $(fun_trans "Qualquer senha de 6 digitos pode ser usada ")"
-msg -bar
-echo -ne " $(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " -e -i n PROS
-[[ $PROS = @(s|S|y|Y) ]] || return 1
-#Inicia Procedimentos
-msg -bar
-#Inicia Procedimentos
-msg -ama " $(fun_trans "Aplicando o Configuracoes VURLT ")"
-msg -bar
-fun_cracklib () {
-# apt-get install libpam-cracklib -y
-# wget -O /etc/pam.d/common-password https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/common-password 
-# chmod +x /etc/pam.d/common-password
-sed -i 's/.*pam_cracklib.so.*/password sufficient pam_unix.so sha512 shadow nullok try_first_pass #use_authtok/' /etc/pam.d/common-password
-service ssh restart
-service sshd restart
-}
-fun_bar "fun_cracklib"
-sleep 3s
-msg -bar
-msg -ama " $(fun_trans "Passwd Alphanumeric Disabled Com Sucesso")"
-return
-}
-
-aplica_root () {
-msg -ama " $(fun_trans "Aplicar permissoes de usuario root aos sistemas")"
-msg -ama " $(fun_trans "Oracle, Aws, Azure, Google, Amazon e etc")"
-msg -bar
-echo -ne " $(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " -e -i n PROS
-[[ $PROS = @(s|S|y|Y) ]] || return 1
-#Inicia Procedimentos
-msg -bar
-#Inicia Procedimentos
-msg -ama " $(fun_trans "Aplicando permissoes de usuario root")"
-msg -bar
-fun_aplicaroot () {
-apt-get update -y
-apt-get upgrade -y
-service ssh restart
-[[ $(grep -c "prohibit-password" /etc/ssh/sshd_config) != '0' ]] && {
-	sed -i "s/prohibit-password/yes/g" /etc/ssh/sshd_config
-}
-[[ $(grep -c "without-password" /etc/ssh/sshd_config) != '0' ]] && {
-	sed -i "s/without-password/yes/g" /etc/ssh/sshd_config
-}
-[[ $(grep -c "#PermitRootLogin" /etc/ssh/sshd_config) != '0' ]] && {
-	sed -i "s/#PermitRootLogin/PermitRootLogin/g" /etc/ssh/sshd_config
-}
-[[ $(grep -c "PasswordAuthentication" /etc/ssh/sshd_config) = '0' ]] && {
-	echo 'PasswordAuthentication yes' > /etc/ssh/sshd_config
-}
-[[ $(grep -c "PasswordAuthentication no" /etc/ssh/sshd_config) != '0' ]] && {
-	sed -i "s/PasswordAuthentication no/PasswordAuthentication yes/g" /etc/ssh/sshd_config
-}
-[[ $(grep -c "#PasswordAuthentication no" /etc/ssh/sshd_config) != '0' ]] && {
-	sed -i "s/#PasswordAuthentication no/PasswordAuthentication yes/g" /etc/ssh/sshd_config
-}
-service ssh restart
-iptables -F
-iptables -A INPUT -p tcp --dport 81 -j ACCEPT
-iptables -A INPUT -p tcp --dport 80 -j ACCEPT
-iptables -A INPUT -p tcp --dport 443 -j ACCEPT
-iptables -A INPUT -p tcp --dport 8799 -j ACCEPT
-iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
-iptables -A INPUT -p tcp --dport 1194 -j ACCEPT}
-}
-fun_bar "fun_aplicaroot"
-msg -bar
-msg -ama " $(fun_trans "Digite Sua Senha Atual ou Uma Nova Senha ")"
-echo -ne " \033[1;32mNuevo passwd\033[1;37m: "; read senha
-[[ -z "$senha" ]] && {
-echo -e "\n\033[1;31mSENHA INVALIDA !\033[0m"
-return
-}
-echo "root:$senha" | chpasswd
-service ssh restart > /dev/null 2>&1
-service sshd restart > /dev/null 2>&1
-msg -bar
-echo -e "\033[1;31m $(fun_trans "NOVA SENHA"): \033[1;32m$senha"
-msg -bar
-msg -ama " $(fun_trans "Procedimento concluido")"
-return
 }
 
 # SISTEMA DE SELECAO
@@ -301,15 +216,13 @@ echo -ne "$(msg -verd "[2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "REINI
 echo -ne "$(msg -verd "[3]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "REINICIAR SISTEMA")"
 echo -ne "$(msg -verd "[4]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ALTERAR NOME DO SISTEMA")"
 echo -ne "$(msg -verd "[5]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ALTERAR SENHA ROOT")"
+msg -bar
 echo -ne "$(msg -verd "[6]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "TRAFICO DE RED NLOAD")"
 echo -ne "$(msg -verd "[7]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "PROCESOS DE SISTEMA HTOP")"
 echo -ne "$(msg -verd "[8]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "MONITOR DO SISTEMA GLANCES")"
 msg -bar
-echo -ne "$(msg -verd "[9]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "DESATIVAR SENHAS ALPANUMERICAS EN VURTL")"
-echo -ne "$(msg -verd "[10]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ROOT ORACLE, AWS, AZURE, GOOGLE, AMAZON E ETC")"
-msg -bar
 # FIM
-selection=$(selection_fun 11)
+selection=$(selection_fun 8)
 case ${selection} in
 1)update_pak;;
 2)reiniciar_ser;;
@@ -319,9 +232,6 @@ case ${selection} in
 6)fun_nload;;
 7)fun_htop;;
 8)fun_glances;;
-9)pamcrack;;
-10)aplica_root;;
-11)squid_password;;
 0)exit;;
 esac
 msg -bar

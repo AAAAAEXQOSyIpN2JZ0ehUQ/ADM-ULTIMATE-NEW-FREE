@@ -21,7 +21,7 @@ ADM-MANAGER (las dependencias faltantes se instalarán automáticamente)
 
 ## :scroll: Changelog
 **VERSION: r7.1.1**
-* Mejoras de opensh
+* Mejoras de openssh
 * Mejoras de websocket
 * Mejoras de monitor glances
 * Correcciones y mejoras

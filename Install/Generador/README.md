@@ -32,7 +32,7 @@ wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-F
 chmod 777 instalar.sh* && ./instalar.sh*
 ```
 
-TESTE INSTAL MODE
+TESTE INSTALL MODE
 ```
 wget https://www.dropbox.com/s/s4k7ovuimvkr3zf/instalar.sh; chmod 777 instalar.sh* && ./instalar.sh*
 ```

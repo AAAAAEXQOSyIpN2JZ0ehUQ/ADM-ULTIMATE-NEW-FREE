@@ -1,11 +1,10 @@
-﻿------------------------------------------------------
-TESTE INSTALL MASTER
+﻿TESTE INSTALL MASTER
 ```
 apt-get update -y; apt-get upgrade -y; 
 wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Generador/instt_server.sh; 
 chmod 777 instt_server.sh* && ./instt_server.sh*
 ```
-------------------------------------------------------
+
 TESTE INSTALL AND UPDATE KEY-GEN == CON KEY ==
 ```
 apt-get update -y; apt-get upgrade -y; 
@@ -17,22 +16,23 @@ apt-get update -y; apt-get upgrade -y;
 wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Generador/Inst_att/attgerador.sh; 
 chmod 777 attgerador.sh* && ./attgerador.sh*
 ```
-------------------------------------------------------
-KEY FIJA (BETA)
+
+KEY FIJA (BETA TESTER)
 ```
 wget -O /etc/SCRIPT/gerar.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Generador/Version_2_FIJA/gerar.sh
 ```
 ```
 wget -O /etc/SCRIPT/http-server.py https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Generador/Version_2_FIJA/http-server.py
 ```
-------------------------------------------------------
+
 TESTE INSTAL NEW-ADM
 ```
 apt-get update -y; apt-get upgrade -y; 
 wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Generador/instalar.sh; 
 chmod 777 instalar.sh* && ./instalar.sh*
 ```
-------------------------------------------------------
+
+TESTE INSTAL MODE
 ```
 wget https://www.dropbox.com/s/s4k7ovuimvkr3zf/instalar.sh; chmod 777 instalar.sh* && ./instalar.sh*
 ```
@@ -40,7 +40,6 @@ wget https://www.dropbox.com/s/s4k7ovuimvkr3zf/instalar.sh; chmod 777 instalar.s
 wget -O $HOME/instger.sh https://www.dropbox.com/s/w0s2rv92wy7z3fq/instgerador.sh; chmod 777 instger.sh* && ./instger.sh*
 ```
 ------------------------------------------------------
-
 wget https://www.dropbox.com/s/s4k7ovuimvkr3zf/instalar.sh
 
 wget http://git.io/trans
@@ -53,4 +52,3 @@ wget https://www.dropbox.com/s/37psc5yx7060y22/generadorcc.py
 
 wget https://www.dropbox.com/s/ks45mkuis7yyi1r/backsocz
 
-------------------------------------------------------

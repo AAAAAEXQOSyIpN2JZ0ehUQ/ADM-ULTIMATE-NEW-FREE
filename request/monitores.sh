@@ -91,7 +91,7 @@ echo -ne "$(msg -verd "[2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "PROCE
 echo -ne "$(msg -verd "[3]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "MONITOR DO SISTEMA GLANCES")"
 msg -bar
 # FIM
-selection=$(selection_fun 8)
+selection=$(selection_fun 3)
 case ${selection} in
 1)fun_nload;;
 2)fun_htop;;

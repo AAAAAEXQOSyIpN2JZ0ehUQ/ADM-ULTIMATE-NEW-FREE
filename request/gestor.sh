@@ -156,42 +156,6 @@ msg -ama " $(fun_trans "SENHA ALTERADA COM SUCESSO")!"
 return
 }
 
-fun_nload () {
-msg -azu " $(fun_trans "PARA SALIR DEL PANEL PRESIONE") \033[1;33mCTLR + C"
-msg -bar
-echo -ne " $(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " -e -i n PROS
-[[ $PROS = @(s|S|y|Y) ]] || return 1
-#Inicia Procedimentos
-msg -bar
-[[ $(dpkg --get-selections|grep -w "nload"|head -1) ]] || apt-get install nload -y &>/dev/null
-nload
-msg -ama " $(fun_trans "Procedimento concluido")"
-}
-
-fun_htop () {
-msg -azu " $(fun_trans "PARA SALIR DEL PANEL PRESIONE") \033[1;33mCTLR + C"
-msg -bar
-echo -ne " $(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " -e -i n PROS
-[[ $PROS = @(s|S|y|Y) ]] || return 1
-#Inicia Procedimentos
-msg -bar
-[[ $(dpkg --get-selections|grep -w "htop"|head -1) ]] || apt-get install htop -y &>/dev/null
-htop
-msg -ama " $(fun_trans "Procedimento concluido")"
-}
-
-fun_glances () {
-msg -azu " $(fun_trans "PARA SALIR DEL PANEL PRESIONE") \033[1;33mCTLR + C"
-msg -azu " $(fun_trans "PARA SALIR DEL PANEL PRESIONE LA LETRA") \033[1;33mq"
-msg -bar
-echo -ne " $(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " -e -i n PROS
-[[ $PROS = @(s|S|y|Y) ]] || return 1
-#Inicia Procedimentos
-msg -bar
-glances
-msg -ama " $(fun_trans "Procedimento concluido")"
-}
-
 # SISTEMA DE SELECAO
 selection_fun () {
 local selection="null"
@@ -217,21 +181,14 @@ echo -ne "$(msg -verd "[3]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "REINI
 echo -ne "$(msg -verd "[4]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ALTERAR NOME DO SISTEMA")"
 echo -ne "$(msg -verd "[5]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ALTERAR SENHA ROOT")"
 msg -bar
-echo -ne "$(msg -verd "[6]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "TRAFICO DE RED NLOAD")"
-echo -ne "$(msg -verd "[7]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "PROCESOS DE SISTEMA HTOP")"
-echo -ne "$(msg -verd "[8]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "MONITOR DO SISTEMA GLANCES")"
-msg -bar
 # FIM
-selection=$(selection_fun 8)
+selection=$(selection_fun 5)
 case ${selection} in
 1)update_pak;;
 2)reiniciar_ser;;
 3)reiniciar_vps;;
 4)host_name;;
 5)senharoot;;
-6)fun_nload;;
-7)fun_htop;;
-8)fun_glances;;
 0)exit;;
 esac
 msg -bar

@@ -63,12 +63,7 @@ fi
 
 permissao_root () {
 # Pequeno script para permissao de autenticacao root
-[[ "$(whoami)" != "root" ]] && {
-	clear
-	echo -e "\033[1;31mEXECULTE COMO USUARIO ROOT, \033[1;32m(\033[1;33msudo -i\033[1;32m)\033[0m"
-	sleep 3s
-	return 0
-}
+# ADICIONANDO PERMISAO
 [[ $(grep -c "prohibit-password" /etc/ssh/sshd_config) != '0' ]] && {
 	sed -i "s/prohibit-password/yes/g" /etc/ssh/sshd_config
 } > /dev/null
@@ -98,30 +93,22 @@ iptables -A INPUT -p tcp --dport 1194 -j ACCEPT
 }
 
 opssh_fun () {
-[[ "$(whoami)" != "root" ]] && {
-	clear
-	echo -e "\033[1;31mEXECULTE COMO USUARIO ROOT, \033[1;32m(\033[1;33msudo -i\033[1;32m)\033[0m"
-	sleep 3s
-	return 0
-}
 msg -verd " $(fun_trans "OPENSSH AUTO-CONFIGURAÇAO")"
 msg -bar
 fun_ip
 msg -ne " $(fun_trans "Confirme seu ip")"; read -p ": " -e -i $IP ip
 msg -bar
-msg -ama " $(fun_trans "AUTO CONFIGURAÇAO")"
+msg -ama " $(fun_trans "AUTO CONFIGURAÇAO PORTA PADRAO/PERMISAO !")"
 msg -bar
 #Inicia Procedimentos
-echo -ne " \033[1;31m[ ! ] apt-get update"
-apt-get update -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-echo -ne " \033[1;31m[ ! ] apt-get upgrade"
-apt-get upgrade -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-msg -bar
 cp /etc/ssh/sshd_config /etc/ssh/sshd_back
 fun_bar "permissao_root"
+msg -bar
 # SERVICE SSH
+msg -ama " $(fun_trans "REINICIANDO SSH !")"
+msg -bar
+fun_bar 'service ssh start'
 service ssh restart > /dev/null 2>&1
-/etc/init.d/ssh restart > /dev/null 2>&1
 msg -bar
 msg -ama " $(fun_trans "Seu Openssh foi configurado com sucesso")"
 msg -bar
@@ -129,26 +116,16 @@ return 0
 }
 
 download_ssh () {
-[[ "$(whoami)" != "root" ]] && {
-	clear
-	echo -e "\033[1;31mEXECULTE COMO USUARIO ROOT, \033[1;32m(\033[1;33msudo -i\033[1;32m)\033[0m"
-	sleep 3s
-	return 0
-}
 msg -verd " $(fun_trans "OPENSSH DOWNLOAD-CONFIGURAÇAO")"
 msg -bar
 fun_ip
 msg -ne " $(fun_trans "Confirme seu ip")"; read -p ": " -e -i $IP ip
 msg -bar
-msg -ama " $(fun_trans "DOWNLOAD CONFIGURAÇAO - PORTA 22 PADRAO")"
+msg -ama " $(fun_trans "DOWNLOAD CONFIGURAÇAO PORTA 22/PERMISAO !")"
 msg -bar
 #Inicia Procedimentos
-echo -ne " \033[1;31m[ ! ] apt-get update"
-apt-get update -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-echo -ne " \033[1;31m[ ! ] apt-get upgrade"
-apt-get upgrade -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+# ADICIONANDO PORTA 22/PERMISAO
 cp /etc/ssh/sshd_config /etc/ssh/sshd_back
-msg -bar
 fun_aplicadownload () {
 wget -O /etc/ssh/sshd_config https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/sshd_config
 chmod +x /etc/ssh/sshd_config
@@ -164,8 +141,11 @@ iptables -A INPUT -p tcp --dport 1194 -j ACCEPT
 fun_bar "fun_aplicadownload"
 msg -bar
 # SERVICE SSH
+msg -ama " $(fun_trans "REINICIANDO SSH !")"
+msg -bar
+fun_bar 'service ssh start'
 service ssh restart > /dev/null 2>&1
-/etc/init.d/ssh restart > /dev/null 2>&1
+msg -bar
 msg -ama " $(fun_trans "Seu Openssh foi configurado com sucesso")"
 msg -bar
 return 0

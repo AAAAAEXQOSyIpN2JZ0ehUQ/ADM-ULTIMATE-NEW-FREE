@@ -1,10 +1,16 @@
 #!/bin/bash
+red=$(tput setaf 1)
+gren=$(tput setaf 2)
+yellow=$(tput setaf 3)
 declare -A cor=( [0]="\033[1;37m" [1]="\033[1;34m" [2]="\033[1;31m" [3]="\033[1;33m" [4]="\033[1;32m" )
 barra="\033[0m\e[34m======================================================\033[1;37m"
 SCPdir="/etc/newadm" && [[ ! -d ${SCPdir} ]] && exit 1
 SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
+ofc="\033[0m${gren}(#OFC)"
+dev="\033[0m${gren}(#DEV)"
+bet="\033[0m${gren}(#BET)"
 
 fun_bar () {
 comando[0]="$1"
@@ -88,7 +94,7 @@ msg -bar
 echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$(fun_trans "VOLTAR")"
 echo -ne "$(msg -verd "[1]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "TRAFICO DE RED NLOAD")"
 echo -ne "$(msg -verd "[2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "PROCESOS DE SISTEMA HTOP")"
-echo -ne "$(msg -verd "[3]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "MONITOR DO SISTEMA GLANCES")"
+echo -ne "$(msg -verd "[3]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "MONITOR DO SISTEMA GLANCES") $bet"
 msg -bar
 # FIM
 selection=$(selection_fun 3)

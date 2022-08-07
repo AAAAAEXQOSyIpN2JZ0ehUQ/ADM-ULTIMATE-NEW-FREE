@@ -1,5 +1,5 @@
 ﻿```
-* UPDATE 03/08/2021 - Proyecto Finalizado
+* UPDATE 21/06/2021 - Proyecto Finalizado
 * ADM-Manager Ultimate (Final Version New-Ultimate)
 ```
 ![logo](https://github.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/blob/master/Imagenes/ADM_ULTIMATE_NEW_FREE.png)

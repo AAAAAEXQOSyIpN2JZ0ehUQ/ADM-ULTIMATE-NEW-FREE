@@ -275,7 +275,7 @@ msg -ama "$(fun_trans "MENU DE UTILITARIOS")"
 msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "TCPSPEED") $tcp"
-echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "TORRENT") $torrent"
+echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "BLOCK TORRENT") $torrent"
 msg -bar
 while [[ ${arquivoonlineadm} != @(0|[1-2]) ]]; do
 read -p "[0-2]: " arquivoonlineadm

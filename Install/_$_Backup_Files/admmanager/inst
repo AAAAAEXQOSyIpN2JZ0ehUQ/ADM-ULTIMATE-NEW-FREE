@@ -1,0 +1,109 @@
+#!/bin/bash
+
+if [ -d /root ]
+then
+echo ""
+else
+mkdir /root
+fi
+cd /root/
+if [[ -e /bin/instalacao1 ]]; then
+instalar
+exit
+sleep 4s
+else
+ if [[ -e /bin/instalacao2 ]]; then
+instalar
+exit
+sleep 4s
+else
+  if [[ -e /bin/instalacao3 ]]; then
+instalar
+exit
+sleep 4s
+else
+   if [[ -e /bin/instalacao4 ]]; then
+instalar
+exit
+sleep 4s
+else
+echo " "
+clear
+   fi
+  fi
+ fi
+fi
+clear
+sleep 1s
+echo -e "\033[1;31mATENÇAO LEIA ATENTAMENTE ANTES DE PROSSEGUIR!\033[0m"
+echo -e "\033[1;36mESTE E UM GERENCIADOR DE VPS CRIADO COM BASE EM SCRIPTS DO: PH, LUIZ, BADGUY, TODOS OS CREDITOS A SEUS RESPECTIVOS CRIADORES, ESTE GERENCIADOR E UMA FERRAMENTA GRATUITA COM FINALIDADE DE AJUDAR A GERENCIAR A VPS, NAO EXISTE SUPORTE DO CRIADOR DO GERENCIADOR E NEM DOS CRIADORES DAS FERRAMENTAS CONTIDAS NELE, SENDO ASSIM DE TOTAL RESPONSABILIDADE DO USUARIO!\033[1;31m"
+read -p"ENTER PARA PROSSEGUIR "
+echo -e "\033[1;36mESTE SCRIPT FOI FEITO PARA INSTALAR NO 
+-----------------
+DEBIAN
+UBUNTU
+-----------------
+PODE HAVER INCOMPATIBILIDADE OU ATE MESMO NAO INSTALAR EM OUTROS SO!!!\033[1;31m"
+read -p"ENTER PARA PROSSEGUIR "
+echo -e "\033[0m"
+sleep 1s
+echo -e "\033[1;31mA PREPARAÇAO DO SISTEMA IRA INICIAR EM 3 SEGUNDOS...\033[0m"
+echo -e "\033[1;36m3...\033[0m"
+sleep 1s
+echo -e "\033[1;36m2...\033[0m"
+sleep 1s
+echo -e "\033[1;36m1...\033[0m"
+sleep 1s
+echo -e "\033[1;36mCOMECANDO...\033[0m"
+sleep 1s
+echo -e "\033[1;36mPREPARANDO PARA DOWLOAD...\033[0m"
+apt-get upgrade -y 1>/dev/null 2>/dev/null
+echo  -e "\033[1;32m"
+apt-get install zip -y
+sleep 1s
+echo  -e "\033[0m"
+echo -e "\033[1;36mFAZENDO DOWLOAD...\033[0m"
+cd /root/
+sleep 1s
+wget -O manager https://www.dropbox.com/s/v9axswrimy9k6kd/admmanager.zip?dl=0 -o /dev/null
+sleep 4s
+echo -e "\033[1;36mPREPARANDO ARQUIVOS...\033[0m"
+sleep 4s
+echo -e "\033[1;36mEXTRAINDO ARQUIVOS...\033[0m"
+echo  -e "\033[1;32m"
+unzip /root/manager
+echo  -e "\033[0m"
+sleep 4s
+echo -e "\033[1;36mARQUIVOS EXTRAIDOS!...\033[0m"
+sleep 4s
+echo -e "\033[1;36mDANDO PERMISSAO AOS ARQUIVOS...\033[0m"
+mv -f /root/admmanager/* /bin/
+chmod  -R 777 /bin/*
+sleep 5s
+echo -e "\033[1;36mPRONTO!!!...\033[0m"
+sleep 4s
+echo -e "\033[1;36mEXECUTANDO INSTALADOR\033[0m"
+sleep 4s
+echo -e "\033[1;36mAGUARDE...\033[0m"
+rm -rf /root/manager*
+sleep 1s
+rm -rf /root/admmanager*
+sleep 1s
+rm -rf /root/inst*
+sleep 1s
+echo -e "\033[1;36mAGUARDE...\033[0m"
+sleep 2s
+echo -e "\033[1;31mA INSTALAÇAO INICIA EM  3 SEGUNDOS...\033[0m"
+echo -e "\033[1;36m3...\033[0m"
+sleep 1s
+echo -e "\033[1;36m2...\033[0m"
+sleep 1s
+echo -e "\033[1;36m1...\033[0m"
+sleep 1s
+echo -e "\033[1;36m...\033[0m"
+sleep 1s
+echo -e "\033[1;36mINICIANDO...\033[0m"
+instalar
+sleep 2s
+clear
+exit

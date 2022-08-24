@@ -171,9 +171,9 @@ done
 }
 
 versao_arq () {
-wget -O $HOME/versao https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/versao
-wget -O /bin/versao_script https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/versaoatt
-wget -O $HOME/LICENCIA.txt https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/LICENCIA.txt
+wget -O $HOME/versao https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/versao &> /dev/null
+wget -O /bin/versao_script https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/versaoatt &> /dev/null
+wget -O $HOME/LICENCIA.txt https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/LICENCIA.txt &> /dev/null
 }
 
 # Instalação NEW-ULTIMATE

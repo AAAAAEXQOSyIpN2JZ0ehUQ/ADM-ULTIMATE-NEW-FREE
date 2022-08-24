@@ -145,16 +145,15 @@ done
 msg -bar
 msg -ama " $(fun_trans "Qual DNS voce deseja usar?")"
 msg -bar
-echo -ne "\033[1;32m [1] > " && msg -azu "Usar DNS do sistema "
-echo -ne "\033[1;32m [2] > " && msg -azu "Cloudflare"
-echo -ne "\033[1;32m [3] > " && msg -azu "Quad"
-echo -ne "\033[1;32m [4] > " && msg -azu "FDN"
-echo -ne "\033[1;32m [5] > " && msg -azu "DNS.WATCH"
-echo -ne "\033[1;32m [6] > " && msg -azu "OpenDNS"
-echo -ne "\033[1;32m [7] > " && msg -azu "Google DNS"
-echo -ne "\033[1;32m [8] > " && msg -azu "Yandex Basic"
-echo -ne "\033[1;32m [9] > " && msg -azu "AdGuard DNS"
-msg -bar
+echo "   1) Usar DNS do sistema "
+echo "   2) Cloudflare"
+echo "   3) Quad"
+echo "   4) FDN"
+echo "   5) DNS.WATCH"
+echo "   6) OpenDNS"
+echo "   7) Google DNS"
+echo "   8) Yandex Basic"
+echo "   9) AdGuard DNS"
 while [[ $DNS != @([1-9]) ]]; do
 read -p " DNS [1-9]: " -e -i 1 DNS
 done
@@ -162,14 +161,13 @@ done
 msg -bar
 msg -ama " $(fun_trans "Escolha qual codificação você deseja usar para o canal de dados:")"
 msg -bar
-echo -ne "\033[1;32m [1] > " && msg -azu "AES-128-CBC"
-echo -ne "\033[1;32m [2] > " && msg -azu "AES-192-CBC"
-echo -ne "\033[1;32m [3] > " && msg -azu "AES-256-CBC"
-echo -ne "\033[1;32m [4] > " && msg -azu "CAMELLIA-128-CBC"
-echo -ne "\033[1;32m [5] > " && msg -azu "CAMELLIA-192-CBC"
-echo -ne "\033[1;32m [6] > " && msg -azu "CAMELLIA-256-CBC"
-echo -ne "\033[1;32m [7] > " && msg -azu "SEED-CBC"
-msg -bar
+echo "   1) AES-128-CBC"
+echo "   2) AES-192-CBC"
+echo "   3) AES-256-CBC"
+echo "   4) CAMELLIA-128-CBC"
+echo "   5) CAMELLIA-192-CBC"
+echo "   6) CAMELLIA-256-CBC"
+echo "   7) SEED-CBC"
 while [[ $CIPHER != @([1-7]) ]]; do
 read -p " Cipher [1-7]: " -e -i 1 CIPHER
 done

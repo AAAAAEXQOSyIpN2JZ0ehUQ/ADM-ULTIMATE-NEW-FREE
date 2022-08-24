@@ -133,6 +133,8 @@ return
 }
 
 senharoot () {
+[[ ! -e /home/passwordroot.txt ]] && touch /home/passwordroot.txt
+PASSWORD_FILE="/home/passwordroot.txt"
 msg -ama " $(fun_trans "Essa senha sera usada para entrar no seu servidor")"
 msg -bar
 echo -ne " $(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " -e -i n PROS
@@ -143,16 +145,17 @@ msg -bar
 msg -ama " $(fun_trans "Digite Uma Nova Senha ")"
 echo -ne " \033[1;32mNuevo passwd\033[1;37m: "; read senha
 [[ -z "$senha" ]] && {
-echo -e "\n\033[1;31mSENHA INVALIDA !\033[0m"
+echo -e "\n\033[1;31m[!] SENHA INVALIDA\033[0m"
 return
 }
 echo "root:$senha" | chpasswd
+echo -e "$senha" > $PASSWORD_FILE
 service ssh restart > /dev/null 2>&1
 service sshd restart > /dev/null 2>&1
 msg -bar
-echo -e "\033[1;31m $(fun_trans "NOVA SENHA"): \033[1;32m$senha"
+echo -e "\033[1;31m $(fun_trans "Nova Senha"): \033[01;37m$(cat $PASSWORD_FILE)"
 msg -bar
-msg -ama " $(fun_trans "SENHA ALTERADA COM SUCESSO")!"
+msg -ama " $(fun_trans "Senha de usuário root alterada com sucesso")!"
 return
 }
 

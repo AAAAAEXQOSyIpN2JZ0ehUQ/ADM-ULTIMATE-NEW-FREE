@@ -55,11 +55,7 @@ inst_components () {
  sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf
  service apache2 restart > /dev/null 2>&1 &
  }
-pip install speedtest-cli
-apt-get install python-pip build-essential python-dev -y &>/dev/null
-apt install glances -y &>/dev/null
-pip install Glances &>/dev/null
-pip install PySensors &>/dev/null
+pip install speedtest-cli &>/dev/null
 }
 
 funcao_idioma () {
@@ -232,11 +228,13 @@ if [[ -e $HOME/lista-arq ]] && [[ ! $(cat $HOME/lista-arq|grep "KEY INVALIDA!") 
    echo "${SCPdir}/menu" > /usr/bin/menu && chmod +x /usr/bin/menu
    echo "${SCPdir}/menu" > /usr/bin/adm && chmod +x /usr/bin/adm
    echo "${SCPdir}/menu" > /bin/h && chmod +x /bin/h
+   msg -azu "AGUARDE..."
    wget -O $HOME/LICENCIA.txt https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/LICENCIA.txt &> /dev/null
    wget -O $HOME/versao https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/versao &> /dev/null
    wget -O /bin/versao_script https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/versaoatt &> /dev/null
    inst_components
    install_hosts
+   tput cuu1 && tput dl1
    echo "$Key" > ${SCPdir}/key.txt
    [[ -d ${SCPinstal} ]] && rm -rf ${SCPinstal}   
    [[ ${#id} -gt 2 ]] && echo "pt" > ${SCPidioma} || echo "${id}" > ${SCPidioma}

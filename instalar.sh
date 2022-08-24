@@ -222,13 +222,11 @@ if [[ -e $HOME/lista-arq ]] && [[ ! $(cat $HOME/lista-arq|grep "KEY INVALIDA!") 
    echo "${SCPdir}/menu" > /usr/bin/menu && chmod +x /usr/bin/menu
    echo "${SCPdir}/menu" > /usr/bin/adm && chmod +x /usr/bin/adm
    echo "${SCPdir}/menu" > /bin/h && chmod +x /bin/h
-   msg -azu "AGUARDE..."
-   inst_components
-   install_hosts
+   wget -O $HOME/LICENCIA.txt https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/LICENCIA.txt &> /dev/null
    wget -O $HOME/versao https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/versao &> /dev/null
    wget -O /bin/versao_script https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/versaoatt &> /dev/null
-   wget -O $HOME/LICENCIA.txt https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/LICENCIA.txt &> /dev/null
-   tput cuu1 && tput dl1
+   inst_components
+   install_hosts
    echo "$Key" > ${SCPdir}/key.txt
    [[ -d ${SCPinstal} ]] && rm -rf ${SCPinstal}   
    [[ ${#id} -gt 2 ]] && echo "pt" > ${SCPidioma} || echo "${id}" > ${SCPidioma}

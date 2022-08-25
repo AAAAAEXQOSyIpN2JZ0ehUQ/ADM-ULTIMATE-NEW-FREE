@@ -133,8 +133,9 @@ msg -bar
     unset PORT
     done
 msg -bar
-echo -e "\033[1;31m $(fun_trans "Qual protocolo voce deseja para as conexoes OPENVPN?")"
-echo -e "\033[1;31m $(fun_trans "A menos que o UDP esteja bloqueado, voce nao deve usar o TCP (mais lento)")"
+echo -e "\033[1;33m $(fun_trans "Qual protocolo voce deseja para as conexoes OPENVPN?")"
+echo -e "\033[1;33m $(fun_trans "A menos que o UDP esteja bloqueado, voce nao deve usar o TCP (mais lento)")"
+msg -bar
 #PROTOCOLO
 while [[ $PROTOCOL != @(UDP|TCP) ]]; do
 read -p " Protocol [UDP/TCP]: " -e -i TCP PROTOCOL

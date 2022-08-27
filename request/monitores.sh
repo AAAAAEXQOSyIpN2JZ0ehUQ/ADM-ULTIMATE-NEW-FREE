@@ -69,6 +69,10 @@ echo -ne " $(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " -e -i n PROS
 [[ $PROS = @(s|S|y|Y) ]] || return 1
 #Inicia Procedimentos
 msg -bar
+apt-get install python-pip build-essential python-dev -y &>/dev/null
+apt install glances -y &>/dev/null
+pip install Glances &>/dev/null
+pip install PySensors &>/dev/null
 glances
 msg -ama " $(fun_trans "Procedimento concluido")"
 }

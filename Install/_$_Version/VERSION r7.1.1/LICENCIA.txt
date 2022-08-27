@@ -1,0 +1,36 @@
+LICENCIA DE USO 
+
+Terminos de uso ADM-MANAGER ULTIMATE
+
+Mediante el uso de 'Administrador de ADM-MANAGER ULTIMATE' está de acuerdo con las siguientes condiciones de uso:
+
+1. Tu puedes:
+
+ a. Instalar y utilizar el 'ADM-MANAGER ULTIMATE' en el servidor .
+ b. Editar, modificar, reutilizar, compartir o redistribuir
+ c. Crear, administrar y eliminar un número ilimitado de usuarios a través de este conjunto de script.
+
+2. Tu no puedes:
+
+ a. Vender este conjunto de secuencias de comandos sin autorización desarrollador.
+ b. Modificar o editar el conjunto del script para hacer ventas de el sin autorización del desarrollador del script.
+
+3. El usuario acepta que:
+
+ a. El conjunto del script no incluye garantías o apoyo adicional,
+    pero el usuario puede, promocional y de forma no vinculante, por un tiempo limitado,
+    recibir apoyo y ayuda para la solución de problemas, siempre que reúna las condiciones de uso.
+ b. El usuario de este conjunto del script es el único responsable de cualquier tipo de implicación
+    legal o ética causada por el uso de este conjunto de secuencias de comandos para cualquier propósito.
+
+4. El usuario acepta que el desarrollador no se hace responsable de:
+
+ a. Los problemas causados por el uso de scripts no autorizados distribuidos.
+ b. Los problemas causados por conflictos entre este conjunto de secuencias de comandos y script de otros desarrolladores.
+ c. Los problemas causados por problemas o modificaciones de código del script sin permiso.
+ d. problemas del sistema causados por script de terceros o cambios / pruebas con usuarios.
+ e. Los problemas causados por los cambios en el sistema del servidor.
+ f. problemas causados por el usuario no sigue las instrucciones del conjunto de documentación de los script.
+ g. problemas ocurrieron durante el uso de script para beneficio comercial.
+ h. Los problemas que pueden ocurrir cuando se utiliza el conjunto de scripts en sistemas que no están en la lista de sistemas a prueba.
+ 

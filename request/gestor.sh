@@ -98,7 +98,7 @@ apt-get install python -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo 
 \echo -ne " \033[1;31m[ ! ] apt-get python3"
 apt-get install python3 -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
 echo -ne " \033[1;31m[ ! ] apt-get python-pip"
-apt-get install python-pip -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+apt-get install python-pip python3-pip -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
 pip install speedtest-cli &>/dev/null
 echo -ne " \033[1;31m[ ! ] apt-get curl"
 apt-get install curl -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"

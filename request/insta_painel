@@ -1,10 +1,5 @@
 #!/bin/bash
 ve="\033[1;32m";am="\033[1;33m";ver="\033[1;31m";az="\033[1;36m";f="\033[0m"
-[[ ! -d /etc/adm-lite ]] && mkdir /etc/adm-lite
-link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/painel.zip"
-[[ ! -e /etc/adm-lite/painel.zip ]] && wget -O /etc/adm-lite/painel.zip ${link_bin} > /dev/null 2>&1 && chmod +x /etc/adm-lite/painel.zip
-link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/dados.zip"
-[[ ! -e /etc/adm-lite/dados.zip ]] && wget -O /etc/adm-lite/dados.zip ${link_bin} > /dev/null 2>&1 && chmod +x /etc/adm-lite/dados.zip
 
 meu_ip () {
 MEU_IP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
@@ -50,6 +45,9 @@ echo -e "${am}Agora vamos colocar um LOGIN e SENHA de acesso a pagina de upload$
 	read -p "Senha: " var3
 	echo -ne "${f}"
 
+mkdir /etc/adm-lite
+wget -O /etc/adm-lite/painel.zip https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/painel.zip > /dev/null 2>&1 && chmod +x /etc/adm-lite/painel.zip
+wget -O /etc/adm-lite/dados.zip https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/dados.zip > /dev/null 2>&1 && chmod +x /etc/adm-lite/dados.zip
 cd /var/www/
    rm -rf index.html > /dev/null 2>&1
    cp /etc/adm-lite/painel.zip /var/www/

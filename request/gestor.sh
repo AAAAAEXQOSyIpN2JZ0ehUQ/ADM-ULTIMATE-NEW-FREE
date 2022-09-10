@@ -87,6 +87,8 @@ return
 }
 
 inst_components () {
+echo -ne " \033[1;31m[ ! ] apt-get grep"
+apt-get install grep -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
 echo -ne " \033[1;31m[ ! ] apt-get nano"
 apt-get install nano -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
 echo -ne " \033[1;31m[ ! ] apt-get bc"
@@ -95,10 +97,10 @@ echo -ne " \033[1;31m[ ! ] apt-get screen"
 apt-get install screen -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
 echo -ne " \033[1;31m[ ! ] apt-get python"
 apt-get install python -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-\echo -ne " \033[1;31m[ ! ] apt-get python3"
+echo -ne " \033[1;31m[ ! ] apt-get python3"
 apt-get install python3 -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
 echo -ne " \033[1;31m[ ! ] apt-get python-pip"
-apt-get install python-pip -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+apt-get install python-pip python3-pip -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
 pip install speedtest-cli &>/dev/null
 echo -ne " \033[1;31m[ ! ] apt-get curl"
 apt-get install curl -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
@@ -114,6 +116,10 @@ echo -ne " \033[1;31m[ ! ] apt-get netstat"
 apt-get install netstat -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
 echo -ne " \033[1;31m[ ! ] apt-get net-tools"
 apt-get install net-tools -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+echo -ne " \033[1;31m[ ! ] apt-get at"
+apt-get install at -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+echo -ne " \033[1;31m[ ! ] apt-get netcat-openbsd"
+apt-get install netcat-openbsd -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
 echo -ne " \033[1;31m[ ! ] apt-get dos2unix"
 apt-get install dos2unix -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
 echo -ne " \033[1;31m[ ! ] apt-get nload"
@@ -126,12 +132,6 @@ echo -ne " \033[1;31m[ ! ] apt-get apache2"
 apt-get install apache2 -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
 sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf
 service apache2 restart > /dev/null 2>&1 &
-# echo -ne " \033[1;31m[ ! ] apt-get python-pip"
-# apt-get install python3-pip -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
-# pip install speedtest-cli &>/dev/null
-# apt-get install grep -y
-# apt-get install netcat-openbsd -y
-# apt-get install at -y
 return
 }
 

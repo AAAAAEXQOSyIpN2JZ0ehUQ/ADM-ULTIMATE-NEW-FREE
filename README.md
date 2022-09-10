@@ -1,5 +1,5 @@
 ﻿```
-* UPDATE 21/06/2021 - Proyecto Finalizado
+* UPDATE 29/08/2022 - Proyecto Finalizado
 * ADM-Manager Ultimate (Final Version New-Ultimate)
 ```
 ![logo](https://github.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/blob/master/Imagenes/ADM_ULTIMATE_NEW_FREE.png)
@@ -20,10 +20,9 @@ chmod 777 instalar.sh* && ./instalar.sh*
 ADM-MANAGER (las dependencias faltantes se instalarán automáticamente)
 
 ## :scroll: Changelog
-**VERSION: r7.1.1**
+**VERSION: r7.1.3**
 * Mejoras de openssh
-* Mejoras de websocket
-* Mejoras de monitor glances
+* Reinstalar paquetes
 * Correcciones y mejoras
 
 ## :book: How it works

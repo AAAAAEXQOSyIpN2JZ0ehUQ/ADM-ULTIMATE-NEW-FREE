@@ -262,6 +262,7 @@ service squid restart > /dev/null 2>&1 &
 service squid3 restart > /dev/null 2>&1 &
 }
 
+clear
 on="\033[1;32mon" && off="\033[1;31moff"
 [[ $(ps x | grep badvpn | grep -v grep | awk '{print $1}') ]] && badvpn=$on || badvpn=$off
 [[ `grep -c "^#ADM" /etc/sysctl.conf` -eq 0 ]] && tcp=$off || tcp=$on
@@ -271,6 +272,7 @@ if [ -e /etc/squid/squid.conf ]; then
 elif [ -e /etc/squid3/squid.conf ]; then
 [[ `grep -c "^#CACHE DO SQUID" /etc/squid3/squid.conf` -gt 0 ]] && squid=$on || squid=$off
 fi
+msg -bar
 msg -ama "$(fun_trans "MENU DE UTILITARIOS")"
 msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR")"

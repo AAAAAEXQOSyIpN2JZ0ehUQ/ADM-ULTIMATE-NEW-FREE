@@ -864,8 +864,7 @@ case $1 in
 "apacheon.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "COMPARTILHAR ARQUIVO ONLINE") $ofc";;
 "ports.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "GERENCIAMENTO DE PORTAS") $ofc";;
 "speed.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "TESTE DE VELOCIDADE") $ofc";;
-"utils.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "MENU DE UTILITARIOS") $ofc";;
-"monitores.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "Nload/htop/glances $dev";;
+"monitores.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "(Nload/htop/glances) $dev";;
 "ultrahost")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ESCANER DE SUBDOMINIOS") $dev";;
 "criar_pay.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "GERADOR DE") PAYLOAD $dev";;
 "fai2ban.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "FAIL2BAN PROTECAO") $dev";;
@@ -896,6 +895,7 @@ case $1 in
 "speedtest.py")return 1;;
 "pwd.pwd")return 1;;
 "gestor.sh")return 1;;
+"utils.sh")return 1;;
 "scriptsalternos.sh")return 1;;
 *)echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "${1^^} \033[1;33m($(fun_trans "Sem Descricao")!)";;
 esac
@@ -968,21 +968,22 @@ msg -bar
 msg -ama "\033[1;31m[\033[1;32m NEW-ULTIMATE \033[1;31m] \033[1;31mIP \033[1;37m$(meu_ip) \033[1;31mUSUARIOS: \033[1;37m$_total"
 msg -bar
 echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$(fun_trans "SAIR DO MENU")"
-menu_func "GERENCIAR USUARIOS" "MENU DE FERRAMENTAS" "MENU DE SISTEMA" "-vd ATUALIZAR ADM" "-vm DESINSTALAR ADM" "PERSONALIZAR CORES SCRIPT" "CAMBIAR IDIOMA" "-fi $AutoRun EXECUCAO AUTOMATICA" "MENU DE INSTALACOES"
+menu_func "GERENCIAR USUARIOS" "MENU DE FERRAMENTAS" "MENU DE SISTEMA" "MENU DE UTILITARIOS" "-vd ATUALIZAR ADM" "-vm DESINSTALAR ADM" "PERSONALIZAR CORES SCRIPT" "CAMBIAR IDIOMA" "-fi $AutoRun EXECUCAO AUTOMATICA" "MENU DE INSTALACOES"
 msg -bar
 # FIM
-selection=$(selection_fun 9)
+selection=$(selection_fun 10)
 case ${selection} in
 0)cd $HOME && exit 0;;
 1)${SCPusr}/usercodes "${idioma}";;
 2)ferramentas_fun;;
 3)${SCPfrm}/gestor.sh "${idioma}";;
-4)atualiza_fun;;
-5)remove_script;;
-6)canbio_color;;
-7)funcao_idioma;;
-8)fun_autorun;;
-9)menu_inst;;
+4)${SCPfrm}/utils.sh "${idioma}";;
+5)atualiza_fun;;
+6)remove_script;;
+7)canbio_color;;
+8)funcao_idioma;;
+9)fun_autorun;;
+10)menu_inst;;
 esac
 msg -ne "$(fun_trans "Enter Para Continuar")" && read enter
 ${SCPdir}/menu

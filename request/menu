@@ -28,6 +28,10 @@ txt01="PARABENS SUA VERSAO ESTA ATUALIZADA!"
 txt02="NEW-ULTIMATE POSSUI ATUALIZACOES!"
 [[ $v1 = $v2 ]] && vesaoSCT="\033[1;32m${txt01}        \033[1;31m[\033[1;37m $v2 \033[1;31m]" || vesaoSCT="\033[1;31m${txt02}"
 
+# Funcoes Message
+M_SERVER="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/request"
+messagecat=$(curl -sSL "${M_SERVER}/message.txt")
+
 # Funcoes Globais
 msg () {
 local colors="/etc/new-adm-color"
@@ -961,7 +965,7 @@ menu_info
 # msg -ne "$(fun_trans "IP*"): " && echo -e "\033[1;37m$(meu_ip)"
 [[ -e ${SCPdir}/USRonlines ]] && msg -bar && msg -ne "$(fun_trans "ONLINE*"): " && echo -ne "\033[1;37m$(cat ${SCPdir}/USRonlines) $(fun_trans "Usuarios")  "
 [[ -e ${SCPdir}/USRexpired ]] && msg -ne "$(fun_trans "EXPIRED*"): " && echo -e "\033[1;37m$(cat ${SCPdir}/USRexpired) $(fun_trans "Usuarios")  $log"
-[[ -e ${SCPdir}/message.txt ]] && msg -bar && msg -bra "MESSAGE: $(cat ${SCPdir}/message.txt)"
+[[ -e ${SCPdir}/message.txt ]] && msg -bar && msg -bra "MESSAGE: $messagecat"
 # [[ -e ${SCPdir}/key.txt ]] && msg -bar && msg -bra "USER-KEY: $(cat ${SCPdir}/key.txt)"
 # NOVO SISTEMA DE MENUS
 msg -bar

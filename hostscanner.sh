@@ -208,145 +208,6 @@ msg -ama " $(fun_trans "Senha de usuário root alterada com sucesso")!"
 return
 }
 
-systen_info () {
-clear
-clear
-msg -bar2
-msg -ama "$(fun_trans "DETALHES DO SISTEMA")"
-msg -bar
-null="\033[1;31m"
-if [ ! /proc/cpuinfo ]; then msg -verm "$(fun_trans "Sistema Nao Suportado")" && msg -bar; return 1; fi
-if [ ! /etc/issue.net ]; then msg -verm "$(fun_trans "Sistema Nao Suportado")" && msg -bar; return 1; fi
-if [ ! /proc/meminfo ]; then msg -verm "$(fun_trans "Sistema Nao Suportado")" && msg -bar; return 1; fi
-totalram=$(free | grep Mem | awk '{print $2}')
-usedram=$(free | grep Mem | awk '{print $3}')
-freeram=$(free | grep Mem | awk '{print $4}')
-swapram=$(cat /proc/meminfo | grep SwapTotal | awk '{print $2}')
-system=$(cat /etc/issue.net)
-clock=$(lscpu | grep "CPU MHz" | awk '{print $3}')
-based=$(cat /etc/*release | grep ID_LIKE | awk -F "=" '{print $2}')
-processor=$(cat /proc/cpuinfo | grep "model name" | uniq | awk -F ":" '{print $2}')
-cpus=$(cat /proc/cpuinfo | grep processor | wc -l)
-# SISTEMA OPERACIONAL
-echo -e "\033[1;32mSISTEMA OPERACIONAL \033[0m"
-msg -ama "$(fun_trans "Nome Da Maquina"): ${null}$(hostname)"
-[[ "$system" ]] && msg -ama "$(fun_trans "Sistema"): ${null}$system" || msg -ama "$(fun_trans "Sistema"): ${null}???"
-msg -ama "$(fun_trans "Endereco Da Maquina"): ${null}$(ip addr | grep inet | grep -v inet6 | grep -v "host lo" | awk '{print $2}' | awk -F "/" '{print $1}')"
-msg -ama "$(fun_trans "Versao do Kernel"): ${null}$(uname -r)"
-[[ "$based" ]] && msg -ama "$(fun_trans "Baseado"): ${null}$based" || msg -ama "$(fun_trans "Baseado"): ${null}???"
-# PROCESSADOR
-echo ""
-echo -e "\033[1;32mPROCESSADOR \033[0m"
-[[ "$processor" ]] && msg -ama "$(fun_trans "Processador"): ${null}$processor x$cpus" || msg -ama "$(fun_trans "Processador"): ${null}???"
-[[ "$clock" ]] && msg -ama "$(fun_trans "Frequecia de Operacao"): ${null}$clock MHz" || msg -ama "$(fun_trans "Frequecia de Operacao"): ${null}???"
-msg -ama "$(fun_trans "Arquitetura"): ${null}$(uname -m)"
-msg -ama "$(fun_trans "Uso do Processador"): ${null}$(ps aux  | awk 'BEGIN { sum = 0 }  { sum += sprintf("%f",$3) }; END { printf " " "%.2f" "%%", sum}')"
-# MEMORIA RAM
-echo ""
-echo -e "\033[1;32mMEMORIA RAM \033[0m"
-msg -ama "$(fun_trans "Memoria Virtual Total"): ${null}$(($totalram / 1024))"
-msg -ama "$(fun_trans "Memoria Virtual Em Uso"): ${null}$(($usedram / 1024))"
-msg -ama "$(fun_trans "Memoria Virtual Livre"): ${null}$(($freeram / 1024))"
-msg -ama "$(fun_trans "Memoria Virtual Swap"): ${null}$(($swapram / 1024))MB"
-# TEMPO ONLINE
-echo ""
-echo -e "\033[1;32mTEMPO ONLINE \033[0m"
-msg -ama "$(fun_trans "Tempo Online"): ${null}$(uptime)"
-return 0
-}
-
-limpar_cachesOFF () {
-(
-VE="\033[1;33m" && MA="\033[1;31m" && DE="\033[1;32m"
-while [[ ! -e /tmp/abc ]]; do
-A+="#"
-echo -e " ${VE}[${MA}${A}${VE}]" >&2
-sleep 0.3s
-tput cuu1 && tput dl1
-done
-echo -e " ${VE}[${MA}${A}${VE}] - ${DE}100%" >&2
-rm /tmp/abc
-) &
-echo 3 > /proc/sys/vm/drop_caches &>/dev/null
-sleep 1s
-sysctl -w vm.drop_caches=3 &>/dev/null
-apt-get autoclean -y &>/dev/null
-sleep 1s
-apt-get clean -y &>/dev/null
-rm /tmp/* &>/dev/null
-touch /tmp/abc
-sleep 0.5s
-}
-
-limpar_caches () {
-fun_limpram() {
-	sync
-	echo 3 >/proc/sys/vm/drop_caches
-	sync && sysctl -w vm.drop_caches=3
-	sysctl -w vm.drop_caches=0
-	swapoff -a
-	swapon -a
-	sleep 4
-}
-function aguarde() {
-	sleep 1
-	helice() {
-		fun_limpram >/dev/null 2>&1 &
-		tput civis
-		while [ -d /proc/$! ]; do
-			for i in / - \\ \|; do
-				sleep .1
-				echo -ne "\e[1D$i"
-			done
-		done
-		tput cnorm
-	}
-	echo -ne "\033[1;36m Limpando memoria \033[1;32mRAM \033[1;36me \033[1;32mSWAP\033[1;31m... \033[1;33m"
-	helice
-	echo -e "\e[1DOk"
-}
-clear
-clear
-msg -bar
-[[ $(grep -wc mlocate /var/lib/dpkg/statoverride) != '0' ]] && sed -i '/mlocate/d' /var/lib/dpkg/statoverride
-msg -ama " $(fun_trans "LIMPAR CACHE SISTEMA")"
-msg -bar
-# echo -e "\033[1;36m Atualizando pacotes\033[0m"
-# fun_bar 'apt-get update -y' 'apt-get upgrade -y'
-echo -e "\033[1;36m Corrigindo problemas de dependências"
-fun_bar 'apt-get -f install'
-echo -e "\033[1;36m Removendo pacotes inúteis"
-fun_bar 'apt-get autoremove -y' 'apt-get autoclean -y'
-echo -e "\033[1;36m Removendo pacotes com problemas"
-fun_bar 'apt-get -f remove -y' 'apt-get clean -y'
-# Limpar o cache memoria RAM
-msg -bar
-MEM1=$(free | awk '/Mem:/ {print int(100*$3/$2)}')
-ram1=$(free -h | grep -i mem | awk {'print $2'})
-ram2=$(free -h | grep -i mem | awk {'print $4'})
-ram3=$(free -h | grep -i mem | awk {'print $3'})
-swap1=$(free -h | grep -i swap | awk {'print $2'})
-swap2=$(free -h | grep -i swap | awk {'print $4'})
-swap3=$(free -h | grep -i swap | awk {'print $3'})
-echo -e " \033[1;37mMemória \033[1;32mRAM \033[1;37mAntes da Otimizacao:\033[1;36m" $MEM1%
-msg -bar
-sleep 1
-aguarde
-sleep 1
-msg -bar
-MEM2=$(free | awk '/Mem:/ {print int(100*$3/$2)}')
-ram1=$(free -h | grep -i mem | awk {'print $2'})
-ram2=$(free -h | grep -i mem | awk {'print $4'})
-ram3=$(free -h | grep -i mem | awk {'print $3'})
-swap1=$(free -h | grep -i swap | awk {'print $2'})
-swap2=$(free -h | grep -i swap | awk {'print $4'})
-swap3=$(free -h | grep -i swap | awk {'print $3'})
-echo -e " \033[1;37mMemória \033[1;32mRAM \033[1;37mapós a Otimizacao:\033[1;36m" $MEM2%
-msg -bra " $(fun_trans "Economia de"):\033[1;31m $(expr $MEM1 - $MEM2)%\033[0m"
-msg -bar
-msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
-}
-
 # SISTEMA DE SELECAO
 selection_fun () {
 local selection="null"
@@ -360,32 +221,67 @@ done
 echo $selection
 }
 
+act_hora () {
+echo -ne " \033[1;31m[ ! ] timedatectl"
+timedatectl > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+echo -ne " \033[1;31m[ ! ] timedatectl list-timezones"
+timedatectl list-timezones > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+echo -ne " \033[1;31m[ ! ] timedatectl list-timezones  | grep Santiago"
+timedatectl list-timezones  | grep Santiago > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+echo -ne " \033[1;31m[ ! ] timedatectl set-timezone America/Santiago"
+timedatectl set-timezone America/Santiago > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+return
+}
+
+newadm_color () {
+echo -e "$(fun_trans "Deseja Prosseguir?")"
+read -p " [S/N]: " -e -i n PROS
+[[ $PROS = @(s|S|y|Y) ]] || return 1
+msg -bar
+echo "4 1 7 3 2 5 4 " > /etc/new-adm-color
+echo -ne " \033[1;31m[ ! ] new-adm-color \033[1;32m[OK]\n"
+msg -bar
+echo -e " \033[1;33m Para Remover new-adm-color > \033[1;31m[ \033[1;32mrm -rf /etc/new-adm-color \033[1;31m]"
+return
+}
+
+resetiptables () {
+iptables -F && iptables -X && iptables -t nat -F && iptables -t nat -X && iptables -t mangle -F && iptables -t mangle -X && iptables -t raw -F && iptables -t raw -X && iptables -t security -F && iptables -t security -X && iptables -P INPUT ACCEPT && iptables -P FORWARD ACCEPT && iptables -P OUTPUT ACCEPT
+fun_bar "service ssh restart" "service sshd restart"
+msg -bar
+msg -ama "PROCESSO CONCLUIDO"
+}
+
+packobs () {
+msg -ama "Buscando Pacotes Obsoletos"
+msg -bar
+fun_bar "service ssh restart" "service sshd restart"
+dpkg -l | grep -i ^rc
+msg -bar
+msg -ama "Pacotes obsoletos limpos"
+msg -bar
+dpkg -l |grep -i ^rc | cut -d " " -f 3 | xargs dpkg --purge
+msg -bar
+msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
+}
+
 clear
 clear
 msg -bar
-msg -ama "$(fun_trans "MENU DE SISTEMA") "
+msg -ama "$(fun_trans "MENU DE SCANNER") PAYLOAD"
 msg -bar
 echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$(fun_trans "VOLTAR")"
-echo -ne "$(msg -verd "[1]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ATUALIZAR SISTEMA")"
-echo -ne "$(msg -verd "[2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "REINICIAR SERVICOS")"
-echo -ne "$(msg -verd "[3]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "REINSTALL PACOTES")"
-echo -ne "$(msg -verd "[4]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "REINICIAR SISTEMA")"
-echo -ne "$(msg -verd "[5]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ALTERAR NOME DO SISTEMA")"
-echo -ne "$(msg -verd "[6]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ALTERAR SENHA ROOT")"
-echo -ne "$(msg -verd "[7]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "DETALHES DO SISTEMA")"
-echo -ne "$(msg -verd "[8]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "LIMPAR CACHE SISTEMA")"
+echo -ne "$(msg -verd "[1]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "GERADOR DE") PAYLOAD"
+echo -ne "$(msg -verd "[2]") $(msg -verm2 ">") " && msg -azu "PAYLOAD $(fun_trans "FORCA BRUTA")"
+echo -ne "$(msg -verd "[3]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "SCANNER DE SUBDOMINIO")"
 msg -bar
 # FIM
-selection=$(selection_fun 8)
+selection=$(selection_fun 9)
 case ${selection} in
-1)update_pak;;
-2)reiniciar_ser;;
-3)inst_components;;
-4)reiniciar_vps;;
-5)host_name;;
-6)senharoot;;
-7)systen_info;;
-8)limpar_caches;;
+1)${SCPfrm}/criar_pay.sh "${idioma}";;
+2)${SCPfrm}/paysnd.sh "${idioma}";;
+3)${SCPfrm}/ultrahost "${idioma}";;
+9)newadm_color;;
 0)exit;;
 esac
 msg -bar

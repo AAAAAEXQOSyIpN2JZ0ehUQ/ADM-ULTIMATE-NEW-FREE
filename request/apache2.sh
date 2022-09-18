@@ -4,9 +4,6 @@ SCPdir="/etc/newadm" && [[ ! -d ${SCPdir} ]] && exit 1
 SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
-API_TRANS="aHR0cDovL2dpdC5pby90cmFucw=="
-SUB_DOM='base64 -d'
-wget -O /usr/bin/trans $(echo $API_TRANS|$SUB_DOM) &> /dev/null
 
 fun_bar () {
 comando="$1"

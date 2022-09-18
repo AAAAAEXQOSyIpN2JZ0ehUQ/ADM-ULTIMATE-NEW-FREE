@@ -52,6 +52,42 @@ else
 unset pid_badvpn
 }
 
+SquidCACHE () {
+msg -ama "$(fun_trans "Squid Cache, Aplica cache no squid")"
+msg -ama "$(fun_trans "melhora a velocidade do squid")"
+msg -bar
+if [ -e /etc/squid/squid.conf ]; then
+squid_var="/etc/squid/squid.conf"
+elif [ -e /etc/squid3/squid.conf ]; then
+squid_var="/etc/squid3/squid.conf"
+else
+msg -ama "$(fun_trans "Seu sistema nao possui um squid")!" && return 1
+fi
+teste_cache="#CACHE DO SQUID"
+if [[ `grep -c "^$teste_cache" $squid_var` -gt 0 ]]; then
+  [[ -e ${squid_var}.bakk ]] && {
+  msg -ama "$(fun_trans "Cache squid identificado, removendo")!"
+  mv -f ${squid_var}.bakk $squid_var
+  msg -ama "$(fun_trans "cache squid removido")!"
+  service squid restart > /dev/null 2>&1 &
+  service squid3 restart > /dev/null 2>&1 &
+  return 0
+  }
+fi
+msg -ama "$(fun_trans "Aplicando Cache Squid")!"
+msg -bar
+_tmp="#CACHE DO SQUID\ncache_mem 200 MB\nmaximum_object_size_in_memory 32 KB\nmaximum_object_size 1024 MB\nminimum_object_size 0 KB\ncache_swap_low 90\ncache_swap_high 95"
+[[ "$squid_var" = "/etc/squid/squid.conf" ]] && _tmp+="\ncache_dir ufs /var/spool/squid 100 16 256\naccess_log /var/log/squid/access.log squid" || _tmp+="\ncache_dir ufs /var/spool/squid3 100 16 256\naccess_log /var/log/squid3/access.log squid"
+while read s_squid; do
+[[ "$s_squid" != "cache deny all" ]] && _tmp+="\n${s_squid}"
+done < $squid_var
+cp ${squid_var} ${squid_var}.bakk
+echo -e "${_tmp}" > $squid_var
+msg -ama "$(fun_trans "Cache Aplicado Com Sucesso")!"
+service squid restart > /dev/null 2>&1 &
+service squid3 restart > /dev/null 2>&1 &
+}
+
 TCPspeed () {
 if [[ `grep -c "^#ADM" /etc/sysctl.conf` -eq 0 ]]; then
 #INSTALA
@@ -224,42 +260,6 @@ service ssh restart > /dev/null 2>&1
 service sshd restart > /dev/null 2>&1
 msg -bar
 msg -ama " $(fun_trans "Seu Torrent foi Aplicado com sucesso")"
-}
-
-SquidCACHE () {
-msg -ama "$(fun_trans "Squid Cache, Aplica cache no squid")"
-msg -ama "$(fun_trans "melhora a velocidade do squid")"
-msg -bar
-if [ -e /etc/squid/squid.conf ]; then
-squid_var="/etc/squid/squid.conf"
-elif [ -e /etc/squid3/squid.conf ]; then
-squid_var="/etc/squid3/squid.conf"
-else
-msg -ama "$(fun_trans "Seu sistema nao possui um squid")!" && return 1
-fi
-teste_cache="#CACHE DO SQUID"
-if [[ `grep -c "^$teste_cache" $squid_var` -gt 0 ]]; then
-  [[ -e ${squid_var}.bakk ]] && {
-  msg -ama "$(fun_trans "Cache squid identificado, removendo")!"
-  mv -f ${squid_var}.bakk $squid_var
-  msg -ama "$(fun_trans "cache squid removido")!"
-  service squid restart > /dev/null 2>&1 &
-  service squid3 restart > /dev/null 2>&1 &
-  return 0
-  }
-fi
-msg -ama "$(fun_trans "Aplicando Cache Squid")!"
-msg -bar
-_tmp="#CACHE DO SQUID\ncache_mem 200 MB\nmaximum_object_size_in_memory 32 KB\nmaximum_object_size 1024 MB\nminimum_object_size 0 KB\ncache_swap_low 90\ncache_swap_high 95"
-[[ "$squid_var" = "/etc/squid/squid.conf" ]] && _tmp+="\ncache_dir ufs /var/spool/squid 100 16 256\naccess_log /var/log/squid/access.log squid" || _tmp+="\ncache_dir ufs /var/spool/squid3 100 16 256\naccess_log /var/log/squid3/access.log squid"
-while read s_squid; do
-[[ "$s_squid" != "cache deny all" ]] && _tmp+="\n${s_squid}"
-done < $squid_var
-cp ${squid_var} ${squid_var}.bakk
-echo -e "${_tmp}" > $squid_var
-msg -ama "$(fun_trans "Cache Aplicado Com Sucesso")!"
-service squid restart > /dev/null 2>&1 &
-service squid3 restart > /dev/null 2>&1 &
 }
 
 clear

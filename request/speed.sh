@@ -4,9 +4,7 @@ SCPdir="/etc/newadm" && [[ ! -d ${SCPdir} ]] && exit 1
 SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
-
 link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/speedtest"
-[[ ! -e /bin/speedtest ]] && wget -O /bin/speedtest ${link_bin} > /dev/null 2>&1 && chmod +x /bin/speedtest
 
 fun_bar () {
 comando="$1"
@@ -36,10 +34,11 @@ speedtest --share > speed
 clear
 clear
 msg -bar
-msg -azu " $(fun_trans "Speed Test") \033[1;32m[NEW-ADM]"
+msg -azu " $(fun_trans "VELOCIDADE DO SERVIDOR") \033[1;32m[Speed Test]"
 msg -bar
 # PROGRESS INSTALL - BAR
-#apt-get install python3 -y  > /dev/null 2>&1
+[[ ! -e /bin/speedtest ]] && wget -O /bin/speedtest ${link_bin} > /dev/null 2>&1 && chmod +x /bin/speedtest
+# apt-get install python3 -y  > /dev/null 2>&1
 apt-get install python-pip -y  > /dev/null 2>&1
 pip install speedtest-cli  > /dev/null 2>&1
 fun_bar 'fun_tst'

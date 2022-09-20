@@ -4,7 +4,9 @@ SCPdir="/etc/newadm" && [[ ! -d ${SCPdir} ]] && exit 1
 SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
+
 link_bin="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/speedtest"
+[[ ! -e /bin/speedtest ]] && wget -O /bin/speedtest ${link_bin} > /dev/null 2>&1 && chmod +x /bin/speedtest
 
 fun_bar () {
 comando="$1"
@@ -37,10 +39,9 @@ msg -bar
 msg -azu " $(fun_trans "VELOCIDADE DO SERVIDOR") \033[1;32m[Speed Test]"
 msg -bar
 # PROGRESS INSTALL - BAR
-[[ ! -e /bin/speedtest ]] && wget -O /bin/speedtest ${link_bin} > /dev/null 2>&1 && chmod +x /bin/speedtest
 # apt-get install python3 -y  > /dev/null 2>&1
-apt-get install python-pip -y  > /dev/null 2>&1
-pip install speedtest-cli  > /dev/null 2>&1
+# apt-get install python-pip -y  > /dev/null 2>&1
+# pip install speedtest-cli  > /dev/null 2>&1
 fun_bar 'fun_tst'
 png=$(cat speed | sed -n '5 p' |awk -F : {'print $NF'})
 down=$(cat speed | sed -n '7 p' |awk -F :  {'print $NF'})

@@ -39,9 +39,11 @@ msg -bar
 msg -azu " $(fun_trans "VELOCIDADE DO SERVIDOR") \033[1;32m[Speed Test]"
 msg -bar
 # PROGRESS INSTALL - BAR
+# apt-get install python -y  > /dev/null 2>&1
+apt-get install python-pip -y  > /dev/null 2>&1
 # apt-get install python3 -y  > /dev/null 2>&1
-# apt-get install python-pip -y  > /dev/null 2>&1
-# pip install speedtest-cli  > /dev/null 2>&1
+# apt-get install python3-pip -y  > /dev/null 2>&1
+pip install speedtest-cli  > /dev/null 2>&1
 fun_bar 'fun_tst'
 png=$(cat speed | sed -n '5 p' |awk -F : {'print $NF'})
 down=$(cat speed | sed -n '7 p' |awk -F :  {'print $NF'})

@@ -100,7 +100,7 @@ apt-get install python -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo 
 echo -ne " \033[1;31m[ ! ] apt-get python3"
 apt-get install python3 -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
 echo -ne " \033[1;31m[ ! ] apt-get python-pip"
-apt-get install python-pip > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+apt-get install python-pip -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
 pip install speedtest-cli &>/dev/null
 echo -ne " \033[1;31m[ ! ] apt-get curl"
 apt-get install curl -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
@@ -137,11 +137,11 @@ return
 
 reiniciar_vps () {
 ## REINICIAR VPS (REBOOT)
-echo -e "\033[1;33m Realmente desea Reiniciar el sistema?"
+echo -e "\033[1;33m Realmente desea Reiniciar la VPS?"
 read -p " [S/N]: " -e -i n sshsn
 [[ "$sshsn" = @(s|S|y|Y) ]] && {
 msg -bar
-echo -e "\033[1;36m Preparando para Reiniciar el sistema"
+echo -e "\033[1;36m Preparando para reiniciando VPS"
 echo -e "\033[1;36m AGUARDE"
 sleep 3s
 msg -bar

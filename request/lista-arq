@@ -32,3 +32,4 @@ ultrahost
 utils.sh
 gestor.sh
 monitores.sh
+statushost.sh

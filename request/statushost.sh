@@ -6,17 +6,6 @@ SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPinst} ]] && exit
 SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 
-fun_ip () {
-if [[ -e /etc/MEUIPADM ]]; then
-IP="$(cat /etc/MEUIPADM)"
-else
-MEU_IP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
-MEU_IP2=$(wget -qO- ipv4.icanhazip.com)
-[[ "$MEU_IP" != "$MEU_IP2" ]] && IP="$MEU_IP2" || IP="$MEU_IP"
-echo "$MEU_IP2" > /etc/MEUIPADM
-fi
-}
-
 fun_bar () {
 comando[0]="$1"
 comando[1]="$2"
@@ -43,32 +32,41 @@ echo -e "\033[1;33m]\033[1;31m -\033[1;32m 100%\033[1;37m"
 }
 
 fun_scan () {
-echo
-echo -ne "\033[1;32mDigite o dominio: \033[1;37m"; read HOST
+clear
+clear
+msg -bar
+msg -ama "$(fun_trans "EXTRACTOR HOST & SSL ")"
+msg -bar
+echo -ne "\033[1;37mDigite o dominio: "; read HOST
 echo -e "\033[1;32m"
+tput cuu1 && tput dl1
+tput cuu1 && tput dl1
 bash_scan () {
-	list=`wget -O - $1 -q | grep -i "href=['|\"]" | sed "s/^.*href=['|\"]//" | awk -F"[\"|']" '{print $1}' | sort -u`
-	for url in $list
-	do
-		if [ ${#url} -ge 4 -a ${url:0:4} = "http" ];then
-			newlist="$newlist\n$url"
-		elif [ -n $url -a ${url:0:1} = "/" ];then
-			newlist="$newlist\n$1$url"
-		else
-			newlist="$newlist\n$1"/"$url"
-		fi
-	done
-	echo -e "\e[1;32m $newlist\e[0m " | sort -u | sort
-	echo -e "$newlist " | sort -u | sort > lista-host.txt
-	echo
+list=`wget -O - $1 -q | grep -i "href=['|\"]" | sed "s/^.*href=['|\"]//" | awk -F"[\"|']" '{print $1}' | sort -u`
+for url in $list
+do
+	if [ ${#url} -ge 4 -a ${url:0:4} = "http" ];then
+		newlist="$newlist\n$url"
+	elif [ -n $url -a ${url:0:1} = "/" ];then
+		newlist="$newlist\n$1$url"
+	else
+		newlist="$newlist\n$1"/"$url"
+	fi
+done
+echo -e "\e[1;32m $newlist\e[0m " | sort -u | sort
+echo -e "$newlist " | sort -u | sort > lista-host.txt
+echo
 }
 bash_scan $HOST
 }
 
 fun_status () {
-echo
-echo -e "\033[1;32mSHOWING HOSTS STATUS "
 # status host
+clear
+clear
+msg -bar
+msg -ama "$(fun_trans "SHOWING HOSTS STATUS ")"
+msg -bar
 echo -e "\e[1;32m"
 while read LINE; do
   curl -o /dev/null --silent --head --write-out '%{http_code}' "$LINE"
@@ -79,8 +77,13 @@ echo
 
 fun_payloads () {
 # bash payloads
-echo ""
-echo -ne "\033[1;32mDigite o dominio: "; read host
+clear
+clear
+msg -bar
+msg -ama "$(fun_trans "GENERATE PAYLOADT")"
+msg -bar
+echo -ne "\033[1;37mDigite o dominio: "; read host
+tput cuu1 && tput dl1
 echo -e "\033[1;33m"
 echo "CONNECT free.facebook.com;$host;internet.org;c.whatsapp.net@[host_port] [protocol][crlf][delay_split]GET http://free.facebook.com;$host;internet.org;c.whatsapp.net/ HTTP/1.1[crlf]Host: free.facebook.com;$host;internet.org;c.whatsapp.net[crlf]X-Online-Host: free.facebook.com;$host;internet.org;c.whatsapp.net[crlf]X-Forward-Host: free.facebook.com;$host;internet.org;c.whatsapp.net[crlf]X-Forwarded-For: free.facebook.com;$host;internet.org;c.whatsapp.net[crlf]Connection: Keep-Alive[crlf][crlf]"
 echo ""
@@ -163,7 +166,7 @@ echo -ne "$(msg -verd "[3]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "Edita
 echo -ne "$(msg -verd "[4]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "GENERATE PAYLOAD")"
 msg -bar
 # FIM
-selection=$(selection_fun 3)
+selection=$(selection_fun 4)
 case ${selection} in
 1)fun_scan;;
 2)fun_status;;

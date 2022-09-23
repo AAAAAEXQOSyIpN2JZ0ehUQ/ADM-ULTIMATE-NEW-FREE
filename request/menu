@@ -941,7 +941,11 @@ echo -e "    21          nload"
 echo -e "    22          htop"
 echo -e "    23          System info"
 echo -e "    24          Clean system"
-echo -e "    25          Speed Test"
+echo -e "    26          Speed Test"
+echo -e "    26          Time Santiago/Chile"
+echo -e "    27          Color"
+echo -e "    28          Reset iptables"
+echo -e "    29          Clean package osoletos"
 echo ""
 msg -bar
 return 0
@@ -957,6 +961,49 @@ msg -bar
 fun_nload () {
 [[ $(dpkg --get-selections|grep -w "nload"|head -1) ]] || apt-get install nload -y &>/dev/null
 nload
+msg -ama " $(fun_trans "Procedimento concluido")"
+msg -bar
+}
+
+act_hora () {
+# ATUALIZAR HORA AMERICA-SANTIAGO
+echo -ne " \033[1;31m[ ! ] timedatectl"
+timedatectl > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+echo -ne " \033[1;31m[ ! ] timedatectl list-timezones"
+timedatectl list-timezones > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+echo -ne " \033[1;31m[ ! ] timedatectl list-timezones  | grep Santiago"
+timedatectl list-timezones  | grep Santiago > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+echo -ne " \033[1;31m[ ! ] timedatectl set-timezone America/Santiago"
+timedatectl set-timezone America/Santiago > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+msg -bar
+}
+
+newadm_color () {
+# MUDAR CORES
+echo -e "\033[1;32m[+] 4 1 7 3 2 5 4"
+echo "4 1 7 3 2 5 4 " > /etc/new-adm-color
+msg -bar
+echo -e "\033[1;31mRUTA > \033[1;31m[ \033[1;32m/etc/new-adm-color \033[1;31m]"
+msg -bar
+}
+
+resetiptables () {
+# REINICIAR IPTABLES
+iptables -F && iptables -X && iptables -t nat -F && iptables -t nat -X && iptables -t mangle -F && iptables -t mangle -X && iptables -t raw -F && iptables -t raw -X && iptables -t security -F && iptables -t security -X && iptables -P INPUT ACCEPT && iptables -P FORWARD ACCEPT && iptables -P OUTPUT ACCEPT
+service ssh restart > /dev/null 2>&1
+service sshd restart > /dev/null 2>&1
+msg -ama " $(fun_trans "Procedimento concluido")"
+msg -bar
+}
+
+packobs () {
+# LIMPAR PACOTES OBSOLETOS
+#Buscando Pacotes Obsoletos"
+dpkg -l | grep -i ^rc
+dpkg -l |grep -i ^rc | cut -d " " -f 3 | xargs dpkg --purge
+#Pacotes obsoletos limpos
+service ssh restart > /dev/null 2>&1
+service sshd restart > /dev/null 2>&1
 msg -ama " $(fun_trans "Procedimento concluido")"
 msg -bar
 }
@@ -1013,7 +1060,7 @@ echo -ne "$(msg -verd "[10]") $(msg -verm2 ">") " && msg -bra "$(fun_trans "MENU
 # menu_func "GERENCIAR USUARIOS" "MENU DE FERRAMENTAS" "MENU DE SISTEMA" "MENU DE UTILITARIOS" "-vd ATUALIZAR ADM" "-vm DESINSTALAR ADM" "PERSONALIZAR CORES SCRIPT" "CAMBIAR IDIOMA" "-fi $AutoRun EXECUCAO AUTOMATICA" "MENU DE INSTALACOES"
 msg -bar
 # FIM
-selection=$(selection_fun 30)
+selection=$(selection_fun 29)
 case ${selection} in
 0)cd $HOME && exit 0;;
 1)${SCPusr}/usercodes "${idioma}";;
@@ -1033,6 +1080,10 @@ case ${selection} in
 23)systen_info;;
 24)limpar_caches;;
 25)${SCPfrm}/speed.sh "${idioma}";;
+26)act_hora;;
+27)newadm_color;;
+28)resetiptables;;
+29)packobs;;
 # EJECUCION RAPIDA / beta fim
 esac
 msg -ne "$(fun_trans "Enter Para Continuar")" && read enter

@@ -414,7 +414,7 @@ echo -ne "$(msg -verd "[5]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ALTER
 echo -ne "$(msg -verd "[6]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ALTERAR SENHA ROOT")"
 echo -ne "$(msg -verd "[7]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "TRAFICO DE RED nload")"
 echo -ne "$(msg -verd "[8]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "PROCESOS DE SISTEMA htop")"
-echo -ne "$(msg -verd "[9]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "[\033[1;32mbet] \033[1;31mMONITOR DO SISTEMA glances")"
+echo -ne "$(msg -verd "[9]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "\033[1;32m[bet] \033[1;31mMONITOR DO SISTEMA glances")"
 echo -ne "$(msg -verd "[10]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "DETALHES DO SISTEMA")"
 echo -ne "$(msg -verd "[11]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "LIMPAR CACHE SISTEMA")"
 msg -bar

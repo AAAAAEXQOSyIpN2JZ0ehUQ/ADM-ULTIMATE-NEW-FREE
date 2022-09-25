@@ -893,7 +893,6 @@ case $1 in
 "ports.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "GERENCIAMENTO DE PORTAS") $ofc";;
 "fai2ban.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "FAIL2BAN PROTECAO") $dev";;
 "speed.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "VELOCIDADE DO SERVIDOR") $ofc";;
-"monitores.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "(Nload/htop/glances) $dev";;
 "ultrahost")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ESCANER DE SUBDOMINIOS") $dev";;
 "statushost.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "STATUS DE HOST") $dev";;
 "criar_pay.sh")echo -ne "$(msg -verd "[$2]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "GERADOR DE") PAYLOAD $dev";;
@@ -1073,18 +1072,19 @@ case ${selection} in
 8)funcao_idioma;;
 9)fun_autorun;;
 10)menu_inst;;
-# COMMAND EXECUÇÃO / beta
-20)fun_access;;
-21)fun_nload;;
-22)fun_htop;;
-23)systen_info;;
-24)limpar_caches;;
-25)${SCPfrm}/speed.sh "${idioma}";;
-26)act_hora;;
-27)newadm_color;;
-28)resetiptables;;
-29)packobs;;
-# EJECUCION RAPIDA / beta fim
+# --COMMAND EXECUÇÃO
+# --Menu Teste prov
+	20)fun_access;;
+	21)fun_nload;;
+	22)fun_htop;;
+	23)systen_info;;
+	24)limpar_caches;;
+	25)${SCPfrm}/speed.sh "${idioma}";;
+	26)act_hora;;
+	27)newadm_color;;
+	28)resetiptables;;
+	29)packobs;;
+# --EJECUCION RAPIDA
 esac
 msg -ne "$(fun_trans "Enter Para Continuar")" && read enter
 ${SCPdir}/menu

@@ -141,7 +141,7 @@ echo -e "\033[1;33m Realmente desea Reiniciar la VPS?"
 read -p " [S/N]: " -e -i n sshsn
 [[ "$sshsn" = @(s|S|y|Y) ]] && {
 msg -bar
-echo -e "\033[1;36m Preparando para reiniciando VPS"
+echo -e "\033[1;36m Preparando para reinicio"
 echo -e "\033[1;36m AGUARDE"
 sleep 3s
 msg -bar
@@ -154,7 +154,7 @@ reboot
 host_name () {
 msg -ama " $(fun_trans "O nome sera alterado internamente no servodor")"
 msg -bar
-echo -ne " $(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " -e -i n PROS
+echo -ne " $(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " PROS
 [[ $PROS = @(s|S|y|Y) ]] || return 1
 #Inicia Procedimentos
 msg -bar
@@ -206,6 +206,46 @@ echo -e "\033[1;31m $(fun_trans "Nova Senha"): \033[01;37m$(cat $PASSWORD_FILE)"
 msg -bar
 msg -ama " $(fun_trans "Senha de usuário root alterada com sucesso")!"
 return
+}
+
+fun_nload () {
+msg -azu " $(fun_trans "PARA SALIR DEL PANEL PRESIONE") \033[1;33mCTLR + C"
+msg -bar
+echo -ne " $(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " PROS
+[[ $PROS = @(s|S|y|Y) ]] || return 1
+#Inicia Procedimentos
+msg -bar
+[[ $(dpkg --get-selections|grep -w "nload"|head -1) ]] || apt-get install nload -y &>/dev/null
+nload
+msg -ama " $(fun_trans "Procedimento concluido")"
+}
+
+fun_htop () {
+msg -azu " $(fun_trans "PARA SALIR DEL PANEL PRESIONE") \033[1;33mCTLR + C"
+msg -bar
+echo -ne " $(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " PROS
+[[ $PROS = @(s|S|y|Y) ]] || return 1
+#Inicia Procedimentos
+msg -bar
+[[ $(dpkg --get-selections|grep -w "htop"|head -1) ]] || apt-get install htop -y &>/dev/null
+htop
+msg -ama " $(fun_trans "Procedimento concluido")"
+}
+
+fun_glances () {
+msg -azu " $(fun_trans "PARA SALIR DEL PANEL PRESIONE") \033[1;33mCTLR + C"
+msg -azu " $(fun_trans "O presione la letra") \033[1;33mq"
+msg -bar
+echo -ne " $(fun_trans "Deseja Prosseguir?")"; read -p " [S/N]: " -e -i n PROS
+[[ $PROS = @(s|S|y|Y) ]] || return 1
+#Inicia Procedimentos
+msg -bar
+apt-get install python-pip build-essential python-dev -y &>/dev/null
+apt install glances -y &>/dev/null
+pip install Glances &>/dev/null
+pip install PySensors &>/dev/null
+glances
+msg -ama " $(fun_trans "Procedimento concluido")"
 }
 
 systen_info () {
@@ -372,11 +412,14 @@ echo -ne "$(msg -verd "[3]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "REINS
 echo -ne "$(msg -verd "[4]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "REINICIAR SISTEMA")"
 echo -ne "$(msg -verd "[5]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ALTERAR NOME DO SISTEMA")"
 echo -ne "$(msg -verd "[6]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ALTERAR SENHA ROOT")"
-echo -ne "$(msg -verd "[7]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "DETALHES DO SISTEMA")"
-echo -ne "$(msg -verd "[8]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "LIMPAR CACHE SISTEMA")"
+echo -ne "$(msg -verd "[7]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "TRAFICO DE RED nload")"
+echo -ne "$(msg -verd "[8]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "PROCESOS DE SISTEMA htop")"
+echo -ne "$(msg -verd "[9]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "[\033[1;32mbet] \033[1;31mMONITOR DO SISTEMA glances")"
+echo -ne "$(msg -verd "[10]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "DETALHES DO SISTEMA")"
+echo -ne "$(msg -verd "[11]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "LIMPAR CACHE SISTEMA")"
 msg -bar
 # FIM
-selection=$(selection_fun 8)
+selection=$(selection_fun 11)
 case ${selection} in
 1)update_pak;;
 2)reiniciar_ser;;
@@ -384,8 +427,11 @@ case ${selection} in
 4)reiniciar_vps;;
 5)host_name;;
 6)senharoot;;
-7)systen_info;;
-8)limpar_caches;;
+7)fun_nload;;
+8)fun_htop;;
+9)fun_glances;;
+10)systen_info;;
+11)limpar_caches;;
 0)exit;;
 esac
 msg -bar

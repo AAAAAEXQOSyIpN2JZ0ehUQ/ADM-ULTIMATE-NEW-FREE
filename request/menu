@@ -1003,6 +1003,7 @@ dpkg -l |grep -i ^rc | cut -d " " -f 3 | xargs dpkg --purge
 #Pacotes obsoletos limpos
 service ssh restart > /dev/null 2>&1
 service sshd restart > /dev/null 2>&1
+msg -bar
 msg -ama " $(fun_trans "Procedimento concluido")"
 msg -bar
 }

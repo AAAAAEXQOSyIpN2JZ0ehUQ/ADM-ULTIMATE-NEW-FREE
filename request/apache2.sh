@@ -113,6 +113,21 @@ msg -azu "$(fun_trans "PORTAS REDEFINIDAS")"
 msg -bar
 }
 
+fun_notfound404 () {
+cd /var/www/html/
+mv index.html index_back.html > /dev/null 2>&1
+rm -rf notfound404.zip > /dev/null 2>&1
+rm -rf files > /dev/null 2>&1
+rm -rf index.html > /dev/null 2>&1
+wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/notfound404.zip > /dev/null 2>&1
+chmod +x /etc/newadm/notfound404.zip
+unzip notfound404.zip > /dev/null 2>&1
+rm -rf notfound404.zip > /dev/null 2>&1 
+echo -e "\033[1;33mACTIVADO COM SUCESSO"
+msg -bar
+return 0
+}
+
 fun_iniciastop () {
 if [[ ! -e /etc/apache2/apache_stop ]]; then
 echo -e "\033[1;36mPARANDO APACHE"
@@ -147,7 +162,7 @@ Port=$(echo {$port} | awk '{print $9}' | awk -F ":" '{print $2}')
 NOREPEAT+="$Port\n"
 case ${reQ} in
 apache|apache2)
-[[ -z $APC ]] && msg -bar && local APC="\033[1;32m $(fun_trans "PORTA") \033[1;37m"
+[[ -z $APC ]] && msg -bar && local APC="\033[1;32m$(fun_trans "PORTA") \033[1;37m"
 APC+="$Port ";;
 esac
 done <<< "${portasVAR}"
@@ -167,8 +182,9 @@ msg -bar
 echo -ne "\033[1;32m [0] > " && msg -bra "$(fun_trans "VOLTAR ")"
 echo -ne "\033[1;32m [1] > " && msg -azu "$(fun_trans "DESINTALAR APACHE")"
 echo -ne "\033[1;32m [2] > " && msg -azu "$(fun_trans "REDEFINIR PORTA APACHE")"
-echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "Editar Cliente APACHE") \033[1;31m(comand nano)"
-echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "Iniciar ou Parar  APACHE2") $OPENBAR"
+echo -ne "\033[1;32m [3] > " && msg -azu "$(fun_trans "INDEX NOT FOUND 404")"
+echo -ne "\033[1;32m [4] > " && msg -azu "$(fun_trans "Editar Cliente APACHE") \033[1;31m(comand nano)"
+echo -ne "\033[1;32m [5] > " && msg -azu "$(fun_trans "Iniciar ou Parar  APACHE2") $OPENBAR"
 msg -bar
 while [[ ${arquivoonlineadm} != @(0|[1-4]) ]]; do
 read -p "[0-4]: " arquivoonlineadm
@@ -178,10 +194,11 @@ case $arquivoonlineadm in
 0)exit;;
 1)remover_apache2;;
 2)edit_apache;;
-3)
+3)fun_notfound404;;
+4)
    nano /etc/apache2/ports.conf
    return 0;;
-4)fun_iniciastop;;
+5)fun_iniciastop;;
 esac
 }
 fun_apache2

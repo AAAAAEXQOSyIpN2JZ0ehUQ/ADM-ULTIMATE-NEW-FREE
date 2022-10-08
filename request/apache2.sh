@@ -120,7 +120,6 @@ rm -rf notfound404.zip > /dev/null 2>&1
 rm -rf files > /dev/null 2>&1
 rm -rf index.html > /dev/null 2>&1
 wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/notfound404.zip > /dev/null 2>&1
-chmod +x /etc/newadm/notfound404.zip
 unzip notfound404.zip > /dev/null 2>&1
 rm -rf notfound404.zip > /dev/null 2>&1 
 echo -e "\033[1;33mACTIVADO COM SUCESSO"

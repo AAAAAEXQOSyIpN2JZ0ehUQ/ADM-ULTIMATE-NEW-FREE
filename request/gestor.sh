@@ -45,6 +45,11 @@ echo -e "\033[1;33m]\033[1;31m -\033[1;32m 100%\033[1;37m"
 update_pak () {
 echo -ne " \033[1;31m[ ! ] apt-get update"
 apt-get update -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+echo ""
+echo -ne " $(fun_trans "Deseja Prosseguir upgrade?")"; read -p " [S/N]: " PROS
+[[ $PROS = @(s|S|y|Y) ]] || return 1
+tput cuu1 && tput dl1
+tput cuu1 && tput dl1
 echo -ne " \033[1;31m[ ! ] apt-get upgrade"
 apt-get upgrade -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
 return
@@ -414,7 +419,7 @@ echo -ne "$(msg -verd "[5]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ALTER
 echo -ne "$(msg -verd "[6]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ALTERAR SENHA ROOT")"
 echo -ne "$(msg -verd "[7]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "TRAFICO DE RED nload")"
 echo -ne "$(msg -verd "[8]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "PROCESOS DE SISTEMA htop")"
-echo -ne "$(msg -verd "[9]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "\033[1;32m[bet] \033[1;31mMONITOR DO SISTEMA glances")"
+echo -ne "$(msg -verd "[9]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "MONITOR DO SISTEMA glances") \033[1;31m[Inestable]"
 echo -ne "$(msg -verd "[10]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "DETALHES DO SISTEMA")"
 echo -ne "$(msg -verd "[11]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "LIMPAR CACHE SISTEMA")"
 msg -bar

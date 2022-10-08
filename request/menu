@@ -1085,7 +1085,7 @@ case ${selection} in
 	27)newadm_color;;
 	28)resetiptables;;
 	29)packobs;;
-# --EJECUCION RAPIDA
+# ------------------
 esac
 msg -ne "$(fun_trans "Enter Para Continuar")" && read enter
 ${SCPdir}/menu

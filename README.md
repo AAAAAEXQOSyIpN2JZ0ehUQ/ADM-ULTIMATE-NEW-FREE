@@ -20,7 +20,7 @@ chmod 777 instalar.sh* && ./instalar.sh*
 ADM-MANAGER (las dependencias faltantes se instalarán automáticamente)
 
 ## :scroll: Changelog
-**VERSION: r7.2.0**
+**VERSION: r7.2.1**
 * ADM Commands
 * Correcciones y mejoras
 

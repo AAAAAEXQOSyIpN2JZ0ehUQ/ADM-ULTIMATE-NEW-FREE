@@ -36,7 +36,7 @@ speedtest --share > speed
 clear
 clear
 msg -bar
-msg -azu " $(fun_trans "VELOCIDADE DO SERVIDOR") \033[1;32m[Speed Test]"
+msg -ama " $(fun_trans "VELOCIDADE DO SERVIDOR") \033[1;32m[Speed Test]"
 msg -bar
 # PROGRESS INSTALL - BAR
 # apt-get install python -y  > /dev/null 2>&1

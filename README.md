@@ -20,7 +20,7 @@ chmod 777 instalar.sh* && ./instalar.sh*
 ADM-MANAGER (las dependencias faltantes se instalarán automáticamente)
 
 ## :scroll: Changelog
-**VERSION: r7.2.1**
+**VERSION: r7.2.2**
 * ADM Commands
 * Correcciones y mejoras
 
@@ -43,12 +43,10 @@ ADM-MANAGER (las dependencias faltantes se instalarán automáticamente)
 
 ## :book: Optional Utilities
 1. Descargar Código Fuente [Donwload](https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Source-Code-ADM-Manager_Ultimate.zip.zip)
-
-## :book: Installation Utilities
-1. [GENERADOR NEW-ULTIMATE MANAGER](https://github.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/tree/master/Install/Generador)
+2. [GENERADOR NEW-ULTIMATE MANAGER](https://github.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/tree/master/Install/Generador)
 
 ## :octocat: Credits
-1. @E8th4ver - Developer of New-Ultimate
+1. [@E8th4ver](https://t.me/@E8th4ver) - Developer of New-Ultimate
 2. illuminati Dev Team - Contributor Update 
 ```
 ☆ https://t.me/AAAAAEXQOSyIpN2JZ0ehUQ [  ⃘⃤꙰✰ ] ☆

@@ -9,24 +9,10 @@ SCPfrm="/etc/ger-frm" && [[ ! -d ${SCPfrm} ]] && mkdir ${SCPfrm}
 SCPinst="/etc/ger-inst" && [[ ! -d ${SCPfrm} ]] && mkdir ${SCPfrm}
 SCPidioma="${SCPdir}/idioma"
 
-#FUNCAO LOG LIMITER AVISOSR
-[[ -e /etc/newadm/ger-user/Limiter.log ]] && log=$(echo -e "\033[1;32m[LOG] ") || log=$(echo -e " ")
-
-#FUNCAO USUARIOS TOTALES
-_total=$(awk  -F : '$3 >= 500 {print  $1}'  /etc/passwd | grep -v "nobody" | sort | wc -l)
-
 #FUNCAO AutoRun
 if [[ -e /etc/bash.bashrc-bakup ]]; then AutoRun="\033[1;32m[on]"
 elif [[ -e /etc/bash.bashrc ]]; then AutoRun="\033[1;31m[off]"
 fi
-
-# Funcoes Update - beta
-P_SERVER="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/"
-v1=$(curl -sSL "${P_SERVER}/versaoatt")
-v2=$(cat /bin/versao_script)
-txt01="PARABENS SUA VERSAO ESTA ATUALIZADA!"
-txt02="NEW-ULTIMATE POSSUI ATUALIZACOES!"
-[[ $v1 = $v2 ]] && vesaoSCT="\033[1;32m${txt01}        \033[1;31m[\033[1;37m $v2 \033[1;31m]" || vesaoSCT="\033[1;31m${txt02}"
 
 meu_ip () {
 if [[ -e /etc/MEUIPADM ]]; then
@@ -54,6 +40,12 @@ os_system () {
 system=$(echo $(cat -n /etc/issue |grep 1 |cut -d' ' -f6,7,8 |sed 's/1//' |sed 's/      //'))
 echo $system|awk '{print $1, $2}'
 }
+
+#FUNCAO LOG LIMITER AVISOSR
+[[ -e /etc/newadm/ger-user/Limiter.log ]] && log=$(echo -e "\033[1;32m[LOG] ") || log=$(echo -e " ")
+
+#FUNCAO USUARIOS TOTALES
+_total=$(awk  -F : '$3 >= 500 {print  $1}'  /etc/passwd | grep -v "nobody" | sort | wc -l)
 
 fun_bar () {
 comando="$1"
@@ -192,6 +184,14 @@ SEMCOR='\e[0m'
   "-bar2"|"-bar")cor="${COLOR[4]}——————————————————————————————————————————————————————" && echo -e "${SEMCOR}${cor}${SEMCOR}";;
  esac
 }
+
+# Funcoes Update
+P_SERVER="https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/"
+v1=$(curl -sSL "${P_SERVER}/versaoatt")
+v2=$(cat /bin/versao_script)
+txt01="PARABENS SUA VERSAO ESTA ATUALIZADA!"
+txt02="NEW-ULTIMATE POSSUI ATUALIZACOES!"
+[[ $v1 = $v2 ]] && vesaoSCT="\033[1;32m${txt01}        \033[1;31m[\033[1;37m $v2 \033[1;31m]" || vesaoSCT="\033[1;31m${txt02}"
 
 atualiza_fun () {
 cd $HOME
@@ -1040,7 +1040,7 @@ menu_info
 # msg -ne "$(fun_trans "IP*"): " && echo -e "\033[1;37m$(meu_ip)"
 [[ -e ${SCPdir}/USRonlines ]] && msg -bar && msg -ne "$(fun_trans "ONLINE"): " && echo -ne "\033[1;37m$(cat ${SCPdir}/USRonlines) $(fun_trans "Usuarios")  "
 [[ -e ${SCPdir}/USRexpired ]] && msg -ne "$(fun_trans "EXPIRED"): " && echo -e "\033[1;37m$(cat ${SCPdir}/USRexpired) $(fun_trans "Usuarios")  $log"
-[[ -e ${SCPdir}/message.txt ]] && msg -bar && msg -bra "MESSAGE: $(cat ${SCPdir}/message.txt)"
+# [[ -e ${SCPdir}/message.txt ]] && msg -bar && msg -bra "MESSAGE: $(cat ${SCPdir}/message.txt)"
 # [[ -e ${SCPdir}/key.txt ]] && msg -bar && msg -bra "USER-KEY: $(cat ${SCPdir}/key.txt)"
 # NOVO SISTEMA DE MENUS
 msg -bar

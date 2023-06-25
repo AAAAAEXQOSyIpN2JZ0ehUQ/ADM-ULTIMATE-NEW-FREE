@@ -16,7 +16,7 @@ apt-get update -y && apt-get upgrade -y &&
 wget --no-check-certificate https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/instalar.sh && 
 chmod 777 instalar.sh* && ./instalar.sh*
 ```
-DATE: Las dependencias faltantes se instalarán automáticamente
+DATA: Las dependencias faltantes se instalarán automáticamente
 
 ## :scroll: Changelog
 **VERSION: r7.2.2**

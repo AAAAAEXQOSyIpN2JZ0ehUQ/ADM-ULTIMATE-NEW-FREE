@@ -45,7 +45,7 @@ DATA: Las dependencias faltantes se instalarán automáticamente
 2. Generador New-Ultimate [Donwload](https://github.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/tree/master/Install/Generador)
 
 ## :octocat: Credits
-1. [@E8th4ver](https://t.me/E8th4ver) - Developer of New-Ultimate
+1. [@E8th4ver](https://t.me/E8th4ver) [GRUPO](https://t.me/admultimate) - Developer of New-Ultimate
 2. [illuminati Dev Team](https://t.me/AAAAAEXQOSyIpN2JZ0ehUQ) - Contributor Update 
 ```
 ☆ https://t.me/AAAAAEXQOSyIpN2JZ0ehUQ [  ⃘⃤꙰✰ ] ☆

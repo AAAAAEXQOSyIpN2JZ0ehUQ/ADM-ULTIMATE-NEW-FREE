@@ -943,8 +943,8 @@ echo -e "    24          Clean system"
 echo -e "    25          Speed Test"
 echo -e "    26          Time Santiago/Chile"
 echo -e "    27          Color"
-echo -e "    28          Reset iptables"
-echo -e "    29          Clean package osoletos"
+echo -e "    28          Reset iptables \033[1;31m[Inestable]\033[1;32m"
+echo -e "    29          Clean package osoletos \033[1;31m[Inestable]\033[1;32m"
 echo ""
 msg -bar
 return 0
@@ -988,7 +988,19 @@ msg -bar
 
 resetiptables () {
 # REINICIAR IPTABLES
-iptables -F && iptables -X && iptables -t nat -F && iptables -t nat -X && iptables -t mangle -F && iptables -t mangle -X && iptables -t raw -F && iptables -t raw -X && iptables -t security -F && iptables -t security -X && iptables -P INPUT ACCEPT && iptables -P FORWARD ACCEPT && iptables -P OUTPUT ACCEPT
+iptables -F
+iptables -X
+iptables -t nat -F
+iptables -t nat -X
+iptables -t mangle -F
+iptables -t mangle -X
+iptables -t raw -F
+iptables -t raw -X
+iptables -t security -F
+iptables -t security -X
+iptables -P INPUT ACCEPT
+iptables -P FORWARD ACCEPT
+iptables -P OUTPUT ACCEPT
 service ssh restart > /dev/null 2>&1
 service sshd restart > /dev/null 2>&1
 msg -ama " $(fun_trans "Procedimento concluido")"
@@ -999,7 +1011,7 @@ packobs () {
 # LIMPAR PACOTES OBSOLETOS
 #Buscando Pacotes Obsoletos"
 dpkg -l | grep -i ^rc
-dpkg -l |grep -i ^rc | cut -d " " -f 3 | xargs dpkg --purge
+dpkg -l | grep -i ^rc | cut -d " " -f 3 | xargs dpkg --purge
 #Pacotes obsoletos limpos
 service ssh restart > /dev/null 2>&1
 service sshd restart > /dev/null 2>&1

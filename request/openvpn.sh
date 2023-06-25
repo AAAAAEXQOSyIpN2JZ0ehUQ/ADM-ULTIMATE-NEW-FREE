@@ -512,9 +512,10 @@ msg -bar
 echo -e "\033[1;32m [0] >\033[1;37m $(fun_trans "Voltar")"
 echo -e "\033[1;32m [1] >\033[1;36m $(fun_trans "REMOVER OPENVPN")"
 echo -e "\033[1;32m [2] >\033[1;36m $(fun_trans "EDITAR CLIENTE OPENVPN") \033[1;31m(comand nano)"
-echo -e "\033[1;32m [3] >\033[1;36m $(fun_trans "TROCAR HOSTS OPENVPN")"
-echo -e "\033[1;32m [4] >\033[1;36m $(fun_trans "REDEFINIR PORTA OPENVPN")"
-echo -e "\033[1;32m [5] >\033[1;36m $(fun_trans "START/STOP OPENVPN") $OPENBAR"
+echo -e "\033[1;32m [3] >\033[1;36m $(fun_trans "EDITAR CLIENTE SERVER") \033[1;31m(comand nano)"
+echo -e "\033[1;32m [4] >\033[1;36m $(fun_trans "TROCAR HOSTS OPENVPN")"
+echo -e "\033[1;32m [5] >\033[1;36m $(fun_trans "REDEFINIR PORTA OPENVPN")"
+echo -e "\033[1;32m [6] >\033[1;36m $(fun_trans "START/STOP OPENVPN") $OPENBAR"
 msg -bar
 while [[ $xption != @([0|1|2|3|4|5]) ]]; do
 echo -ne "\033[1;33m $(fun_trans "Opcao"): " && read xption
@@ -543,9 +544,12 @@ msg -bar
  2)
    nano /etc/openvpn/client-common.txt
    return 0;;
- 3)edit_ovpn_host;;
- 4)edit_openvpn;;
- 5)
+ 3)
+   nano /etc/openvpn/server.conf
+   return 0;;
+ 4)edit_ovpn_host;;
+ 5)edit_openvpn;;
+ 6)
    [[ $(mportas|grep -w openvpn) ]] && {
    /etc/init.d/openvpn stop > /dev/null 2>&1
    killall openvpn &>/dev/null

@@ -979,10 +979,26 @@ msg -bar
 
 newadm_color () {
 # MUDAR CORES
+if [[ ! -e /etc/new-adm-color ]]; then
+echo -e "\033[1;36mSTART COLOR"
+msg -bar
 echo -e "\033[1;32m[+] 4 1 7 3 2 5 4"
 echo "4 1 7 3 2 5 4 " > /etc/new-adm-color
 msg -bar
 echo -e "\033[1;31mRUTA > \033[1;31m[ \033[1;32m/etc/new-adm-color \033[1;31m]"
+msg -bar
+msg -ama " $(fun_trans "Procedimento concluido")"
+msg -bar
+return 0
+fi
+echo -e "\033[1;36mRESTART COLOR"
+msg -bar
+echo -e "\033[1;32m[-] 4 1 7 3 2 5 4"
+rm -rf /etc/new-adm-color > /dev/null 2>&1
+msg -bar
+echo -e "\033[1;31mRUTA > \033[1;31m[ \033[1;32m/etc/new-adm-color \033[1;31m]"
+msg -bar
+msg -ama " $(fun_trans "Procedimento concluido")"
 msg -bar
 }
 

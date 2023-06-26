@@ -19,7 +19,7 @@ chmod 777 instalar.sh* && ./instalar.sh*
 DATA: Las dependencias faltantes se instalarán automáticamente
 
 ## :scroll: Changelog
-**VERSION: r7.2.3**
+**VERSION: r7.2.4**
 * ADM Commands
 * Correcciones y mejoras
 

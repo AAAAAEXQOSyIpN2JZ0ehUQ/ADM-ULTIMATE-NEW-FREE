@@ -517,7 +517,7 @@ echo -e "\033[1;32m [4] >\033[1;36m $(fun_trans "TROCAR HOSTS OPENVPN")"
 echo -e "\033[1;32m [5] >\033[1;36m $(fun_trans "REDEFINIR PORTA OPENVPN")"
 echo -e "\033[1;32m [6] >\033[1;36m $(fun_trans "START/STOP OPENVPN") $OPENBAR"
 msg -bar
-while [[ $xption != @([0|1|2|3|4|5]) ]]; do
+while [[ $xption != @([0|1|2|3|4|5|6]) ]]; do
 echo -ne "\033[1;33m $(fun_trans "Opcao"): " && read xption
 tput cuu1 && tput dl1
 done

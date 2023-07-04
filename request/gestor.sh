@@ -400,6 +400,40 @@ msg -bar
 msg -ama " $(fun_trans "Sucesso Procedimento Feito")"
 }
 
+resetiptables () {
+# REINICIAR IPTABLES
+iptables -F
+iptables -X
+iptables -t nat -F
+iptables -t nat -X
+iptables -t mangle -F
+iptables -t mangle -X
+iptables -t raw -F
+iptables -t raw -X
+iptables -t security -F
+iptables -t security -X
+iptables -P INPUT ACCEPT
+iptables -P FORWARD ACCEPT
+iptables -P OUTPUT ACCEPT
+service ssh restart > /dev/null 2>&1
+service sshd restart > /dev/null 2>&1
+msg -ama " $(fun_trans "Procedimento concluido")"
+msg -bar
+}
+
+packobs () {
+# LIMPAR PACOTES OBSOLETOS
+#Buscando Pacotes Obsoletos"
+dpkg -l | grep -i ^rc
+dpkg -l | grep -i ^rc | cut -d " " -f 3 | xargs dpkg --purge
+#Pacotes obsoletos limpos
+service ssh restart > /dev/null 2>&1
+service sshd restart > /dev/null 2>&1
+msg -bar
+msg -ama " $(fun_trans "Procedimento concluido")"
+msg -bar
+}
+
 # SISTEMA DE SELECAO
 selection_fun () {
 local selection="null"
@@ -427,9 +461,13 @@ echo -ne "$(msg -verd "[5]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ALTER
 echo -ne "$(msg -verd "[6]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "ALTERAR SENHA ROOT")"
 echo -ne "$(msg -verd "[7]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "TRAFICO DE RED nload")"
 echo -ne "$(msg -verd "[8]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "PROCESOS DE SISTEMA htop")"
+#------------------------------------------------
 echo -ne "$(msg -verd "[9]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "MONITOR DO SISTEMA glances") \033[1;31m[Inestable]"
-echo -ne "$(msg -verd "[10]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "DETALHES DO SISTEMA")"
-echo -ne "$(msg -verd "[11]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "LIMPAR CACHE SISTEMA")"
+echo -ne "$(msg -verd "[10]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "RESET IPTABLES") \033[1;31m[Inestable]"
+echo -ne "$(msg -verd "[11]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "CLEAN PACKAGE OSOLECTS") \033[1;31m[Inestable]"
+#------------------------------------------------
+echo -ne "$(msg -verd "[12]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "DETALHES DO SISTEMA")"
+echo -ne "$(msg -verd "[13]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "LIMPAR CACHE SISTEMA")"
 msg -bar
 # FIM
 selection=$(selection_fun 11)
@@ -443,8 +481,10 @@ case ${selection} in
 7)fun_nload;;
 8)fun_htop;;
 9)fun_glances;;
-10)systen_info;;
-11)limpar_caches;;
+10)resetiptables;;
+11)packobs;;
+12)systen_info;;
+13)limpar_caches;;
 0)exit;;
 esac
 msg -bar

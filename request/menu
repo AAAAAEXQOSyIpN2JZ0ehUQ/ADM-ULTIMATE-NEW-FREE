@@ -819,6 +819,8 @@ msg -ama "$(fun_trans "MENU DE INSTALACAO")"
 msg -bar
 msg -ama "$(fun_trans "Portas Ativas No Momento!")"
 msg -bar
+msg -ama "\033[1;31mIP: \033[1;37m$(meu_ip)"
+msg -bar
 mine_port_2
 msg -bar
 echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$menuTXT"

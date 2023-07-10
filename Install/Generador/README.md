@@ -5,6 +5,7 @@ apt-get update -y
 ```bash
 apt-get upgrade -y
 ``` 
+```bash
 wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Generador/instt_server.sh && chmod +x instt_server.sh* && ./instt_server.sh*
 ```
 

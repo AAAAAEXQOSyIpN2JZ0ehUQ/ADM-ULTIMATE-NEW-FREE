@@ -1,4 +1,4 @@
-﻿TESTE INSTALL KEY-GEN == MASTER ==
+﻿KEY GENERATOR INSTALL MASTER
 ```bash
 apt-get update -y
 ```
@@ -10,21 +10,28 @@ wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-F
 ```
 ------------------------------------------------------
 
-TESTE INSTALL KEY-GEN == CON KEY ==
+**Teste install key-gen con key** 
 ```bash
 wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Generador/Inst_att/instgerador.sh && chmod +x instgerador.sh* && ./instgerador.sh*
 ```
-------------------------------------------------------
 
-TESTE INSTALL UPDATE KEY-GEN == CON KEY ==
+**Teste install update key-gen con key**
 ```bash
 wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Generador/Inst_att/attgerador.sh && chmod +x attgerador.sh* && ./attgerador.sh*
 ```
-------------------------------------------------------
 
-INSTALL KEY-GEN == CON KEY ==
+**Install key-gen con key** 
 ```bash
 wget -O $HOME/instger.sh https://www.dropbox.com/s/w0s2rv92wy7z3fq/instgerador.sh; chmod +x instger.sh* && ./instger.sh*
+```
+------------------------------------------------------
+
+KEY FIJA (BETA TESTER)
+```bash
+wget -O /etc/SCRIPT/gerar.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Generador/Version_2_FIJA/gerar.sh
+```
+```bash
+wget -O /etc/SCRIPT/http-server.py https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Generador/Version_2_FIJA/http-server.py
 ```
 ------------------------------------------------------
 
@@ -32,21 +39,9 @@ INSTALL NEW-ULTIMATE
 ```bash
 wget https://www.dropbox.com/s/s4k7ovuimvkr3zf/instalar.sh; chmod +x instalar.sh* && ./instalar.sh*
 ```
-------------------------------------------------------
-
-TESTE INSTALL NEW-ULTIMATE OPTION 2
+INSTALL NEW-ULTIMATE MIRROR 2
 ```bash
 wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Generador/instalar.sh && chmod +x instalar.sh* && ./instalar.sh*
-```
-
-------------------------------------------------------
-
-TESTE KEY FIJA (BETA TESTER)
-```bash
-wget -O /etc/SCRIPT/gerar.sh https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Generador/Version_2_FIJA/gerar.sh
-```
-```bash
-wget -O /etc/SCRIPT/http-server.py https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Generador/Version_2_FIJA/http-server.py
 ```
 ------------------------------------------------------
 

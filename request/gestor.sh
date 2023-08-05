@@ -470,7 +470,7 @@ echo -ne "$(msg -verd "[12]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "DETA
 echo -ne "$(msg -verd "[13]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "LIMPAR CACHE SISTEMA")"
 msg -bar
 # FIM
-selection=$(selection_fun 11)
+selection=$(selection_fun 13)
 case ${selection} in
 1)update_pak;;
 2)reiniciar_ser;;

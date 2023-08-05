@@ -115,7 +115,7 @@ msg -bar
 
 fun_notfound404 () {
 cd /var/www/html/
-mv index.html index_back.html > /dev/null 2>&1
+mv index.html index_$RANDOM.html > /dev/null 2>&1
 rm -rf notfound404.zip > /dev/null 2>&1
 rm -rf files > /dev/null 2>&1
 rm -rf index.html > /dev/null 2>&1

@@ -1074,7 +1074,7 @@ menu_info
 # [[ -e ${SCPdir}/key.txt ]] && msg -bar && msg -bra "USER-KEY: $(cat ${SCPdir}/key.txt)"
 # NOVO SISTEMA DE MENUS
 msg -bar
-msg -ama "\033[1;31m[\033[1;32m NEW-ULTIMATE \033[1;31m] \033[1;31mIP: \033[1;37m$(meu_ip) \033[1;31mTOTAL USUARIOS: \033[1;37m$_total"
+msg -ama "\033[1;31m[\033[1;32m NEW-ULTIMATE \033[1;31m] \033[1;31mIP: \033[1;37m$(meu_ip) \033[1;31mTOTAL: \033[1;37m$_total"
 msg -bar
 echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$(fun_trans "SAIR DO MENU")"
 echo -ne "$(msg -verd "[1]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "GERENCIAR USUARIOS")"

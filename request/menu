@@ -937,16 +937,16 @@ msg -bar
 echo -e "\033[1;32m"
 echo -e "    Command     Description"
 echo -e "    -------     -----------"
-echo -e "    20          Option menu"
-echo -e "    21          nload"
-echo -e "    22          htop"
-echo -e "    23          System info"
-echo -e "    24          Clean system"
-echo -e "    25          Speed Test"
-echo -e "    26          Time Santiago/Chile"
-echo -e "    27          Color"
-echo -e "    28          Reset iptables \033[1;31m[Inestable]\033[1;32m"
-echo -e "    29          Clean package osoletos \033[1;31m[Inestable]\033[1;32m"
+echo -e "    80          Option menu"
+echo -e "    81          nload"
+echo -e "    82          htop"
+echo -e "    83          System info"
+echo -e "    84          Clean system"
+echo -e "    85          Speed Test"
+echo -e "    86          Time Santiago/Chile"
+echo -e "    87          Color"
+echo -e "    88          Reset iptables \033[1;31m[Inestable]\033[1;32m"
+echo -e "    89          Clean package osoletos \033[1;31m[Inestable]\033[1;32m"
 echo ""
 msg -bar
 return 0
@@ -1004,40 +1004,6 @@ msg -ama " $(fun_trans "Procedimento concluido")"
 msg -bar
 }
 
-resetiptables () {
-# REINICIAR IPTABLES
-iptables -F
-iptables -X
-iptables -t nat -F
-iptables -t nat -X
-iptables -t mangle -F
-iptables -t mangle -X
-iptables -t raw -F
-iptables -t raw -X
-iptables -t security -F
-iptables -t security -X
-iptables -P INPUT ACCEPT
-iptables -P FORWARD ACCEPT
-iptables -P OUTPUT ACCEPT
-service ssh restart > /dev/null 2>&1
-service sshd restart > /dev/null 2>&1
-msg -ama " $(fun_trans "Procedimento concluido")"
-msg -bar
-}
-
-packobs () {
-# LIMPAR PACOTES OBSOLETOS
-#Buscando Pacotes Obsoletos"
-dpkg -l | grep -i ^rc
-dpkg -l | grep -i ^rc | cut -d " " -f 3 | xargs dpkg --purge
-#Pacotes obsoletos limpos
-service ssh restart > /dev/null 2>&1
-service sshd restart > /dev/null 2>&1
-msg -bar
-msg -ama " $(fun_trans "Procedimento concluido")"
-msg -bar
-}
-
 # SISTEMA DE SELECAO
 selection_fun () {
 local selection="null"
@@ -1090,7 +1056,7 @@ echo -ne "$(msg -verd "[10]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "MENU
 # menu_func "GERENCIAR USUARIOS" "MENU DE FERRAMENTAS" "MENU DE SISTEMA" "MENU DE UTILITARIOS" "-vd ATUALIZAR ADM" "-vm DESINSTALAR ADM" "PERSONALIZAR CORES SCRIPT" "CAMBIAR IDIOMA" "-fi $AutoRun EXECUCAO AUTOMATICA" "MENU DE INSTALACOES"
 msg -bar
 # FIM
-selection=$(selection_fun 29)
+selection=$(selection_fun 87)
 case ${selection} in
 0)cd $HOME && exit 0;;
 1)${SCPusr}/usercodes "${idioma}";;
@@ -1105,16 +1071,14 @@ case ${selection} in
 10)menu_inst;;
 # --COMMAND EXECUÇÃO
 # --Menu Teste prov
-	20)fun_access;;
-	21)fun_nload;;
-	22)fun_htop;;
-	23)systen_info;;
-	24)limpar_caches;;
-	25)${SCPfrm}/speed.sh "${idioma}";;
-	26)act_hora;;
-	27)newadm_color;;
-	28)resetiptables;;
-	29)packobs;;
+	80)fun_access;;
+	81)fun_nload;;
+	82)fun_htop;;
+	83)systen_info;;
+	84)limpar_caches;;
+	85)${SCPfrm}/speed.sh "${idioma}";;
+	86)act_hora;;
+	87)newadm_color;;
 # ------------------
 esac
 msg -ne "$(fun_trans "Enter Para Continuar")" && read enter

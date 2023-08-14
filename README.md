@@ -23,7 +23,7 @@ wget --no-check-certificate https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0
 DATA: Las dependencias faltantes se instalarán automáticamente
 
 ## :scroll: Changelog
-**VERSION: r7.2.4**
+**VERSION: r7.2.5**
 * ADM Commands
 * Correcciones y mejoras
 

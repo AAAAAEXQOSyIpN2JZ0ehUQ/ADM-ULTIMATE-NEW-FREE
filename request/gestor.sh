@@ -362,7 +362,7 @@ clear
 clear
 msg -bar
 [[ $(grep -wc mlocate /var/lib/dpkg/statoverride) != '0' ]] && sed -i '/mlocate/d' /var/lib/dpkg/statoverride
-msg -ama " $(fun_trans "LIMPAR CACHE SISTEMA")"
+msg -ama " $(fun_trans "OTIMIZAR Y LIMPAR CACHE SISTEMA")"
 msg -bar
 # echo -e "\033[1;36m Atualizando pacotes\033[0m"
 # fun_bar 'apt-get update -y' 'apt-get upgrade -y'
@@ -467,7 +467,7 @@ echo -ne "$(msg -verd "[10]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "RESE
 echo -ne "$(msg -verd "[11]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "CLEAN PACKAGE OSOLECTS") \033[1;31m[Inestable]"
 #------------------------------------------------
 echo -ne "$(msg -verd "[12]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "DETALHES DO SISTEMA")"
-echo -ne "$(msg -verd "[13]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "LIMPAR CACHE SISTEMA")"
+echo -ne "$(msg -verd "[13]") $(msg -verm2 ">") " && msg -azu "$(fun_trans "OTIMIZAR Y LIMPAR CACHE SISTEMA")"
 msg -bar
 # FIM
 selection=$(selection_fun 13)

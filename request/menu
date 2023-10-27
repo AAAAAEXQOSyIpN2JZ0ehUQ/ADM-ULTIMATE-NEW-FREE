@@ -483,6 +483,29 @@ for porta in `echo -e "$PT" | cut -d: -f2 | cut -d' ' -f1 | uniq`; do
 done
 }
 
+mine_port_5 () {
+    PT=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" | grep -v "COMMAND" | grep "LISTEN")
+    
+    # Crear un arreglo asociativo para almacenar los puertos por servicio
+    declare -A port_service
+    
+    while read -r line; do
+        porta=$(echo "$line" | cut -d: -f2 | cut -d' ' -f1)
+        svcs=$(echo "$line" | awk '{print $1}')
+        
+        # Verificar si el puerto ya está en la lista de puertos del servicio
+        if [[ " ${port_service[$svcs]} " != *" $porta "* ]]; then
+            port_service[$svcs]+=" $porta"  # Agregar el puerto al servicio existente
+        fi
+    done <<< "$PT"
+    
+    # Mostrar la salida agrupada
+    for service in "${!port_service[@]}"; do
+        ports=${port_service[$service]}
+        echo -e "\033[1;32mService: \033[1;31m$service \033[1;32mPort: \033[1;37m$ports\033[0m"
+    done
+}
+
 ofus () {
 unset txtofus
 number=$(expr length $1)
@@ -821,7 +844,7 @@ msg -ama "$(fun_trans "MENU DE INSTALACAO")"
 msg -bar
 msg -ama "\033[1;31mIP: \033[1;37m$(meu_ip)"
 msg -bar
-mine_port_2
+mine_port_5
 msg -bar
 echo -ne "$(msg -verd "[0]") $(msg -verm2 ">") " && msg -bra "$menuTXT"
 local Numb=1

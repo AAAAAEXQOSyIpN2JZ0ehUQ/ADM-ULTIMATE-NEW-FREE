@@ -45,17 +45,14 @@ wget https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-F
 ```
 ------------------------------------------------------
 
-wget https://www.dropbox.com/s/s4k7ovuimvkr3zf/instalar.sh
-
-wget http://git.io/trans
-
-wget https://www.dropbox.com/s/q697m59agmg43mq/ShellBot.sh
-
-wget https://www.dropbox.com/s/nxf5s1lffmbikwq/badvpn-udpgw
-
-wget https://www.dropbox.com/s/37psc5yx7060y22/generadorcc.py
-
-wget https://www.dropbox.com/s/ks45mkuis7yyi1r/backsocz
+```bash
+wget https://www.dropbox.com/s/s4k7ovuimvkr3zf/instalar.sh 
+wget http://git.io/trans 
+wget https://www.dropbox.com/s/q697m59agmg43mq/ShellBot.sh 
+wget https://www.dropbox.com/s/nxf5s1lffmbikwq/badvpn-udpgw 
+wget https://www.dropbox.com/s/37psc5yx7060y22/generadorcc.py 
+wget https://www.dropbox.com/s/ks45mkuis7yyi1r/backsocz 
+```
 
 ## :octocat: Credits
 1. [@E8th4ver](https://t.me/E8th4ver) - Developer of New-Ultimate

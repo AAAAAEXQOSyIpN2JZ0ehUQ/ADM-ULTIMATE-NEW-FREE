@@ -24,25 +24,22 @@ DATA: Las dependencias faltantes se instalarán automáticamente
 
 ## :scroll: Changelog
 **VERSION: r7.2.5**
-* ADM Commands
-* Correcciones y mejoras
+* [Details](https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/versao)
 
 ## :book: How it works
-* SSH conexión
-* Conexiones Dropbear, SSLTunnel4, OpenVPN, etc
-* Elimina y crea usuarios
-* Monitor de conexión online
-* Detalles de tu sistema y usuarios
+* Conexiones SSH
+* Conexiones Dropbear, SSLTunnel4, OpenVPN, etc.
+* Creación y eliminación de usuarios
+* Monitoreo de conexiones en línea
+* Detalles del sistema y los usuarios
 * Herramientas de escaneo y búsqueda
-* Optimiza y limpia el sistema y más
+* Optimización y limpieza del sistema
 
 ## :heavy_exclamation_mark: Requirements
-* Un sistema operativo basado en Linux (Ubuntu o Debian)
-* Ubuntu 16.04 Server x86_64 / Ubuntu 18.04 Server x86_64 / Ubuntu 20.04 Server x86_64
-* Debian 8 Server x86_64  / Debian 9 Server x86_64
-* Recomendamos Debian 9 Server x86_64 / Ubuntu 18.04 Server x86_64
-* Se recomienda usar una distro nueva o formateada
-* Idioma principal del Scripts es el portugués (Recomendado)
+* Sistema operativo basado en Linux (Ubuntu o Debian)
+* Versiones recomendadas: Ubuntu 18.04 Server x86_64 / Ubuntu 20.04 Server x86_64, Debian 9 Server x86_64
+* Se sugiere utilizar una distribución reciente o recién formateada
+* El idioma predeterminado es el portugués
 
 ## :book: Optional Utilities
 1. Descargar Código Fuente [Donwload](https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Source-Code-ADM-Manager_Ultimate.zip)

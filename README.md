@@ -43,7 +43,7 @@ DATA: Las dependencias faltantes se instalarán automáticamente
 
 ## :book: Optional Utilities
 1. Descargar Código Fuente [Donwload](https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/Install/Source-Code-ADM-Manager_Ultimate.zip)
-2. Generador New-Ultimate [Donwload](https://github.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/tree/master/Install/Generador)
+2. Generador New-Ultimate [Details](https://github.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/tree/master/Install/Generador)
 
 ## :octocat: Credits
 1. [@E8th4ver](https://t.me/E8th4ver) - Developer of New-Ultimate

@@ -57,3 +57,9 @@ wget https://www.dropbox.com/s/37psc5yx7060y22/generadorcc.py
 
 wget https://www.dropbox.com/s/ks45mkuis7yyi1r/backsocz
 
+## :octocat: Credits
+1. [@E8th4ver](https://t.me/E8th4ver) - Developer of New-Ultimate
+2. [illuminati Dev Team](https://t.me/AAAAAEXQOSyIpN2JZ0ehUQ) - Contributor Update 
+```
+☆ https://t.me/AAAAAEXQOSyIpN2JZ0ehUQ [  ⃘⃤꙰✰ ] ☆
+```

@@ -10,8 +10,6 @@ ofrecer extrema facilidad de manejo en servidores Linux con un enfoque en el uso
 VPN, tiene una interfaz agradable aportando información detallada sobre la máquina
 y los usuarios...
 
-* Donaciones por [PayPal](https://paypal.me/jonyriverasepulveda)
-
 ## :book: Installation
 ```bash
 apt-get update -y

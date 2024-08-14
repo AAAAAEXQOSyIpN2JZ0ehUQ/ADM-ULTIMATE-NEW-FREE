@@ -20,6 +20,11 @@ chmod +x instalar.sh*
 ./instalar.sh*
 ```
 
+## :computer: Instalación en una Línea
+```bash
+apt-get update -y; apt-get full-upgrade -y; https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/instalar.sh; chmod +x instalar.sh* && ./instalar.sh*
+```
+
 :memo: Las dependencias faltantes se instalarán automáticamente durante el proceso.
 
 ## :rocket: Modo de Uso

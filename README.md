@@ -1,6 +1,12 @@
-﻿*UPDATE 21/06/2021 - Proyecto Finalizado*  
-*ADM-Ultimate New (Final Version New-Ultimate)*
-:octocat:
+﻿⚠️ Estado del Proyecto: Descontinuado ⚠️
+
+NEW-ULTIMATE NEW (Final Versión r7.2.5) :octocat:
+
+Fecha de Última Actualización: 21/06/2021
+
+Este proyecto ha sido descontinuado y ya no recibirá actualizaciones o soporte adicional. Aunque puedes seguir utilizando el código disponible, recomendamos explorar otras alternativas activas y actualizadas para manejar tus servidores o VPS.
+
+💡 Nota: Si tienes alguna pregunta o necesitas ayuda, te sugerimos revisar los foros comunitarios o consultar otros repositorios en GitHub que ofrezcan herramientas similares.
 
 ![logo](https://github.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/blob/master/Imagenes/ADM_ULTIMATE_NEW_FREE.png)
 

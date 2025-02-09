@@ -81,7 +81,6 @@ NEW-ULTIMATE NEW ofrece las siguientes características:
 |------------------|----------------|-------------------------------------------|
 | :file_folder:    | Imagenes       | Carpeta para imágenes                     |
 | :file_folder:    | Install        | Carpeta para scripts de instalación       |
-| :file_folder:    | _$_Version     | Carpeta para archivos de versión          |
 | :file_folder:    | request        | Carpeta para módulos adicionales          |
 | :page_facing_up: | .gitattributes | Archivo para configuración de Git         |
 | :book:           | README.md      | Archivo de documentación principal        |

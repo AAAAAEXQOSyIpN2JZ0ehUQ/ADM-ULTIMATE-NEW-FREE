@@ -28,13 +28,13 @@ sus usuarios.
 apt-get update -y; 
 apt-get upgrade -y; 
 wget --no-check-certificate https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/instalar.sh; 
-chmod +x instalar.sh* && ./instalar.sh*
+chmod +x instalar.sh* && ./instalar.sh
 ```
 
 ## :computer: Instalación en una Línea (Solo script)
 ```bash
 wget --no-check-certificate https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/ADM-ULTIMATE-NEW-FREE/master/instalar.sh; 
-chmod +x instalar.sh* && ./instalar.sh*
+chmod +x instalar.sh* && ./instalar.sh
 ```
 
 :memo: Las dependencias faltantes se instalarán automáticamente durante el proceso.
